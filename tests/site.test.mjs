@@ -10,6 +10,9 @@ const routes = {
   chinesePrivacy: "adquiet/zh/privacy/index.html"
 };
 
+const chromeWebStoreUrl =
+  "https://chromewebstore.google.com/detail/adquiet/bdcapbcpjlogldlhenkppjamadnmffim?hl=zh-cn";
+
 async function html(route) {
   return readFile(new URL(`../${route}`, import.meta.url), "utf8");
 }
@@ -29,6 +32,17 @@ test("uses the AdQuiet product page at both root and product paths", async () =>
     assert.match(page, /Chrome extension for YouTube desktop/u);
     assert.match(page, /adquiet\/support\//u);
     assert.match(page, /adquiet\/privacy\//u);
+  }
+});
+
+test("links both product entry pages to the official Chrome Web Store listing", async () => {
+  for (const route of [routes.root, routes.product]) {
+    const page = await html(route);
+    assert.match(page, /Add to Chrome/u, route);
+    assert.ok(
+      page.includes(`href="${chromeWebStoreUrl}" target="_blank"`),
+      route
+    );
   }
 });
 
