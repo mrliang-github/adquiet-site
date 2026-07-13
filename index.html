@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="AdQuiet reduces video ad interruptions on YouTube desktop watch pages while keeping its settings and aggregate statistics on your device.">
+  <meta name="description" content="AdQuiet reduces video ad interruptions on YouTube desktop watch pages while keeping settings and statistics on your device.">
   <title>AdQuiet — A calmer YouTube watch experience</title>
+  <link rel="canonical" href="https://liangxiaoaitool.top/adquiet/">
   <link rel="icon" href="./assets/icon.png">
   <link rel="stylesheet" href="./assets/styles.css">
 </head>
@@ -13,35 +14,56 @@
     <nav class="nav shell" aria-label="Main navigation">
       <a class="brand" href="./"><img src="./assets/icon.png" alt="AdQuiet icon">AdQuiet</a>
       <div class="nav-links">
-        <a href="./privacy/">Privacy</a>
-        <a href="./zh/privacy/">中文隐私政策</a>
-        <a href="./support/">Support</a>
+        <a href="./adquiet/#how-it-works">How it works</a>
+        <a href="./adquiet/privacy/">Privacy</a>
+        <a href="./adquiet/support/">Support</a>
       </div>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <div class="shell">
-        <div class="eyebrow">Chrome extension for YouTube desktop</div>
-        <h1>Less interruption. More watching.</h1>
-        <p>AdQuiet reduces video ad interruptions on YouTube desktop watch pages. It works locally in your browser and keeps its settings, aggregate counts, and limited diagnostics on your device.</p>
-        <div class="actions">
-          <a class="button primary" href="./privacy/">Read privacy policy</a>
-          <a class="button" href="./support/">Get support</a>
+      <div class="shell hero-grid">
+        <div>
+          <div class="eyebrow">Chrome extension for YouTube desktop</div>
+          <h1>Less interruption. More watching.</h1>
+          <p class="hero-copy">AdQuiet reduces video ad interruptions on YouTube desktop watch pages. It filters confirmed player ad fields first, quietly handles ads that slip through, and restores your playback settings.</p>
+          <div class="actions">
+            <a class="button primary" href="./adquiet/">Explore AdQuiet</a>
+            <a class="button" href="./adquiet/support/">Get support</a>
+          </div>
+          <div class="trust-row"><span>Local by design</span><span>YouTube-only access</span><span>No tracking SDK</span></div>
         </div>
+        <aside class="hero-panel" aria-label="AdQuiet overview">
+          <div class="panel-top">
+            <div class="panel-brand"><img src="./assets/icon.png" alt="AdQuiet extension icon"><div><strong>AdQuiet</strong><small>Playback protection</small></div></div>
+            <span class="status-pill">Local only</span>
+          </div>
+          <ul class="panel-list">
+            <li><b>01</b><span>Filters confirmed player ad fields before playback.</span></li>
+            <li><b>02</b><span>Skips, mutes, shields, or speeds up detected ads.</span></li>
+            <li><b>03</b><span>Restores your mute, volume, and playback speed.</span></li>
+          </ul>
+        </aside>
       </div>
     </section>
 
     <section class="section soft">
-      <div class="shell grid">
-        <article class="card"><h3>Local by design</h3><p>Settings and aggregate statistics are stored locally through Chrome extension storage.</p></article>
-        <article class="card"><h3>Focused access</h3><p>AdQuiet operates only on YouTube desktop pages where its filtering features are needed.</p></article>
-        <article class="card"><h3>No personal-data business</h3><p>AdQuiet does not sell user data, build advertising profiles, or use your data for credit decisions.</p></article>
+      <div class="shell">
+        <div class="section-heading"><div class="eyebrow">Focused by design</div><h2>One extension. One clear job.</h2><p>AdQuiet focuses on video ad interruptions inside YouTube desktop watch pages instead of requesting access to your entire browsing experience.</p></div>
+        <div class="grid three">
+          <article class="card"><span class="card-number">01</span><h3>Pre-play filtering</h3><p>Removes only known top-level ad fields from supported player responses and leaves normal playback data intact.</p></article>
+          <article class="card"><span class="card-number">02</span><h3>Quiet fallback</h3><p>When an ad is clearly detected, AdQuiet tries the native skip action or quietly mutes, shields, and accelerates it.</p></article>
+          <article class="card"><span class="card-number">03</span><h3>Safe restoration</h3><p>When normal content returns, your original muted state, volume, and playback speed are restored.</p></article>
+        </div>
       </div>
+    </section>
+
+    <section class="section">
+      <div class="shell cta"><div><h2>See the complete product page</h2><p>Review real screenshots, permissions, supported scope, limitations, privacy, and support.</p></div><a class="button primary" href="./adquiet/">Open AdQuiet</a></div>
     </section>
   </main>
 
-  <footer><div class="shell">AdQuiet is an independent extension and is not affiliated with YouTube or Google.</div></footer>
+  <footer><div class="shell footer-row"><span>AdQuiet is independent and is not affiliated with YouTube or Google.</span><div class="footer-links"><a href="./adquiet/privacy/">Privacy</a><a href="./adquiet/zh/privacy/">中文</a><a href="./adquiet/support/">Support</a></div></div></footer>
 </body>
 </html>
