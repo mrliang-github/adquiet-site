@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://liangxiaoaitool.top/sitemap.xml

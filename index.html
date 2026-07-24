@@ -1,69 +1,156 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hans">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="AdQuiet reduces video ad interruptions on YouTube desktop watch pages while keeping settings and statistics on your device.">
-  <title>AdQuiet — A calmer YouTube watch experience</title>
-  <link rel="canonical" href="https://liangxiaoaitool.top/adquiet/">
-  <link rel="icon" href="./assets/icon.png">
-  <link rel="stylesheet" href="./assets/styles.css">
+  <meta name="description" content="良逍的个人主页：记录 AI 产品、独立开发、工具和从想法到上线的过程。">
+  <meta name="theme-color" content="#f3f0e8">
+  <title>把想法做成东西 · 良逍</title>
+  <link rel="canonical" href="https://liangxiaoaitool.top/">
+  <link rel="alternate" type="application/rss+xml" title="良逍 的 RSS" href="https://liangxiaoaitool.top/rss.xml">
+  <link rel="stylesheet" href="/site-assets/personal.css">
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav shell" aria-label="Main navigation">
-      <a class="brand" href="./"><img src="./assets/icon.png" alt="AdQuiet icon">AdQuiet</a>
-      <div class="nav-links">
-        <a href="./adquiet/#how-it-works">How it works</a>
-        <a href="./adquiet/privacy/">Privacy</a>
-        <a href="./adquiet/support/">Support</a>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="shell hero-grid">
-        <div>
-          <div class="eyebrow">Chrome extension for YouTube desktop</div>
-          <h1>Less interruption. More watching.</h1>
-          <p class="hero-copy">AdQuiet reduces video ad interruptions on YouTube desktop watch pages. It filters confirmed player ad fields first, quietly handles ads that slip through, and restores your playback settings.</p>
-          <div class="actions">
-            <a class="button primary" href="https://chromewebstore.google.com/detail/adquiet/bdcapbcpjlogldlhenkppjamadnmffim?hl=zh-cn" target="_blank" rel="noreferrer">Add to Chrome</a>
-            <a class="button" href="./adquiet/">Explore AdQuiet</a>
-          </div>
-          <div class="trust-row"><span>Local by design</span><span>YouTube-only access</span><span>No tracking SDK</span></div>
-        </div>
-        <aside class="hero-panel" aria-label="AdQuiet overview">
-          <div class="panel-top">
-            <div class="panel-brand"><img src="./assets/icon.png" alt="AdQuiet extension icon"><div><strong>AdQuiet</strong><small>Playback protection</small></div></div>
-            <span class="status-pill">Local only</span>
-          </div>
-          <ul class="panel-list">
-            <li><b>01</b><span>Filters confirmed player ad fields before playback.</span></li>
-            <li><b>02</b><span>Skips, mutes, shields, or speeds up detected ads.</span></li>
-            <li><b>03</b><span>Restores your mute, volume, and playback speed.</span></li>
-          </ul>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section soft">
-      <div class="shell">
-        <div class="section-heading"><div class="eyebrow">Focused by design</div><h2>One extension. One clear job.</h2><p>AdQuiet focuses on video ad interruptions inside YouTube desktop watch pages instead of requesting access to your entire browsing experience.</p></div>
-        <div class="grid three">
-          <article class="card"><span class="card-number">01</span><h3>Pre-play filtering</h3><p>Removes only known top-level ad fields from supported player responses and leaves normal playback data intact.</p></article>
-          <article class="card"><span class="card-number">02</span><h3>Quiet fallback</h3><p>When an ad is clearly detected, AdQuiet tries the native skip action or quietly mutes, shields, and accelerates it.</p></article>
-          <article class="card"><span class="card-number">03</span><h3>Safe restoration</h3><p>When normal content returns, your original muted state, volume, and playback speed are restored.</p></article>
+  <a class="skip-link" href="#content">跳到正文</a>
+<header class="site-header">
+  <nav class="site-nav" aria-label="主导航">
+    <a class="site-brand" href="/" aria-label="良逍，返回首页">良逍</a>
+    <ul class="site-nav-links">
+      <li><a href="/writing/">写作</a></li>
+      <li><a href="/building/">在做</a></li>
+      <li><a href="/tools/">工具</a></li>
+      <li><a href="/about/">关于</a></li>
+    </ul>
+  </nav>
+</header>
+  <main id="content" class="site-main">
+  <div class="site-shell">
+    <section class="home-intro" aria-labelledby="home-title">
+      <div>
+        <p class="home-kicker">LIANGXIAO / PERSONAL WORKBENCH</p>
+        <h1 id="home-title" class="home-title">把想法<br>做成<em>东西</em>，<br>再把过程写下来。</h1>
+        <p class="home-deck">设计出身的产品经理，主业做跨境电商 CMS/ERP；业余用 AI 做 iOS 和 Web 产品，也把一路上的选择、卡点和工作流留下来。</p>
+        <div class="home-links">
+          <a class="button-link" href="/writing/">从写作开始</a>
+          <a class="button-link button-link--quiet" href="/tools/">看做过的工具</a>
         </div>
       </div>
+      <aside class="home-meta">
+        <span class="home-meta-title">THIS SITE</span>
+        <p>不是产品货架。<br>这里放正在做的事、已经上线的工具，和那些还在继续验证的想法。</p>
+        <p><a href="https://x.com/lingxio71220285" target="_blank" rel="noopener noreferrer">在 X 关注公开构建</a></p>
+      </aside>
     </section>
 
-    <section class="section">
-      <div class="shell cta"><div><h2>See the complete product page</h2><p>Review real screenshots, permissions, supported scope, limitations, privacy, and support.</p></div><a class="button primary" href="./adquiet/">Open AdQuiet</a></div>
+    <section class="section home-grid" aria-labelledby="now-heading">
+      <div>
+        <div class="section-head">
+          <div><p class="section-kicker">NOW / 2026.07</p><h2 id="now-heading" class="section-title">这会儿在做的事</h2></div>
+          <a class="section-link" href="/building/">完整记录</a>
+        </div>
+        <article class="now-note">
+      <span class="now-note-label">2026.07.17 / 产品流程</span>
+      <h3><a href="/writing/codex-app-production-line/">把两个 App 的送审流程串起来</a></h3>
+      <p>从商店数据、需求、开发、营销素材到 Apple 后台和提交审核，记录一次完整串联。</p>
+    </article><article class="now-note">
+      <span class="now-note-label">2026.07.16 / 工作流</span>
+      <h3><a href="/writing/two-lark-work-cards/">把公司和个人的飞书工作分开</a></h3>
+      <p>两套账号和文档空间服务不同场景，减少资料混在一起带来的摩擦。</p>
+    </article><article class="now-note">
+      <span class="now-note-label">2026.07.05 / 需求研究</span>
+      <h3><a href="/writing/xiaohongshu-comment-intelligence/">把评论区变成持续积累的线索表</a></h3>
+      <p>先采集、再沉淀、再初筛；评论不是结论，但可以帮助判断下一步该看什么。</p>
+    </article>
+      </div>
+      <aside class="home-side-note">
+        <p>公开构建不是把每一步都做成公告，而是把我愿意复盘的工作留下来：做了什么、为什么这么做、哪些结论还要继续验证。</p>
+        <p class="rule-note">X 的单条更新会在有可核验链接后再同步到这里。</p>
+      </aside>
     </section>
-  </main>
 
-  <footer><div class="shell footer-row"><span>AdQuiet is independent and is not affiliated with YouTube or Google.</span><div class="footer-links"><a href="./adquiet/privacy/">Privacy</a><a href="./adquiet/zh/privacy/">中文</a><a href="./adquiet/support/">Support</a></div></div></footer>
+    <section class="section" aria-labelledby="writing-heading">
+      <div class="section-head">
+        <div><p class="section-kicker">WRITING</p><h2 id="writing-heading" class="section-title">最近写下来的</h2></div>
+        <a class="section-link" href="/writing/">全部文章</a>
+      </div>
+      <ol class="writing-list"><li class="writing-item">
+  <time class="writing-date" datetime="2026-07-17">2026.07.17</time>
+  <div>
+    <h3><a href="/writing/codex-app-production-line/">Codex 一周重置 4 次额度，我推进 2 个 App，把送审自动化了</a></h3>
+    <p class="writing-summary">Codex 一周重置 4 次额度。我这几天用了超过 37 亿 token，推进两个 App，并跑通从商店数据、需求、开发到营销素材、Apple 后台和提交审核的整条流程。</p>
+    <ul class="tag-list"><li class="tag">AI 产品</li><li class="tag">Codex</li><li class="tag">App Store</li></ul>
+  </div>
+  <p class="writing-side">公众号已发布稿的静态存档。<br><a class="entry-link" href="/writing/codex-app-production-line/">读全文</a></p>
+</li><li class="writing-item">
+  <time class="writing-date" datetime="2026-07-16">2026.07.16</time>
+  <div>
+    <h3><a href="/writing/two-lark-work-cards/">我给 Codex 办了两张飞书工卡：公司和个人分开上岗</a></h3>
+    <p class="writing-summary">我在 Codex 里同时接入了公司飞书和个人飞书：两套账号和文档空间分开，各自服务不同场景。</p>
+    <ul class="tag-list"><li class="tag">Codex</li><li class="tag">飞书</li><li class="tag">工作流</li></ul>
+  </div>
+  <p class="writing-side">公众号已发布稿的静态存档。<br><a class="entry-link" href="/writing/two-lark-work-cards/">读全文</a></p>
+</li><li class="writing-item">
+  <time class="writing-date" datetime="2026-07-05">2026.07.05</time>
+  <div>
+    <h3><a href="/writing/xiaohongshu-comment-intelligence/">每天 5 分钟自动收集小红书评论，我用工具 + 飞书多维表搭了个产品需求情报系统</a></h3>
+    <p class="writing-summary">用工具采集小红书评论，沉淀到飞书多维表，再由 AI 做需求与竞品初筛；评论是线索，最终判断仍由人完成。</p>
+    <ul class="tag-list"><li class="tag">产品需求</li><li class="tag">小红书</li><li class="tag">飞书多维表</li></ul>
+  </div>
+  <p class="writing-side">公众号已发布稿的静态存档。<br><a class="entry-link" href="/writing/xiaohongshu-comment-intelligence/">读全文</a></p>
+</li></ol>
+    </section>
+
+    <section class="section" aria-labelledby="tools-heading">
+      <div class="section-head">
+        <div><p class="section-kicker">TOOLS &amp; PRODUCTS</p><h2 id="tools-heading" class="section-title">做过的工具，不放大成产品矩阵</h2></div>
+        <a class="section-link" href="/tools/">全部工具</a>
+      </div>
+      <ol class="tool-list"><li class="tool-row">
+  <span class="tool-number">01</span>
+  <div>
+    <p class="entry-kicker">macOS 应用</p>
+    <h3><a href="/heatsleuth/">HeatSleuth</a></h3>
+  </div>
+  <div>
+    <p class="tool-copy">Mac 发热时，先看清是谁在占用，再决定要不要停。</p>
+    <span class="tool-status">测试版 · 直接下载</span>
+  </div>
+  <div class="tool-action"><a class="entry-link" href="/heatsleuth/">查看</a></div>
+</li><li class="tool-row">
+  <span class="tool-number">02</span>
+  <div>
+    <p class="entry-kicker">Chrome 扩展</p>
+    <h3><a href="/adquiet/">AdQuiet</a></h3>
+  </div>
+  <div>
+    <p class="tool-copy">给 YouTube 桌面端观看页减少视频广告打断。</p>
+    <span class="tool-status">Chrome Web Store</span>
+  </div>
+  <div class="tool-action"><a class="entry-link" href="/adquiet/">查看</a></div>
+</li><li class="tool-row">
+  <span class="tool-number">03</span>
+  <div>
+    <p class="entry-kicker">在线工具</p>
+    <h3><a href="https://md.liangxiaoaitool.top/" target="_blank" rel="noopener noreferrer">MD 排版</a></h3>
+  </div>
+  <div>
+    <p class="tool-copy">把 Markdown 排成可复制到公众号编辑器的文章。</p>
+    <span class="tool-status">公开可用</span>
+  </div>
+  <div class="tool-action"><a class="entry-link" href="https://md.liangxiaoaitool.top/" target="_blank" rel="noopener noreferrer">打开</a></div>
+</li></ol>
+    </section>
+  </div>
+</main>
+  <footer class="site-footer">
+  <div class="footer-grid">
+    <p class="footer-copy">© 2026 良逍 · 把想法做成东西，再把过程写下来。</p>
+    <ul class="footer-links">
+      <li><a href="https://github.com/mrliang-github" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href="https://x.com/lingxio71220285" target="_blank" rel="noopener noreferrer">X</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>
 </body>
 </html>

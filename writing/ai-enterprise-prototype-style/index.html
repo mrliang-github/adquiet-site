@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI 画页面并不难；真正的问题是它没有看过组件库、页面样例、交互规则和评审标准。">
+  <meta name="theme-color" content="#f3f0e8">
+  <title>AI 画企业原型为什么总不像公司产品？我发现问题不在提示词 · 良逍</title>
+  <link rel="canonical" href="https://liangxiaoaitool.top/writing/ai-enterprise-prototype-style/">
+  <link rel="alternate" type="application/rss+xml" title="良逍 的 RSS" href="https://liangxiaoaitool.top/rss.xml">
+  <link rel="stylesheet" href="/site-assets/personal.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+<header class="site-header">
+  <nav class="site-nav" aria-label="主导航">
+    <a class="site-brand" href="/" aria-label="良逍，返回首页">良逍</a>
+    <ul class="site-nav-links">
+      <li><a href="/writing/" aria-current="page">写作</a></li>
+      <li><a href="/building/">在做</a></li>
+      <li><a href="/tools/">工具</a></li>
+      <li><a href="/about/">关于</a></li>
+    </ul>
+  </nav>
+</header>
+  <main id="content" class="site-main">
+  <header class="article-header">
+    <a class="article-back" href="/writing/">所有文章</a>
+    <p class="entry-kicker">公众号已发布稿</p>
+    <h1 class="article-title">AI 画企业原型为什么总不像公司产品？我发现问题不在提示词</h1>
+    <p class="article-summary">AI 画页面并不难；真正的问题是它没有看过组件库、页面样例、交互规则和评审标准。</p>
+    <div class="article-meta"><time datetime="2026-06-19">2026.06.19</time><span>AI 原型 · 产品设计 · 设计系统</span></div>
+  </header>
+  <article class="article-content"><p><img src="https://img.liangxiaoaitool.top/2026/06/gzh-enterprise-prototype-cover-image2-v2.png" alt="AI 画企业原型为什么不像公司产品" /></p>
+<p>之前我写过一篇 Claude + Figma 画原型的文章。</p>
+<p>那篇看的人还不少，也有一些人后来来跟我交流。</p>
+<p>当时我更关心的是一些很直接的问题。</p>
+<p>能不能连上 Figma？<br />能不能生成页面？<br />生成出来是不是可编辑？<br />免费版能不能跑通？</p>
+<p>我当时的感受是，如果只是做个人项目，免费版那 6 次其实够我试一轮。</p>
+<p>因为个人项目的页面通常没那么复杂，自己也能边看边改。哪怕生成得不够好，也可以先拿来当草稿。</p>
+<p>但后来放到企业场景，或者稍微大一点的项目里，我发现这个判断就不太成立了。</p>
+<p>一个真实功能不是只出一张页面。</p>
+<p>列表页要看，详情页要看，弹窗要看，空状态也要看。有时候一个页面改两三轮，额度很快就不够用了。</p>
+<p>所以我后来买了一个教育版，一年几十块钱。到现在为止，我还没有遇到明显的次数限制。</p>
+<p>不过额度解决以后，问题并没有结束。</p>
+<p>我反而更明显地感觉到，企业里真正麻烦的是另一件事：</p>
+<p>AI 画出来的东西，像不像我们公司自己的产品。</p>
+<p>我是学设计的，现在做产品经理，平时接触的又是跨境电商 CMS、ERP 这类后台系统。所以我看原型的时候，关注点不会只停在“这个页面好不好看”。</p>
+<p>企业内部真正会看这些很具体的东西：</p>
+<ul>
+<li>整体布局是不是跟之前的页面习惯一致？</li>
+<li>字段命名是不是跟系统里原来的叫法一致？</li>
+<li>提示语、空状态、弹窗文案，是不是同一种口吻？</li>
+<li>筛选区、表格密度、按钮位置，能不能接上原来的页面？</li>
+<li>业务同事能不能看懂这个流程？</li>
+<li>如果只是一张静态设计稿，没有交互，哪些地方要补备注？</li>
+<li>研发能不能按这些备注拆任务？</li>
+<li>测试能不能根据页面和状态继续写用例？</li>
+</ul>
+<p>这些东西，AI 默认是不知道的。</p>
+<p>它会努力画出一个“像产品”的页面。导航、卡片、按钮、图标、标题，它都会给你补上。单独看，可能还不错。</p>
+<p>但一放回公司系统里，就会有点别扭。</p>
+<p>你说它丑，好像也不准确。</p>
+<p>更准确的感觉是：这不是我们平时的东西。</p>
+<p><img src="https://img.liangxiaoaitool.top/2026/06/20260617132411737.png" alt="企业原型示意图" /></p>
+<h2>我之前低估了“规范”这件事</h2>
+<p>一开始我也会下意识觉得，AI 原型效果不好，是提示词没写好。</p>
+<p>后来发现不是这么简单。</p>
+<p>提示词当然有用，但提示词解决不了一个问题：AI 没见过你们公司的产品习惯。</p>
+<p>它不知道你们表格一页通常放多少字段，也不知道你们的主按钮和次按钮怎么分。它不知道新建弹窗、详情抽屉、筛选区、批量操作这些东西过去一直怎么做。</p>
+<p>你只给它一句“帮我画一个订单管理页面”，它只能按通用 SaaS 后台去猜。</p>
+<p>猜出来的东西未必错，但很可能不像你们自己的系统。</p>
+<p>所以企业里用 AI 做原型，起手不应该是狂写提示词。</p>
+<p>应该先让 AI 看到足够多的“公司原来的样子”。</p>
+<h2>我现在会先准备一个很轻的上下文包</h2>
+<p>如果要让 AI 画得更像公司风格，我现在不会一上来就写很长的提示词。</p>
+<p>我会先准备一个很轻的上下文包。</p>
+<p>这个包不用把所有规范一次性讲完，先让 AI 看到三件事就够了。</p>
+<p>第一，是组件库。</p>
+<p>不一定要一开始就做成完整设计系统，但至少要把最常用的按钮、表格、弹窗、筛选区、状态标签这些东西放在一起。</p>
+<p>AI 需要知道公司平时怎么处理这些基础模块，而不是每次都重新发明一套。</p>
+<p><img src="https://img.liangxiaoaitool.top/2026/06/20260617132555355.png" alt="组件库打码截图" /></p>
+<p>第二，是页面案例。</p>
+<p>比起给它一张好看的首页，我更愿意给几个典型业务页面。</p>
+<p>比如列表页、详情页、编辑页、空状态。</p>
+<p>这些页面不一定好看，但最能体现一个公司产品的真实习惯：信息密度多高，筛选区怎么放，主按钮放哪里，哪些操作会收起来。</p>
+<p>第三，是一份简版需求描述。</p>
+<p>不要只对 AI 说“帮我画一个订单管理页面”。</p>
+<p>至少要告诉它：这个页面给谁用，要看哪些字段，有哪些状态，哪些操作是高频，哪些地方不能乱改。</p>
+<p>组件库、页面案例和简版需求描述放在一起，AI 才不是凭空猜。</p>
+<p><img src="https://img.liangxiaoaitool.top/2026/06/gzh-enterprise-prototype-context-image2-v3.png" alt="AI 原型上下文包：组件库、页面案例和简版需求描述" /></p>
+<p>当然，这里面每一项都可以继续拆得很细。</p>
+<p>但我觉得一篇文章里没必要全讲完。</p>
+<p>真正落到公司项目里，每个团队的组件粒度、页面复杂度、评审标准都不一样。先把这三件事准备起来，已经比单纯堆提示词靠谱很多。</p>
+<h2>产品和设计师的角色没消失</h2>
+<p>我不太认同“AI 会把产品和设计都替掉”这种说法。</p>
+<p>至少在企业场景里，产品和设计师的工作只是换了一种形态。</p>
+<p>以前你可能要自己从空白画布开始画。现在 AI 可以先出一版。但你要告诉它边界在哪里，要给它样例，还要判断它画出来的东西能不能进评审。</p>
+<p>这其实更考验产品和设计师。</p>
+<p>因为 AI 会让页面看起来很完整，完整到很容易把问题藏起来。</p>
+<p>字段是不是漏了，状态是不是没考虑，权限是不是没说清，研发能不能拆，这些问题不会因为页面更好看就自动消失。</p>
+<p>我现在看 AI 原型，会先问一个很土的问题：</p>
+<p>这张图拿去评审，别人能不能继续往下聊？</p>
+<p>如果产品讲不清，设计接不住，研发拆不了，那它就还只是一个好看的 demo。</p>
+<h2>最后还是要回到产品上下文</h2>
+<p>我现在不太会把这件事简单理解成“提示词工程”。</p>
+<p>提示词当然要写清楚，但企业产品里更重要的是上下文。</p>
+<p>这些东西不给，AI 就只能按通用 SaaS 去猜。</p>
+<p>它不是不会画。</p>
+<p>它是不知道你们公司“应该画成什么样”。</p>
+<p>但有了这些东西以后，AI 生成的原型才更像一个可以进评审的企业产品页面，而不是一个看起来完整的 demo。</p>
+<p>这也是我现在对 Codex + Figma 最大的感受：</p>
+<p>工具能把页面生成得越来越快。</p>
+<p>但如果没有产品上下文，速度越快，后面越容易返工。</p>
+<hr />
+<p>我是良逍，产品经理，最近主要在折腾 AI 产品、独立开发和出海工具。</p>
+<p>这个号会记录我自己实测过的工具、踩过的坑，以及从想法到产品上线的过程。</p>
+<p>如果你也在折腾 AI 工具、独立开发或出海产品，可以来找我交流：liangxiao-20</p>
+</article>
+  <footer class="article-footer"><p>本文由已发布的公众号稿静态同步；其中的时间、状态和结论以文章发布日期为准。</p></footer>
+</main>
+  <footer class="site-footer">
+  <div class="footer-grid">
+    <p class="footer-copy">© 2026 良逍 · 把想法做成东西，再把过程写下来。</p>
+    <ul class="footer-links">
+      <li><a href="https://github.com/mrliang-github" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href="https://x.com/lingxio71220285" target="_blank" rel="noopener noreferrer">X</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>

@@ -4,12 +4,36 @@ import { readFile } from "node:fs/promises";
 import { test } from "node:test";
 
 const routes = {
-  root: "index.html",
+  home: "index.html",
+  writing: "writing/index.html",
+  building: "building/index.html",
+  tools: "tools/index.html",
+  about: "about/index.html",
   product: "adquiet/index.html",
   support: "adquiet/support/index.html",
   privacy: "adquiet/privacy/index.html",
   chinesePrivacy: "adquiet/zh/privacy/index.html"
 };
+
+const articleSlugs = [
+  "codex-app-production-line",
+  "two-lark-work-cards",
+  "xiaohongshu-comment-intelligence",
+  "claude-codex-limit-reset",
+  "codex-google-sheets-store-upload",
+  "ai-enterprise-prototype-style",
+  "codex-figma-site-design",
+  "mac-invoice-ocr"
+];
+
+const personalRoutes = [
+  routes.home,
+  routes.writing,
+  routes.building,
+  routes.tools,
+  routes.about,
+  ...articleSlugs.map((slug) => `writing/${slug}/index.html`)
+];
 
 const chromeWebStoreUrl =
   "https://chromewebstore.google.com/detail/adquiet/bdcapbcpjlogldlhenkppjamadnmffim?hl=zh-cn";
@@ -121,33 +145,37 @@ function visibleCopy(page) {
     .replace(/\s+/gu, " ");
 }
 
-test("publishes every required Chrome Web Store route", async () => {
+test("publishes every required personal-site and AdQuiet route", async () => {
   for (const route of Object.values(routes)) {
+    assert.match(await html(route), /<!doctype html>/iu, route);
+  }
+
+  for (const route of personalRoutes) {
     assert.match(await html(route), /<!doctype html>/iu, route);
   }
 });
 
-test("uses the AdQuiet product page at both root and product paths", async () => {
-  for (const route of [routes.root, routes.product]) {
-    const page = await html(route);
-    assert.match(page, /<html lang="en">/u);
-    assert.match(page, /<meta name="viewport"/u);
-    assert.match(page, /Less interruption\. More watching\./u);
-    assert.match(page, /Chrome extension for YouTube desktop/u);
-    assert.match(page, /adquiet\/support\//u);
-    assert.match(page, /adquiet\/privacy\//u);
-  }
+test("uses the root route as a Chinese-first personal homepage", async () => {
+  const page = await html(routes.home);
+  assert.match(page, /<html lang="zh-Hans">/u);
+  assert.match(page, /把想法[\s\S]*做成/u);
+  assert.match(page, /再把过程写下来/u);
+  assert.match(page, /href="\/writing\/"/u);
+  assert.match(page, /href="\/building\/"/u);
+  assert.match(page, /href="\/tools\/"/u);
+  assert.match(page, /href="\/adquiet\/"/u);
+  assert.match(page, /href="\/heatsleuth\/"/u);
+  assert.doesNotMatch(page, /Less interruption\. More watching\./u);
 });
 
-test("links both product entry pages to the official Chrome Web Store listing", async () => {
-  for (const route of [routes.root, routes.product]) {
-    const page = await html(route);
-    assert.match(page, /Add to Chrome/u, route);
-    assert.ok(
-      page.includes(`href="${chromeWebStoreUrl}" target="_blank"`),
-      route
-    );
-  }
+test("keeps AdQuiet on its own product route and Chrome Web Store listing", async () => {
+  const page = await html(routes.product);
+  assert.match(page, /<html lang="en">/u);
+  assert.match(page, /Less interruption\. More watching\./u);
+  assert.match(page, /Chrome extension for YouTube desktop/u);
+  assert.match(page, /href="\/adquiet\/"/u);
+  assert.match(page, /Add to Chrome/u);
+  assert.ok(page.includes(`href="${chromeWebStoreUrl}" target="_blank"`));
 });
 
 test("shows three real extension screenshots with useful alt text", async () => {
@@ -180,20 +208,46 @@ test("privacy pages disclose local storage, permissions, and Limited Use", async
   assert.match(chinese, /不出售或传输用户个人数据/u);
 });
 
-test("keeps the static site free of remote scripts and forms", async () => {
-  for (const route of Object.values(routes)) {
+test("generates a complete, script-free published writing archive", async () => {
+  const index = await html(routes.writing);
+  for (const slug of articleSlugs) {
+    assert.match(index, new RegExp(`href="/writing/${slug}/"`, "u"));
+  }
+
+  const firstArticle = await html(`writing/${articleSlugs[0]}/index.html`);
+  assert.match(firstArticle, /公众号已发布稿/u);
+  assert.match(firstArticle, /Codex 一周重置 4 次额度/u);
+  assert.match(firstArticle, /https:\/\/img\.liangxiaoaitool\.top\//u);
+  assert.ok(tags(firstArticle, "img").length >= 2, "article should retain published images");
+
+  for (const route of personalRoutes) {
     const page = await html(route);
     assert.doesNotMatch(page, /<script\b/iu, route);
     assert.doesNotMatch(page, /<form\b/iu, route);
+    assert.doesNotMatch(page, /on(?:click|load|error)\s*=/iu, route);
   }
 });
 
-test("includes explicit mobile overflow safeguards", async () => {
-  const css = await readFile(new URL("../assets/styles.css", import.meta.url), "utf8");
-  assert.match(css, /overflow-x:\s*hidden/u);
-  assert.match(css, /\.hero-grid\s*>\s*\*\s*\{\s*min-width:\s*0/u);
-  assert.match(css, /\.nav\s*\{[^}]*flex-direction:\s*column/su);
-  assert.match(css, /\.hero-panel\s*\{[^}]*width:\s*100%/su);
+test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", async () => {
+  const [legacyCss, personalCss, rss, sitemap, redirects] = await Promise.all([
+    readFile(new URL("../assets/styles.css", import.meta.url), "utf8"),
+    readFile(new URL("../site-assets/personal.css", import.meta.url), "utf8"),
+    html("rss.xml"),
+    html("sitemap.xml"),
+    html("_redirects")
+  ]);
+
+  assert.match(legacyCss, /overflow-x:\s*hidden/u);
+  assert.match(legacyCss, /\.hero-grid\s*>\s*\*\s*\{\s*min-width:\s*0/u);
+  assert.match(personalCss, /--paper:\s*#f3f0e8/u);
+  assert.match(personalCss, /overflow-x:\s*hidden/u);
+  assert.match(personalCss, /prefers-reduced-motion/u);
+  assert.match(rss, /<rss version="2\.0">/u);
+  assert.match(rss, /codex-app-production-line/u);
+  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/writing\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/heatsleuth\//u);
+  assert.match(redirects, /^\/privacy\/ \/adquiet\/privacy\/ 301/mu);
+  assert.match(redirects, /^\/support\/ \/adquiet\/support\/ 301/mu);
 });
 
 test("publishes complete bilingual HeatSleuth pages with the shared product assets", async () => {

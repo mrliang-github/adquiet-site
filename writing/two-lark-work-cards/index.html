@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="我在 Codex 里同时接入了公司飞书和个人飞书：两套账号和文档空间分开，各自服务不同场景。">
+  <meta name="theme-color" content="#f3f0e8">
+  <title>我给 Codex 办了两张飞书工卡：公司和个人分开上岗 · 良逍</title>
+  <link rel="canonical" href="https://liangxiaoaitool.top/writing/two-lark-work-cards/">
+  <link rel="alternate" type="application/rss+xml" title="良逍 的 RSS" href="https://liangxiaoaitool.top/rss.xml">
+  <link rel="stylesheet" href="/site-assets/personal.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+<header class="site-header">
+  <nav class="site-nav" aria-label="主导航">
+    <a class="site-brand" href="/" aria-label="良逍，返回首页">良逍</a>
+    <ul class="site-nav-links">
+      <li><a href="/writing/" aria-current="page">写作</a></li>
+      <li><a href="/building/">在做</a></li>
+      <li><a href="/tools/">工具</a></li>
+      <li><a href="/about/">关于</a></li>
+    </ul>
+  </nav>
+</header>
+  <main id="content" class="site-main">
+  <header class="article-header">
+    <a class="article-back" href="/writing/">所有文章</a>
+    <p class="entry-kicker">公众号已发布稿</p>
+    <h1 class="article-title">我给 Codex 办了两张飞书工卡：公司和个人分开上岗</h1>
+    <p class="article-summary">我在 Codex 里同时接入了公司飞书和个人飞书：两套账号和文档空间分开，各自服务不同场景。</p>
+    <div class="article-meta"><time datetime="2026-07-16">2026.07.16</time><span>Codex · 飞书 · 工作流</span></div>
+  </header>
+  <article class="article-content"><p><img src="https://img.liangxiaoaitool.top/2026/07/gzh-illust-00-cover-v1.png" alt="我给 Codex 办了两张飞书工卡" /></p>
+<p>4 月，我写过一篇飞书 CLI 的实测。</p>
+<p>当时的标题是：<strong>《飞书给 AI 发了张工卡，19 个技能直接上岗》</strong>。</p>
+<p>那一次，我用个人飞书账号完成了安装和授权。AI 可以发消息、创建文档，也可以把生成好的内容直接写进飞书。
+<img src="https://img.liangxiaoaitool.top/2026/07/20260715235209726.png" alt="image.png" /></p>
+<p>不过，我平时参与的工作任务使用的是公司飞书账号。</p>
+<p>日常工作需要参考的背景信息、既有规则和协作模板，都在对应的工作空间里。这些是我本来就有权限访问、也需要参与处理的内容。个人项目的产出，则放在个人飞书。</p>
+<p>两套账号里的内容不能混在一起。</p>
+<p>所以最近我又给 Codex 加了一张“工卡”：</p>
+<ul>
+<li>工作任务走公司账号授权的飞书 MCP；</li>
+<li>个人项目继续走个人账号登录的飞书 CLI。</li>
+</ul>
+<p>现在，同一个 Codex 里同时存在两条飞书通道。处理工作任务时，我会明确指定自己有权限使用的文档，让 Codex 协助整理需求或复盘；处理个人项目时，产出继续写回个人飞书。</p>
+<p>两套账号、两套文档空间、两套权限，各自分开。</p>
+<p><img src="https://img.liangxiaoaitool.top/2026/07/20260708155930530.png" alt="Codex 中已经添加公司飞书 MCP" /></p>
+<h2>飞书接进 Codex，实际配置很省事</h2>
+<p>公司飞书这条线，我使用的是飞书开放平台提供的远程 MCP。</p>
+<p>我在飞书开放平台创建 MCP 服务，确认当前登录的是公司账号，再选择需要使用的工具和权限。</p>
+<p>授权完成后，平台会生成一条远程 MCP 服务地址。</p>
+<p><img src="https://img.liangxiaoaitool.top/2026/07/20260708155956328.png" alt="飞书 MCP 工具和授权配置" /></p>
+<p>接下来只要进入 Codex 的 MCP 设置，添加一个自定义服务，选择“流式 HTTP”，再填入飞书生成的服务地址。</p>
+<p><img src="https://img.liangxiaoaitool.top/2026/07/20260708160032887.png" alt="在 Codex 中添加飞书远程 MCP" /></p>
+<p>保存并启用以后，Codex 里就多了一个 <code>feishu-company</code>。</p>
+<p>我没有额外部署服务器，也没有自己处理 OAuth 回调。配置完成后，先用真实任务验证它能不能在当前账号和文档权限范围内完成读取与写回。</p>
+<p>这一步让我觉得方便的地方很具体：</p>
+<p>以前处理我参与的工作任务时，要让 AI 参考飞书里的相关文档，我需要先把内容复制出来，或者重新整理一份上下文。</p>
+<p>现在任务可以直接从读取源文档开始。</p>
+<h2>第一张工卡：在工作账号的授权范围内协助处理文档</h2>
+<p>工作场景里，AI 往往会因为缺少真实业务上下文写错内容。文档格式反而只是表层问题。</p>
+<p>比如整理一份工作文档，往往需要同时参考前置背景、既有规则和历史决策。如果只给 Codex 一句简单要求，它会根据通用经验补内容，但补出来的东西未必符合当前任务的实际情况。</p>
+<p>接入公司飞书 MCP 后，我已经拿它跑过几类任务。</p>
+<p>这里的前提需要说清楚：MCP 使用的是我自己的工作账号，文档必须在这个账号原本就拥有的权限范围内，并且由我根据当前任务主动指定。它不会绕过飞书权限去获取内容，我也不会让它处理与当前工作无关的文档。</p>
+<p>第一类是根据本次任务明确指定的参考文档整理需求。</p>
+<p>这些文档原本就在我参与的协作空间里。Codex 通过公司账号对应的 MCP 调用它们，再根据已有上下文整理内容，不需要我重新复制一遍。</p>
+<p>第二类是按已有模板整理并创建工作文档。</p>
+<p>我让它先读取本次任务相关的参考文档和模板，再整理文档结构、主要内容和待确认问题，最后把结果创建回原来的工作空间。</p>
+<p>第三类是整理阶段性复盘。</p>
+<p>它把分散在多份授权文档里的信息重新整理成一份结构化复盘，方便后续继续确认和推进。</p>
+<p>这套过程给我的直观变化是：Codex 可以在我明确授权的工作上下文里协助整理文档。</p>
+<p>输入来自我本来就有权限使用、并且在任务中明确指定的文档，结果也写回原来的工作空间。整个过程没有绕到个人账号里。</p>
+<p>权限边界也没有因为接入 MCP 消失。公司账号本来有权限访问的文档，MCP 才有可能调用；当前账号没有权限的内容，它同样拿不到。即使账号有权限，我仍然需要判断这份文档是否应该用于当前任务。</p>
+<h2>第二张工卡：个人项目继续留在个人飞书</h2>
+<p>个人飞书这条线，我在 4 月测试飞书 CLI 时已经跑通过。</p>
+<p>当时我让 AI 写完文章，再直接调用 CLI 创建飞书文档。标题、正文、引用、代码块和表格都可以正常写进去，后面也能继续覆盖更新。</p>
+<p><img src="https://img.liangxiaoaitool.top/2026/03/20260331220457378.png" alt="飞书 CLI 创建个人飞书文档" /></p>
+<p>现在这条个人账号授权仍然保留。</p>
+<p>做个人产品、整理研究资料或沉淀内容草稿时，Agent 产出继续写到个人飞书。工作任务产生的需求和复盘，则留在公司账号对应的文档空间。</p>
+<p>我没有为了少配一个工具，把所有内容塞进同一个飞书账号。</p>
+<p>因为一旦混在一起，后面会出现几个很现实的问题：</p>
+<ul>
+<li>工作文档可能被误写进个人空间；</li>
+<li>个人项目资料可能出现在公司知识库；</li>
+<li>Agent 调用工具时，很难快速确认当前使用的是哪个身份；</li>
+<li>权限变化或账号退出后，原来的工作流也会变得难以追踪。</li>
+</ul>
+<p>现在的分工比较清楚：</p>
+<table>
+<thead>
+<tr>
+<th>飞书工卡</th>
+<th>当前连接方式</th>
+<th>已经跑通的用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>公司账号</td>
+<td>飞书 MCP</td>
+<td>在本人权限和任务指定范围内整理工作文档、生成需求文档和项目复盘</td>
+</tr>
+<tr>
+<td>个人账号</td>
+<td>飞书 CLI</td>
+<td>创建和更新个人飞书文档、沉淀个人项目产出</td>
+</tr>
+</tbody></table>
+<p>这张表只代表我目前的实际配置。</p>
+<p>飞书 MCP 和 CLI 都可以根据身份、应用和权限做其他组合。这里选择两条通道，是因为它们已经分别跑通，也能把工作内容和个人内容隔开。</p>
+<h2>两张工卡同时存在，任务怎么分？</h2>
+<p>两套连接都放在 Codex 里以后，我会在任务中把内容归属说清楚。</p>
+<p>处理工作任务时，使用公司飞书 MCP：</p>
+<blockquote>
+<p>使用我当前工作账号有权限访问、并在本次任务中明确指定的参考文档和模板，整理一份工作文档，并创建回原来的工作空间。</p>
+</blockquote>
+<p>涉及个人项目时，使用个人飞书 CLI：</p>
+<blockquote>
+<p>把这份个人项目复盘整理成飞书文档，写入我的个人飞书。</p>
+</blockquote>
+<p>Agent 负责选择和调用对应工具，我负责确认这次任务属于哪套账号、具体使用哪些文档、最后应该写到哪里。</p>
+<p>对我来说，这也是双账号分开的关键。</p>
+<p>工具可以帮我减少复制、整理和写回文档的重复操作，但账号归属和内容边界仍然需要人先说清楚。</p>
+<h2>两张飞书工卡，解决的是两类问题</h2>
+<p>从用户价值来看，两张工卡的分工可以概括成下面这张图。</p>
+<p><img src="https://img.liangxiaoaitool.top/2026/07/gzh-illust-01-two-work-cards-v1.png" alt="两张飞书工卡的公司场景与个人场景" /></p>
+<h3>公司场景：少复制资料，结果直接写回飞书</h3>
+<p>很多公司不会给个人开放使用飞书 CLI 所需的权限，或者觉得 CLI 接入比较麻烦。这时，飞书 MCP 是一个配置更省事的选择。</p>
+<p>使用公司账号完成授权后，Codex 可以读取当前任务需要的文档，整理完成后再把结果写回原来的工作空间。中间少了复制资料、补充上下文、再手动搬回飞书的步骤，工作效率会更高。</p>
+<p>前提还是那句话：只处理当前账号本来有权限、并且公司规范允许使用的文档，MCP 服务地址也不能公开。</p>
+<h3>个人场景：把飞书变成自己的知识和数据工作台</h3>
+<p>个人飞书的权限通常更灵活，可以根据自己的需要开放更多能力。</p>
+<p>比如，可以创建和维护知识库，创建多维表格并建立表之间的关联，还可以把采集和整理的数据自动回填到多维表格里。</p>
+<p>放在外贸场景里，多维表格还可以作为产品表、资料库或者分析数据库，持续沉淀和更新产品及市场数据。</p>
+<p>所以这两张“工卡”的分工很清楚：公司账号用来减少工作文档的复制和搬运，个人账号用来搭建自己的知识与数据工作流。</p>
+<p>后面我还会继续探索更多 Codex + 飞书的实际用法，但会尽量围绕具体场景来写，不把事情讲得太复杂。</p>
+<hr />
+<p>我是良逍，最近主要在折腾 AI 产品、独立开发和出海工具。</p>
+<p>这个号会记录我自己实测过的工具、踩过的坑，以及从想法到产品上线的过程。</p>
+<p>如果你也在折腾 AI 工具、独立开发或出海产品，可以来找我交流：liangxiao-20</p>
+</article>
+  <footer class="article-footer"><p>本文由已发布的公众号稿静态同步；其中的时间、状态和结论以文章发布日期为准。</p></footer>
+</main>
+  <footer class="site-footer">
+  <div class="footer-grid">
+    <p class="footer-copy">© 2026 良逍 · 把想法做成东西，再把过程写下来。</p>
+    <ul class="footer-links">
+      <li><a href="https://github.com/mrliang-github" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href="https://x.com/lingxio71220285" target="_blank" rel="noopener noreferrer">X</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>

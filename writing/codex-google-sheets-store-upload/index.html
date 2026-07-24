@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="把独立站上新整理成一套表格驱动的流程：内容、图片、价格和状态进表，再由 Codex 更新产品内容，并由人做最终审核。">
+  <meta name="theme-color" content="#f3f0e8">
+  <title>独立站产品，用 Codex + Google Sheets 自动上架 · 良逍</title>
+  <link rel="canonical" href="https://liangxiaoaitool.top/writing/codex-google-sheets-store-upload/">
+  <link rel="alternate" type="application/rss+xml" title="良逍 的 RSS" href="https://liangxiaoaitool.top/rss.xml">
+  <link rel="stylesheet" href="/site-assets/personal.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+<header class="site-header">
+  <nav class="site-nav" aria-label="主导航">
+    <a class="site-brand" href="/" aria-label="良逍，返回首页">良逍</a>
+    <ul class="site-nav-links">
+      <li><a href="/writing/" aria-current="page">写作</a></li>
+      <li><a href="/building/">在做</a></li>
+      <li><a href="/tools/">工具</a></li>
+      <li><a href="/about/">关于</a></li>
+    </ul>
+  </nav>
+</header>
+  <main id="content" class="site-main">
+  <header class="article-header">
+    <a class="article-back" href="/writing/">所有文章</a>
+    <p class="entry-kicker">公众号已发布稿</p>
+    <h1 class="article-title">独立站产品，用 Codex + Google Sheets 自动上架</h1>
+    <p class="article-summary">把独立站上新整理成一套表格驱动的流程：内容、图片、价格和状态进表，再由 Codex 更新产品内容，并由人做最终审核。</p>
+    <div class="article-meta"><time datetime="2026-06-23">2026.06.23</time><span>独立站 · Codex · 自动化</span></div>
+  </header>
+  <article class="article-content"><p><img src="https://img.liangxiaoaitool.top/2026/06/gzh-illust-00-cover-independent-site-codex-v4.png" alt="独立站产品，用 Codex + Google Sheets 自动上架" /></p>
+<p>前面两篇，我讲了两件事。</p>
+<p>一件是先把独立站跑起来。</p>
+<p>VPS、WordPress、域名、SSL、后台配置，先让网站能打开。</p>
+<p>另一件是先把页面规则整理清楚。</p>
+<p>不然首页一个风格，产品页一个风格，详情页又一个风格，网站越改越像拼出来的。</p>
+<p>但真正开始往独立站里放产品以后，我发现后面还有一件更现实的事：</p>
+<p>产品怎么持续上新？</p>
+<p>这里的顺序要说清楚。</p>
+<p>我不是先把一堆原图丢进 Google Drive，然后再慢慢想怎么整理。</p>
+<p>我现在的顺序更接近真实业务：</p>
+<p>先找到产品。<br />再用自己的内容生产工具，把产品图和营销文案先做出来。<br />图片上传到 Google Drive。<br />图片地址、文案、价格、分类、状态放进 Google Sheets。<br />最后让 Codex 按表格更新 WordPress 产品内容。</p>
+<p>这才是我这篇真正想讲的东西。</p>
+<p>不是“我有一张产品表”。</p>
+<p>而是我把产品从“找到一个可上架对象”，往后拆成一条可以反复执行的上架流程。</p>
+<h2>上架不是从后台开始，是从产品内容包开始</h2>
+<p>以前我会把“上架产品”理解成进后台填字段。</p>
+<p>产品名、分类、图片、价格、描述、SEO 字段，一个个填进去。</p>
+<p>但真做独立站以后，我发现后台只是最后一步。</p>
+<p>真正麻烦的事情发生在后台之前。</p>
+<p>你先要找到产品。</p>
+<p>然后判断这个产品适不适合放到站里。</p>
+<p>再看它有没有足够清楚的图片、规格、卖点、价格和应用场景。</p>
+<p>这些东西不整理好，后台填得再快也没用。</p>
+<p>所以我现在更关心的是：每个准备上架的产品，能不能先变成一个“内容包”。</p>
+<p>这个内容包里至少要有：</p>
+<ul>
+<li>产品基础信息</li>
+<li>价格或价格区间</li>
+<li>产品分类</li>
+<li>白底图</li>
+<li>场景图</li>
+<li>短描述</li>
+<li>详情文案</li>
+<li>SEO title</li>
+<li>SEO description</li>
+<li>上架状态</li>
+</ul>
+<p>这里就会用到我自己的内容生产工具。</p>
+<p>我把找到的产品资料放进去，让它先帮我输出图片和营销文案。</p>
+<p>图片这块，它会生成更适合独立站使用的白底图和场景图。</p>
+<p>文案这块，它会先生成产品标题、卖点、短描述、详情描述和 SEO 草稿。</p>
+<p>这些内容出来以后，才进入下一步：上传图片，整理表格。</p>
+<p><img src="https://img.liangxiaoaitool.top/2026/06/gzh-illust-01-content-pack-entry-v3.png" alt="不用在后台手填产品，内容包才是上架入口" /></p>
+<h2>图片和文案先生产出来，再进表格</h2>
+<p>很多人说自动上架，很容易直接想到：</p>
+<p>表格里有产品，AI 帮我发布。</p>
+<p>但我现在觉得，中间少了一步。</p>
+<p>产品进入表格之前，可以先把图片和文案生产出来。</p>
+<p>如果表格里只有一个产品名，Codex 后面能做的事情其实很有限。</p>
+<p>它可以猜分类，可以写文案，可以找位置发布。</p>
+<p>但如果图片没准备好、价格没确认、卖点没整理，最后还是会卡在人工补资料这一步。</p>
+<p>所以我现在会先用内容生产工具，把“上架所需素材”做成一组可用结果。</p>
+<p>比如一款产品准备上架，我会先拿到：</p>
+<ul>
+<li>一张或多张白底图；</li>
+<li>一张或多张场景图；</li>
+<li>一段产品短描述；</li>
+<li>一段详情页文案；</li>
+<li>几个核心卖点；</li>
+<li>建议价格或价格区间；</li>
+<li>SEO 标题和描述草稿。<img src="https://img.liangxiaoaitool.top/2026/06/20260622213435483.png" alt="image.png" /></li>
+</ul>
+<p>然后图片上传到 Google Drive。</p>
+<p>Drive 里存图片文件。</p>
+<p>Google Sheets 里存图片地址、文案、价格和状态。</p>
+<p>这样 Codex 后面读取表格时，就不是面对一堆半成品。</p>
+<p>它看到的是一条相对完整的上架记录。</p>
+<h2>Google Sheets 不是资料库，是上架指令单</h2>
+<p>这张表一开始不用很复杂。</p>
+<p>但它要让人看得懂，也要让 Codex 看得懂。</p>
+<p>我现在会把产品上新拆成几类字段：</p>
+<ul>
+<li>产品名</li>
+<li>产品来源或参考链接</li>
+<li>产品分类</li>
+<li>价格</li>
+<li>规格</li>
+<li>白底图链接</li>
+<li>场景图链接</li>
+<li>短描述</li>
+<li>详情文案</li>
+<li>SEO title</li>
+<li>SEO description</li>
+<li>上架状态</li>
+<li>WordPress 页面地址</li>
+<li>待修问题
+<img src="https://img.liangxiaoaitool.top/2026/06/20260622215409819.png" alt="image.png" /></li>
+</ul>
+<p>如果是偏外贸或 B2B 的产品，还可以加应用场景、目标客户、材质、尺寸、起订量、是否支持定制。</p>
+<p>这些东西不一定每个产品都要填满。</p>
+<p>但几个关键字段必须清楚。</p>
+<p>尤其是价格、图片链接、文案和状态。</p>
+<p>因为这些决定 Codex 后面到底是创建新产品、更新旧产品，还是先跳过这条记录。</p>
+<p><img src="https://img.liangxiaoaitool.top/2026/06/gzh-illust-02-content-sheet-v3.png" alt="独立站商品自动上架表" /></p>
+<p>这一步看起来有点笨。</p>
+<p>但它是后面自动上架的基础。</p>
+<p>因为 Codex 要做的不是猜我想上什么产品。</p>
+<p>它要按表格里的字段，把产品放到正确分类，带上正确价格和图片，写入对应文案，再更新到 WordPress。</p>
+<p>如果表格里字段乱，图片地址乱，价格没确认，状态也乱，那后面所谓自动上架就会变成一堆临时操作。</p>
+<p>最后不是 Codex 不行，而是前面的产品资料没有整理成它可以执行的格式。</p>
+<h2>Codex 自动上架，实际做了什么</h2>
+<p>这里可以把话说清楚。</p>
+<p>我说的 Codex 自动上架，不是那种传统 SaaS 里的无人值守同步：</p>
+<p>不是表格一变，系统定时扫描，然后完全不问我就发布。</p>
+<p>我现在这套更像是：</p>
+<p>我找到产品。<br />内容生产工具输出图片和文案。<br />我把图片上传到 Google Drive。<br />我把图片地址、文案、价格和状态维护到 Google Sheets。<br />Codex 读取表格。<br />Codex 根据字段创建或更新 WordPress 产品内容。<br />我检查上架结果。</p>
+<p>它自动的地方在于：我不用再一个个进后台手填。</p>
+<p>以前我要打开 WordPress 后台，一个产品一个产品复制粘贴。</p>
+<p>现在我只要把产品内容维护到表格里，再让 Codex 按这张表去更新内容。</p>
+<p>它会看字段、读图片链接、整理描述、填 SEO 字段、把内容发布到对应页面。</p>
+<p>上架完以后，我再检查：</p>
+<ul>
+<li>产品分类对不对；</li>
+<li>价格有没有放错；</li>
+<li>白底图和场景图是否合适；</li>
+<li>描述有没有误导；</li>
+<li>SEO title 有没有太泛；</li>
+<li>询盘入口是否正常；</li>
+<li>页面在手机上是否能看；</li>
+<li>WordPress 页面地址有没有回填到表格。</li>
+</ul>
+<p>所以我觉得这当然算自动上架。</p>
+<p>只是它不是“无人审核”的自动上架。</p>
+<p>更准确的说法是：</p>
+<p><strong>我生产图文并维护表格，Codex 执行上架，人负责最终审核。</strong></p>
+<p><img src="https://img.liangxiaoaitool.top/2026/06/gzh-illust-03-product-content-workflow-v3.png" alt="找到产品后，用内容工具和 Codex 自动更新独立站" /></p>
+<h2>我会额外加几个字段，让它更像工作流</h2>
+<p>如果只把产品名、图片和文案放进表格，这件事已经可以跑。</p>
+<p>但如果想让它更有价值，我会再补几个字段。</p>
+<p>第一个是 <code>产品来源</code>。</p>
+<p>这个字段用来记录产品是从哪里来的，比如供应商资料、1688、展会资料、客户询盘、竞品页面，或者自己已有产品库。</p>
+<p>这样以后回头看，不会忘记这个产品为什么被选进来。</p>
+<p>第二个是 <code>内容生成状态</code>。</p>
+<p>比如：</p>
+<ul>
+<li>待生成图片</li>
+<li>待生成文案</li>
+<li>待上传 Drive</li>
+<li>待上架</li>
+<li>已上架</li>
+<li>待复查</li>
+</ul>
+<p>这个字段能把“找产品”和“上架产品”之间的中间状态接住。</p>
+<p>否则产品一多，就很容易忘记卡在哪一步。</p>
+<p>第三个是 <code>WordPress 页面地址</code>。</p>
+<p>Codex 上架完以后，建议把页面地址回填到表格。</p>
+<p>这样这张表就不只是上架前的资料表，也变成上架后的管理表。</p>
+<p>以后我要检查页面、改图片、补价格、更新 SEO，都能从这张表回到对应页面。</p>
+<p>第四个是 <code>待修问题</code>。</p>
+<p>比如图片不够真实、价格待确认、详情文案太泛、移动端图片裁切不对。</p>
+<p>这些问题不一定要当场解决。</p>
+<p>但要有一个地方记下来。</p>
+<p>这样下一轮让 Codex 更新内容时，它才知道该改哪里。</p>
+<h2>这件事真正有价值的地方</h2>
+<p>前面讲建站，是解决“网站能不能起来”。</p>
+<p>讲 Figma，是解决“页面会不会越改越乱”。</p>
+<p>这一篇，我真正想讲的是：独立站如果要持续运营，产品上新不能一直靠人手动填后台。</p>
+<p>外贸团队、B2B 公司、跨境卖家，真正消耗人的地方往往就在这里。</p>
+<p>新产品来了，谁判断要不要上？<br />图片一堆，谁生成白底图和场景图？<br />营销文案谁写？<br />价格谁确认？<br />上架以后谁检查？</p>
+<p>这些事不大，但它们会一直出现。</p>
+<p>如果每次都靠临时整理，网站很快就会停在那里。</p>
+<p>看起来上线了，其实没人继续维护。</p>
+<p>我现在这套流程的价值，不是炫技。</p>
+<p>它更像是把独立站上新拆成几个明确环节：</p>
+<p>找到产品。<br />内容生产工具生成图片和文案。<br />Google Drive 存图片。<br />Google Sheets 管字段、价格、状态和页面地址。<br />Codex 执行上架或更新。<br />人做最终检查。</p>
+<p>这样以后新增产品，不是重新开始。</p>
+<p>只是把产品推进这条流程。</p>
+<p>这对我来说，比“AI 一键建站”更实在。</p>
+<p>因为建站只发生一次。</p>
+<p>产品上新会一直发生。</p>
+<h2>我不会把它包装成完全无人值守</h2>
+<p>这部分也要说清楚。</p>
+<p>我不会把这套东西写成“全自动无人运营独立站”。</p>
+<p>因为真实业务里，有些判断不能省。</p>
+<p>比如产品到底值不值得上。</p>
+<p>如果一开始选的产品就不适合这个站，后面图和文案做得再好也没用。</p>
+<p>比如价格和规格。</p>
+<p>如果供应商资料不准，Codex 不会天然知道哪个版本才对。</p>
+<p>比如图片。</p>
+<p>内容生产工具可以生成质量更好的白底图和场景图，但产品结构、材质、颜色、比例和使用场景有没有偏掉，还是要人看。</p>
+<p>比如营销文案。</p>
+<p>同一个产品，卖给不同客户，重点可能完全不一样。</p>
+<p>还有页面效果。</p>
+<p>页面能发布，不代表买家看得懂，也不代表询盘路径顺。</p>
+<p>所以我现在更愿意把它叫：</p>
+<p><strong>Codex 辅助的自动上架工作流。</strong></p>
+<p>自动的是重复动作。</p>
+<p>人保留的是业务判断。</p>
+<p>这个边界说清楚以后，它就不是画饼。</p>
+<p>它就是一个可以继续迭代的独立站运营流程。</p>
+<p>下一步我会继续试，能不能把供应商资料、1688 产品信息、图片处理、英文详情、SEO 草稿和 WordPress 上架继续往前连。</p>
+<p>但我不会一上来就写成“自动搬运”。</p>
+<p>因为图片授权、供应商真实性、价格准确性、产品卖点这些问题，都不能直接跳过。</p>
+<p>如果你也在维护产品站，我建议先别急着接很多 API。</p>
+<p>先做一张产品上架表。</p>
+<p>把产品来源、图片链接、营销文案、价格、上架状态、页面地址和待修问题放在一个地方。</p>
+<p>再看哪些环节可以交给 Codex 执行。</p>
+<p>这一步不花哨。</p>
+<p>但它决定了后面这个独立站，是不是还有可能持续上新。</p>
+<p>我也整理了一份「独立站商品自动上架表」。</p>
+<p>如果你也在维护产品站，可以留言“商品表”。</p>
+<hr />
+<p>我是良逍，产品经理，最近主要在折腾 AI 产品、独立开发和出海工具。</p>
+<p>这个号会记录我自己实测过的工具、踩过的坑，以及从想法到产品上线的过程。</p>
+<p>如果你也在折腾 AI 工具、独立开发或出海产品，可以来找我交流：liangxiao-20</p>
+</article>
+  <footer class="article-footer"><p>本文由已发布的公众号稿静态同步；其中的时间、状态和结论以文章发布日期为准。</p></footer>
+</main>
+  <footer class="site-footer">
+  <div class="footer-grid">
+    <p class="footer-copy">© 2026 良逍 · 把想法做成东西，再把过程写下来。</p>
+    <ul class="footer-links">
+      <li><a href="https://github.com/mrliang-github" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href="https://x.com/lingxio71220285" target="_blank" rel="noopener noreferrer">X</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>
