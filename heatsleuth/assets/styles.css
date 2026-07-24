@@ -416,6 +416,39 @@ h1 {
 .metadata dd { margin: 0; font-weight: 750; overflow-wrap: anywhere; }
 .metadata code { font-size: 11px; }
 
+.download-verification {
+  margin: -5px 0 22px;
+  color: var(--muted);
+}
+
+.download-verification summary {
+  width: fit-content;
+  cursor: pointer;
+  color: var(--signal-blue);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.download-verification summary:focus-visible {
+  outline: 3px solid var(--signal-orange);
+  outline-offset: 4px;
+  border-radius: 5px;
+}
+
+.download-verification p {
+  margin: 10px 0 7px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.download-verification code {
+  display: block;
+  overflow-wrap: anywhere;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .compatibility-list { display: grid; gap: 13px; }
 .compatibility-list li { padding: 16px 18px; border-left: 3px solid var(--signal-blue); background: #eaf4ff; color: #34445d; }
 .compatibility-list strong { color: var(--ink); }

@@ -313,6 +313,22 @@ test("links both HeatSleuth pages to the verified versioned download", async () 
   }
 });
 
+test("keeps technical package verification optional on the HeatSleuth download cards", async () => {
+  const english = await html(heatSleuth.english);
+  const chinese = await html(heatSleuth.chinese);
+
+  for (const [page, route, summary, trust] of [
+    [english, heatSleuth.english, "Verify this download", "Apple notarized · Developer ID signed"],
+    [chinese, heatSleuth.chinese, "验证下载文件", "Apple 已公证 · Developer ID 签名"]
+  ]) {
+    assert.match(page, /<details class="download-verification">/u, `${route} must provide an optional verification disclosure`);
+    assert.match(page, new RegExp(`<summary>${escapeRegExp(summary)}</summary>`, "u"), route);
+    assert.ok(page.includes(heatSleuthDownloadHash), `${route} must retain the exact package hash`);
+    assert.ok(page.includes(trust), `${route} must keep the concise notarization and signing signal`);
+    assert.doesNotMatch(page, /<dt>SHA-256<\/dt>/u, `${route} must not put the long hash in primary metadata`);
+  }
+});
+
 test("discloses HeatSleuth installation, compatibility, and local-only privacy boundaries", async () => {
   const english = visibleCopy(await html(heatSleuth.english));
   const chinese = visibleCopy(await html(heatSleuth.chinese));
