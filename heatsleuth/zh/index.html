@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="HeatSleuth 帮你定位让 Mac 持续发热的任务与进程，在决定是否停止前看清影响，并在操作后验证是否改善。 | HeatSleuth">
+  <meta name="robots" content="index,follow">
+  <title>HeatSleuth｜找出 Mac 发热的真正原因</title>
+  <link rel="canonical" href="https://liangxiaoaitool.top/heatsleuth/zh/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://liangxiaoaitool.top/heatsleuth/zh/">
+  <link rel="alternate" hreflang="en" href="https://liangxiaoaitool.top/heatsleuth/">
+  <link rel="alternate" hreflang="x-default" href="https://liangxiaoaitool.top/heatsleuth/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="HeatSleuth｜找出 Mac 发热的真正原因">
+  <meta property="og:description" content="定位发热任务，谨慎决定下一步，并验证是否改善。">
+  <meta property="og:url" content="https://liangxiaoaitool.top/heatsleuth/zh/">
+  <meta property="og:image" content="https://liangxiaoaitool.top/heatsleuth/assets/heat-sleuth-overview.png">
+  <meta property="og:image:alt" content="HeatSleuth 应用界面">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HeatSleuth｜找出 Mac 发热的真正原因">
+  <meta name="twitter:description" content="定位发热任务，谨慎决定下一步，并验证是否改善。">
+  <link rel="icon" type="image/svg+xml" href="/heatsleuth/assets/icon.svg">
+  <link rel="stylesheet" href="/heatsleuth/assets/styles.css">
+  <script defer src="/heatsleuth/assets/language.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "HeatSleuth",
+    "url": "https://liangxiaoaitool.top/heatsleuth/zh/",
+    "image": "https://liangxiaoaitool.top/heatsleuth/assets/icon-512.png",
+    "screenshot": "https://liangxiaoaitool.top/heatsleuth/assets/heat-sleuth-overview.png",
+    "applicationCategory": "UtilitiesApplication",
+    "applicationSubCategory": "Mac process and heat diagnosis",
+    "operatingSystem": "macOS 14 或更高版本",
+    "softwareVersion": "1.0 (2)",
+    "fileSize": "1.2 MB",
+    "downloadUrl": "https://liangxiaoaitool.top/heatsleuth/downloads/HeatSleuth-1.0-build-2.zip",
+    "description": "帮助 Mac 用户定位持续发热的任务与进程，在决定是否停止前看清影响，并在操作后验证是否改善。"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "HeatSleuth 只是温度监控工具吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不是。HeatSleuth 会将持续负载与相关任务、主要进程和系统状态放在同一条诊断路径上，帮助你决定下一步，而不只是显示一个温度数字。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "HeatSleuth 会自动结束进程吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不会。HeatSleuth 不会自动结束进程；在明确确认前，你可以先查看目标与影响，再自行决定是否停止。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "每一台 Mac 都能显示相同的传感器吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不能保证。不同 Mac 的型号和可用接口不同；传感器不可用时，HeatSleuth 会明确标注无读数，而不会把它当作硬件故障结论。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "诊断数据会上传吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不会。当前诊断数据只在本机内存中处理；HeatSleuth 不需要账户、管理员 Helper 或云端同步。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "HeatSleuth 支持哪些 Mac？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "HeatSleuth 1.0 (2) 需要 macOS 14 或更高版本，并提供 Intel 与 Apple Silicon 的 Universal 二进制。"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="HeatSleuth 主导航">
+      <a class="brand" href="/heatsleuth/zh/"><img src="/heatsleuth/assets/icon.svg" alt="HeatSleuth 应用图标">HeatSleuth</a>
+      <div class="nav-links">
+        <a href="#how-it-works">工作方式</a>
+        <a href="#privacy">隐私与安全</a>
+        <a href="#download">下载</a>
+        <a class="language-link" href="/heatsleuth/?lang=en" data-language-choice="en" lang="en">English</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">为 macOS 14+ 打造的发热诊断工具</p>
+          <h1 id="hero-title">Mac 发热时，先看清是谁在占用，再决定要不要停。</h1>
+          <p class="hero-copy">HeatSleuth 不把温度、风扇和一长串指标堆给你。它把持续负载对应到当前任务和进程，帮助你先理解、再决定、最后验证变化。</p>
+          <div class="actions">
+            <a class="button primary" href="/heatsleuth/downloads/HeatSleuth-1.0-build-2.zip" download>下载 HeatSleuth 1.0 (2)</a>
+            <a class="button" href="#how-it-works">查看工作方式</a>
+          </div>
+          <div class="trust-row" aria-label="版本与系统要求"><span>macOS 14+</span><span>Universal：Intel 与 Apple Silicon</span><span>Developer ID 已公证</span></div>
+        </div>
+        <aside class="hero-panel" aria-label="HeatSleuth 诊断闭环">
+          <div class="panel-top">
+            <div class="panel-brand"><img src="/heatsleuth/assets/icon.svg" alt=""><div><strong>HeatSleuth</strong><small>发热，有解释</small></div></div>
+            <span class="status-pill">仅在本机</span>
+          </div>
+          <ol class="panel-list">
+            <li class="panel-item"><b class="panel-number">01</b><span>定位值得关注的持续负载。</span></li>
+            <li class="panel-item"><b class="panel-number">02</b><span>从负载来源追到具体进程，再判断影响。</span></li>
+            <li class="panel-item"><b class="panel-number">03</b><span>操作之后，验证 Mac 是否真的改善。</span></li>
+          </ol>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section soft" aria-labelledby="overview-title">
+      <div class="shell">
+        <div class="section-heading"><p class="eyebrow">真实应用界面</p><h2 id="overview-title">从一眼发现，到下一步动作</h2><p>HeatSleuth 将当前状态、相关任务和后续验证放在同一条路径上。你不需要先在多个窗口之间猜测，才知道下一步该做什么。</p></div>
+        <figure class="product-shot">
+          <img src="/heatsleuth/assets/heat-sleuth-overview.png" width="2520" height="1100" alt="HeatSleuth 的应用界面">
+          <figcaption>当前原生 macOS 界面。动态读数取决于你的 Mac 硬件和当前工作负载。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works" aria-labelledby="how-it-works-title">
+      <div class="shell">
+        <div class="section-heading"><p class="eyebrow">三步诊断闭环</p><h2 id="how-it-works-title">先看见原因，再做有根据的动作</h2><p>发热不是一个结论，而是一个需要判断的状态。HeatSleuth 用同一条闭环连接原因、决定和结果。</p></div>
+        <div class="grid three">
+          <article class="card"><span class="card-number">01</span><h3>定位发热任务</h3><p>把持续负载与具体任务、主要进程和系统状态放在一起看，而不是只给一个瞬时数字。</p></article>
+          <article class="card"><span class="card-number">02</span><h3>判断是否结束</h3><p>先看目标与影响，再决定是正常退出、暂不处理，还是在明确确认后停止目标进程。</p></article>
+          <article class="card"><span class="card-number">03</span><h3>验证是否改善</h3><p>操作后继续观察同一目标和系统基线，判断负载、温度或风扇状态是否真的有变化。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="features-title">
+      <div class="shell">
+        <div class="section-heading"><p class="eyebrow">核心能力</p><h2 id="features-title">为“下一步怎么办”而设计</h2><p>常规 Mac 温度监控告诉你系统正在发生什么；HeatSleuth 进一步帮助你把持续负载放回实际任务中理解。</p></div>
+        <div class="grid three">
+          <article class="card"><h3>按任务理解负载</h3><p>将负载来源整理为可理解的任务，避免只面对按 CPU 排序的一长串进程。</p></article>
+          <article class="card"><h3>看见主要进程</h3><p>查看来源中的主要进程与总负载，让“是谁在占用”有可追踪的上下文。</p></article>
+          <article class="card"><h3>把决定留给你</h3><p>在确认前先说明目标与影响；HeatSleuth 不会自动结束进程。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section ink" id="privacy" aria-labelledby="privacy-title">
+      <div class="shell privacy-grid">
+        <div>
+          <div class="section-heading"><p class="eyebrow">本机优先</p><h2 id="privacy-title">你的诊断数据留在你的 Mac 上</h2><p>当前诊断数据只在本机内存中处理。HeatSleuth 不需要账户、云端同步或管理员 Helper，也不会把诊断过程变成上传服务。</p></div>
+          <ul class="check-list">
+            <li>安装和使用不依赖常驻的管理员辅助程序。</li>
+            <li>为读取当前用户进程信息，应用未启用 App Sandbox。</li>
+            <li>传感器不可用时会明确标注，而不把无读数伪装成精确结论。</li>
+            <li>停止进程需要用户操作、身份复核和确认；HeatSleuth 不会自动结束任务。</li>
+          </ul>
+        </div>
+        <div class="feature-list">
+          <article class="feature-row"><span class="feature-icon">◎</span><div><h3>传感器差异如实说明</h3><p>不同 Mac 的型号与可用接口不同。温度、风扇或其他传感器没有读数时，应用会说明当前状态，而不是承诺所有 Mac 都能显示相同指标。</p></div></article>
+          <article class="feature-row"><span class="feature-icon">⌁</span><div><h3>不控制硬件散热</h3><p>HeatSleuth 用可用读数帮助诊断，但不会修改风扇策略，也不是硬件散热控制工具。</p></div></article>
+          <article class="feature-row"><span class="feature-icon">↗</span><div><h3>直接分发，透明说明</h3><p>当前是 Developer ID 直发测试版，已通过 Apple 公证。它不是 Mac App Store 版本。</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="download" aria-labelledby="download-title">
+      <div class="shell grid two">
+        <div>
+          <div class="section-heading"><p class="eyebrow">安装与校验</p><h2 id="download-title">下载后，几步开始排查</h2><p>HeatSleuth 以 ZIP 包直接分发。当前版本为 1.0 (2)。</p></div>
+          <ol class="install-steps">
+            <li><strong>下载 ZIP 包</strong><a href="/heatsleuth/downloads/HeatSleuth-1.0-build-2.zip" download>下载 HeatSleuth 1.0 (2)</a>，文件大小为 1.2 MB。</li>
+            <li><strong>解压 ZIP 包并移动应用</strong>解压下载的文件后，将 <code>HeatSleuth.app</code> 移到“应用程序”文件夹。</li>
+            <li><strong>按 macOS 提示首次打开</strong>首次运行时按 macOS 的提示完成打开，然后从应用主界面或菜单栏开始查看当前状态。</li>
+          </ol>
+        </div>
+        <aside class="download-card">
+          <h3>HeatSleuth 1.0 (2)</h3>
+          <p>面向直接分发的 Universal、已公证 macOS 版本。</p>
+          <dl class="metadata">
+            <div><dt>系统</dt><dd>macOS 14 或更高版本</dd></div>
+            <div><dt>架构</dt><dd>Intel 与 Apple Silicon</dd></div>
+            <div><dt>文件</dt><dd>1.2 MB ZIP</dd></div>
+            <div><dt>签名</dt><dd>Notarized Developer ID</dd></div>
+            <div><dt>SHA-256</dt><dd><code>7bdb18b8348d3cc54487846b43233a821d8b1072828c9947de4a0a58fbb62a2c</code></dd></div>
+          </dl>
+          <a class="button dark" href="/heatsleuth/downloads/HeatSleuth-1.0-build-2.zip" download>下载 Mac 版</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section soft" id="compatibility" aria-labelledby="compatibility-title">
+      <div class="shell grid two">
+        <div>
+          <div class="section-heading"><p class="eyebrow">兼容性与边界</p><h2 id="compatibility-title">支持现代 Mac，但不承诺不存在的读数</h2><p>HeatSleuth 1.0 (2) 需要 macOS 14 或更高版本，并提供 Intel 与 Apple Silicon 的 Universal 二进制。</p></div>
+          <ul class="compatibility-list">
+            <li><strong>系统：</strong>macOS 14 或更高版本。</li>
+            <li><strong>架构：</strong>Universal（Intel + Apple Silicon）。</li>
+            <li><strong>传感器：</strong>可用读数因 Mac 型号和 macOS 支持而异；不可用时会明确标注。</li>
+            <li><strong>分发：</strong>Developer ID 直发测试版，已 Apple 公证。</li>
+          </ul>
+        </div>
+        <div id="faq">
+          <div class="section-heading"><p class="eyebrow">常见问题</p><h2>下载前先确认这几件事</h2><p>以下说明与当前版本的公开功能和边界保持一致。</p></div>
+          <div class="faq-list">
+            <details><summary>HeatSleuth 只是温度监控工具吗？</summary><p>不是。HeatSleuth 会将持续负载与相关任务、主要进程和系统状态放在同一条诊断路径上，帮助你决定下一步，而不只是显示一个温度数字。</p></details>
+            <details><summary>HeatSleuth 会自动结束进程吗？</summary><p>不会。HeatSleuth 不会自动结束进程；在明确确认前，你可以先查看目标与影响，再自行决定是否停止。</p></details>
+            <details><summary>每一台 Mac 都能显示相同的传感器吗？</summary><p>不能保证。不同 Mac 的型号和可用接口不同；传感器不可用时，HeatSleuth 会明确标注无读数，而不会把它当作硬件故障结论。</p></details>
+            <details><summary>诊断数据会上传吗？</summary><p>不会。当前诊断数据只在本机内存中处理；HeatSleuth 不需要账户、管理员 Helper 或云端同步。</p></details>
+            <details><summary>HeatSleuth 支持哪些 Mac？</summary><p>HeatSleuth 1.0 (2) 需要 macOS 14 或更高版本，并提供 Intel 与 Apple Silicon 的 Universal 二进制。</p></details>
+          </div>
+          <div class="reading-list" aria-label="进一步阅读"><span>进一步阅读：</span><a href="#how-it-works">诊断闭环</a><a href="#privacy">本机隐私与安全</a><a href="#download">安装与文件校验</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="final-cta-title">
+      <div class="shell final-cta">
+        <div><h2 id="final-cta-title">准备开始排查 Mac 的发热来源？</h2><p>下载 HeatSleuth 1.0 (2)，先定位正在持续占用资源的任务，再决定下一步。</p></div>
+        <a class="button primary" href="/heatsleuth/downloads/HeatSleuth-1.0-build-2.zip" download>下载 HeatSleuth</a>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="shell footer-row"><span>HeatSleuth 是本机 macOS 发热诊断工具。传感器可用性因硬件和 macOS 版本而异。</span><div class="footer-links"><a href="#privacy">隐私与安全</a><a href="#compatibility">兼容性</a><a href="/heatsleuth/?lang=en" data-language-choice="en" lang="en">English</a></div></div></footer>
+</body>
+</html>
