@@ -43,7 +43,8 @@ const heatSleuth = {
   chinese: "heatsleuth/zh/index.html",
   styles: "heatsleuth/assets/styles.css",
   languageScript: "heatsleuth/assets/language.js",
-  screenshot: "heatsleuth/assets/heat-sleuth-overview.png",
+  englishScreenshot: "heatsleuth/assets/heat-sleuth-overview-en.png",
+  chineseScreenshot: "heatsleuth/assets/heat-sleuth-overview.png",
   icon: "heatsleuth/assets/icon.svg",
   download: "heatsleuth/downloads/HeatSleuth-1.0-build-3.dmg"
 };
@@ -258,13 +259,21 @@ test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", asyn
   assert.match(redirects, /^\/support\/ \/adquiet\/support\/ 301/mu);
 });
 
-test("publishes complete bilingual HeatSleuth pages with the shared product assets", async () => {
+test("publishes complete bilingual HeatSleuth pages with locale-matched product assets", async () => {
   const pages = [
-    { route: heatSleuth.english, lang: "en" },
-    { route: heatSleuth.chinese, lang: "zh-(?:Hans|CN)" }
+    {
+      route: heatSleuth.english,
+      lang: "en",
+      screenshot: "/heatsleuth/assets/heat-sleuth-overview-en.png"
+    },
+    {
+      route: heatSleuth.chinese,
+      lang: "zh-(?:Hans|CN)",
+      screenshot: "/heatsleuth/assets/heat-sleuth-overview.png"
+    }
   ];
 
-  for (const { route, lang } of pages) {
+  for (const { route, lang, screenshot } of pages) {
     const page = await html(route);
     assert.match(page, /<!doctype html>/iu, route);
     assert.match(page, new RegExp(`<html\\s+lang="${lang}"`, "u"), route);
@@ -293,7 +302,7 @@ test("publishes complete bilingual HeatSleuth pages with the shared product asse
     assert.ok(
       images.some(
         (image) =>
-          attributeValue(image, "src") === "/heatsleuth/assets/heat-sleuth-overview.png" &&
+          attributeValue(image, "src") === screenshot &&
           Boolean(attributeValue(image, "alt")?.trim())
       ),
       `${route} must include the real HeatSleuth overview screenshot with alt text`
@@ -325,6 +334,38 @@ test("uses the approved HeatSleuth titles and hero messages", async () => {
     chinese,
     /<h1[^>]*>\s*Mac 发热时，先看清是谁在占用，再决定要不要停。\s*<\/h1>/u
   );
+});
+
+test("uses locale-matched HeatSleuth screenshots and a navigation-style language link", async () => {
+  const [english, chinese, styles] = await Promise.all([
+    html(heatSleuth.english),
+    html(heatSleuth.chinese),
+    readFile(new URL(`../${heatSleuth.styles}`, import.meta.url), "utf8")
+  ]);
+  const englishScreenshotUrl = "/heatsleuth/assets/heat-sleuth-overview-en.png";
+  const chineseScreenshotUrl = "/heatsleuth/assets/heat-sleuth-overview.png";
+
+  assert.ok(
+    hasTagWithAttributes(english, "img", { src: englishScreenshotUrl }),
+    "English product image must use the English app screenshot"
+  );
+  assert.ok(
+    hasTagWithAttributes(english, "meta", {
+      property: "og:image",
+      content: `${heatSleuthEnglishUrl}assets/heat-sleuth-overview-en.png`
+    }),
+    "English social preview must use the English app screenshot"
+  );
+  assert.ok(
+    hasTagWithAttributes(chinese, "img", { src: chineseScreenshotUrl }),
+    "Chinese product image must keep the Chinese app screenshot"
+  );
+
+  const languageLinkRule =
+    styles.match(/\.language-link\s*\{(?<rule>[^}]*)\}/u)?.groups?.rule ?? "";
+  assert.doesNotMatch(languageLinkRule, /\bborder\s*:/u);
+  assert.doesNotMatch(languageLinkRule, /\bborder-radius\s*:/u);
+  assert.match(styles, /\.language-link::before\s*\{/u);
 });
 
 test("sets canonical and reciprocal hreflang links for HeatSleuth", async () => {
@@ -538,17 +579,25 @@ test("uses only local HeatSleuth scripts, safe external links, and explicit lang
 });
 
 test("ships the exact notarized HeatSleuth package and local visual assets", async () => {
-  const [styles, icon, screenshot, archive] = await Promise.all([
+  const [styles, icon, englishScreenshot, chineseScreenshot, archive] = await Promise.all([
     readFile(new URL(`../${heatSleuth.styles}`, import.meta.url), "utf8"),
     readFile(new URL(`../${heatSleuth.icon}`, import.meta.url), "utf8"),
-    readFile(new URL(`../${heatSleuth.screenshot}`, import.meta.url)),
+    readFile(new URL(`../${heatSleuth.englishScreenshot}`, import.meta.url)),
+    readFile(new URL(`../${heatSleuth.chineseScreenshot}`, import.meta.url)),
     readFile(new URL(`../${heatSleuth.download}`, import.meta.url))
   ]);
 
   assert.ok(styles.trim(), "HeatSleuth stylesheet must not be empty");
   assert.doesNotMatch(styles, /@import\s+(?:url\()?['"]?https?:\/\//iu);
   assert.match(icon, /<svg\b/iu);
-  assert.deepEqual(screenshot.subarray(0, 8), Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+  for (const screenshot of [englishScreenshot, chineseScreenshot]) {
+    assert.deepEqual(
+      screenshot.subarray(0, 8),
+      Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])
+    );
+    assert.equal(screenshot.readUInt32BE(16), 2520);
+    assert.equal(screenshot.readUInt32BE(20), 1100);
+  }
   assert.equal(archive.length, heatSleuthDownloadSize);
   assert.equal(archive.subarray(-512, -508).toString("ascii"), "koly");
   assert.equal(createHash("sha256").update(archive).digest("hex"), heatSleuthDownloadHash);

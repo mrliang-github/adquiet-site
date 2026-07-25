@@ -100,9 +100,20 @@ a:focus-visible {
 .nav-links a:hover { color: var(--white); }
 
 .language-link {
-  padding: 6px 10px;
-  border: 1px solid rgba(219, 227, 239, 0.28);
-  border-radius: 999px;
+  position: relative;
+  margin-left: 2px;
+  padding-left: 18px;
+}
+
+.language-link::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1px;
+  height: 16px;
+  background: rgba(219, 227, 239, 0.28);
+  content: "";
+  transform: translateY(-50%);
 }
 
 .hero {
