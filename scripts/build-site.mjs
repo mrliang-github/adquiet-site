@@ -241,6 +241,7 @@ function toolRow(tool, index) {
 
 function homePage(articles) {
   const featuredWriting = articles.slice(0, 3).map(writingItem).join("");
+  const featuredTools = tools.filter((tool) => tool.featured);
   const currentNotes = buildNotes
     .map(
       (note) => `<article class="now-note">
@@ -298,10 +299,10 @@ function homePage(articles) {
 
     <section class="section" aria-labelledby="tools-heading">
       <div class="section-head">
-        <div><p class="section-kicker">TOOLS &amp; PRODUCTS</p><h2 id="tools-heading" class="section-title">做过的工具，不放大成产品矩阵</h2></div>
-        <a class="section-link" href="/tools/">全部工具</a>
+        <div><p class="section-kicker">SELECTED PROJECTS</p><h2 id="tools-heading" class="section-title">最近想让人先看到的两个项目</h2></div>
+        <a class="section-link" href="/tools/">完整项目档案</a>
       </div>
-      <ol class="tool-list">${tools.slice(0, 3).map(toolRow).join("")}</ol>
+      <ol class="tool-list">${featuredTools.map(toolRow).join("")}</ol>
     </section>
   </div>
 </main>`
@@ -371,9 +372,9 @@ function toolsPage() {
   return documentPage({
     pathname: "/tools/",
     title: "工具",
-    description: "良逍公开产品、开源工具和内部工作台的入口。",
+    description: "良逍公开产品、在线工具和开源项目的入口。",
     body: `<main id="content" class="site-main"><div class="site-shell">
-  <header class="page-header"><div><p class="page-kicker">TOOLS &amp; PRODUCTS</p><h1 class="page-heading">有些工具已经上线，有些只是把自己的麻烦先处理掉。</h1><p class="page-lede">这里放我实际做过、正在维护，或已经公开出来的工具。内部工作台会明确标注，不把登录入口伪装成公开产品。</p></div><aside class="page-aside"><p>对外产品和个人工具在这里集中；各自的独立官网仍保留原路径。</p></aside></header>
+  <header class="page-header"><div><p class="page-kicker">TOOLS &amp; PRODUCTS</p><h1 class="page-heading">有些工具已经上线，有些只是把自己的麻烦先处理掉。</h1><p class="page-lede">这里留一份公开项目档案：独立产品、在线工具和开源项目都在，但不把它们包装成同一套产品。</p></div><aside class="page-aside"><p>这是索引，不是统一的营销官网；每个项目继续保留自己的表达和入口。</p></aside></header>
   <section class="section"><ol class="tool-list">${tools.map(toolRow).join("")}</ol></section>
 </div></main>`
   });
@@ -386,7 +387,7 @@ function aboutPage() {
     description: "关于良逍：设计出身的产品经理，持续探索 AI 产品、独立开发和出海工具。",
     body: `<main id="content" class="site-main"><div class="site-shell">
   <header class="page-header page-header--compact"><div><p class="page-kicker">ABOUT</p><h1 class="page-heading">先做，再慢慢把自己的方法长出来。</h1><p class="page-lede">我是良逍。这个站点是我做产品、写文章和继续尝试新工具时共用的入口。</p></div><aside class="page-aside"><p>这里记录的是个人项目和公开内容，不是公司官网。</p></aside></header>
-  <div class="about-grid"><div><section class="about-block"><h2>我在做什么</h2><p>我是设计出身的产品经理，主业做跨境电商 CMS/ERP。业余时间，我用 AI 做 iOS 和 Web 产品，也在探索出海和个人产品。</p><p>我不太想把每个尝试都包装成一个确定的故事。更愿意把做出来的工具、真实的限制和当时的判断放在一起，后面再看哪些经得起时间。</p></section><section class="about-block"><h2>这个站点怎么用</h2><p><a href="/writing/">写作</a> 是已经发布的长文；<a href="/building/">在做</a> 是构建过程的复盘入口；<a href="/tools/">工具</a> 放产品、开源项目和需要登录的内部工作台。</p><p>如果你也在做 AI 工具、独立开发或出海产品，欢迎从文章或工具开始了解我在折腾什么。</p></section></div><aside class="about-note"><h2>LINKS</h2><p>更即时的公开更新放在 X；代码和开源项目放在 GitHub。</p><ul class="contact-list"><li><span>X</span><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">@lingxio71220285</a></li><li><span>GITHUB</span><a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">mrliang-github</a></li></ul></aside></div>
+  <div class="about-grid"><div><section class="about-block"><h2>我在做什么</h2><p>我是设计出身的产品经理，主业做跨境电商 CMS/ERP。业余时间，我用 AI 做 iOS 和 Web 产品，也在探索出海和个人产品。</p><p>我不太想把每个尝试都包装成一个确定的故事。更愿意把做出来的工具、真实的限制和当时的判断放在一起，后面再看哪些经得起时间。</p></section><section class="about-block"><h2>这个站点怎么用</h2><p><a href="/writing/">写作</a> 是已经发布的长文；<a href="/building/">在做</a> 是构建过程的复盘入口；<a href="/tools/">工具</a> 留一份公开产品、在线工具和开源项目的档案。</p><p>如果你也在做 AI 工具、独立开发或出海产品，欢迎从文章或工具开始了解我在折腾什么。</p></section></div><aside class="about-note"><h2>LINKS</h2><p>更即时的公开更新放在 X；代码和开源项目放在 GitHub。</p><ul class="contact-list"><li><span>X</span><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">@lingxio71220285</a></li><li><span>GITHUB</span><a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">mrliang-github</a></li></ul></aside></div>
 </div></main>`
   });
 }

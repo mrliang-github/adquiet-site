@@ -96,7 +96,8 @@ export const tools = [
     status: "测试版 · 直接下载",
     description: "Mac 发热时，先看清是谁在占用，再决定要不要停。",
     href: "/heatsleuth/",
-    external: false
+    external: false,
+    featured: true
   },
   {
     name: "AdQuiet",
@@ -112,15 +113,8 @@ export const tools = [
     status: "公开可用",
     description: "把 Markdown 排成可复制到公众号编辑器的文章。",
     href: "https://md.liangxiaoaitool.top/",
-    external: true
-  },
-  {
-    name: "公司账套工作台",
-    category: "内部工作台",
-    status: "需要登录",
-    description: "用于公司账套工作的内部工作台，不作为公开产品宣传。",
-    href: "https://voucher.liangxiaoaitool.top/",
-    external: true
+    external: true,
+    featured: true
   },
   {
     name: "Mac 发票 OCR",

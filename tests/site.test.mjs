@@ -163,9 +163,28 @@ test("uses the root route as a Chinese-first personal homepage", async () => {
   assert.match(page, /href="\/writing\/"/u);
   assert.match(page, /href="\/building\/"/u);
   assert.match(page, /href="\/tools\/"/u);
-  assert.match(page, /href="\/adquiet\/"/u);
   assert.match(page, /href="\/heatsleuth\/"/u);
   assert.doesNotMatch(page, /Less interruption\. More watching\./u);
+});
+
+test("separates homepage picks from the complete public project archive", async () => {
+  const home = await html(routes.home);
+  const archive = await html(routes.tools);
+
+  assert.match(home, /最近想让人先看到的两个项目/u);
+  assert.match(home, /href="\/heatsleuth\/"/u);
+  assert.match(home, /href="https:\/\/md\.liangxiaoaitool\.top\/"/u);
+  assert.doesNotMatch(home, /href="\/adquiet\/"/u);
+  assert.doesNotMatch(home, /cn-vat-invoice-ocr/u);
+
+  assert.match(archive, /href="\/heatsleuth\/"/u);
+  assert.match(archive, /href="\/adquiet\/"/u);
+  assert.match(archive, /href="https:\/\/md\.liangxiaoaitool\.top\/"/u);
+  assert.match(archive, /cn-vat-invoice-ocr/u);
+
+  for (const route of personalRoutes) {
+    assert.doesNotMatch(await html(route), /voucher\.liangxiaoaitool\.top/u, route);
+  }
 });
 
 test("keeps AdQuiet on its own product route and Chrome Web Store listing", async () => {
