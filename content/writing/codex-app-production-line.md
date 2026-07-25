@@ -1,7 +1,7 @@
 ---
 title: "Codex 一周重置 4 次额度，我推进 2 个 App，把送审自动化了"
 date: "2026-07-17"
-description: "Codex 一周重置 4 次额度。我这几天用了超过 37 亿 token，推进两个 App，并跑通从商店数据、需求、开发到营销素材、Apple 后台和提交审核的整条流程。"
+description: "这一周 Codex 重置了 4 次额度。我用它推进两个 App，从商店资料一路做到提交审核。"
 cover: "https://img.liangxiaoaitool.top/2026/07/gzh-illust-00-cover.png"
 tags: ["AI 产品","Codex","App Store"]
 source: "2026-07-17-Codex一周重置4次额度我推进2个App把送审自动化了.md"

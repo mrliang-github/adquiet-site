@@ -169,7 +169,7 @@ function siteHeader(currentPath) {
 function siteFooter() {
   return `<footer class="site-footer">
   <div class="footer-grid">
-    <p class="footer-copy">© 2026 良逍 · 把想法做成东西，再把过程写下来。</p>
+    <p class="footer-copy">© 2026 良逍</p>
     <ul class="footer-links">
       <li><a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">GitHub</a></li>
       <li><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">X</a></li>
@@ -217,7 +217,7 @@ function writingItem(article) {
     <p class="writing-summary">${escapeHtml(article.description)}</p>
     ${tagList(article.tags)}
   </div>
-  <p class="writing-side">公众号已发布稿的静态存档。<br><a class="entry-link" href="/writing/${article.slug}/">读全文</a></p>
+  <p class="writing-side">发于公众号。<br><a class="entry-link" href="/writing/${article.slug}/">阅读全文</a></p>
 </li>`;
 }
 
@@ -254,53 +254,53 @@ function homePage(articles) {
 
   return documentPage({
     pathname: "/",
-    title: "把想法做成东西",
-    description: "良逍的个人主页：记录 AI 产品、独立开发、工具和从想法到上线的过程。",
+    title: "",
+    description: "良逍的个人主页。这里放我写的文章、做过的工具，以及最近在忙的项目。",
     body: `<main id="content" class="site-main">
   <div class="site-shell">
     <section class="home-intro" aria-labelledby="home-title">
       <div>
-        <p class="home-kicker">LIANGXIAO / PERSONAL WORKBENCH</p>
-        <h1 id="home-title" class="home-title">把想法<br>做成<em>东西</em>，<br>再把过程写下来。</h1>
-        <p class="home-deck">设计出身的产品经理，主业做跨境电商 CMS/ERP；业余用 AI 做 iOS 和 Web 产品，也把一路上的选择、卡点和工作流留下来。</p>
+        <p class="home-kicker">LIANGXIAO / PERSONAL SITE</p>
+        <h1 id="home-title" class="home-title">你好，<br>我是<em>良逍</em>。<br>这里放我做的东西。</h1>
+        <p class="home-deck">设计出身，现在做产品。白天做跨境电商 CMS/ERP，业余时间写代码，做 iOS App 和 Web 工具。</p>
         <div class="home-links">
-          <a class="button-link" href="/writing/">从写作开始</a>
-          <a class="button-link button-link--quiet" href="/tools/">看做过的工具</a>
+          <a class="button-link" href="/writing/">看文章</a>
+          <a class="button-link button-link--quiet" href="/tools/">看工具</a>
         </div>
       </div>
       <aside class="home-meta">
-        <span class="home-meta-title">THIS SITE</span>
-        <p>不是产品货架。<br>这里放正在做的事、已经上线的工具，和那些还在继续验证的想法。</p>
-        <p><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">在 X 关注公开构建</a></p>
+        <span class="home-meta-title">ABOUT THIS SITE</span>
+        <p>这个域名最早只是 AdQuiet 的官网。后来又有了 App、文章和几个小工具，就慢慢变成了现在这样。</p>
+        <p><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">去 X 看零碎更新</a></p>
       </aside>
     </section>
 
     <section class="section home-grid" aria-labelledby="now-heading">
       <div>
         <div class="section-head">
-          <div><p class="section-kicker">NOW / 2026.07</p><h2 id="now-heading" class="section-title">这会儿在做的事</h2></div>
-          <a class="section-link" href="/building/">完整记录</a>
+          <div><p class="section-kicker">RECENTLY / 2026.07</p><h2 id="now-heading" class="section-title">最近做了什么</h2></div>
+          <a class="section-link" href="/building/">查看更多</a>
         </div>
         ${currentNotes}
       </div>
       <aside class="home-side-note">
-        <p>公开构建不是把每一步都做成公告，而是把我愿意复盘的工作留下来：做了什么、为什么这么做、哪些结论还要继续验证。</p>
-        <p class="rule-note">X 的单条更新会在有可核验链接后再同步到这里。</p>
+        <p>项目做完一段，我会在这里记一笔。更零碎的进度发在 X。</p>
+        <p class="rule-note"><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">去 X 看看</a></p>
       </aside>
     </section>
 
     <section class="section" aria-labelledby="writing-heading">
       <div class="section-head">
-        <div><p class="section-kicker">WRITING</p><h2 id="writing-heading" class="section-title">最近写下来的</h2></div>
-        <a class="section-link" href="/writing/">全部文章</a>
+        <div><p class="section-kicker">WRITING</p><h2 id="writing-heading" class="section-title">最近写的文章</h2></div>
+        <a class="section-link" href="/writing/">查看全部</a>
       </div>
       <ol class="writing-list">${featuredWriting}</ol>
     </section>
 
     <section class="section" aria-labelledby="tools-heading">
       <div class="section-head">
-        <div><p class="section-kicker">SELECTED PROJECTS</p><h2 id="tools-heading" class="section-title">最近想让人先看到的两个项目</h2></div>
-        <a class="section-link" href="/tools/">完整项目档案</a>
+        <div><p class="section-kicker">TOOLS</p><h2 id="tools-heading" class="section-title">做过的工具</h2></div>
+        <a class="section-link" href="/tools/">查看全部</a>
       </div>
       <ol class="tool-list">${featuredTools.map(toolRow).join("")}</ol>
     </section>
@@ -317,8 +317,8 @@ function writingIndexPage(articles) {
     body: `<main id="content" class="site-main">
   <div class="site-shell">
     <header class="page-header">
-      <div><p class="page-kicker">WRITING / 公众号已发布稿</p><h1 class="page-heading">把正在发生的事，写成可以回看的东西。</h1><p class="page-lede">这里同步的是已经发布的公众号文章。内容先在自己的笔记库里完成，再整理成对外可读的版本。</p></div>
-      <aside class="page-aside"><p>当前收录 ${articles.length} 篇。</p><p>文章不追求结论先行；更想留下真实的过程、选择和仍待验证的部分。</p></aside>
+      <div><p class="page-kicker">WRITING</p><h1 class="page-heading">写过的文章</h1><p class="page-lede">主要写 AI 工具、独立开发和工作流。这里收录的是已经发过的公众号文章。</p></div>
+      <aside class="page-aside"><p>当前共 ${articles.length} 篇。</p><p>内容来自我的笔记库。</p></aside>
     </header>
     <section class="section" aria-label="文章列表"><ol class="writing-list">${articles.map(writingItem).join("")}</ol></section>
   </div>
@@ -341,7 +341,7 @@ function articlePage(article) {
     <div class="article-meta"><time datetime="${article.date}">${dateLabel(article.date)}</time><span>${article.tags.map(escapeHtml).join(" · ")}</span></div>
   </header>
   <article class="article-content">${sanitizeArticle(article.body)}</article>
-  <footer class="article-footer"><p>本文由已发布的公众号稿静态同步；其中的时间、状态和结论以文章发布日期为准。</p></footer>
+  <footer class="article-footer"><p>这篇文章同步自公众号，内容按原发布日期保留。</p></footer>
 </main>`
   });
 }
@@ -351,7 +351,7 @@ function buildingPage() {
     .map(
       (note) => `<li class="build-entry">
       <time class="build-date" datetime="${note.date}">${dateLabel(note.date)}</time>
-      <div class="build-body"><p class="entry-kicker">${escapeHtml(note.label)}</p><h3><a href="/writing/${note.articleSlug}/">${escapeHtml(note.title)}</a></h3><p class="build-copy">${escapeHtml(note.description)}</p><a class="entry-link" href="/writing/${note.articleSlug}/">看这次复盘</a></div>
+      <div class="build-body"><p class="entry-kicker">${escapeHtml(note.label)}</p><h3><a href="/writing/${note.articleSlug}/">${escapeHtml(note.title)}</a></h3><p class="build-copy">${escapeHtml(note.description)}</p><a class="entry-link" href="/writing/${note.articleSlug}/">读这篇</a></div>
     </li>`
     )
     .join("");
@@ -359,11 +359,10 @@ function buildingPage() {
   return documentPage({
     pathname: "/building/",
     title: "在做",
-    description: "良逍公开构建中的产品流程、工作流和需求研究记录。",
+    description: "良逍最近做项目时留下的记录。",
     body: `<main id="content" class="site-main"><div class="site-shell">
-  <header class="page-header"><div><p class="page-kicker">BUILDING IN PUBLIC</p><h1 class="page-heading">把过程摊开一点，判断就会更具体一点。</h1><p class="page-lede">这里不记录每一次提交，而是整理那些值得复盘的构建节点：我怎么把问题拆开、怎么串流程、哪些地方还没有答案。</p></div><aside class="page-aside"><p>目前以文章复盘为主。</p><p>有明确的 X 帖子链接后，会在这里加入精选同步。</p></aside></header>
-  <section class="building-intro"><div><h2>公开构建，对我来说不是连续播报。</h2><p>它更像工作笔记的对外版本：不把未发生的结果提前写成战报，也不把还在试的路径装成方法论。</p></div><aside class="building-aside"><p>想看更短的即时更新，可以到 X。</p><a class="text-link" href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">打开 X 主页</a></aside></section>
-  <section class="section"><div class="section-head"><div><p class="section-kicker">BUILD LOG</p><h2 class="section-title">最近的构建节点</h2></div><span class="section-count">${buildNotes.length} 条</span></div><ol class="build-log">${entries}</ol></section>
+  <header class="page-header"><div><p class="page-kicker">BUILDING</p><h1 class="page-heading">最近做过的几件事</h1><p class="page-lede">最近在处理 App 送审，也整理了飞书账号和小红书评论采集流程。</p></div><aside class="page-aside"><p>长一点的记录放这里，零碎进度在 X。</p><p><a class="text-link" href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">去 X 看看</a></p></aside></header>
+  <section class="section"><div class="section-head"><div><p class="section-kicker">NOTES</p><h2 class="section-title">最近的记录</h2></div><span class="section-count">${buildNotes.length} 条</span></div><ol class="build-log">${entries}</ol></section>
 </div></main>`
   });
 }
@@ -372,9 +371,9 @@ function toolsPage() {
   return documentPage({
     pathname: "/tools/",
     title: "工具",
-    description: "良逍公开产品、在线工具和开源项目的入口。",
+    description: "良逍做过的 Mac 应用、Chrome 插件、在线工具和开源项目。",
     body: `<main id="content" class="site-main"><div class="site-shell">
-  <header class="page-header"><div><p class="page-kicker">TOOLS &amp; PRODUCTS</p><h1 class="page-heading">有些工具已经上线，有些只是把自己的麻烦先处理掉。</h1><p class="page-lede">这里留一份公开项目档案：独立产品、在线工具和开源项目都在，但不把它们包装成同一套产品。</p></div><aside class="page-aside"><p>这是索引，不是统一的营销官网；每个项目继续保留自己的表达和入口。</p></aside></header>
+  <header class="page-header"><div><p class="page-kicker">TOOLS</p><h1 class="page-heading">做过的一些工具</h1><p class="page-lede">这里目前有四个项目：Mac 应用、Chrome 插件、在线排版工具和开源 OCR 工具。</p></div><aside class="page-aside"><p>HeatSleuth 和 AdQuiet 有自己的介绍页；另外两个可以直接打开。</p></aside></header>
   <section class="section"><ol class="tool-list">${tools.map(toolRow).join("")}</ol></section>
 </div></main>`
   });
@@ -384,10 +383,10 @@ function aboutPage() {
   return documentPage({
     pathname: "/about/",
     title: "关于",
-    description: "关于良逍：设计出身的产品经理，持续探索 AI 产品、独立开发和出海工具。",
+    description: "良逍，设计出身的产品经理，业余做 iOS App 和 Web 工具。",
     body: `<main id="content" class="site-main"><div class="site-shell">
-  <header class="page-header page-header--compact"><div><p class="page-kicker">ABOUT</p><h1 class="page-heading">先做，再慢慢把自己的方法长出来。</h1><p class="page-lede">我是良逍。这个站点是我做产品、写文章和继续尝试新工具时共用的入口。</p></div><aside class="page-aside"><p>这里记录的是个人项目和公开内容，不是公司官网。</p></aside></header>
-  <div class="about-grid"><div><section class="about-block"><h2>我在做什么</h2><p>我是设计出身的产品经理，主业做跨境电商 CMS/ERP。业余时间，我用 AI 做 iOS 和 Web 产品，也在探索出海和个人产品。</p><p>我不太想把每个尝试都包装成一个确定的故事。更愿意把做出来的工具、真实的限制和当时的判断放在一起，后面再看哪些经得起时间。</p></section><section class="about-block"><h2>这个站点怎么用</h2><p><a href="/writing/">写作</a> 是已经发布的长文；<a href="/building/">在做</a> 是构建过程的复盘入口；<a href="/tools/">工具</a> 留一份公开产品、在线工具和开源项目的档案。</p><p>如果你也在做 AI 工具、独立开发或出海产品，欢迎从文章或工具开始了解我在折腾什么。</p></section></div><aside class="about-note"><h2>LINKS</h2><p>更即时的公开更新放在 X；代码和开源项目放在 GitHub。</p><ul class="contact-list"><li><span>X</span><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">@lingxio71220285</a></li><li><span>GITHUB</span><a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">mrliang-github</a></li></ul></aside></div>
+  <header class="page-header page-header--compact"><div><p class="page-kicker">ABOUT</p><h1 class="page-heading">你好，我是良逍。</h1><p class="page-lede">设计出身，现在做产品。</p></div><aside class="page-aside"><p>主业是跨境电商 CMS/ERP，业余做 iOS App 和 Web 工具。</p></aside></header>
+  <div class="about-grid"><div><section class="about-block"><h2>最近的项目</h2><p>最近做了 HeatSleuth，一款查看 Mac 发热原因的菜单栏工具。更早一些还做过 AdQuiet、MD 排版和 Mac 发票 OCR。</p></section><section class="about-block"><h2>这个网站</h2><p>这个域名最早只是为了给 AdQuiet 放一个官网。后来又做了 HeatSleuth，写的文章和小工具也越来越多，于是把根目录改成了个人主页。</p><p><a href="/writing/">写作</a> 里是发过的公众号文章，<a href="/building/">在做</a> 里是最近的项目记录，<a href="/tools/">工具</a> 里列着做过的产品和小工具。</p></section></div><aside class="about-note"><h2>LINKS</h2><p>零碎更新在 X，代码和开源项目在 GitHub。</p><ul class="contact-list"><li><span>X</span><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">@lingxio71220285</a></li><li><span>GITHUB</span><a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">mrliang-github</a></li></ul></aside></div>
 </div></main>`
   });
 }

@@ -1,7 +1,7 @@
 ---
 title: "独立站产品，用 Codex + Google Sheets 自动上架"
 date: "2026-06-23"
-description: "把独立站上新整理成一套表格驱动的流程：内容、图片、价格和状态进表，再由 Codex 更新产品内容，并由人做最终审核。"
+description: "我把商品内容、图片、价格和状态放进 Google Sheets，再用 Codex 更新独立站，最后手动检查。"
 cover: "https://img.liangxiaoaitool.top/2026/06/gzh-illust-00-cover-independent-site-codex-v4.png"
 tags: ["独立站","Codex","自动化"]
 source: "2026-06-23-独立站产品用Codex和GoogleSheets自动上架.md"

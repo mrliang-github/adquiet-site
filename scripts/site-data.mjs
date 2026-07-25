@@ -1,6 +1,6 @@
 export const site = {
   name: "良逍",
-  description: "把想法做成东西，再把过程写下来。",
+  description: "文章、工具和最近在做的东西",
   url: "https://liangxiaoaitool.top",
   xProfile: "https://x.com/lingxio71220285",
   githubProfile: "https://github.com/mrliang-github"
@@ -13,7 +13,7 @@ export const articleSelection = [
     title: "Codex 一周重置 4 次额度，我推进 2 个 App，把送审自动化了",
     date: "2026-07-17",
     description:
-      "Codex 一周重置 4 次额度。我这几天用了超过 37 亿 token，推进两个 App，并跑通从商店数据、需求、开发到营销素材、Apple 后台和提交审核的整条流程。",
+      "这一周 Codex 重置了 4 次额度。我用它推进两个 App，从商店资料一路做到提交审核。",
     cover: "https://img.liangxiaoaitool.top/2026/07/gzh-illust-00-cover.png",
     tags: ["AI 产品", "Codex", "App Store"]
   },
@@ -33,7 +33,7 @@ export const articleSelection = [
     title: "每天 5 分钟自动收集小红书评论，我用工具 + 飞书多维表搭了个产品需求情报系统",
     date: "2026-07-05",
     description:
-      "用工具采集小红书评论，沉淀到飞书多维表，再由 AI 做需求与竞品初筛；评论是线索，最终判断仍由人完成。",
+      "我把小红书评论收进飞书多维表，再让 AI 做初步分类。评论只用来找线索，最后还是自己判断。",
     cover: "https://img.liangxiaoaitool.top/2026/07/2026-07-03-小红书评论产品需求情报系统-cover.png",
     tags: ["产品需求", "小红书", "飞书多维表"]
   },
@@ -43,7 +43,7 @@ export const articleSelection = [
     title: "Claude code 不说话，就是一味的封号；Codex 也不说话，就是一味的重置",
     date: "2026-07-03",
     description:
-      "从一次工具不可用的经历出发，记录 Claude Code 和 Codex 在额度、解释和工作连续性上的不同感受。",
+      "一次工具不可用，让我重新比较了 Claude Code 和 Codex 的额度说明、错误提示和工作连续性。",
     cover: "https://img.liangxiaoaitool.top/2026/07/2026-07-03-claude-codex-cover-v1.png",
     tags: ["AI 编程", "Codex", "工具观察"]
   },
@@ -53,7 +53,7 @@ export const articleSelection = [
     title: "独立站产品，用 Codex + Google Sheets 自动上架",
     date: "2026-06-23",
     description:
-      "把独立站上新整理成一套表格驱动的流程：内容、图片、价格和状态进表，再由 Codex 更新产品内容，并由人做最终审核。",
+      "我把商品内容、图片、价格和状态放进 Google Sheets，再用 Codex 更新独立站，最后手动检查。",
     cover: "https://img.liangxiaoaitool.top/2026/06/gzh-illust-00-cover-independent-site-codex-v4.png",
     tags: ["独立站", "Codex", "自动化"]
   },
@@ -63,7 +63,7 @@ export const articleSelection = [
     title: "AI 画企业原型为什么总不像公司产品？我发现问题不在提示词",
     date: "2026-06-19",
     description:
-      "AI 画页面并不难；真正的问题是它没有看过组件库、页面样例、交互规则和评审标准。",
+      "AI 能很快画出页面，但没看过公司的组件库、页面样例和交互规则，很难像自家产品。",
     cover: "https://img.liangxiaoaitool.top/2026/06/gzh-enterprise-prototype-cover-image2-v2.png",
     tags: ["AI 原型", "产品设计", "设计系统"]
   },
@@ -73,7 +73,7 @@ export const articleSelection = [
     title: "免费模板搭完独立站后，我用 Codex + Figma 做了自己的页面设计",
     date: "2026-06-15",
     description:
-      "免费模板虽然完整，却不一定适合产品、竞品风格和询盘路径；于是先用 Codex + Figma 整理自己的页面设计。",
+      "免费模板能很快搭站，但很难同时照顾产品特点和询盘路径。我后来用 Codex + Figma 重新整理页面。",
     cover: "https://img.liangxiaoaitool.top/2026/06/gzh-figma-site-design-cover-image2-v9.png",
     tags: ["独立站", "Figma", "页面设计"]
   },
@@ -83,7 +83,7 @@ export const articleSelection = [
     title: "我开源了个 Mac 发票 OCR 工具，不接 API 也能转 Excel",
     date: "2026-06-13",
     description:
-      "用 macOS 自带 Apple Vision 做本地文字识别，把一批发票先整理成 Excel，再交给人复核关键字段。",
+      "用 Mac 自带的 Apple Vision 识别发票并导出 Excel，关键字段再手动复核。",
     cover: "https://img.liangxiaoaitool.top/2026/06/00-cover-image2-v2.png",
     tags: ["开源", "macOS", "OCR"]
   }
@@ -103,7 +103,7 @@ export const tools = [
     name: "AdQuiet",
     category: "Chrome 扩展",
     status: "Chrome Web Store",
-    description: "给 YouTube 桌面端观看页减少视频广告打断。",
+    description: "在 YouTube 桌面观看页里，少一点视频广告打断。",
     href: "/adquiet/",
     external: false
   },
@@ -111,7 +111,7 @@ export const tools = [
     name: "MD 排版",
     category: "在线工具",
     status: "公开可用",
-    description: "把 Markdown 排成可复制到公众号编辑器的文章。",
+    description: "把 Markdown 排成公众号编辑器能直接复制的样子。",
     href: "https://md.liangxiaoaitool.top/",
     external: true,
     featured: true
@@ -120,7 +120,7 @@ export const tools = [
     name: "Mac 发票 OCR",
     category: "开源工具",
     status: "GitHub 开源",
-    description: "不接 OCR API，在 Mac 本地把发票先整理成 Excel。",
+    description: "用 Mac 自带的文字识别，把发票整理成 Excel。",
     href: "https://github.com/mrliang-github/cn-vat-invoice-ocr",
     external: true
   }
@@ -131,21 +131,21 @@ export const buildNotes = [
     date: "2026-07-17",
     label: "产品流程",
     title: "把两个 App 的送审流程串起来",
-    description: "从商店数据、需求、开发、营销素材到 Apple 后台和提交审核，记录一次完整串联。",
+    description: "从商店资料、开发到提交审核，记下两个 App 是怎么送审的。",
     articleSlug: "codex-app-production-line"
   },
   {
     date: "2026-07-16",
     label: "工作流",
     title: "把公司和个人的飞书工作分开",
-    description: "两套账号和文档空间服务不同场景，减少资料混在一起带来的摩擦。",
+    description: "公司和个人各用一套飞书账号，文档和任务不再混在一起。",
     articleSlug: "two-lark-work-cards"
   },
   {
     date: "2026-07-05",
     label: "需求研究",
-    title: "把评论区变成持续积累的线索表",
-    description: "先采集、再沉淀、再初筛；评论不是结论，但可以帮助判断下一步该看什么。",
+    title: "从小红书评论里找产品线索",
+    description: "把评论收进飞书多维表，再用 AI 做初步分类。",
     articleSlug: "xiaohongshu-comment-intelligence"
   }
 ];

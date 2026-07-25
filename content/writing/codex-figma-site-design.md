@@ -1,7 +1,7 @@
 ---
 title: "免费模板搭完独立站后，我用 Codex + Figma 做了自己的页面设计"
 date: "2026-06-15"
-description: "免费模板虽然完整，却不一定适合产品、竞品风格和询盘路径；于是先用 Codex + Figma 整理自己的页面设计。"
+description: "免费模板能很快搭站，但很难同时照顾产品特点和询盘路径。我后来用 Codex + Figma 重新整理页面。"
 cover: "https://img.liangxiaoaitool.top/2026/06/gzh-figma-site-design-cover-image2-v9.png"
 tags: ["独立站","Figma","页面设计"]
 source: "2026-06-15-独立站前先把网站风格整理进Figma.md"

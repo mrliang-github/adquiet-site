@@ -158,8 +158,8 @@ test("publishes every required personal-site and AdQuiet route", async () => {
 test("uses the root route as a Chinese-first personal homepage", async () => {
   const page = await html(routes.home);
   assert.match(page, /<html lang="zh-Hans">/u);
-  assert.match(page, /把想法[\s\S]*做成/u);
-  assert.match(page, /再把过程写下来/u);
+  assert.match(page, /你好[\s\S]*我是[\s\S]*良逍/u);
+  assert.match(page, /这里放我做的东西/u);
   assert.match(page, /href="\/writing\/"/u);
   assert.match(page, /href="\/building\/"/u);
   assert.match(page, /href="\/tools\/"/u);
@@ -171,7 +171,7 @@ test("separates homepage picks from the complete public project archive", async 
   const home = await html(routes.home);
   const archive = await html(routes.tools);
 
-  assert.match(home, /最近想让人先看到的两个项目/u);
+  assert.match(home, /做过的工具/u);
   assert.match(home, /href="\/heatsleuth\/"/u);
   assert.match(home, /href="https:\/\/md\.liangxiaoaitool\.top\/"/u);
   assert.doesNotMatch(home, /href="\/adquiet\/"/u);
@@ -184,6 +184,25 @@ test("separates homepage picks from the complete public project archive", async 
 
   for (const route of personalRoutes) {
     assert.doesNotMatch(await html(route), /voucher\.liangxiaoaitool\.top/u, route);
+  }
+});
+
+test("uses direct personal copy instead of positioning disclaimers", async () => {
+  const page = await Promise.all(
+    [routes.home, routes.writing, routes.building, routes.tools, routes.about].map(html)
+  ).then((pages) => pages.join("\n"));
+
+  for (const phrase of [
+    "不是产品货架",
+    "不放大成产品矩阵",
+    "继续验证",
+    "公开构建不是",
+    "不把它们包装成同一套产品",
+    "不是统一的营销官网",
+    "把过程摊开一点",
+    "慢慢把自己的方法长出来"
+  ]) {
+    assert.doesNotMatch(page, new RegExp(phrase, "u"), phrase);
   }
 });
 

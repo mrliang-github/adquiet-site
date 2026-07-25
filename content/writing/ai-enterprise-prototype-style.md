@@ -1,7 +1,7 @@
 ---
 title: "AI 画企业原型为什么总不像公司产品？我发现问题不在提示词"
 date: "2026-06-19"
-description: "AI 画页面并不难；真正的问题是它没有看过组件库、页面样例、交互规则和评审标准。"
+description: "AI 能很快画出页面，但没看过公司的组件库、页面样例和交互规则，很难像自家产品。"
 cover: "https://img.liangxiaoaitool.top/2026/06/gzh-enterprise-prototype-cover-image2-v2.png"
 tags: ["AI 原型","产品设计","设计系统"]
 source: "2026-06-19-AI原型为什么不像公司风格.md"

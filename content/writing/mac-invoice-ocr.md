@@ -1,7 +1,7 @@
 ---
 title: "我开源了个 Mac 发票 OCR 工具，不接 API 也能转 Excel"
 date: "2026-06-13"
-description: "用 macOS 自带 Apple Vision 做本地文字识别，把一批发票先整理成 Excel，再交给人复核关键字段。"
+description: "用 Mac 自带的 Apple Vision 识别发票并导出 Excel，关键字段再手动复核。"
 cover: "https://img.liangxiaoaitool.top/2026/06/00-cover-image2-v2.png"
 tags: ["开源","macOS","OCR"]
 source: "2026-06-13-我开源了个Mac发票OCR工具，不接API也能转Excel.md"
