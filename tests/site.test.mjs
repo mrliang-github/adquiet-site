@@ -45,14 +45,14 @@ const heatSleuth = {
   languageScript: "heatsleuth/assets/language.js",
   screenshot: "heatsleuth/assets/heat-sleuth-overview.png",
   icon: "heatsleuth/assets/icon.svg",
-  download: "heatsleuth/downloads/HeatSleuth-1.0-build-2.zip"
+  download: "heatsleuth/downloads/HeatSleuth-1.0-build-3.dmg"
 };
 
-const heatSleuthDownloadUrl = "/heatsleuth/downloads/HeatSleuth-1.0-build-2.zip";
-const heatSleuthDownloadFilename = "HeatSleuth-1.0-build-2.zip";
+const heatSleuthDownloadUrl = "/heatsleuth/downloads/HeatSleuth-1.0-build-3.dmg";
+const heatSleuthDownloadFilename = "HeatSleuth-1.0-build-3.dmg";
 const heatSleuthDownloadHash =
-  "7bdb18b8348d3cc54487846b43233a821d8b1072828c9947de4a0a58fbb62a2c";
-const heatSleuthDownloadSize = 1232037;
+  "f2cc9388f7ba9bc64a9be429d395e93499759fc78e13d1e97dcc8df06759243d";
+const heatSleuthDownloadSize = 1380567;
 const heatSleuthEnglishUrl = "https://liangxiaoaitool.top/heatsleuth/";
 const heatSleuthChineseUrl = "https://liangxiaoaitool.top/heatsleuth/zh/";
 
@@ -246,6 +246,14 @@ test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", asyn
   assert.match(rss, /codex-app-production-line/u);
   assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/writing\//u);
   assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/heatsleuth\//u);
+  assert.match(
+    sitemap,
+    /<loc>https:\/\/liangxiaoaitool\.top\/heatsleuth\/<\/loc><lastmod>2026-07-25<\/lastmod>/u
+  );
+  assert.match(
+    sitemap,
+    /<loc>https:\/\/liangxiaoaitool\.top\/heatsleuth\/zh\/<\/loc><lastmod>2026-07-25<\/lastmod>/u
+  );
   assert.match(redirects, /^\/privacy\/ \/adquiet\/privacy\/ 301/mu);
   assert.match(redirects, /^\/support\/ \/adquiet\/support\/ 301/mu);
 });
@@ -359,10 +367,10 @@ test("links both HeatSleuth pages to the verified versioned download", async () 
     );
     assert.ok(
       downloadLinks.some((anchor) => hasAttribute(anchor, "download")),
-      `${route} must use the versioned ZIP as its direct download target`
+      `${route} must use the versioned DMG as its direct download target`
     );
     assert.ok(page.includes(heatSleuthDownloadFilename), `${route} must expose the download filename`);
-    assert.match(page, /HeatSleuth\s+1\.0\s*\(2\)/u, route);
+    assert.match(page, /HeatSleuth\s+1\.0\s*\(3\)/u, route);
     assert.match(page, new RegExp(heatSleuthDownloadHash, "u"), route);
   }
 });
@@ -399,7 +407,7 @@ test("discloses HeatSleuth installation, compatibility, and local-only privacy b
     [/(?:not|without).{0,80}App Sandbox|App Sandbox.{0,80}disabled/iu, "App Sandbox boundary"],
     [/current[-\s]user.{0,80}(?:process|task)/iu, "current-user process access explanation"],
     [/sensor.{0,120}(?:unavailable|not available)/iu, "sensor availability boundary"],
-    [/(?:open|unzip).{0,80}(?:ZIP|\.zip)/iu, "ZIP installation step"],
+    [/(?:open).{0,80}(?:DMG|\.dmg)/iu, "DMG installation step"],
     [/HeatSleuth.{0,100}Applications/iu, "Applications installation step"]
   ]) {
     assert.match(english, pattern, description);
@@ -416,7 +424,7 @@ test("discloses HeatSleuth installation, compatibility, and local-only privacy b
     [/(?:未启用|没有启用).{0,80}App Sandbox/u, "App Sandbox boundary"],
     [/当前用户进程/u, "current-user process access explanation"],
     [/传感器.{0,120}(?:不可用|无法使用)/u, "sensor availability boundary"],
-    [/(?:打开|解压).{0,80}(?:ZIP|\.zip)/u, "ZIP installation step"],
+    [/(?:打开).{0,80}(?:DMG|\.dmg)/u, "DMG installation step"],
     [/HeatSleuth.{0,100}(?:应用程序|Applications)/u, "Applications installation step"]
   ]) {
     assert.match(chinese, pattern, description);
@@ -432,7 +440,7 @@ test("keeps HeatSleuth structured data valid and aligned with visible FAQ copy",
 
     assert.ok(software, `${route} must publish SoftwareApplication JSON-LD`);
     assert.equal(software.name, "HeatSleuth", route);
-    assert.equal(software.softwareVersion, "1.0 (2)", route);
+    assert.equal(software.softwareVersion, "1.0 (3)", route);
     assert.match(
       String(software.operatingSystem),
       /macOS\s*14(?:\.0)?(?:\+|\s+(?:or\s+later|或\s*更高版本))/iu,
@@ -542,6 +550,6 @@ test("ships the exact notarized HeatSleuth package and local visual assets", asy
   assert.match(icon, /<svg\b/iu);
   assert.deepEqual(screenshot.subarray(0, 8), Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
   assert.equal(archive.length, heatSleuthDownloadSize);
-  assert.deepEqual(archive.subarray(0, 4), Buffer.from([80, 75, 3, 4]));
+  assert.equal(archive.subarray(-512, -508).toString("ascii"), "koly");
   assert.equal(createHash("sha256").update(archive).digest("hex"), heatSleuthDownloadHash);
 });

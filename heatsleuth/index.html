@@ -25,8 +25,8 @@
     "name": "HeatSleuth",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "macOS 14.0 or later",
-    "softwareVersion": "1.0 (2)",
-    "downloadUrl": "https://liangxiaoaitool.top/heatsleuth/downloads/HeatSleuth-1.0-build-2.zip",
+    "softwareVersion": "1.0 (3)",
+    "downloadUrl": "https://liangxiaoaitool.top/heatsleuth/downloads/HeatSleuth-1.0-build-3.dmg",
     "description": "A native macOS diagnostic app that explains sustained workload, safe process actions, and recovery after an action."
   }
   </script>
@@ -38,7 +38,7 @@
       {"@type":"Question","name":"Does HeatSleuth upload my Mac data?","acceptedAnswer":{"@type":"Answer","text":"No. Metrics, task attribution, and session events are processed locally in memory. HeatSleuth has no account, cloud sync, or network service."}},
       {"@type":"Question","name":"Can HeatSleuth control my fan?","acceptedAnswer":{"@type":"Answer","text":"No. HeatSleuth reads available thermal and fan information for diagnosis; it does not change fan policy or control hardware cooling."}},
       {"@type":"Question","name":"What if a sensor is unavailable on my Mac?","acceptedAnswer":{"@type":"Answer","text":"HeatSleuth labels unavailable, restricted, and temporarily failed readings rather than showing a made-up number. Sensor availability varies by Mac model and macOS version."}},
-      {"@type":"Question","name":"How do I install HeatSleuth?","acceptedAnswer":{"@type":"Answer","text":"Download the notarized ZIP, unzip it, drag HeatSleuth.app to Applications, then open it. The current direct-download build requires macOS 14 or later."}}
+      {"@type":"Question","name":"How do I install HeatSleuth?","acceptedAnswer":{"@type":"Answer","text":"Download and open the notarized DMG, drag HeatSleuth.app to Applications, then open it. The current direct-download build requires macOS 14 or later."}}
     ]
   }
   </script>
@@ -64,7 +64,7 @@
           <h1>See what’s heating your Mac. Decide what to do next.</h1>
           <p class="hero-copy">HeatSleuth connects sustained workload to the app and process behind it, explains the impact of a safe action, then checks whether your Mac actually recovers. It is built for developers who need an answer—not another wall of gauges.</p>
           <div class="actions">
-            <a class="button primary" href="/heatsleuth/downloads/HeatSleuth-1.0-build-2.zip" download>Download HeatSleuth 1.0</a>
+            <a class="button primary" href="/heatsleuth/downloads/HeatSleuth-1.0-build-3.dmg" download>Download HeatSleuth 1.0 (3)</a>
             <a class="button" href="#how-it-works">See how it works</a>
           </div>
           <div class="trust-row"><span>macOS 14+</span><span>Universal: Intel + Apple Silicon</span><span>Notarized Developer ID build</span></div>
@@ -126,28 +126,28 @@
     <section class="section" id="download">
       <div class="shell grid two">
         <div>
-          <div class="section-heading"><p class="eyebrow">Install in a minute</p><h2>Download a signed Mac app—not an installer with a surprise.</h2><p>HeatSleuth is delivered as a notarized ZIP. You can verify the exact file before opening it, and the app never asks you to create an account.</p></div>
+          <div class="section-heading"><p class="eyebrow">Install in a minute</p><h2>Download a signed Mac app—not an installer with a surprise.</h2><p>HeatSleuth is delivered as a notarized DMG. You can verify the exact file before opening it, and the app never asks you to create an account.</p></div>
           <ol class="install-steps">
-            <li><strong>Download the ZIP</strong>Save the versioned HeatSleuth package below.</li>
-            <li><strong>Unzip and move the app</strong>Open the ZIP, then drag <code>HeatSleuth.app</code> to Applications.</li>
+            <li><strong>Download the DMG</strong>Save the versioned HeatSleuth disk image below.</li>
+            <li><strong>Drag the app to Applications</strong>Open the DMG, then drag <code>HeatSleuth.app</code> onto the Applications shortcut.</li>
             <li><strong>Open and monitor</strong>Launch HeatSleuth and let it collect live local samples. The first few readings can briefly show as warming up.</li>
           </ol>
         </div>
         <aside class="download-card">
-          <h3>HeatSleuth 1.0 (2)</h3>
+          <h3>HeatSleuth 1.0 (3)</h3>
           <p>Universal, notarized macOS build for direct distribution.</p>
           <dl class="metadata">
             <div><dt>System</dt><dd>macOS 14.0 or later</dd></div>
             <div><dt>Architecture</dt><dd>Intel and Apple Silicon</dd></div>
-            <div><dt>Package</dt><dd>1.2 MB ZIP</dd></div>
+            <div><dt>Package</dt><dd>1.3 MB DMG</dd></div>
             <div><dt>Trust</dt><dd>Apple notarized · Developer ID signed</dd></div>
           </dl>
           <details class="download-verification">
             <summary>Verify this download</summary>
-            <p>If you need to check the ZIP before opening it, compare its SHA-256:</p>
-            <code>7bdb18b8348d3cc54487846b43233a821d8b1072828c9947de4a0a58fbb62a2c</code>
+            <p>If you need to check the DMG before opening it, compare its SHA-256:</p>
+            <code>f2cc9388f7ba9bc64a9be429d395e93499759fc78e13d1e97dcc8df06759243d</code>
           </details>
-          <a class="button dark" href="/heatsleuth/downloads/HeatSleuth-1.0-build-2.zip" download>Download for Mac</a>
+          <a class="button dark" href="/heatsleuth/downloads/HeatSleuth-1.0-build-3.dmg" download>Download for Mac</a>
         </aside>
       </div>
     </section>
@@ -168,7 +168,7 @@
             <details><summary>Does HeatSleuth upload my Mac data?</summary><p>No. Metrics, task attribution, and session events are processed locally in memory. There is no account, cloud sync, or network service.</p></details>
             <details><summary>Can HeatSleuth control my fan?</summary><p>No. It reads available thermal and fan information for diagnosis. It does not change your fan policy or control hardware cooling.</p></details>
             <details><summary>What if a sensor is unavailable on my Mac?</summary><p>HeatSleuth labels unavailable, restricted, and temporarily failed readings rather than showing a made-up number. Sensor availability varies by Mac model and macOS version.</p></details>
-            <details><summary>How do I install HeatSleuth?</summary><p>Download the notarized ZIP, unzip it, drag HeatSleuth.app to Applications, then open it. The current direct-download build requires macOS 14 or later.</p></details>
+            <details><summary>How do I install HeatSleuth?</summary><p>Download and open the notarized DMG, drag HeatSleuth.app to Applications, then open it. The current direct-download build requires macOS 14 or later.</p></details>
             <details><summary>Can I end a process from HeatSleuth?</summary><p>Only after you choose an eligible current-user process and confirm it. HeatSleuth rechecks identity before action and uses a cautious escalation path instead of automatically killing tasks.</p></details>
           </div>
           <div class="reading-list"><a href="https://support.apple.com/guide/activity-monitor/view-cpu-activity-actmntr43452/mac" target="_blank" rel="noreferrer">Apple: view CPU activity in Activity Monitor</a><a href="#privacy">Read the local-data boundary</a></div>
@@ -179,7 +179,7 @@
     <section class="section">
       <div class="shell final-cta">
         <div><h2>When your Mac runs hot, get a clear next step.</h2><p>Download the current notarized build, see what is sustaining the load, and decide with real evidence.</p></div>
-        <a class="button primary" href="/heatsleuth/downloads/HeatSleuth-1.0-build-2.zip" download>Download HeatSleuth</a>
+        <a class="button primary" href="/heatsleuth/downloads/HeatSleuth-1.0-build-3.dmg" download>Download HeatSleuth</a>
       </div>
     </section>
   </main>
