@@ -405,11 +405,26 @@ function rss(articles) {
 }
 
 function sitemap(articles) {
-  const paths = ["/", "/writing/", "/building/", "/tools/", "/about/", "/adquiet/", "/heatsleuth/", "/heatsleuth/zh/"];
+  const paths = [
+    "/",
+    "/writing/",
+    "/building/",
+    "/tools/",
+    "/about/",
+    "/adquiet/",
+    "/heatsleuth/",
+    "/heatsleuth/zh/",
+    "/pdf-snap/support/",
+    "/pdf-snap/privacy/"
+  ];
   const entries = [
     ...paths.map((pathname) => ({
       pathname,
-      lastmod: pathname.startsWith("/heatsleuth/") ? "2026-07-25" : "2026-07-24"
+      lastmod: pathname.startsWith("/pdf-snap/")
+        ? "2026-07-31"
+        : pathname.startsWith("/heatsleuth/")
+          ? "2026-07-25"
+          : "2026-07-24"
     })),
     ...articles.map((article) => ({ pathname: `/writing/${article.slug}/`, lastmod: article.date }))
   ];

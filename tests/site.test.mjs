@@ -56,6 +56,10 @@ const heatSleuthDownloadHash =
 const heatSleuthDownloadSize = 1380567;
 const heatSleuthEnglishUrl = "https://liangxiaoaitool.top/heatsleuth/";
 const heatSleuthChineseUrl = "https://liangxiaoaitool.top/heatsleuth/zh/";
+const pdfSnap = {
+  support: "pdf-snap/support/index.html",
+  privacy: "pdf-snap/privacy/index.html"
+};
 
 async function html(route) {
   return readFile(new URL(`../${route}`, import.meta.url), "utf8");
@@ -199,6 +203,22 @@ test("support page offers practical help without collecting sensitive data", asy
   assert.match(page, /\.\.\/privacy\//u);
 });
 
+test("publishes accurate public PDF Snap support and privacy pages", async () => {
+  const [support, privacy] = await Promise.all([
+    html(pdfSnap.support),
+    html(pdfSnap.privacy)
+  ]);
+
+  assert.match(support, /PDF Snap Support/u);
+  assert.match(support, /228239753@qq\.com/u);
+  assert.match(support, /Core PDF processing runs on your device/u);
+  assert.match(privacy, /does not require an account/u);
+  assert.match(privacy, /Apple's public App Store lookup service/u);
+  assert.match(privacy, /does not include third-party advertising or analytics SDKs/u);
+  assert.match(privacy, /PDF Snap 隐私政策/u);
+  assert.doesNotMatch(privacy, /记痕/u);
+});
+
 test("privacy pages disclose local storage, permissions, and Limited Use", async () => {
   const english = await html(routes.privacy);
   const chinese = await html(routes.chinesePrivacy);
@@ -247,6 +267,8 @@ test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", asyn
   assert.match(rss, /codex-app-production-line/u);
   assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/writing\//u);
   assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/heatsleuth\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/pdf-snap\/support\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/pdf-snap\/privacy\//u);
   assert.match(
     sitemap,
     /<loc>https:\/\/liangxiaoaitool\.top\/heatsleuth\/<\/loc><lastmod>2026-07-25<\/lastmod>/u
