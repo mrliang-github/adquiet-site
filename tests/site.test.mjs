@@ -46,14 +46,14 @@ const heatSleuth = {
   englishScreenshot: "heatsleuth/assets/heat-sleuth-overview-en.png",
   chineseScreenshot: "heatsleuth/assets/heat-sleuth-overview.png",
   icon: "heatsleuth/assets/icon.svg",
-  download: "heatsleuth/downloads/HeatSleuth-1.0-build-3.dmg"
+  download: "heatsleuth/downloads/HeatSleuth-1.0.1-build-4.dmg"
 };
 
-const heatSleuthDownloadUrl = "/heatsleuth/downloads/HeatSleuth-1.0-build-3.dmg";
-const heatSleuthDownloadFilename = "HeatSleuth-1.0-build-3.dmg";
+const heatSleuthDownloadUrl = "/heatsleuth/downloads/HeatSleuth-1.0.1-build-4.dmg";
+const heatSleuthDownloadFilename = "HeatSleuth-1.0.1-build-4.dmg";
 const heatSleuthDownloadHash =
-  "f2cc9388f7ba9bc64a9be429d395e93499759fc78e13d1e97dcc8df06759243d";
-const heatSleuthDownloadSize = 1380567;
+  "8a4f5b1793da2637cf2a7551d5a0a9a98d9015365212039c98f18cd180dba4b2";
+const heatSleuthDownloadSize = 1381009;
 const heatSleuthEnglishUrl = "https://liangxiaoaitool.top/heatsleuth/";
 const heatSleuthChineseUrl = "https://liangxiaoaitool.top/heatsleuth/zh/";
 const pdfSnap = {
@@ -271,11 +271,11 @@ test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", asyn
   assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/pdf-snap\/privacy\//u);
   assert.match(
     sitemap,
-    /<loc>https:\/\/liangxiaoaitool\.top\/heatsleuth\/<\/loc><lastmod>2026-07-25<\/lastmod>/u
+    /<loc>https:\/\/liangxiaoaitool\.top\/heatsleuth\/<\/loc><lastmod>2026-08-02<\/lastmod>/u
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/liangxiaoaitool\.top\/heatsleuth\/zh\/<\/loc><lastmod>2026-07-25<\/lastmod>/u
+    /<loc>https:\/\/liangxiaoaitool\.top\/heatsleuth\/zh\/<\/loc><lastmod>2026-08-02<\/lastmod>/u
   );
   assert.match(redirects, /^\/privacy\/ \/adquiet\/privacy\/ 301/mu);
   assert.match(redirects, /^\/support\/ \/adquiet\/support\/ 301/mu);
@@ -433,7 +433,7 @@ test("links both HeatSleuth pages to the verified versioned download", async () 
       `${route} must use the versioned DMG as its direct download target`
     );
     assert.ok(page.includes(heatSleuthDownloadFilename), `${route} must expose the download filename`);
-    assert.match(page, /HeatSleuth\s+1\.0\s*\(3\)/u, route);
+    assert.match(page, /HeatSleuth\s+1\.0\.1\s*\(4\)/u, route);
     assert.match(page, new RegExp(heatSleuthDownloadHash, "u"), route);
   }
 });
@@ -503,7 +503,7 @@ test("keeps HeatSleuth structured data valid and aligned with visible FAQ copy",
 
     assert.ok(software, `${route} must publish SoftwareApplication JSON-LD`);
     assert.equal(software.name, "HeatSleuth", route);
-    assert.equal(software.softwareVersion, "1.0 (3)", route);
+    assert.equal(software.softwareVersion, "1.0.1 (4)", route);
     assert.match(
       String(software.operatingSystem),
       /macOS\s*14(?:\.0)?(?:\+|\s+(?:or\s+later|或\s*更高版本))/iu,
