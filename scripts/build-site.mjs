@@ -423,7 +423,7 @@ function sitemap(articles) {
       lastmod: pathname.startsWith("/pdf-snap/")
         ? "2026-07-31"
         : pathname.startsWith("/heatsleuth/")
-          ? "2026-08-02"
+          ? "2026-08-30"
           : "2026-07-24"
     })),
     ...articles.map((article) => ({ pathname: `/writing/${article.slug}/`, lastmod: article.date }))
