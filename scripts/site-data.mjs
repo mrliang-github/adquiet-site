@@ -115,14 +115,6 @@ export const tools = [
     external: true
   },
   {
-    name: "公司账套工作台",
-    category: "内部工作台",
-    status: "需要登录",
-    description: "用于公司账套工作的内部工作台，不作为公开产品宣传。",
-    href: "https://voucher.liangxiaoaitool.top/",
-    external: true
-  },
-  {
     name: "Mac 发票 OCR",
     category: "开源工具",
     status: "GitHub 开源",

@@ -1,7 +1,17 @@
 import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
-import { readFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { promisify } from "node:util";
 import { test } from "node:test";
+import { contentRevision, validateContent } from "../scripts/content-schema.mjs";
+import { readContentCollection, upsertPublishedContent } from "../scripts/content-store.mjs";
+import { previewCollections } from "../scripts/preview-fixtures.mjs";
+
+const execFileAsync = promisify(execFile);
+const projectDirectory = new URL("../", import.meta.url).pathname;
 
 const routes = {
   home: "index.html",
@@ -9,6 +19,9 @@ const routes = {
   building: "building/index.html",
   tools: "tools/index.html",
   about: "about/index.html",
+  daily: "daily/index.html",
+  englishLearning: "english/index.html",
+  notFound: "404.html",
   product: "adquiet/index.html",
   support: "adquiet/support/index.html",
   privacy: "adquiet/privacy/index.html",
@@ -32,6 +45,18 @@ const personalRoutes = [
   routes.building,
   routes.tools,
   routes.about,
+  routes.daily,
+  routes.englishLearning,
+  ...articleSlugs.map((slug) => `writing/${slug}/index.html`)
+];
+
+const scriptFreePersonalRoutes = [
+  routes.writing,
+  routes.building,
+  routes.tools,
+  routes.about,
+  routes.daily,
+  routes.englishLearning,
   ...articleSlugs.map((slug) => `writing/${slug}/index.html`)
 ];
 
@@ -163,13 +188,16 @@ test("publishes every required personal-site and AdQuiet route", async () => {
 test("uses the root route as a Chinese-first personal homepage", async () => {
   const page = await html(routes.home);
   assert.match(page, /<html lang="zh-Hans">/u);
-  assert.match(page, /把想法[\s\S]*做成/u);
-  assert.match(page, /再把过程写下来/u);
+  assert.match(page, /产品经理，也在用 AI 做自己的产品/u);
+  assert.match(page, /bento-card--identity/u);
   assert.match(page, /href="\/writing\/"/u);
-  assert.match(page, /href="\/building\/"/u);
   assert.match(page, /href="\/tools\/"/u);
-  assert.match(page, /href="\/adquiet\/"/u);
-  assert.match(page, /href="\/heatsleuth\/"/u);
+  assert.match(page, /href="\/daily\/"/u);
+  assert.match(page, /href="\/english\/"/u);
+  assert.match(page, /site-assets\/globe\.js/u);
+  assert.match(page, /aria-label="地球控制"/u);
+  assert.doesNotMatch(page, /公司账套工作台/u);
+  assert.doesNotMatch(page, /voucher\.liangxiaoaitool\.top/u);
   assert.doesNotMatch(page, /Less interruption\. More watching\./u);
 });
 
@@ -236,12 +264,12 @@ test("generates a complete, script-free published writing archive", async () => 
   }
 
   const firstArticle = await html(`writing/${articleSlugs[0]}/index.html`);
-  assert.match(firstArticle, /公众号已发布稿/u);
+  assert.match(firstArticle, /已发布文章/u);
   assert.match(firstArticle, /Codex 一周重置 4 次额度/u);
   assert.match(firstArticle, /https:\/\/img\.liangxiaoaitool\.top\//u);
   assert.ok(tags(firstArticle, "img").length >= 2, "article should retain published images");
 
-  for (const route of personalRoutes) {
+  for (const route of scriptFreePersonalRoutes) {
     const page = await html(route);
     assert.doesNotMatch(page, /<script\b/iu, route);
     assert.doesNotMatch(page, /<form\b/iu, route);
@@ -260,12 +288,16 @@ test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", asyn
 
   assert.match(legacyCss, /overflow-x:\s*hidden/u);
   assert.match(legacyCss, /\.hero-grid\s*>\s*\*\s*\{\s*min-width:\s*0/u);
-  assert.match(personalCss, /--paper:\s*#f3f0e8/u);
+  assert.match(personalCss, /--paper:\s*#0b1118/u);
   assert.match(personalCss, /overflow-x:\s*hidden/u);
   assert.match(personalCss, /prefers-reduced-motion/u);
+  assert.match(personalCss, /touch-action:\s*pan-y\s+pinch-zoom/u);
   assert.match(rss, /<rss version="2\.0">/u);
   assert.match(rss, /codex-app-production-line/u);
   assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/writing\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/daily\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/english\//u);
+  assert.doesNotMatch(sitemap, /preview-content-boundaries/u);
   assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/heatsleuth\//u);
   assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/pdf-snap\/support\//u);
   assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/pdf-snap\/privacy\//u);
@@ -279,6 +311,373 @@ test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", asyn
   );
   assert.match(redirects, /^\/privacy\/ \/adquiet\/privacy\/ 301/mu);
   assert.match(redirects, /^\/support\/ \/adquiet\/support\/ 301/mu);
+});
+
+test("keeps preview content out of the production build and renders it only in an isolated preview output", async () => {
+  const [home, daily, english, sitemap, rss] = await Promise.all([
+    html(routes.home),
+    html(routes.daily),
+    html(routes.englishLearning),
+    html("sitemap.xml"),
+    html("rss.xml")
+  ]);
+  for (const page of [home, daily, english, sitemap, rss]) {
+    assert.doesNotMatch(page, /栏目预览：把素材、判断和公开范围分开/u);
+    assert.doesNotMatch(page, /项目延期时，怎么把下一步说清楚/u);
+  }
+
+  const previewDirectory = await mkdtemp(join(tmpdir(), "liangxiao-bento-preview-"));
+  const symlinkDirectory = await mkdtemp(join(tmpdir(), "liangxiao-bento-preview-link-"));
+  try {
+    await assert.rejects(
+      execFileAsync(process.execPath, ["scripts/build-bento-site.mjs", "--preview"], {
+        cwd: projectDirectory
+      }),
+      (error) => {
+        assert.match(error.stderr, /必须显式使用仓库外/u);
+        return true;
+      }
+    );
+    const repositoryLink = join(symlinkDirectory, "back-to-repository");
+    await symlink(projectDirectory, repositoryLink);
+    await assert.rejects(
+      execFileAsync(
+        process.execPath,
+        ["scripts/build-bento-site.mjs", "--preview", "--output-dir", join(repositoryLink, "preview")],
+        { cwd: projectDirectory }
+      ),
+      (error) => {
+        assert.match(error.stderr, /解析后位于仓库内/u);
+        return true;
+      }
+    );
+    await assert.rejects(
+      execFileAsync(
+        process.execPath,
+        ["scripts/build-bento-site.mjs", "--preview", "--output-dir", ".preview-must-not-write"],
+        { cwd: projectDirectory }
+      ),
+      (error) => {
+        assert.match(error.stderr, /正式站点目录或其子目录/u);
+        return true;
+      }
+    );
+    await execFileAsync(
+      process.execPath,
+      ["scripts/build-bento-site.mjs", "--preview", "--output-dir", previewDirectory],
+      { cwd: projectDirectory }
+    );
+    const [previewHome, previewDaily, previewEnglish, previewLesson, previewSitemap] = await Promise.all([
+      readFile(join(previewDirectory, "index.html"), "utf8"),
+      readFile(join(previewDirectory, "daily/index.html"), "utf8"),
+      readFile(join(previewDirectory, "english/index.html"), "utf8"),
+      readFile(join(previewDirectory, "english/preview-project-delay/index.html"), "utf8"),
+      readFile(join(previewDirectory, "sitemap.xml"), "utf8")
+    ]);
+    assert.match(previewHome, /栏目预览：把素材、判断和公开范围分开/u);
+    assert.match(previewDaily, /开发预览样稿/u);
+    assert.match(previewEnglish, /开发预览课程/u);
+    assert.match(previewLesson, /site-assets\/speech-player\.js/u);
+    assert.match(previewLesson, /点读例句/u);
+    assert.match(previewLesson, /查看参考表达/u);
+    assert.match(previewLesson, /We ran into an issue during the final check/u);
+    assert.match(previewLesson, /name="robots" content="noindex, nofollow"/u);
+    assert.doesNotMatch(previewSitemap, /preview-content-boundaries/u);
+  } finally {
+    await rm(previewDirectory, { recursive: true, force: true });
+    await rm(symlinkDirectory, { recursive: true, force: true });
+  }
+});
+
+test("prunes only generator-owned stale daily and English detail routes", async () => {
+  const temporaryDirectory = await mkdtemp(join(tmpdir(), "liangxiao-route-manifest-"));
+  const publicDirectory = join(temporaryDirectory, "public");
+  const outputDirectory = join(temporaryDirectory, "site");
+  const daily = validateContent(
+    {
+      ...previewCollections.daily.items[0],
+      preview: false,
+      status: "published"
+    },
+    { expectedKind: "daily" }
+  );
+  const publishedDaily = {
+    ...daily,
+    revision: contentRevision(daily),
+    publishedAt: "2026-09-20T09:00:00.000Z",
+    updatedAt: "2026-09-20T09:00:00.000Z"
+  };
+  const generatedRoute = join(outputDirectory, "daily", `${daily.slug}/index.html`);
+  const handwrittenRoute = join(outputDirectory, "daily", "handwritten/index.html");
+
+  try {
+    await mkdir(publicDirectory, { recursive: true });
+    await writeFile(
+      join(publicDirectory, "daily-reports.json"),
+      JSON.stringify({ schemaVersion: 1, kind: "daily", items: [publishedDaily] }),
+      "utf8"
+    );
+    await writeFile(
+      join(publicDirectory, "english-lessons.json"),
+      JSON.stringify({ schemaVersion: 1, kind: "english", items: [] }),
+      "utf8"
+    );
+    const buildArguments = [
+      "scripts/build-bento-site.mjs",
+      "--public-content-dir",
+      publicDirectory,
+      "--output-dir",
+      outputDirectory
+    ];
+    await execFileAsync(process.execPath, buildArguments, { cwd: projectDirectory });
+    assert.match(await readFile(generatedRoute, "utf8"), /liangxiao-bento-managed-route/u);
+
+    await mkdir(join(outputDirectory, "daily", "handwritten"), { recursive: true });
+    await writeFile(handwrittenRoute, "keep this manually maintained page\n", "utf8");
+    await writeFile(
+      join(publicDirectory, "daily-reports.json"),
+      JSON.stringify({ schemaVersion: 1, kind: "daily", items: [] }),
+      "utf8"
+    );
+    await execFileAsync(process.execPath, buildArguments, { cwd: projectDirectory });
+
+    await assert.rejects(readFile(generatedRoute, "utf8"), { code: "ENOENT" });
+    assert.equal(await readFile(handwrittenRoute, "utf8"), "keep this manually maintained page\n");
+    assert.deepEqual(
+      JSON.parse(await readFile(join(outputDirectory, ".bento-generated-routes.json"), "utf8")).routes,
+      []
+    );
+  } finally {
+    await rm(temporaryDirectory, { recursive: true, force: true });
+  }
+});
+
+test("validates, version-gates, and atomically de-duplicates public content", async () => {
+  const temporaryDirectory = await mkdtemp(join(tmpdir(), "liangxiao-content-pipeline-"));
+  const publicDirectory = join(temporaryDirectory, "public");
+  try {
+    await mkdir(publicDirectory, { recursive: true });
+    await writeFile(
+      join(publicDirectory, "daily-reports.json"),
+      JSON.stringify({ schemaVersion: 1, kind: "daily", items: [] }),
+      "utf8"
+    );
+
+    const raw = previewCollections.daily.items[0];
+    const draft = validateContent({ ...raw, preview: false, status: "draft" }, { expectedKind: "daily" });
+    const published = {
+      ...draft,
+      status: "published",
+      preview: false,
+      revision: contentRevision(draft),
+      publishedAt: "2026-09-20T09:00:00.000Z",
+      updatedAt: "2026-09-20T09:00:00.000Z"
+    };
+    const first = await upsertPublishedContent({ publicDirectory, content: published });
+    assert.equal(first.changed, true);
+    const repeat = await upsertPublishedContent({ publicDirectory, content: published });
+    assert.equal(repeat.changed, false);
+    await assert.rejects(
+      upsertPublishedContent({
+        publicDirectory,
+        content: {
+          ...published,
+          id: "daily-conflicting-edition",
+          slug: "conflicting-edition",
+          title: "同一期冲突内容",
+          revision: undefined
+        }
+      }),
+      /拒绝重复发布/u
+    );
+    const collection = await readContentCollection(publicDirectory, "daily", {
+      requirePublished: true
+    });
+    assert.equal(collection.items.length, 1);
+    assert.throws(
+      () => validateContent({ ...draft, editionDate: "2026-02-31" }, { expectedKind: "daily" }),
+      /日期/u
+    );
+    assert.throws(
+      () =>
+        validateContent(
+          { ...previewCollections.english.items[0], revision: 'x" onmouseover="alert(1)' },
+          { expectedKind: "english" }
+        ),
+      /revision/u
+    );
+    assert.throws(
+      () =>
+        validateContent(
+          { ...previewCollections.english.items[0], practice: ["只给题目，没有参考表达"] },
+          { expectedKind: "english" }
+        ),
+      /practice\[0\]/u
+    );
+    await assert.rejects(
+      upsertPublishedContent({
+        publicDirectory,
+        content: {
+          ...published,
+          title: "revision 已被篡改",
+          revision: "0000000000000000"
+        }
+      }),
+      /revision 与当前内容哈希不一致/u
+    );
+  } finally {
+    await rm(temporaryDirectory, { recursive: true, force: true });
+  }
+});
+
+test("keeps private previews isolated and version-gates publish, dry-run, and rollback", async () => {
+  const temporaryDirectory = await mkdtemp(join(tmpdir(), "liangxiao-content-approval-"));
+  const privateDirectory = join(temporaryDirectory, "private");
+  const publicDirectory = join(temporaryDirectory, "public");
+  const inputPath = join(temporaryDirectory, "daily.json");
+  const baseInput = previewCollections.daily.items[0];
+  const runContentCommand = (argumentsList) =>
+    execFileAsync(process.execPath, ["scripts/content-admin.mjs", ...argumentsList], {
+      cwd: projectDirectory
+    });
+
+  try {
+    await mkdir(publicDirectory, { recursive: true });
+    await writeFile(
+      join(publicDirectory, "daily-reports.json"),
+      JSON.stringify({ schemaVersion: 1, kind: "daily", items: [] }),
+      "utf8"
+    );
+    await writeFile(
+      join(publicDirectory, "english-lessons.json"),
+      JSON.stringify({ schemaVersion: 1, kind: "english", items: [] }),
+      "utf8"
+    );
+    await writeFile(inputPath, JSON.stringify({ ...baseInput, preview: false }), "utf8");
+
+    const sharedArguments = ["--kind", "daily", "--private-dir", privateDirectory, "--public-dir", publicDirectory];
+    await runContentCommand(["import", "--input", inputPath, ...sharedArguments]);
+    const firstDraft = JSON.parse(
+      await readFile(join(privateDirectory, "drafts/daily", `${baseInput.id}.json`), "utf8")
+    );
+    await runContentCommand([
+      "approve",
+      "--id",
+      baseInput.id,
+      "--approved-by",
+      "reviewer",
+      ...sharedArguments
+    ]);
+    const dryRun = await runContentCommand([
+      "publish",
+      "--id",
+      baseInput.id,
+      "--dry-run",
+      ...sharedArguments
+    ]);
+    assert.match(dryRun.stdout, /隔离静态构建通过/u);
+    assert.equal(
+      JSON.parse(await readFile(join(publicDirectory, "daily-reports.json"), "utf8")).items.length,
+      0
+    );
+    const published = await runContentCommand(["publish", "--id", baseInput.id, ...sharedArguments]);
+    assert.match(published.stdout, /已通过隔离静态构建校验并写入公开快照/u);
+
+    await assert.rejects(
+      runContentCommand(["preview", "--id", "../../outside", ...sharedArguments]),
+      (error) => {
+        assert.match(error.stderr, /--id/u);
+        return true;
+      }
+    );
+
+    await writeFile(
+      inputPath,
+      JSON.stringify({ ...baseInput, preview: false, title: "已修改、需要重新审批的日报" }),
+      "utf8"
+    );
+    await runContentCommand(["import", "--input", inputPath, ...sharedArguments]);
+    await assert.rejects(
+      runContentCommand(["publish", "--id", baseInput.id, ...sharedArguments]),
+      (error) => {
+        assert.match(error.stderr, /审批版本已失效/u);
+        return true;
+      }
+    );
+
+    await runContentCommand([
+      "approve",
+      "--id",
+      baseInput.id,
+      "--approved-by",
+      "reviewer",
+      ...sharedArguments
+    ]);
+    await runContentCommand(["preview", "--id", baseInput.id, ...sharedArguments]);
+    const currentDraft = JSON.parse(
+      await readFile(join(privateDirectory, "drafts/daily", `${baseInput.id}.json`), "utf8")
+    );
+    const privatePreview = await readFile(
+      join(
+        privateDirectory,
+        "previews/daily",
+        baseInput.id,
+        currentDraft.revision,
+        "site/daily",
+        `${baseInput.slug}/index.html`
+      ),
+      "utf8"
+    );
+    assert.match(privatePreview, /已修改、需要重新审批的日报/u);
+    assert.match(privatePreview, /name="robots" content="noindex, nofollow"/u);
+    assert.equal(
+      JSON.parse(await readFile(join(publicDirectory, "daily-reports.json"), "utf8")).items[0].title,
+      baseInput.title
+    );
+    await runContentCommand(["publish", "--id", baseInput.id, "--dry-run", ...sharedArguments]);
+    assert.equal(
+      JSON.parse(await readFile(join(publicDirectory, "daily-reports.json"), "utf8")).items[0].title,
+      baseInput.title
+    );
+    await runContentCommand(["publish", "--id", baseInput.id, ...sharedArguments]);
+    const collection = JSON.parse(
+      await readFile(join(publicDirectory, "daily-reports.json"), "utf8")
+    );
+    assert.equal(collection.items.length, 1);
+    assert.equal(collection.items[0].title, "已修改、需要重新审批的日报");
+    await runContentCommand([
+      "rollback",
+      "--id",
+      baseInput.id,
+      "--revision",
+      firstDraft.revision,
+      "--approved-by",
+      "reviewer",
+      ...sharedArguments
+    ]);
+    assert.equal(
+      JSON.parse(await readFile(join(publicDirectory, "daily-reports.json"), "utf8")).items[0].title,
+      baseInput.title
+    );
+    await assert.rejects(
+      runContentCommand([
+        "rollback",
+        "--id",
+        baseInput.id,
+        "--revision",
+        "../../outside",
+        "--approved-by",
+        "reviewer",
+        ...sharedArguments
+      ]),
+      (error) => {
+        assert.match(error.stderr, /--revision/u);
+        return true;
+      }
+    );
+  } finally {
+    await rm(temporaryDirectory, { recursive: true, force: true });
+  }
 });
 
 test("publishes complete bilingual HeatSleuth pages with locale-matched product assets", async () => {

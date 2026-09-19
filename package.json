@@ -5,12 +5,18 @@
   "type": "module",
   "scripts": {
     "sync:content": "node scripts/sync-published-content.mjs",
-    "build": "node scripts/build-site.mjs",
+    "build": "node scripts/build-bento-site.mjs",
+    "build:preview": "node scripts/build-bento-site.mjs --preview --output-dir ../adquiet-site-preview",
+    "content:help": "node scripts/content-admin.mjs help",
     "test": "npm run build && node --test tests/*.test.mjs",
     "verify": "npm run sync:content && npm test"
   },
   "devDependencies": {
+    "d3-array": "^3.2.4",
+    "d3-geo": "^3.1.1",
     "marked": "^18.0.7",
-    "sanitize-html": "^2.17.6"
+    "sanitize-html": "^2.17.6",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
   }
 }
