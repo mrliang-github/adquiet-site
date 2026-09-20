@@ -187,15 +187,23 @@ test("publishes every required personal-site and AdQuiet route", async () => {
 
 test("uses the root route as a Chinese-first personal homepage", async () => {
   const page = await html(routes.home);
-  assert.match(page, /<html lang="zh-Hans">/u);
-  assert.match(page, /产品经理，也在用 AI 做自己的产品/u);
+  assert.match(page, /<html lang="zh-Hans" data-theme="home">/u);
+  assert.match(page, /<body class="page-home">/u);
+  assert.match(page, /你好，我是良逍/u);
   assert.match(page, /bento-card--identity/u);
+  assert.match(page, /bento-card--work/u);
+  assert.match(page, /bento-card--about/u);
+  assert.match(page, /bento-card--rss/u);
+  assert.match(page, /bento-card--footer/u);
   assert.match(page, /href="\/writing\/"/u);
   assert.match(page, /href="\/tools\/"/u);
   assert.match(page, /href="\/daily\/"/u);
   assert.match(page, /href="\/english\/"/u);
   assert.match(page, /site-assets\/globe\.js/u);
   assert.match(page, /aria-label="地球控制"/u);
+  assert.match(page, /class="globe-compact"/u);
+  assert.doesNotMatch(page, /<header class="site-header">/u);
+  assert.doesNotMatch(page, /别只盯着一个窗口/u);
   assert.doesNotMatch(page, /公司账套工作台/u);
   assert.doesNotMatch(page, /voucher\.liangxiaoaitool\.top/u);
   assert.doesNotMatch(page, /Less interruption\. More watching\./u);
@@ -278,17 +286,22 @@ test("generates a complete, script-free published writing archive", async () => 
 });
 
 test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", async () => {
-  const [legacyCss, personalCss, rss, sitemap, redirects] = await Promise.all([
+  const [legacyCss, personalCss, rss, sitemap, redirects, robots] = await Promise.all([
     readFile(new URL("../assets/styles.css", import.meta.url), "utf8"),
     readFile(new URL("../site-assets/personal.css", import.meta.url), "utf8"),
     html("rss.xml"),
     html("sitemap.xml"),
-    html("_redirects")
+    html("_redirects"),
+    html("robots.txt")
   ]);
 
   assert.match(legacyCss, /overflow-x:\s*hidden/u);
   assert.match(legacyCss, /\.hero-grid\s*>\s*\*\s*\{\s*min-width:\s*0/u);
-  assert.match(personalCss, /--paper:\s*#0b1118/u);
+  assert.match(personalCss, /color-scheme:\s*light/u);
+  assert.match(personalCss, /--paper:\s*#f3f0e8/u);
+  assert.match(personalCss, /html\[data-theme="home"\]/u);
+  assert.match(personalCss, /grid-template-rows:\s*repeat\(8,/u);
+  assert.match(personalCss, /grid-column:\s*1\s*\/\s*span\s*3/u);
   assert.match(personalCss, /overflow-x:\s*hidden/u);
   assert.match(personalCss, /prefers-reduced-motion/u);
   assert.match(personalCss, /touch-action:\s*pan-y\s+pinch-zoom/u);
@@ -311,6 +324,36 @@ test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", asyn
   );
   assert.match(redirects, /^\/privacy\/ \/adquiet\/privacy\/ 301/mu);
   assert.match(redirects, /^\/support\/ \/adquiet\/support\/ 301/mu);
+  assert.match(robots, /User-agent: \*\nAllow: \/\nSitemap:/u);
+});
+
+test("keeps the compact desktop homepage card map", async () => {
+  const personalCss = await readFile(new URL("../site-assets/personal.css", import.meta.url), "utf8");
+  const homepageCss = personalCss.slice(personalCss.indexOf("/* Homepage visual correction"));
+  const desktopCss = homepageCss.slice(0, homepageCss.indexOf("@media (max-width: 1024px)"));
+  const positions = [
+    ["identity", /1\s*\/\s*span\s*3/u, /1\s*\/\s*span\s*4/u],
+    ["tools", /4/u, /1\s*\/\s*span\s*6/u],
+    ["contact", /1/u, /5\s*\/\s*span\s*4/u],
+    ["daily", /2/u, /5\s*\/\s*span\s*2/u],
+    ["work", /3/u, /5/u],
+    ["now", /3/u, /6/u],
+    ["english", /2/u, /7/u],
+    ["writing", /3/u, /7/u],
+    ["about", /4/u, /7/u],
+    ["globe", /2/u, /8/u],
+    ["rss", /3/u, /8/u],
+    ["footer", /4/u, /8/u]
+  ];
+
+  for (const [card, column, row] of positions) {
+    const rule = desktopCss.match(
+      new RegExp(`\\.page-home \\.bento-card--${card}\\s*\\{([\\s\\S]*?)\\}`, "u")
+    );
+    assert.ok(rule, `${card} card should have a desktop rule`);
+    assert.match(rule[1], new RegExp(`grid-column:\\s*${column.source}\\s*;`, "u"), `${card} column`);
+    assert.match(rule[1], new RegExp(`grid-row:\\s*${row.source}\\s*;`, "u"), `${card} row`);
+  }
 });
 
 test("keeps preview content out of the production build and renders it only in an isolated preview output", async () => {
@@ -367,12 +410,30 @@ test("keeps preview content out of the production build and renders it only in a
       ["scripts/build-bento-site.mjs", "--preview", "--output-dir", previewDirectory],
       { cwd: projectDirectory }
     );
-    const [previewHome, previewDaily, previewEnglish, previewLesson, previewSitemap] = await Promise.all([
+    const [
+      previewHome,
+      previewDaily,
+      previewEnglish,
+      previewLesson,
+      previewSitemap,
+      previewProjectScreenshot,
+      previewAdQuiet,
+      previewHeatSleuth,
+      previewPdfSnap,
+      previewRedirects,
+      previewRobots
+    ] = await Promise.all([
       readFile(join(previewDirectory, "index.html"), "utf8"),
       readFile(join(previewDirectory, "daily/index.html"), "utf8"),
       readFile(join(previewDirectory, "english/index.html"), "utf8"),
       readFile(join(previewDirectory, "english/preview-project-delay/index.html"), "utf8"),
-      readFile(join(previewDirectory, "sitemap.xml"), "utf8")
+      readFile(join(previewDirectory, "sitemap.xml"), "utf8"),
+      readFile(join(previewDirectory, "assets/screenshot-home.jpg")),
+      readFile(join(previewDirectory, "adquiet/index.html"), "utf8"),
+      readFile(join(previewDirectory, "heatsleuth/index.html"), "utf8"),
+      readFile(join(previewDirectory, "pdf-snap/support/index.html"), "utf8"),
+      readFile(join(previewDirectory, "_redirects"), "utf8"),
+      readFile(join(previewDirectory, "robots.txt"), "utf8")
     ]);
     assert.match(previewHome, /栏目预览：把素材、判断和公开范围分开/u);
     assert.match(previewDaily, /开发预览样稿/u);
@@ -383,6 +444,12 @@ test("keeps preview content out of the production build and renders it only in a
     assert.match(previewLesson, /We ran into an issue during the final check/u);
     assert.match(previewLesson, /name="robots" content="noindex, nofollow"/u);
     assert.doesNotMatch(previewSitemap, /preview-content-boundaries/u);
+    assert.ok(previewProjectScreenshot.byteLength > 0, "preview must include the featured project screenshot");
+    assert.match(previewAdQuiet, /Less interruption\. More watching\./u);
+    assert.match(previewHeatSleuth, /HeatSleuth/u);
+    assert.match(previewPdfSnap, /PDF Snap/u);
+    assert.match(previewRedirects, /^\/privacy\/ \/adquiet\/privacy\/ 301/mu);
+    assert.match(previewRobots, /User-agent: \*\nDisallow: \/\n/u);
   } finally {
     await rm(previewDirectory, { recursive: true, force: true });
     await rm(symlinkDirectory, { recursive: true, force: true });

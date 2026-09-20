@@ -70,7 +70,9 @@
 
   function updatePauseButton(isManuallyPaused) {
     pauseButton.setAttribute("aria-pressed", String(isManuallyPaused));
-    pauseButton.textContent = isManuallyPaused ? "恢复旋转" : "暂停旋转";
+    pauseButton.setAttribute("aria-label", isManuallyPaused ? "恢复旋转" : "暂停旋转");
+    pauseButton.setAttribute("title", isManuallyPaused ? "恢复旋转" : "暂停旋转");
+    pauseButton.textContent = isManuallyPaused ? "▶" : "Ⅱ";
   }
 
   async function initialize() {
