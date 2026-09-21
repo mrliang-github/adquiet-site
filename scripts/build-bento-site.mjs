@@ -279,6 +279,7 @@ function navLink(pathname, label, currentPath) {
 }
 
 function siteHeader(currentPath) {
+  // 生成全站标准顶部导航结构，遵循 v1.2 方案固定的四大中文一级栏目与关于页
   return `<a class="skip-link" href="#content">跳到正文</a>
 <header class="site-header">
   <nav class="site-nav" aria-label="主导航">
@@ -286,8 +287,8 @@ function siteHeader(currentPath) {
     <ul class="site-nav-links">
       ${navLink("/writing/", "文章", currentPath)}
       ${navLink("/tools/", "工具", currentPath)}
-      ${navLink("/daily/", "风向标", currentPath)}
-      ${navLink("/english/", "英语", currentPath)}
+      ${navLink("/daily/", "风向标日报", currentPath)}
+      ${navLink("/english/", "英语学习", currentPath)}
       ${navLink("/about/", "关于", currentPath)}
     </ul>
   </nav>
@@ -377,21 +378,70 @@ function previewMarker(item) {
 }
 
 function dailyCard(report) {
+  // 如果没有已审核发布的公开日报，展示严谨的空状态与栏目说明入口
   if (!report) {
-    return `<p class="bento-empty">暂无公开日报。接入可公开素材并通过审核后，会自动出现在这里。</p><a class="card-link" href="/daily/">查看栏目说明</a>`;
+    return `<p class="bento-empty">暂无公开日报。接入可公开素材并通过审核后，会自动出现在这里。</p><a class="card-link" href="/daily/">查看历史归档</a>`;
   }
-  return `<time class="card-date" datetime="${report.editionDate}">${dateLabel(report.editionDate)}</time><h2><a href="/daily/${report.slug}/">${escapeHtml(report.title)}</a></h2><p>${escapeHtml(report.summary)}</p>${previewMarker(report)}<a class="card-link" href="/daily/${report.slug}/">阅读这一期</a>`;
+  // 日报卡片：展示期次、标题、核心摘要以及分流操作（本期详情与历史归档）
+  return `<time class="card-date" datetime="${report.editionDate}">最新一期 · ${dateLabel(report.editionDate)}</time>
+    <h2><a href="/daily/${escapeAttribute(report.slug)}/">${escapeHtml(report.title)}</a></h2>
+    <p>${escapeHtml(report.summary)}</p>
+    ${previewMarker(report)}
+    <div class="card-actions">
+      <a class="card-link primary-cta" href="/daily/${escapeAttribute(report.slug)}/">阅读本期 →</a>
+      <a class="card-link" href="/daily/">历史归档</a>
+    </div>`;
 }
 
 function lessonCallToAction(lesson) {
+  // 详情页或列表页用于触发继续练习状态的结构化属性链接
   return `<a class="card-link" data-lesson-cta data-lesson-id="${escapeAttribute(lesson.id)}" data-lesson-revision="${escapeAttribute(lesson.revision ?? "preview")}" href="/english/${escapeAttribute(lesson.slug)}/">开始练习</a>`;
 }
 
 function englishCard(lesson) {
+  // 英语卡片空状态：不生成伪造的课程数据
   if (!lesson) {
     return `<p class="bento-empty">暂无公开课程。课程发布后会按期次进入这里。</p><a class="card-link" href="/english/">查看英语栏目</a>`;
   }
-  return `<p class="card-meta">${escapeHtml(lesson.scenario)} · ${escapeHtml(lesson.profession)}</p><h2><a href="/english/${lesson.slug}/">${escapeHtml(lesson.title)}</a></h2>${previewMarker(lesson)}`;
+
+  // 映射通俗中文难度分级
+  const levelLabels = {
+    starter: "入门",
+    foundation: "基础",
+    intermediate: "进阶",
+    advanced: "高级"
+  };
+  const levelText = levelLabels[lesson.level] ?? lesson.level;
+
+  // 提取本节课真实重点表达的例句或正文单句作为纯静态表达预览（首页严格不挂载播放器）
+  const firstExpression = lesson.expressions?.[0];
+  const matchedSentence = firstExpression?.sentenceId
+    ? lesson.sentences?.find((sentence) => sentence.id === firstExpression.sentenceId)
+    : lesson.sentences?.[0];
+
+  const previewEn = matchedSentence?.text || firstExpression?.example || "";
+  const previewZh = matchedSentence?.translation || firstExpression?.translation || "";
+
+  // 构造静态表达预览面板
+  const previewBox = previewEn
+    ? `<div class="lesson-preview-box">
+        <p class="preview-box-label">本课表达预览</p>
+        <p class="preview-en">${escapeHtml(previewEn)}</p>
+        ${previewZh ? `<p class="preview-zh">${escapeHtml(previewZh)}</p>` : ""}
+      </div>`
+    : "";
+
+  return `<time class="card-date" datetime="${lesson.editionDate}">最新课程 · ${dateLabel(lesson.editionDate)}</time>
+    <h2><a href="/english/${escapeAttribute(lesson.slug)}/">${escapeHtml(lesson.title)}</a></h2>
+    <p class="lesson-goal">${escapeHtml(lesson.goal || lesson.summary)}</p>
+    ${previewBox}
+    <p class="lesson-meta-foot">${escapeHtml(levelText)} · 预计 ${lesson.durationMinutes} 分钟</p>
+    <p class="lesson-hint">课程内支持对话点读与表达练习</p>
+    ${previewMarker(lesson)}
+    <div class="lesson-actions">
+      <a class="card-link primary-cta" data-lesson-cta data-lesson-id="${escapeAttribute(lesson.id)}" data-lesson-revision="${escapeAttribute(lesson.revision ?? "preview")}" href="/english/${escapeAttribute(lesson.slug)}/">开始练习 →</a>
+      <a class="card-link" href="/english/">全部课程</a>
+    </div>`;
 }
 
 function globeMarkup() {
@@ -422,10 +472,10 @@ function homePage({ articles, dailyReports, englishLessons }) {
       <section class="bento-card bento-card--identity" aria-labelledby="home-title"><div class="identity-copy"><p class="card-kicker">WELCOME</p><h1 id="home-title">你好，我是良逍。</h1><p>设计出身的产品经理，主业做跨境电商 CMS/ERP。</p><p>业余时间，我用 AI 做 iOS 和 Web 产品，也在探索出海和个人产品。</p><p>把做出来的工具、真实的限制和当时的判断放在一起。</p><div class="identity-links"><a href="/about/">关于我</a><a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">GitHub</a><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">X</a></div></div></section>
       <section class="bento-card bento-card--tools" aria-labelledby="tools-card-title"><div class="card-heading"><p class="card-kicker">PRODUCTS &amp; TOOLS</p><h2 id="tools-card-title">正在用，也在维护</h2></div><div class="bento-tool-list">${tools.map(compactTool).join("")}</div><a class="card-link" href="/tools/">全部工具</a></section>
       <section class="bento-card bento-card--contact" aria-labelledby="contact-card-title"><p class="card-kicker">STAY IN TOUCH</p><h2 id="contact-card-title">一起交流。</h2><p>AI 工具、独立开发，或出海产品。</p><div class="home-contact-links"><a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">GitHub</a><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">X / @lingxio71220285</a></div></section>
-      <section class="bento-card bento-card--daily" aria-labelledby="daily-card-title"><p class="card-kicker">WIND NOTES</p><div id="daily-card-title">${dailyCard(latestDaily)}</div></section>
+      <section class="bento-card bento-card--daily" aria-labelledby="daily-card-title"><p class="card-kicker"><a href="/daily/">WIND NOTES / 风向标日报</a></p><div id="daily-card-title">${dailyCard(latestDaily)}</div></section>
       <section class="bento-card bento-card--work" aria-labelledby="work-card-title"><a class="work-card-link" href="/adquiet/"><img src="/assets/screenshot-home.jpg" alt="AdQuiet 的产品页面截图"><span><small>FEATURED PROJECT</small><strong id="work-card-title">AdQuiet</strong></span></a></section>
       <section class="bento-card bento-card--now" aria-labelledby="now-card-title"><div class="compact-card-head"><p class="card-kicker">NOW</p>${latestBuildNote ? `<time class="card-date" datetime="${latestBuildNote.date}">${dateLabel(latestBuildNote.date)}</time>` : ""}</div>${latestBuildNote ? `<h2 id="now-card-title"><a href="/writing/${latestBuildNote.articleSlug}/">${escapeHtml(latestBuildNote.title)}</a></h2>` : `<h2 id="now-card-title"><a href="/building/">最近在做</a></h2>`}</section>
-      <section class="bento-card bento-card--english" aria-labelledby="english-card-title"><p class="card-kicker">DAILY ENGLISH</p><div id="english-card-title">${englishCard(latestLesson)}</div></section>
+      <section class="bento-card bento-card--english" aria-labelledby="english-card-title"><p class="card-kicker"><a href="/english/">DAILY ENGLISH / 英语学习</a></p><div id="english-card-title">${englishCard(latestLesson)}</div></section>
       <section class="bento-card bento-card--writing" aria-labelledby="writing-card-title"><p class="card-kicker">WRITING</p>${latestArticle ? `<article class="bento-list-item"><time datetime="${latestArticle.date}">${dateLabel(latestArticle.date)}</time><h2 id="writing-card-title"><a href="/writing/${latestArticle.slug}/">${escapeHtml(latestArticle.title)}</a></h2></article><a class="card-link" href="/writing/">全部文章</a>` : `<h2 id="writing-card-title"><a href="/writing/">浏览文章</a></h2>`}</section>
       <section class="bento-card bento-card--about" aria-labelledby="about-card-title"><p class="card-kicker">ABOUT</p><h2 id="about-card-title"><a href="/about/">产品、工具和过程</a></h2></section>
       ${globeMarkup()}

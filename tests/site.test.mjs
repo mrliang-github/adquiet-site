@@ -202,11 +202,20 @@ test("uses the root route as a Chinese-first personal homepage", async () => {
   assert.match(page, /site-assets\/globe\.js/u);
   assert.match(page, /aria-label="地球控制"/u);
   assert.match(page, /class="globe-compact"/u);
+  // 验证首页包含规范的四大一级栏目全称
+  assert.match(page, /风向标日报/u);
+  assert.match(page, /英语学习/u);
   assert.doesNotMatch(page, /<header class="site-header">/u);
   assert.doesNotMatch(page, /别只盯着一个窗口/u);
   assert.doesNotMatch(page, /公司账套工作台/u);
   assert.doesNotMatch(page, /voucher\.liangxiaoaitool\.top/u);
   assert.doesNotMatch(page, /Less interruption\. More watching\./u);
+
+  // 验证内容页通用顶部导航的一级栏目名称
+  const aboutPageHtml = await html(routes.about);
+  assert.match(aboutPageHtml, /<nav class="site-nav"/u);
+  assert.match(aboutPageHtml, /风向标日报/u);
+  assert.match(aboutPageHtml, /英语学习/u);
 });
 
 test("keeps AdQuiet on its own product route and Chrome Web Store listing", async () => {
@@ -436,6 +445,16 @@ test("keeps preview content out of the production build and renders it only in a
       readFile(join(previewDirectory, "robots.txt"), "utf8")
     ]);
     assert.match(previewHome, /栏目预览：把素材、判断和公开范围分开/u);
+    // 验证 v1.2 首页英语卡片：必须包含静态表达预览面板与明确的双操作按钮
+    assert.match(previewHome, /本课表达预览/u);
+    assert.match(previewHome, /开始练习 →/u);
+    assert.match(previewHome, /全部课程/u);
+    // 验证 v1.2 首页风向标日报卡片：必须同时包含阅读本期与历史归档双入口
+    assert.match(previewHome, /阅读本期 →/u);
+    assert.match(previewHome, /历史归档/u);
+    // 验证四大栏目名称统一采用规范中文全称
+    assert.match(previewHome, /风向标日报/u);
+    assert.match(previewHome, /英语学习/u);
     assert.match(previewDaily, /开发预览样稿/u);
     assert.match(previewEnglish, /开发预览课程/u);
     assert.match(previewLesson, /site-assets\/speech-player\.js/u);

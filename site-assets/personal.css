@@ -2778,11 +2778,93 @@ body.page-home::before {
 }
 
 .page-home .bento-card--english .preview-marker {
+  /* 预览黄色提示小标签，标注开发样稿 */
   margin-top: 4px;
   color: #ffc875;
   font-size: 11px;
   letter-spacing: 0;
   text-transform: none;
+}
+
+/* 课程一句话目标简介 */
+.page-home .lesson-goal {
+  margin-top: 4px;
+  color: #aab2bc;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* 静态表达预览面板：采用浅暗色微透明面板，提供层次感与科技质感 */
+.page-home .lesson-preview-box {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+/* 表达预览顶部小标题 */
+.page-home .preview-box-label {
+  margin: 0 0 4px;
+  color: var(--rust-dark);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* 表达预览中的英文句子：清晰显眼，提升可读性 */
+.page-home .preview-en {
+  margin: 0 0 3px;
+  color: #f3f4f6;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* 表达预览中的中文翻译：弱化层级，辅助理解 */
+.page-home .preview-zh {
+  margin: 0;
+  color: #8c96a4;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* 难度等级与预估练习时长 */
+.page-home .lesson-meta-foot {
+  margin: 6px 0 2px;
+  color: #8c96a4;
+  font-size: 12px;
+}
+
+/* 课程能力提示：告知用户详情页具备对话与点读能力 */
+.page-home .lesson-hint {
+  margin: 0 0 10px;
+  color: #6e7783;
+  font-size: 11px;
+}
+
+/* 英语卡片与日报卡片的双操作按钮排布 */
+.page-home .lesson-actions,
+.page-home .card-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+/* 确保操作链接上下对齐且不产生多余外边距 */
+.page-home .lesson-actions .card-link,
+.page-home .card-actions .card-link {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* 主操作按钮：使用红粉/珊瑚强调色加粗展示，形成强烈的引导感 */
+.page-home .card-link.primary-cta {
+  color: var(--rust-dark);
+  font-weight: 700;
 }
 
 .page-home .bento-card--writing {
