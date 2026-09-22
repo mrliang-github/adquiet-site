@@ -575,13 +575,18 @@ function dailyDetailPage(report, reports) {
   const newer = reports[index - 1];
   const older = reports[index + 1];
   const sourcesById = new Map(report.sources.map((source) => [source.id, source]));
+  // 对已发布的正式日报，优雅挂载生财社群专属邀请通道，表明信息源启发并提供合规分销入口
+  const communitySection =
+    !report.preview && site.shengcaiInviteUrl
+      ? `<section class="community-recommendation"><h2>信息源与社群探讨</h2><p>本期趋势观察与案例线索，主要整理并脱敏自「生财有术」社群内部的实战复盘与商业讨论。如果你也是正在探索商业变现、AI 工具或出海副业的独立创作者，欢迎通过我的 <a href="${escapeAttribute(site.shengcaiInviteUrl)}" target="_blank" rel="noopener noreferrer">专属邀请通道</a> 了解社群详情。</p></section>`
+      : "";
   return documentPage({
     pathname: `/daily/${report.slug}/`,
     title: report.title,
     description: report.summary,
     currentPath: "/daily/",
     robots: previewMode || report.preview ? "noindex, nofollow" : undefined,
-    body: `<main id="content" class="site-main"><article class="content-detail reading-shell"><a class="article-back" href="/daily/">返回日报</a><p class="entry-kicker">${report.preview ? "开发预览样稿" : "风向标日报"}</p><h1>${escapeHtml(report.title)}</h1><p class="content-summary">${escapeHtml(report.summary)}</p><div class="content-meta"><time datetime="${report.editionDate}">期次 ${dateLabel(report.editionDate)}</time>${report.updatedAt ? `<time datetime="${report.updatedAt}">修订 ${escapeHtml(report.updatedAt.slice(0, 10))}</time>` : ""}</div>${previewMarker(report)}<section><h2>本期概览</h2><p>${escapeHtml(report.overview)}</p></section><section><h2>重点发现</h2><ol class="finding-list">${report.discoveries.map((discovery) => `<li><h3>${escapeHtml(discovery.title)}</h3><p><strong>发生了什么：</strong>${escapeHtml(discovery.fact)}</p><p><strong>我的判断：</strong>${escapeHtml(discovery.judgement)}</p><p class="source-references">来源：${discovery.sourceIds.map((id) => escapeHtml(sourcesById.get(id)?.title ?? id)).join("、")}</p></li>`).join("")}</ol></section><section><h2>下一步</h2><p>${escapeHtml(report.nextStep)}</p></section><section><h2>可公开的来源</h2>${sourceList(report)}</section><nav class="content-pagination" aria-label="日报导航">${newer ? `<a href="/daily/${newer.slug}/">← 更新一期</a>` : "<span></span>"}<a href="/daily/">全部日报</a>${older ? `<a href="/daily/${older.slug}/">较早一期 →</a>` : "<span></span>"}</nav></article></main>`
+    body: `<main id="content" class="site-main"><article class="content-detail reading-shell"><a class="article-back" href="/daily/">返回日报</a><p class="entry-kicker">${report.preview ? "开发预览样稿" : "风向标日报"}</p><h1>${escapeHtml(report.title)}</h1><p class="content-summary">${escapeHtml(report.summary)}</p><div class="content-meta"><time datetime="${report.editionDate}">期次 ${dateLabel(report.editionDate)}</time>${report.updatedAt ? `<time datetime="${report.updatedAt}">修订 ${escapeHtml(report.updatedAt.slice(0, 10))}</time>` : ""}</div>${previewMarker(report)}<section><h2>本期概览</h2><p>${escapeHtml(report.overview)}</p></section><section><h2>重点发现</h2><ol class="finding-list">${report.discoveries.map((discovery) => `<li><h3>${escapeHtml(discovery.title)}</h3><p><strong>发生了什么：</strong>${escapeHtml(discovery.fact)}</p><p><strong>我的判断：</strong>${escapeHtml(discovery.judgement)}</p><p class="source-references">来源：${discovery.sourceIds.map((id) => escapeHtml(sourcesById.get(id)?.title ?? id)).join("、")}</p></li>`).join("")}</ol></section><section><h2>下一步</h2><p>${escapeHtml(report.nextStep)}</p></section><section><h2>可公开的来源</h2>${sourceList(report)}</section>${communitySection}<nav class="content-pagination" aria-label="日报导航">${newer ? `<a href="/daily/${newer.slug}/">← 更新一期</a>` : "<span></span>"}<a href="/daily/">全部日报</a>${older ? `<a href="/daily/${older.slug}/">较早一期 →</a>` : "<span></span>"}</nav></article></main>`
   });
 }
 

@@ -3,7 +3,9 @@ export const site = {
   description: "把想法做成东西，再把过程写下来。",
   url: "https://liangxiaoaitool.top",
   xProfile: "https://x.com/lingxio71220285",
-  githubProfile: "https://github.com/mrliang-github"
+  githubProfile: "https://github.com/mrliang-github",
+  // 知识星球（生财有术）专属邀请链接，用于日报详情页合规信息源推荐
+  shengcaiInviteUrl: "https://t.zsxq.com/FBJDh"
 };
 
 export const articleSelection = [

@@ -2071,6 +2071,36 @@ button:focus-visible,
   font-size: 12px;
 }
 
+.content-detail > section.community-recommendation {
+  margin-top: clamp(40px, 6vw, 70px);
+  padding: 24px 28px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--paper-warm);
+}
+
+.content-detail > section.community-recommendation h2 {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.6vw, 26px);
+  letter-spacing: -0.035em;
+}
+
+.content-detail > section.community-recommendation p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.content-detail > section.community-recommendation a {
+  color: var(--rust-dark);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+}
+
 .content-pagination {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
