@@ -2403,6 +2403,158 @@ button:focus-visible,
   }
 }
 
+/* Inner pages visual unification: consistent dark tech aesthetic, quiet reading flow */
+
+html[data-theme="paper"] {
+  color-scheme: dark;
+  background: #111111;
+}
+
+html[data-theme="paper"] body,
+body:not(.page-home) {
+  --paper: #111111;
+  --paper-deep: #161616;
+  --paper-warm: #1a1a1c;
+  --ink: #f5f5f3;
+  --ink-soft: #d5d5d0;
+  --muted: #a2a29d;
+  --faint: #74746f;
+  --rule: #262626;
+  --rule-dark: #3a3a3a;
+  --rust: #d95b36;
+  --rust-dark: #ff724b;
+  --blue: #5b9ee3;
+  --blue-dark: #7cb5f2;
+  --font-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", Arial,
+    sans-serif;
+  background: #111111;
+  color: #f5f5f3;
+}
+
+html[data-theme="paper"] ::selection {
+  background: var(--rust);
+  color: #fff;
+}
+
+html[data-theme="paper"] .skip-link {
+  background: #1a1a1c;
+  border-color: #3a3a3a;
+  color: #f5f5f3;
+}
+
+html[data-theme="paper"] .site-header {
+  background: #111111;
+  border-bottom: 1px solid var(--rule-dark);
+}
+
+html[data-theme="paper"] .site-brand {
+  color: #ffffff;
+}
+
+html[data-theme="paper"] .site-nav-links a {
+  color: var(--muted);
+}
+
+html[data-theme="paper"] .site-nav-links a:hover {
+  color: #ffffff;
+}
+
+html[data-theme="paper"] .site-nav-links a[aria-current="page"] {
+  color: #ffffff;
+}
+
+html[data-theme="paper"] .site-footer {
+  border-top: 1px solid var(--rule-dark);
+}
+
+/* Card clickability & stretched-link interaction (solves unclickable dead zones) */
+
+.page-home .bento-card--daily,
+.page-home .bento-card--english,
+.page-home .bento-card--now,
+.page-home .bento-card--writing,
+.page-home .bento-card--about,
+.page-home .bento-card--rss,
+.content-list-item,
+.writing-item,
+.tool-row {
+  cursor: pointer;
+}
+
+.page-home .bento-card--daily .primary-cta::after,
+.page-home .bento-card--english .primary-cta::after,
+.page-home .bento-card--now h2 a::after,
+.page-home .bento-card--writing h2 a::after,
+.page-home .bento-card--about h2 a::after,
+.page-home .bento-card--rss h2 a::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+}
+
+.page-home .bento-card--daily .card-actions a:not(.primary-cta),
+.page-home .bento-card--daily .card-kicker a,
+.page-home .bento-card--english .lesson-actions a:not(.primary-cta),
+.page-home .bento-card--english .card-kicker a,
+.page-home .bento-card--writing .card-link,
+.page-home .bento-card--writing .card-kicker a {
+  position: relative;
+  z-index: 2;
+}
+
+.page-home .bento-tool-item {
+  position: relative;
+  cursor: pointer;
+  padding: 6px 8px;
+  margin: -2px -8px;
+  border-radius: 8px;
+  transition: background-color 150ms ease;
+}
+
+.page-home .bento-tool-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.page-home .bento-tool-item h3 a::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+}
+
+.page-home .bento-card--tools .card-link {
+  position: relative;
+  z-index: 2;
+}
+
+.content-list-item,
+.writing-item,
+.tool-row {
+  position: relative;
+}
+
+.content-list-item h2 a::after,
+.writing-item h3 a::after,
+.tool-row h3 a::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+}
+
+.content-list-item .tag-list,
+.content-list-item .entry-link,
+.content-list-item .card-link,
+.writing-item .tag-list,
+.writing-item .entry-link,
+.writing-item .writing-side,
+.tool-row .entry-link {
+  position: relative;
+  z-index: 2;
+}
+
 /* Homepage visual correction: a compact, reference-inspired bento surface. */
 
 html[data-theme="home"] {

@@ -279,12 +279,13 @@ function navLink(pathname, label, currentPath) {
 }
 
 function siteHeader(currentPath) {
-  // 生成全站标准顶部导航结构，遵循 v1.2 方案固定的四大中文一级栏目与关于页
+  // 生成全站标准顶部导航结构，遵循 v1.2 方案固定的主页入口、四大中文一级栏目与关于页
   return `<a class="skip-link" href="#content">跳到正文</a>
 <header class="site-header">
   <nav class="site-nav" aria-label="主导航">
     <a class="site-brand" href="/" aria-label="良逍，返回首页">良逍 <span>AI</span></a>
     <ul class="site-nav-links">
+      ${navLink("/", "首页", currentPath)}
       ${navLink("/writing/", "文章", currentPath)}
       ${navLink("/tools/", "工具", currentPath)}
       ${navLink("/daily/", "风向标日报", currentPath)}
@@ -336,7 +337,7 @@ function documentPage({
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="${escapeAttribute(description)}">
-  <meta name="theme-color" content="${pageTheme === "home" ? "#111111" : "#f3f0e8"}">${robotsMeta}
+  <meta name="theme-color" content="#111111">${robotsMeta}
   <title>${escapeHtml(documentTitle)}</title>
   <link rel="canonical" href="${escapeAttribute(canonical)}">
   <link rel="alternate" type="application/rss+xml" title="${site.name} 的 RSS" href="${pageUrl("/rss.xml")}">
