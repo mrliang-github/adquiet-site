@@ -5,56 +5,1003 @@
     {
       "schemaVersion": 1,
       "kind": "english",
+      "id": "english-2026-09-13",
+      "slug": "responding-to-an-overseas-bug-report",
+      "title": "回应海外用户的 bug 反馈 · Responding to an Overseas Bug Report",
+      "summary": "练习在「回应海外用户的 bug 反馈」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-13",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "revision": "0a4daf4b51b48e8c",
+      "publishedAt": "2026-09-13T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "In your shared workspace chat, looking at a screenshot Maya just sent.",
+      "goal": "Help Maya figure out why her AI export keeps failing — by asking clear, patient questions in English, one step at a time.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "on-my-end",
+          "phrase": "on my end",
+          "translation": "从我这一侧来讲；从我看到的。",
+          "example": "The file looks fine on my end — could you check on your end whether your inbox put it in spam?",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "narrow-it-down",
+          "phrase": "narrow it down",
+          "translation": "把可能的范围缩小、排除掉一些选项。",
+          "example": "There are a few possible reasons, so let me ask one more question to narrow it down.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "specific-to",
+          "phrase": "specific to",
+          "translation": "只发生在 / 跟……有关，特定于。",
+          "example": "It doesn't look like a general server issue — it may be specific to the file format you're uploading.",
+          "sentenceId": "l8"
+        },
+        {
+          "id": "keep-me-posted",
+          "phrase": "keep me posted",
+          "translation": "有新进展告诉我一声；保持联系。",
+          "example": "I'll review the proposal tonight and keep you posted by tomorrow morning.",
+          "sentenceId": "l9"
+        },
+        {
+          "id": "hit-a-bug-an-issue",
+          "phrase": "hit (a bug / an issue)",
+          "translation": "撞上、遇到（某个 bug 或问题）。",
+          "example": "Some users on the latest build are hitting a slow login — we're tracking it down now.",
+          "sentenceId": "l1"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Maya",
+          "text": "Hi, sorry to bother you. The export button is greyed out, and a small message says 'Export failed.' I tried twice this morning.",
+          "translation": "嗨，不好意思又来打扰你。导出按钮变成灰色了，旁边有一行小字写着 'Export failed'。我今天早上试了两次。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "Hi Maya, no bother at all. Sorry you're hitting this. Can you tell me which project you were working in when it failed?",
+          "translation": "嗨 Maya，一点都不打扰，抱歉你撞上这问题。能告诉我是哪个项目失败的吗？"
+        },
+        {
+          "id": "l3",
+          "speaker": "Maya",
+          "text": "The 'Weekly Plan' one. I started fresh and the message is still there, so it is not the old draft.",
+          "translation": "是'Weekly Plan'那个项目。我重新开了一次，那个提示还在，所以不是旧草稿的问题。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "Got it. Does this happen on every project, or only on that one? I am trying to narrow it down.",
+          "translation": "好。是每个项目都这样，还是只有这一个项目？我想帮你把范围缩一缩。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Maya",
+          "text": "I only tried that one, but earlier this week the export worked on my newsletter draft. So it is not every project for sure.",
+          "translation": "我只试了那一个，但这周我导过 newsletter 那篇，是正常的。所以肯定不是每个项目都坏。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "Thanks, that is really helpful. On my end, exports look fine in the test workspace. Could you try opening a brand-new project, just one short paragraph, and hit export once?",
+          "translation": "谢谢，这信息很有用。我这边看，测试工作区里导出是正常的。你能不能新开一个项目，就写一小段，然后点一次导出试试？"
+        },
+        {
+          "id": "l7",
+          "speaker": "Maya",
+          "text": "Okay, let me try... Same thing. Grey button, 'Export failed.'",
+          "translation": "好，我试一下……一样的。按钮灰着，提示 'Export failed'。"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "Alright, that points to something specific to your account, not the project itself. Could you send me a quick screenshot of the bottom of the screen where the error shows up? I will keep digging on my end.",
+          "translation": "好，那看起来是跟你账号有关，不是项目本身的问题。能不能把屏幕底部那条报错的截图发我一下？我这边再继续排查。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Maya",
+          "text": "Sending it now. Please keep me posted on what you find, and thanks again for looking into this.",
+          "translation": "现在就发。如果有发现随时告诉我进展，再次谢谢你跟进。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Got it, thanks. I will look at the logs tonight and keep you posted by tomorrow morning your time.",
+          "translation": "收到，谢谢。我今晚去看一下日志，明天早上按你的时区给你回复。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "A new German user, Jonas, writes in: the AI summary shows a blank page on his phone, but the same feature works fine on his laptop.\n\n对方说: \"Quick question — the AI summary shows a blank page whenever I open it on my phone. Works fine on my laptop. Any idea why?\"\n\n你的任务: Reply to Jonas. Ask one clarifying question to narrow down whether the issue is on his side or yours. (You can start with: \"Hi Jona",
+          "referenceAnswer": "Hi Jonas, thanks for the report — sorry about that. A quick question to narrow it down: are you on the latest app version on your phone? On my end, the summary loads on the latest build, so I want to check if it's specific to your version first.",
+          "explanation": "先确认版本号 = 把\"是不是老版本\"从一堆可能里排除掉；用了 narrow it down、on my end、specific to 三个本课表达。即使对方版本对不上，这一步也不会白问——至少排除了一个嫌疑。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-15",
+      "slug": "pre-stream-check-with-an-overseas-guest",
+      "title": "连麦直播前的技术与流程核对 · Pre-stream Check with an Overseas Guest",
+      "summary": "练习在「连麦直播前的技术与流程核对」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-15",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "revision": "9ff50b9b113b8d9e",
+      "publishedAt": "2026-09-15T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "Fifty minutes before the livestream, in your small home studio. Only you and your guest are in the test call; the audience has not joined yet.",
+      "goal": "In a short test call, confirm the time, the demo and the risks with your overseas guest — in English, before the stream goes live.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "double-check",
+          "phrase": "double-check",
+          "translation": "再确认一遍、复核一次。",
+          "example": "Before I send the invoice, let me double-check the billing address with you.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "heads-up",
+          "phrase": "heads-up",
+          "translation": "提前提醒一声、事先打个招呼。",
+          "example": "Just a heads-up — the client moved the meeting to Monday, so we need the deck one day earlier.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "blur-out",
+          "phrase": "blur out",
+          "translation": "把某处模糊掉、打码处理。",
+          "example": "I had to blur out my home address before posting the screenshot.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "run-through",
+          "phrase": "run through",
+          "translation": "把流程或材料从头到尾过一遍。",
+          "example": "Can we run through the agenda once before the client call?",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "backup-plan",
+          "phrase": "backup plan",
+          "translation": "备选方案、兜底办法。",
+          "example": "The hotel Wi-Fi is slow, so my backup plan is to use my phone as a hotspot.",
+          "sentenceId": "l10"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Alex",
+          "text": "Hey, can you hear me? My calendar says nine PM, but I want to double-check: is that nine PM your time or mine?",
+          "translation": "嘿，能听到我吗？我日历上写的是晚上九点，但我想再确认一下：是北京时间九点还是我这边的九点？"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "Loud and clear. Let me double-check the time with you now — nine PM Beijing time, that is nine AM for you. Does that still work?",
+          "translation": "很清楚。我现在跟你再对一下时间——北京时间晚上九点，也就是你这边的早上九点。这个时间还行吗？"
+        },
+        {
+          "id": "l3",
+          "speaker": "Alex",
+          "text": "Yes, nine AM works. Sorry, I always mix up the time difference. So, do you want me to share my screen for the demo?",
+          "translation": "可以，早上九点没问题。抱歉，我老是搞混时差。那演示的时候要我共享屏幕吗？"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "Yes, please. Just a heads-up — your demo screen shows a test key at the top. Can you blur that out before we go live?",
+          "translation": "要的，麻烦你了。提前提醒一下——你演示画面顶部有个测试的 key。开播前你能把那个打码糊掉吗？"
+        },
+        {
+          "id": "l5",
+          "speaker": "Alex",
+          "text": "Oh, good catch. I'll blur it out. Should I hide the repo name too? The feature is not public yet.",
+          "translation": "哦，多亏你提醒。我会糊掉的。仓库名也一起藏起来吗？这个功能还没公开。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "Yes, please keep the repo name off screen too. Let's run through the order one more time: intro, your ten-minute demo, then Q and A. Is that still okay with you?",
+          "translation": "对，仓库名也别出现在画面里。我们把顺序再过一遍：开场介绍、你十分钟的演示、然后问答。这样你这边没问题吧？"
+        },
+        {
+          "id": "l7",
+          "speaker": "Alex",
+          "text": "That works. One thing though — the questions might be in Chinese, and I only speak English.",
+          "translation": "没问题。不过有件事——观众的提问可能是中文，而我只会说英语。"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "No problem, I'll translate the questions and read them out in English for you. Also, can you send me your slides before eight thirty my time? I'd like to run through them once before we start.",
+          "translation": "没关系，我会把问题翻译好，用英文念给你听。另外，你能在北京时间八点半之前把幻灯片发我吗？开播前我想先过一遍。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Alex",
+          "text": "Sending them now. And what if my screen share fails? My Wi-Fi dropped twice last week.",
+          "translation": "现在就发。那如果我共享屏幕失败了怎么办？我家的网络上周断过两次。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Good question. We'll have a backup plan: if your share drops, I'll put your slides on my screen and you just talk us through them.",
+          "translation": "问得好。我们会有备选方案：如果你的共享断了，我就把你的幻灯片放到我的屏幕上，你直接口头带着大家过一遍。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Alex",
+          "text": "Perfect, that takes the pressure off. See you at nine your time.",
+          "translation": "太好了，这样我就没那么大压力了。北京时间九点见。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "See you then. And if anything changes, just give me a heads-up — even five minutes before is fine.",
+          "translation": "到时候见。如果有任何变动，提前跟我说一声就行——哪怕开播前五分钟说也没关系。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "It is four minutes before the stream. Alex messages you in the test chat: he now wants to demo a brand-new feature that is still private, and he asks you to stop the recording for that part. Your channel always keeps a replay for viewers.\n\n对方说: \"Can we show the new feature instead? It's way more fun. And please don't record this bit — I can't have it online.\"\n\n你的任务: Reply to Alex. Give him a heads",
+          "referenceAnswer": "Hey Alex, quick heads-up — I can't turn off the recording, because my viewers expect the replay. But here's a backup plan: you talk us through the new feature without sharing your screen, and I'll blur out anything sensitive on my end. How does that sound?",
+          "explanation": "先用 heads-up 把\"不能关录制\"这个限制说清楚，再给 backup plan 让对方有台阶下——先回应限制，再给替代方案，比直接说 no 更容易被接受。用了本课两个表达。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-16",
+      "slug": "negotiating-a-sponsorship-deal",
+      "title": "与海外品牌谈视频赞助合作 · Negotiating a Sponsorship Deal",
+      "summary": "练习在「与海外品牌谈视频赞助合作」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-16",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "revision": "25f7a11b41de1955",
+      "publishedAt": "2026-09-16T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "Tuesday morning, in your small home studio. Your camera is off, only the call is on. Your next AI tools video is planned for two weeks from now.",
+      "goal": "In a first call with an overseas sponsor, agree on the money, the sixty-second mention and who keeps the final words — in English.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "a-good-fit",
+          "phrase": "a good fit",
+          "translation": "合适、契合——两边合得来。",
+          "example": "Thanks for the intro — before we meet, can you tell me if this project is a good fit for my design skills?",
+          "sentenceId": "l2"
+        },
+        {
+          "id": "up-front",
+          "phrase": "up front",
+          "translation": "把话提前说明白、一开始就摆在桌面上。",
+          "example": "I'll be up front with you — I can finish the site in three weeks, not two.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "push-back",
+          "phrase": "push back",
+          "translation": "对某个要求提出异议、往回顶一下。",
+          "example": "The client wants it by Friday, but I'm going to push back on the deadline — two days is not enough for testing.",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "in-exchange-for",
+          "phrase": "in exchange for",
+          "translation": "作为交换、以此换取。",
+          "example": "We can give you the tool for free in exchange for a written review on your blog.",
+          "sentenceId": "l3"
+        },
+        {
+          "id": "keep-me-posted",
+          "phrase": "keep me posted",
+          "translation": "有进展就告诉我一声。",
+          "example": "Keep me posted on when the new laptop arrives — I'll fly out as soon as it lands in the office.",
+          "sentenceId": "l12"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Daniel",
+          "text": "Hi, good to finally talk to you. I've watched your channel for a few months. We just launched a new AI writing tool, and we would like to sponsor one video.",
+          "translation": "嗨，终于跟你通上话了。你的频道我看了几个月。我们刚上线了一款新的 AI 写作工具，想赞助你一期视频。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "Thanks, good to hear. Before I say yes, I want to make sure this is a good fit for my viewers. What do you have in mind?",
+          "translation": "谢谢，很高兴听到这个。在我答应之前，我想先确认这件事对我的观众是否合适。你们具体是怎么想的？"
+        },
+        {
+          "id": "l3",
+          "speaker": "Daniel",
+          "text": "Of course. Two thousand US dollars. In exchange for that, we get a sixty-second part in the video, and our logo in the first minute.",
+          "translation": "当然。两千美元。作为交换，我们在视频里拿到六十秒的段落，还有第一个一分钟里的 logo。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "That part works for me. Let me be up front with you about one thing, though — my viewers come to me for my real opinion. I can't say a tool is great if I don't think it is.",
+          "translation": "这部分我可以。但有件事我得跟你说清楚——观众来看我是为了听真话。如果我觉得一个工具不好，我不能说它好。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Daniel",
+          "text": "I understand. That's why I picked your channel, not a big one. But our team would like to read your script before you publish it — just to check the facts.",
+          "translation": "我理解。这也是我选你而不是大号的原因。不过我们团队想在你发布前看一下脚本——只是核对事实。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "A fact check is fine. But I have to push back on one thing: if you can change my words, then it's not my video any more.",
+          "translation": "核对事实没问题。但有一点我必须顶一下：如果你们能改我的措辞，那这就不是我的视频了。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Daniel",
+          "text": "Fair enough. What do you suggest?",
+          "translation": "有道理。你有什么建议？"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "Here's an idea. I send you the sixty-second part only. You check the facts and the numbers, and I keep the final words.",
+          "translation": "我有个想法。我只把那六十秒的段落发给你。你们核对事实和数字，最终措辞由我来定。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Daniel",
+          "text": "That works for us. One more thing — could you say our tool is the best one you have tried this year? That would really help.",
+          "translation": "这个我们可以接受。还有一件事——你能不能说我们这款工具是你今年试过最好的？那对我们帮助很大。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "I can't say that if I don't believe it. But I can tell my viewers what I really think after three weeks of using it — the good parts and the weak parts. That is more useful for you anyway.",
+          "translation": "如果我自己不信，我就不能说。但我可以告诉观众我用了三周之后的真实感受——好用的地方和不够的地方。这样对你们其实更有用。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Daniel",
+          "text": "You're right. Let's do it your way.",
+          "translation": "你说得对。就按你的方式来。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Great. I'll send you a short plan this week — the date, the sixty-second part, and the payment terms. Keep me posted if anything changes on your side.",
+          "translation": "好。这周我给你发一个简短的计划——发布日期、那六十秒的段落、还有付款条件。你那边有变动就跟我说一声。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "The video is almost ready. Two days before you publish, Daniel sends a message: his manager now wants to check the whole video, not only the sixty-second part. You already told him the final words stay with you.\n\n对方说: \"Sorry, my manager wants to see the full video before you publish. It's just one email, right?\"\n\n你的任务: Reply to Daniel. Say your limit clearly, and offer one thing you can do so the",
+          "referenceAnswer": "Thanks, Daniel — I need to be up front: the final words have to stay with me, so I can't send the whole video for approval. But here's what I can do — you get the sixty-second part one week early, and your team can check every fact and every number before I publish. Does that work for you?",
+          "explanation": "先把不能退的那一条说清楚（up front），再用\"我不能 X，但可以 Y\"的句型给一个真的能落地的替代方案——对方要的是安全感和数据准确，不一定非要整片。用了本课两个表达。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-17",
+      "slug": "walking-an-overseas-client-through-your-tool",
+      "title": "与海外客户做产品演示 · Walking an Overseas Client Through Your Tool",
+      "summary": "练习在「与海外客户做产品演示」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-17",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "revision": "bc3f267a832d0d1b",
+      "publishedAt": "2026-09-17T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "Wednesday afternoon, in your home studio. You are sharing your screen. The call is thirty minutes long, and twenty minutes are already gone.",
+      "goal": "In a thirty-minute demo with an overseas client, walk her through what your tool does today, say clearly what it does not do yet, and still keep the deal moving — in English.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "walk-you-through",
+          "phrase": "walk you through",
+          "translation": "带着你一步一步看一遍、过一遍。",
+          "example": "Let me walk you through this invoice in two minutes, so you can see exactly what you are paying for.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "as-of-now",
+          "phrase": "as of now",
+          "translation": "就目前而言、截止到此刻。",
+          "example": "As of now, we only ship to three countries — I will tell you the day that changes.",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "on-the-roadmap",
+          "phrase": "on the roadmap",
+          "translation": "在开发计划里、被列进后续要做的清单。",
+          "example": "Bulk editing is on the roadmap for next quarter, but I will not sell it to you as if it is ready.",
+          "sentenceId": "l10"
+        },
+        {
+          "id": "narrow-it-down",
+          "phrase": "narrow it down",
+          "translation": "把范围收窄、把大问题缩成小问题。",
+          "example": "There are six things on your list — let me narrow it down: which two actually block you this week?",
+          "sentenceId": "l2"
+        },
+        {
+          "id": "double-check",
+          "phrase": "double-check",
+          "translation": "再核对一遍。",
+          "example": "Let me double-check the delivery address before we ship — it is cheaper than sending it twice.",
+          "sentenceId": "l1"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Maya",
+          "text": "Thanks for making time. We have used your free plan with the whole team for two weeks now, eight people. Before we talk about the team plan, can I show you how we work?",
+          "translation": "谢谢你抽时间。我们整个团队用你的免费版已经两周了，八个人。在我们谈团队版之前，我先给你看看我们是怎么工作的，可以吗？"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "Please do. That helps me narrow it down — I want to see the two or three steps your team does most often, not the whole process.",
+          "translation": "你说。这样我比较好把范围缩小——我想看你们团队最常做的那两三个步骤，不是整个流程。"
+        },
+        {
+          "id": "l3",
+          "speaker": "Maya",
+          "text": "Okay. First, we run about fifty images at a time for one client. Second, everything has to go into our Figma files. Third, each client should see only their own folder.",
+          "translation": "好。第一，我们为一个客户一次要跑大约五十张图。第二，所有东西都必须进我们的 Figma 文件。第三，每个客户只能看到自己的那个文件夹。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "Got it. Let me walk you through what the tool does today. Batch runs are in — I can show you fifty images in one go. Client folders are in too. Let me show you both.",
+          "translation": "明白了。我带你过一遍这个工具现在能做什么。批量处理是有的——我可以一次跑五十张图给你看。客户文件夹也有。两个都给你看。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Maya",
+          "text": "Good. Now the Figma part — that is the one our whole process depends on. Do you connect to Figma directly?",
+          "translation": "好。那 Figma 这部分——我们整个流程就靠这个。你们能直接连到 Figma 吗？"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "As of now, no — and I would rather tell you that on this call than next month. The export is clean, but it is still a download and an upload.",
+          "translation": "就目前而言，还不能——而且我宁愿在这通电话里就告诉你，而不是下个月。导出是干净的，但现在还是要下载一次、再上传一次。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Maya",
+          "text": "That is a problem. If it stays manual, my team will not use it. That could be a deal-breaker for us this year.",
+          "translation": "那就有问题。如果一直要手动，我团队就不会用。那对我们今年来说可能就是个过不去的坎。"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "I hear you. Can I narrow it down a little? Is the Figma link needed on day one? Or is it enough if the export is clean and your team can drag it in?",
+          "translation": "我明白。我能不能把范围再收窄一点？Figma 直连是第一天就必须有吗？还是只要导出干净、你团队能直接拖进去就够？"
+        },
+        {
+          "id": "l9",
+          "speaker": "Maya",
+          "text": "Day one would be better. But if the export lands in the right format, we can live with it for a while.",
+          "translation": "第一天就有当然更好。但如果导出格式对，我们暂时也能接受。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Then here is what I can do. For now, I will set the export to match your Figma setup, so it is one drag, not ten clicks. And I will put the Figma link on the roadmap — but I am not going to promise you a date today.",
+          "translation": "那我能做的是这样。眼下我把导出调成匹配你们 Figma 的格式，那样就是拖一下，不是点十次。Figma 直连我会放进开发计划——但我今天不会给你一个日期。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Maya",
+          "text": "That is fair. Let me double-check the export with my design lead tonight. I will come back to you tomorrow with a yes or a no.",
+          "translation": "这样合理。我今晚跟我们设计负责人核对一下导出。明天给你一个明确的答复，行还是不行。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Perfect. I will send you a short note today, with the export settings and a screen recording of the batch run. If anything in your workflow changes, tell me — I would rather hear it early.",
+          "translation": "好。我今天会给你发一封简短说明，包含导出设置和批量处理的录屏。你那边流程如果有变化，告诉我——我更愿意早点知道。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "The demo is over, but Maya's partner Jonas joins for the last two minutes. Their team keeps every client project in Notion, and Jonas asks about that side of the workflow. You still have not promised Maya a date for the Figma link.\n\n对方说: \"One more thing — can your tool push the finished images straight into our Notion database? Every client project of ours lives there.\"\n\n你的任务: Answer Jonas. Find o",
+          "referenceAnswer": "Can I narrow it down a little? Is it the finished images you need in Notion, or just the file names and the links? Because as of now, we do not push into Notion directly. What I can do today is give you a clean export with one link per client, so your team can paste it in. And I will put the Notion link on the roadmap — I just will not promise you a date today.",
+          "explanation": "先用 narrow it down 把\"接 Notion\"这个笼统要求收成一个二选一（图片本身，还是文件名和链接），再用 as of now 说清现状，然后给一个今天就能用的做法，最后用 on the roadmap 给方向但不给日期。用了本课三个表达。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-18",
+      "slug": "giving-notes-on-the-first-cut",
+      "title": "给海外剪辑师的改片反馈 · Giving Notes on the First Cut",
+      "summary": "练习在「给海外剪辑师的改片反馈」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-18",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "revision": "8b2d65f1ad9854b8",
+      "publishedAt": "2026-09-18T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "Thursday morning, at your desk. You have just watched the first cut of your launch video twice. Marco sent it last night with a link and one line: \"ti",
+      "goal": "Give an overseas video editor clear, specific notes on the first cut of your launch video — three changes, one night, and no room for a second round.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "heads-up",
+          "phrase": "heads-up",
+          "translation": "提前打个招呼、事先提醒一句。",
+          "example": "Just a heads-up: I will be travelling next Tuesday, so anything you need approved should reach me on Monday.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "tighten-up",
+          "phrase": "tighten up",
+          "translation": "收紧、压缩，让节奏变紧。",
+          "example": "Can you tighten up the last slide? The same point shows up on it three times.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "swap-out",
+          "phrase": "swap out",
+          "translation": "换掉、用新的替换旧的。",
+          "example": "We have to swap out the price in the ad — the discount ends on Sunday.",
+          "sentenceId": "l8"
+        },
+        {
+          "id": "hold-off-on",
+          "phrase": "hold off on",
+          "translation": "先别做、往后放一放。",
+          "example": "Let's hold off on the paid ads until we see the numbers from the free test.",
+          "sentenceId": "l10"
+        },
+        {
+          "id": "on-my-end",
+          "phrase": "on my end",
+          "translation": "在我这边、从我这一侧看。",
+          "example": "The file opened fine on my end, so it may be a browser issue on yours.",
+          "sentenceId": "l10"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Marco",
+          "text": "Hey, I just pushed the first cut. It runs about six minutes and twenty seconds. Send me everything you want changed at once — I would rather do one pass than five small ones.",
+          "translation": "嗨，我刚把第一版传上去了。大概六分二十秒。你想改的一次全发我——我宁愿一次改完，也不想分五小次改。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "Thanks, watching it now. Quick heads-up before the notes: the launch moved up to Friday, not next week. Is tonight still open for you?",
+          "translation": "谢谢，我正在看。说意见之前先提醒你一句：发布时间提前到周五了，不是下周。你今晚还有档期吗？"
+        },
+        {
+          "id": "l3",
+          "speaker": "Marco",
+          "text": "Thanks for the heads-up. Tonight works — I have another job booked all day Friday, so tonight is my only window. Send me timecodes and I will send it back the same night.",
+          "translation": "谢谢提醒。今晚可以——我周五整整一天都排了另一个活，所以今晚是我唯一的窗口。把时间码发我，我当晚就传回给你。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "Good. Three things. First, can you tighten up the first forty seconds? It takes too long to get to the tool, and I think people will click away.",
+          "translation": "好。三件事。第一，能把前四十秒收紧一点吗？进到工具画面的时间太长了，我觉得人会划走。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Marco",
+          "text": "Sure. Do you want me to cut the intro, or just make it faster?",
+          "translation": "行。你是要我把开头剪掉，还是只加快一点？"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "Faster. I still want the two lines about the problem — just tighten up the space between them.",
+          "translation": "加快就好。那两句讲问题的我还是想要——只要把它们中间的空档收紧就行。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Marco",
+          "text": "Got it. What is the second thing?",
+          "translation": "明白了。第二件是什么？"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "The dashboard shots. We shipped a new version this morning, so those screens are already out of date. Can we swap out the four clips after the first demo? I will send you a fresh recording within the hour.",
+          "translation": "仪表盘的镜头。我们今天早上发了新版本，所以那些界面已经过时了。能不能把第一段演示之后的四个片段换掉？我一小时内给你发一段新的录屏。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Marco",
+          "text": "No problem. Anything else?",
+          "translation": "没问题。还有别的吗？"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Last one — let's hold off on the end animation. I am not sure the new logo is final yet, and I do not want you to do that part twice. The captions are already done on my end, so you can just drop them in.",
+          "translation": "最后一件事——结尾动画先别做。我不确定新 logo 定下来了没有，不想让你那部分做两遍。字幕我这边已经做好了，你直接放进去就行。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Marco",
+          "text": "That all makes sense. So: tighten up the intro, swap out the four clips, and hold off on the end. The audio sounds clean on my end, so I will leave it alone. I will send the new cut back tonight.",
+          "translation": "这些都说得通。那就是：收紧开头、换掉那四个片段、结尾先不做。音频我这边听着是干净的，那我就不动它。今晚我把新版传回给你。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Perfect. I will send the new recording and the caption files within the hour. And if anything changes on my side, I will tell you before you start — I do not want you to do the same work twice.",
+          "translation": "太好了。我一小时内把新录屏和字幕文件发你。如果我这边有任何变化，我会在你动手之前告诉你——我不想让你把同一个活做两遍。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "The new cut lands in your inbox in the morning, and it is good. Marco also cut a fifteen-second vertical version for Shorts, without being asked. He asks whether you want to keep it. The launch is still Friday.\n\n对方说: \"I also cut a fifteen-second vertical version for Shorts, in case you want it. Want me to keep it?\"\n\n你的任务: Answer him. Say whether to keep it, give him one specific change, and tell h",
+          "referenceAnswer": "Yes, let's keep it — and a quick heads-up: it would go out on Friday too, right after the long video. Two small things. Can you swap out the logo in the first second? That one is the old mark. And can you tighten up the first three seconds? Right now the hook lands at second five, and on Shorts people leave before that.",
+          "explanation": "先用 heads-up 把\"周五也发\"这件事单独讲出来，再用 swap out 和 tighten up 各给一条具体到\"第几秒\"的修改，最后附一句理由。三条意见全部落到可执行的动作上，对方不用再问一遍。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-19",
+      "slug": "turning-down-a-collaboration-offer",
+      "title": "婉拒海外合作邀请 · Turning Down a Collaboration Offer",
+      "summary": "练习在「婉拒海外合作邀请」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-19",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "revision": "12ec34f96bcc50e6",
+      "publishedAt": "2026-09-19T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "A video call on a Saturday morning, your time. Dana booked thirty minutes. A slide with three bullet points is on the screen, and she is still on the",
+      "goal": "Say no to a collaboration offer you actually like — clearly, kindly, and with one alternative left on the table.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "turn-down",
+          "phrase": "turn down",
+          "translation": "谢绝、拒绝（一个提议、邀请或机会）。",
+          "example": "We turned down the first quote — it came in at almost double our budget.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "swamped",
+          "phrase": "swamped",
+          "translation": "忙得不可开交、被事情淹没。",
+          "example": "We are swamped with support tickets this week, so the blog post moves to next Monday.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "down-the-line",
+          "phrase": "down the line",
+          "translation": "以后、将来某个时候（不指明具体时间）。",
+          "example": "We are not hiring this quarter, but send me your portfolio — something may open up down the line.",
+          "sentenceId": "l8"
+        },
+        {
+          "id": "a-good-fit",
+          "phrase": "a good fit",
+          "translation": "合适、匹配（人、事、机会之间的对得上）。",
+          "example": "This room is a good fit for a forty-person workshop, but not for a two-hundred-person meetup.",
+          "sentenceId": "l2"
+        },
+        {
+          "id": "up-front",
+          "phrase": "up front",
+          "translation": "坦白地、把话先说在前面。",
+          "example": "I want to be up front: the timeline you asked for is not possible at that price.",
+          "sentenceId": "l4"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Dana",
+          "text": "Thanks for making time — I know it is late where you are. Half our team watches your channel, so I have been looking forward to this call.",
+          "translation": "谢谢你抽时间——我知道你那边已经很晚了。我们团队一半的人都在看你的频道，所以我一直很期待这通电话。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "That is kind of you to say. I read your email, but I wanted to hear the whole idea from you before I decide whether it is a good fit.",
+          "translation": "你这么说太客气了。你的邮件我看了，但我想先听你完整讲一遍，再判断这件事合不合适。"
+        },
+        {
+          "id": "l3",
+          "speaker": "Dana",
+          "text": "So, here it is. We would love you to be our community ambassador for six months. One short post a week, one live session a month. In return, you get a free Pro license and your name on our site.",
+          "translation": "那我来说。我们想请你做六个月的社区大使。每周一条短帖，每月一次直播。作为回报，你得到一个免费的 Pro 授权，名字也会挂在我们网站上。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "Thanks for thinking of me — I mean that. But let me be up front: I am launching my own tool next month, and I am swamped until the end of November.",
+          "translation": "谢谢你想到我——这是真心话。但我先直说：我下个月要发布自己的工具，一直忙到十一月底，事情多得做不完。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Dana",
+          "text": "Oh. That is soon. Could you start after your launch? We are flexible about the start date.",
+          "translation": "哦，那挺近的。你能在发布之后开始吗？开始时间我们是可以商量的。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "It is not only the timing. Six months of weekly posts is a lot of extra work, and there is no budget on your side — so I have to turn this down. I do not want you to think I am saying no to you.",
+          "translation": "不只是时间问题。连续六个月每周发帖是很大的额外工作量，而你们那边又没有预算——所以这件事我得拒了。我不希望你觉得我是在拒绝你这个人。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Dana",
+          "text": "No, I get it. It is just... our budget this year is really small. That is why I hoped the license would be enough.",
+          "translation": "不会，我明白。只是……我们今年的预算真的很小。所以我本来指望一个授权就够了。"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "I understand. So let me be up front about that part too: this is not a good fit for me right now, but it is not a no forever. Down the line, something smaller could work really well.",
+          "translation": "我理解。那这部分我也直说：这件事现在对我来说不合适，但不是永远不行。以后有更小的合作方式，其实可能很合适。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Dana",
+          "text": "Okay. So is there any version of it that works this year? Even a small one?",
+          "translation": "好。那今年有没有哪种形式是可行的？哪怕小一点的？"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Maybe one. I cannot do a weekly series, but I can do one paid workshop in January — two hours long, and you keep the recording. If that sounds useful, send me the details and I will look at it after the launch.",
+          "translation": "也许有一个。每周连载我做不了，但一月份我可以做一场付费的工作坊——两个小时，录屏你们留着。如果这个有用，把细节发我，我发布之后再看。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Dana",
+          "text": "That could work. I would have to check with my manager. So I should tell him you turned the big one down, and come back to you in December about the workshop?",
+          "translation": "这个也许行。我得跟我的主管确认一下。所以我就跟他说那个大的你拒了，然后十二月份再来找你聊工作坊？"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Yes, please. And Dana — if the workshop is too expensive this year, come back to me down the line. I am swamped now, but I am not going anywhere.",
+          "translation": "对，麻烦你了。还有 Dana——如果今年工作坊对你们来说太贵，以后再回来找我。我现在是忙得脱不开身，但我不会消失。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "The call is almost over. Dana thanks you, then tries one more thing. Instead of the ambassador role, she asks for a single free post about their new feature — next week, which is your launch week. Same deal: no budget.\n\n对方说: \"Okay, forget the ambassador thing. But could you just do one free post about our new feature next week? It would only take you an hour.\"\n\n你的任务: Answer her. Four things: thank",
+          "referenceAnswer": "I appreciate you asking, and let me be up front: this one is still a no. Next week is my launch week, so I am swamped, and one post means a full day of writing and recording for me. What I can do is put your new feature into my December video — or if you need it next week, I can send you our sponsor page and you can book a slot.",
+          "explanation": "先用 up front 把\"还是不行\"直接放出来，再用 swamped 给真实原因，最后用「I can't do X, but I can do Y」给两条可走的路（一个是未来，一个是花钱）。关键是不要因为对方说\"只要一小时\"就顺着答应——那是对方估的时间，不是你的。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-20",
+      "slug": "telling-a-long-time-user-about-a-price-change",
+      "title": "向老用户说明涨价 · Telling a Long-Time User About a Price Change",
+      "summary": "练习在「向老用户说明涨价」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-20",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "revision": "0a3c510aa1d3ef35",
+      "publishedAt": "2026-09-20T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "A short video call on a weekday evening, your time. It is ten past nine. On your screen, next to the call window, an unsent email is open: the subject",
+      "goal": "Tell a long-time customer about a price increase before the email goes out — say what changes, say what does not, and give her a clear date to act on.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "run-through",
+          "phrase": "run through",
+          "translation": "把一件事从头到尾过一遍、讲一遍。",
+          "example": "Before I sign the contract, can we run through the delivery dates one more time?",
+          "sentenceId": "l2"
+        },
+        {
+          "id": "bump-up",
+          "phrase": "bump up",
+          "translation": "把价格、数量或等级往上调一点。",
+          "example": "We bump up the storage limit on the team plan next month, from fifty to two hundred gigabytes.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "grandfathered-in",
+          "phrase": "grandfathered in",
+          "translation": "老用户不受新规则影响，继续按老条件走。",
+          "example": "Everyone who joined before June is grandfathered in and keeps the free plan forever.",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "specific-to",
+          "phrase": "specific to",
+          "translation": "只针对某一类人或某一件事，不覆盖其他。",
+          "example": "This delay is specific to orders going to Canada — everything else ships on the normal schedule.",
+          "sentenceId": "l8"
+        },
+        {
+          "id": "keep-me-posted",
+          "phrase": "keep me posted",
+          "translation": "有进展就告诉我、别等到最后才说。",
+          "example": "Keep me posted on the shipment date — if it moves again, tell me the same day.",
+          "sentenceId": "l12"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Priya",
+          "text": "Thanks for setting this up. I saw a note about pricing in the changelog last week, so I guessed this call was about that.",
+          "translation": "谢谢你约这个电话。我上周在更新日志里看到一句关于定价的说明，所以我猜这通电话是说这个。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "You guessed right. I wanted to run through it with you before the email goes out to everyone.",
+          "translation": "你猜对了。我想在邮件发给所有人之前，先跟你把这件事过一遍。"
+        },
+        {
+          "id": "l3",
+          "speaker": "Priya",
+          "text": "Okay. So how much is it going up, and when?",
+          "translation": "好。那涨多少，什么时候开始？"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "I wanted to tell you first, since you have been with us the longest: starting October first, we are going to bump up the monthly plan, from nineteen dollars to twenty-nine dollars. I know that is a big jump.",
+          "translation": "我想最先告诉你，因为你用我们的时间最久：十月一日起，月付方案要往上调，从十九美元调到二十九美元。我知道这个跳得不少。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Priya",
+          "text": "That is a big jump. Wait — does that mean my bill changes too? My team is five people now.",
+          "translation": "确实跳得不少。等等——那我的账单也要变吗？我团队现在五个人。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "No, and here is what does not change: you are grandfathered in. Your five seats stay at nineteen dollars, for as long as you keep the plan.",
+          "translation": "不变。不变的是这些：你属于老用户保留旧价。你那五个席位一直是十九美元，只要你不取消这个方案。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Priya",
+          "text": "Okay, that is a relief. But what about the two seats I wanted to add next month — for the new designer and the intern?",
+          "translation": "好，那我放心了。但我下个月想加的那两个席位呢——给新来的设计师和那个实习生的？"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "That is the part I really wanted to run through with you. The new price is specific to new seats. So your five stay the same, and any seat you add after October first is twenty-nine dollars.",
+          "translation": "这正是我最想跟你过一遍的部分。新价格只针对新增的席位。所以你原来那五个不变，十月一日之后加的任何席位都是二十九美元。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Priya",
+          "text": "So if I add them this week, it is still nineteen? That changes what I do — I would rather not rush two hires just to save twenty dollars a month.",
+          "translation": "那我这周加的话，还是十九吗？这会改变我的做法——我不想为了每月省二十美元就把两个招聘赶着做完。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Yes. Anything you add before October first keeps the old price. You do not have to decide today, but if you want to lock in the old price for those two seats, you have about two weeks.",
+          "translation": "是的。十月一日之前加的任何席位都按旧价。你今天不用决定，但如果你想为那两个席位锁定旧价，大概还有两周时间。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Priya",
+          "text": "Two weeks. That is tight, but at least it is clear. Can I ask why you are doing it now? The tool feels the same to me as it did in March.",
+          "translation": "两周。是有点紧，但至少说得清楚。我能问一下为什么现在涨吗？对我来说，这个工具跟三月份没什么两样。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Fair question. The AI features cost me more every month now, and I cannot keep the same price and keep them running. I do not love the timing either, but I would rather say it to you straight than raise it quietly. I will send you the two dates in writing today. And keep me posted about the two new seats.",
+          "translation": "问得合理。现在 AI 功能每个月的成本都在涨，我没法既保持原价又把这些功能继续跑下去。这个时间点我也不喜欢，但我宁愿当面跟你说明白，也不想悄悄涨价。我今天会把那两个日期写成文字发给你。那两个新席位的事，有进展告诉我。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "The call is almost over. Priya thanks you for telling her directly, then asks one more thing. Her business partner is opening a small studio of her own next month, and Priya can tell her to sign up this week. Same tool, same plan — just a different studio.\n\n对方说: \"One more thing — my partner is starting her own studio next month. If I tell her to sign up this week, can she get my old price too?\"\n\n你",
+          "referenceAnswer": "Thanks for asking — let me run through that part too. The old price is specific to your five seats, so a new studio would be on the new price. What I can do is send you a trial link today, so your partner can start now and lock in the old price for her first month.",
+          "explanation": "先承接对方的善意（她是你最早的付费用户，直接说\"不行\"太硬），再用 specific to 把范围划清——保的是\"她那五个席位\"，不是\"她认识的人\"。最后用 lock in 给一条她今天就能动的路。关键是别因为对方是老用户就把 to 越扩越大，那才是后面真正的麻烦。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
       "id": "english-2026-09-21",
       "slug": "following-up-on-overdue-invoice",
       "title": "催收逾期尾款 · Following Up on an Overdue Invoice",
-      "summary": "练习在合作方逾期未付款时坚定跟进，直陈事实并约定明确截止日期，同时维系长期合作关系。",
+      "summary": "练习在「催收逾期尾款」场景下，用清晰、地道、专业的英语展开有效沟通。",
       "editionDate": "2026-09-21",
       "publicationTimeZone": "Asia/Shanghai",
       "status": "published",
       "preview": false,
-      "revision": "cdbbcd6fa9723a04",
-      "publishedAt": "2026-09-21T10:43:00+08:00",
+      "revision": "016031ed8625b607",
+      "publishedAt": "2026-09-21T10:00:00+08:00",
       "level": "foundation",
       "profession": "独立开发者 / AI 内容创作者",
-      "scenario": "向海外合作方跟进拖欠六周的项目尾款",
-      "goal": "催收逾期发票：直陈事实、锁定截止日，并保持未来续约关系。",
+      "scenario": "A short video call you asked for, on a weekday evening your time. Next to the call window, your invoicing page is open. The invoice for the June train",
+      "goal": "Follow up on an invoice that is six weeks late — say it plainly, agree on one firm date, and keep the relationship for next year.",
       "durationMinutes": 12,
       "expressions": [
         {
           "id": "past-due",
           "phrase": "past due",
-          "translation": "已经过了该付款的日期，逾期的",
-          "example": "It is six weeks past due now.",
+          "translation": "已经过了该付款的日期，逾期的。",
+          "example": "Half the class is past due on the reading, so the teacher moved the quiz back a week.",
           "sentenceId": "l2"
         },
         {
           "id": "sort-out",
           "phrase": "sort out",
-          "translation": "把事情理清楚，弄出一个明确结果",
-          "example": "I just want to sort out one clear date.",
+          "translation": "把一团乱的事理清楚、处理掉，弄出一个结果。",
+          "example": "There are two addresses saved in the app. Can you sort out which one the courier should use before tomorrow morning?",
           "sentenceId": "l4"
         },
         {
           "id": "chase",
           "phrase": "chase",
-          "translation": "反复追问、追着催促",
-          "example": "I do not want to chase this every month.",
+          "translation": "（反复地）去追问、去催，这里指追着要钱。",
+          "example": "I have been chasing the landlord for three weeks about the broken heater, and he keeps saying he will call someone.",
           "sentenceId": "l8"
         },
         {
           "id": "heads-up",
           "phrase": "heads-up",
-          "translation": "提前给人提个醒、打个招呼",
-          "example": "And just a heads-up — if it goes past that, I will have to pause.",
-          "sentenceId": "l6"
+          "translation": "提前给人提个醒、先说一声。",
+          "example": "Just a heads-up: the school trip form is due on Friday, and we cannot take students who have not handed it in.",
+          "sentenceId": "l1"
         },
         {
           "id": "on-my-end",
           "phrase": "on my end",
-          "translation": "在我这一方、我这边的责任范围",
-          "example": "Everything is ready on my end.",
-          "sentenceId": "l12"
+          "translation": "在我这一方、我这边（的情况或责任范围）。",
+          "example": "The order left our warehouse on Monday — the hold-up is not on my end, so please check with the courier.",
+          "sentenceId": "l9"
         }
       ],
       "sentences": [
@@ -133,9 +1080,146 @@
       ],
       "practice": [
         {
-          "prompt": "Nora 提出只能先付一半，剩下十一月再给且没有具体日期。请用英文回应：接受一半、对剩下部分要一个具体书面日期，并告知暂停视频的后果。",
+          "prompt": "Same call, same company — but the answer is different this time. Nora says finance has a spending freeze until the end of the month, so she cannot send the full amount now. She offers half, and the rest \"sometime after November\" — with no date attached.\n\n对方说: \"I can get you two thousand one hundred now. The rest has to wait until November. That is the most I can do.\"\n\n你的任务: Answer her. Three thing",
           "referenceAnswer": "Half now helps, and I will take it. But November is too open for me — can we put the fifth of November in writing today? And just a heads-up: if the rest is not in by then, I will hold the next batch of videos. I do not want to chase this again in December.",
-          "explanation": "先接受一半表达诚意，把开放月份锁定为具体日期，最后用 heads-up 和 chase 点明共同的边界。"
+          "explanation": "先接受一半——对方把能做的和不能做的分开说，是诚意的信号，一句不肯让只会让整件事卡住。关键在第二句：不否认\"十一月\"，但把\"十一月\"换成一个日子、并且要求落到文字上。第三句才是边界，用 just a heads-up 包住后果，让\"暂停视频\"听上去是流程安排，不是报复。最后用 chase 收尾，把你们共同的麻烦（来回追同一笔钱）点出来。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-22",
+      "slug": "asking-a-long-time-user-what-breaks-her-day",
+      "title": "约老用户做产品访谈 · Asking a Long-Time User What Breaks Her Day",
+      "summary": "练习在「约老用户做产品访谈」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-22",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "revision": "25330a5ad8af5428",
+      "publishedAt": "2026-09-22T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "A video call you booked with one of your users. It is evening on her side, and the call is only twenty minutes long — she has a client project due ton",
+      "goal": "Interview a friendly user for twenty minutes, and turn polite answers like fine into one specific problem you can build for.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "pick-your-brain",
+          "phrase": "pick your brain",
+          "translation": "向某人请教、借用对方的经验（口语，语气客气）。",
+          "example": "You have shipped six courses already. Can I pick your brain about pricing for fifteen minutes next week?",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "the-last-time",
+          "phrase": "the last time",
+          "translation": "上一次、最近一次（真实发生过的那一次）。",
+          "example": "The last time we talked, you said the export was slow. Is that still happening?",
+          "sentenceId": "l5"
+        },
+        {
+          "id": "run-into",
+          "phrase": "run into",
+          "translation": "偶然碰见；也指遇到麻烦、问题（不是计划中的）。",
+          "example": "Every new teammate runs into the same setup screen, so we recorded a short video for it.",
+          "sentenceId": "l7"
+        },
+        {
+          "id": "step-by-step",
+          "phrase": "step by step",
+          "translation": "一步一步地、按顺序地（讲或做）。",
+          "example": "Send the handover as a checklist, step by step, so the client can follow it without calling us.",
+          "sentenceId": "l9"
+        },
+        {
+          "id": "if-you-had-to-pick-one",
+          "phrase": "if you had to pick one",
+          "translation": "如果只能选一个的话（虚拟语气，用来逼出优先级）。",
+          "example": "We can only redo one scene this week. If you had to pick one, which shot would help the video most?",
+          "sentenceId": "l11"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "You",
+          "text": "Thanks for making time, Dana. I know it is late on your side. I have wanted to pick your brain for a while. I am not selling anything today — I just want to hear how the tool fits into your work.",
+          "translation": "谢谢你抽时间，Dana。我知道你那边已经很晚了。我早就想请你聊聊了。今天不是来推销的——我只想听听这个工具是怎么嵌进你的工作里的。"
+        },
+        {
+          "id": "l2",
+          "speaker": "Dana",
+          "text": "Happy to help. I use it every day, so I have a lot to say.",
+          "translation": "很乐意。我每天都在用，所以有不少话想说。"
+        },
+        {
+          "id": "l3",
+          "speaker": "You",
+          "text": "That is why I asked you and not a new user. So, first question: which part of your day does the tool touch the most?",
+          "translation": "这就是我找你、而不是找一个新用户的原因。第一个问题：一天里，这个工具最常出现在哪个环节？"
+        },
+        {
+          "id": "l4",
+          "speaker": "Dana",
+          "text": "The export, probably. Everything we make ends up in a client file, so I live in that screen.",
+          "translation": "大概是导出。我们做的东西最后都要进客户文件，所以我天天待在那个界面。"
+        },
+        {
+          "id": "l5",
+          "speaker": "You",
+          "text": "Good. Can you tell me about the last time the export gave you trouble? Take me back to that day.",
+          "translation": "好。能说说最近一次导出出问题是什么时候吗？带我回到那一天。"
+        },
+        {
+          "id": "l6",
+          "speaker": "Dana",
+          "text": "That was Thursday. I had four files from a client, and two of them came out the wrong size. I had to redo them one by one.",
+          "translation": "那是周四。客户给了四个文件，其中两个导出来尺寸不对。我只能一个一个重做。"
+        },
+        {
+          "id": "l7",
+          "speaker": "You",
+          "text": "That is the part I wanted to hear. When you run into that, how often is it — once a month, or most weeks?",
+          "translation": "这正是我想听的部分。你碰到这个情况的时候，多久一次——一个月一次，还是大部分周都会？"
+        },
+        {
+          "id": "l8",
+          "speaker": "Dana",
+          "text": "Most weeks, I think. Most days it is not a big deal. But on a deadline day it really hurts.",
+          "translation": "我想大部分周都有。平时算不上大事。但一到交稿那天就很痛。"
+        },
+        {
+          "id": "l9",
+          "speaker": "You",
+          "text": "So on a deadline day it hurts. Now tell me step by step what you do when it goes wrong. Start from the moment you see the wrong size.",
+          "translation": "所以到了交稿那天就很痛。现在请你一步一步讲，出问题的时候你是怎么做的。从你看到尺寸不对那一刻开始。"
+        },
+        {
+          "id": "l10",
+          "speaker": "Dana",
+          "text": "First I check the original file. Then I open the export settings and try a different preset. If that does not work, I rebuild the file by hand. It takes about twenty minutes each time.",
+          "translation": "我先检查原文件。然后打开导出设置，换一个预设试试。要是还不行，我就手动把文件重建一遍。每次大概二十分钟。"
+        },
+        {
+          "id": "l11",
+          "speaker": "You",
+          "text": "Twenty minutes, and you would rather rebuild it than wait for me. That is painful to hear, but it is useful. One last question: if you had to pick one thing I fix first, what would it be?",
+          "translation": "二十分钟，而且你宁愿自己重建也不等我。听着挺难受，但很有用。最后问一个：如果我只能先修一个，你会选哪个？"
+        },
+        {
+          "id": "l12",
+          "speaker": "Dana",
+          "text": "The size thing. Everything else I can live with. Oh, and let me know when you fix it — I will test it for you.",
+          "translation": "尺寸那个。其他我都能忍。对了，修好了告诉我——我帮你测。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "Same call, twenty minutes in. Dana has just described three problems — the export size, slow search, and no sharing for her team of three. You have two months left and room for one big feature.\n\n对方说: \"Honestly, they all matter to me. Can you really not do all three?\"\n\n你的任务: Ask her to rank the three with one question, then say what you will do next. Say it out loud first. (You can start with: \"I w",
+          "referenceAnswer": "I wish I could, but two months buys one feature, not three. So, if you had to pick one, which of them would save you the most time every week? That one goes into the next build, and I will bring you a rough version to test before it ships.",
+          "explanation": "先不否掉她的\"三个都要\"——那是真实感受，不是贪心，硬顶只会让她开始客气。第二句是本课的核心动作：用 if you had to pick one 把\"全都要\"这条退路拿走，她只能排序。第三句给她确定性（选中的那个进版本），并把她放回流程里（你先测）——这一步很重要，它把\"我被拒绝了两项\"变成\"我参与了下个版本\"，关系不会掉。"
         }
       ]
     }

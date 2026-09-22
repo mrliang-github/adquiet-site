@@ -119,14 +119,19 @@ function sortByEdition(items) {
 }
 
 function mergePreviewItems(publishedItems, previewItems) {
+  // 收集预览条目的 ID 集合，避免与正式条目重复
   const previewIds = new Set(previewItems.map((item) => item.id));
+  // 收集预览条目的 slug 集合，避免 URL 路由冲突
   const previewSlugs = new Set(previewItems.map((item) => item.slug));
-  return sortByEdition([
-    ...publishedItems.filter(
-      (item) => !previewIds.has(item.id) && !previewSlugs.has(item.slug)
-    ),
-    ...previewItems
-  ]);
+  // 预览模式核心原则：待审核预览草稿应当置顶优先展示在首页卡片与列表首位，随后再按期次降序排列其余已发布内容
+  return [
+    ...sortByEdition(previewItems),
+    ...sortByEdition(
+      publishedItems.filter(
+        (item) => !previewIds.has(item.id) && !previewSlugs.has(item.slug)
+      )
+    )
+  ];
 }
 
 async function loadPreviewItems() {

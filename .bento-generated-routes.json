@@ -1,7 +1,22 @@
 {
   "version": 1,
   "routes": [
+    "daily/ai-video-pipeline-servitization/index.html",
     "daily/virtual-goods-and-skill-products/index.html",
-    "english/following-up-on-overdue-invoice/index.html"
+    "daily/platform-policy-shifts-and-blue-ocean-observations/index.html",
+    "daily/tool-aggregation-and-developer-workflows/index.html",
+    "daily/monetization-segmentation-and-service-arbitrage/index.html",
+    "daily/cross-platform-digital-goods-and-template-replication/index.html",
+    "daily/node-driven-virtual-products-and-distillation/index.html",
+    "daily/ai-monetization-infrastructure-and-virtual-goods/index.html",
+    "english/asking-a-long-time-user-what-breaks-her-day/index.html",
+    "english/following-up-on-overdue-invoice/index.html",
+    "english/telling-a-long-time-user-about-a-price-change/index.html",
+    "english/turning-down-a-collaboration-offer/index.html",
+    "english/giving-notes-on-the-first-cut/index.html",
+    "english/walking-an-overseas-client-through-your-tool/index.html",
+    "english/negotiating-a-sponsorship-deal/index.html",
+    "english/pre-stream-check-with-an-overseas-guest/index.html",
+    "english/responding-to-an-overseas-bug-report/index.html"
   ]
 }
