@@ -8,6 +8,7 @@
     "build": "node scripts/build-bento-site.mjs",
     "build:preview": "node scripts/build-bento-site.mjs --preview --output-dir ../adquiet-site-preview",
     "content:help": "node scripts/content-admin.mjs help",
+    "serve": "python3 -m http.server 8080",
     "test": "npm run build && node --test tests/*.test.mjs",
     "verify": "npm run sync:content && npm test"
   },
