@@ -189,10 +189,12 @@ test("uses the root route as a Chinese-first personal homepage", async () => {
   assert.match(page, /<html lang="zh-Hans" data-theme="home">/u);
   assert.match(page, /<body class="page-home">/u);
   assert.match(page, /你好，我是良逍/u);
+  // 验证首页新版核心 Bento 卡片组件均正常呈现
   assert.match(page, /bento-card--identity/u);
-  assert.match(page, /bento-card--work/u);
-  assert.match(page, /bento-card--about/u);
-  assert.match(page, /bento-card--rss/u);
+  assert.match(page, /bento-card--tools/u);
+  assert.match(page, /bento-card--daily/u);
+  assert.match(page, /bento-card--english/u);
+  assert.match(page, /bento-card--writing/u);
   assert.match(page, /bento-card--footer/u);
   assert.match(page, /href="\/writing\/"/u);
   assert.match(page, /href="\/tools\/"/u);
@@ -339,19 +341,22 @@ test("keeps the compact desktop homepage card map", async () => {
   const personalCss = await readFile(new URL("../site-assets/personal.css", import.meta.url), "utf8");
   const homepageCss = personalCss.slice(personalCss.indexOf("/* Homepage visual correction"));
   const desktopCss = homepageCss.slice(0, homepageCss.indexOf("@media (max-width: 1024px)"));
+  // 映射新版桌面端 4 列 × 4 行网格中各卡片的精确网格坐标规则
   const positions = [
-    ["identity", /1\s*\/\s*span\s*3/u, /1\s*\/\s*span\s*4/u],
-    ["tools", /4/u, /1\s*\/\s*span\s*6/u],
-    ["contact", /1/u, /5\s*\/\s*span\s*4/u],
-    ["daily", /2/u, /5\s*\/\s*span\s*2/u],
-    ["work", /3/u, /5/u],
-    ["now", /3/u, /6/u],
-    ["english", /2/u, /7/u],
-    ["writing", /3/u, /7/u],
-    ["about", /4/u, /7/u],
-    ["globe", /2/u, /8/u],
-    ["rss", /3/u, /8/u],
-    ["footer", /4/u, /8/u]
+    // 自我介绍占第 1 行左侧 3 列
+    ["identity", /1\s*\/\s*span\s*3/u, /1/u],
+    // 工具矩阵占第 1 行第 4 列
+    ["tools", /4/u, /1/u],
+    // 风向标日报占第 2 行左侧 2 列
+    ["daily", /1\s*\/\s*span\s*2/u, /2/u],
+    // 英语学习占第 2 行右侧 2 列（舒展展示，不再狭窄）
+    ["english", /3\s*\/\s*span\s*2/u, /2/u],
+    // 思考与写作占第 3 行左侧 2 列
+    ["writing", /1\s*\/\s*span\s*2/u, /3/u],
+    // 交互地球占第 3 行右侧 2 列
+    ["globe", /3\s*\/\s*span\s*2/u, /3/u],
+    // 通栏底部导航栏占第 4 行通栏 4 列
+    ["footer", /1\s*\/\s*span\s*4/u, /4/u]
   ];
 
   for (const [card, column, row] of positions) {

@@ -462,11 +462,18 @@ function globeMarkup() {
 }
 
 function homePage({ articles, dailyReports, englishLessons }) {
+  // 提取最新一期公开风向标日报
   const latestDaily = dailyReports[0];
+  // 提取最新一节公开英语学习课程
   const latestLesson = englishLessons[0];
+  // 提取首篇已发布精选文章
   const latestArticle = articles[0];
+  // 提取最新一条公开构建日志
   const latestBuildNote = buildNotes[0];
+  // 首页专用的世界地球交互脚本
   const scripts = ["/site-assets/globe.js"];
+
+  // 渲染并返回统一包装的首页文档结构
   return documentPage({
     pathname: "/",
     title: "个人产品与学习空间",
@@ -476,18 +483,66 @@ function homePage({ articles, dailyReports, englishLessons }) {
     chrome: false,
     robots: previewMode ? "noindex, nofollow" : undefined,
     body: `<main id="content" class="site-main bento-main"><div class="site-shell"><div class="bento-grid">
-      <section class="bento-card bento-card--identity" aria-labelledby="home-title"><div class="identity-copy"><p class="card-kicker">WELCOME</p><h1 id="home-title">你好，我是良逍。</h1><p>设计出身的产品经理，主业做跨境电商 CMS/ERP。</p><p>业余时间，我用 AI 做 iOS 和 Web 产品，也在探索出海和个人产品。</p><p>把做出来的工具、真实的限制和当时的判断放在一起。</p><div class="identity-links"><a href="/about/">关于我</a><a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">GitHub</a><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">X</a></div></div></section>
-      <section class="bento-card bento-card--tools" aria-labelledby="tools-card-title"><div class="card-heading"><p class="card-kicker">PRODUCTS &amp; TOOLS</p><h2 id="tools-card-title">正在用，也在维护</h2></div><div class="bento-tool-list">${tools.map(compactTool).join("")}</div><a class="card-link" href="/tools/">全部工具</a></section>
-      <section class="bento-card bento-card--contact" aria-labelledby="contact-card-title"><p class="card-kicker">STAY IN TOUCH</p><h2 id="contact-card-title">一起交流。</h2><p>AI 工具、独立开发，或出海产品。</p><div class="home-contact-links"><a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">GitHub</a><a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">X / @lingxio71220285</a></div></section>
-      <section class="bento-card bento-card--daily" aria-labelledby="daily-card-title"><p class="card-kicker"><a href="/daily/">WIND NOTES / 风向标日报</a></p><div id="daily-card-title">${dailyCard(latestDaily)}</div></section>
-      <section class="bento-card bento-card--work" aria-labelledby="work-card-title"><a class="work-card-link" href="/adquiet/"><img src="/assets/screenshot-home.jpg" alt="AdQuiet 的产品页面截图"><span><small>FEATURED PROJECT</small><strong id="work-card-title">AdQuiet</strong></span></a></section>
-      <section class="bento-card bento-card--now" aria-labelledby="now-card-title"><div class="compact-card-head"><p class="card-kicker">NOW</p>${latestBuildNote ? `<time class="card-date" datetime="${latestBuildNote.date}">${dateLabel(latestBuildNote.date)}</time>` : ""}</div>${latestBuildNote ? `<h2 id="now-card-title"><a href="/writing/${latestBuildNote.articleSlug}/">${escapeHtml(latestBuildNote.title)}</a></h2>` : `<h2 id="now-card-title"><a href="/building/">最近在做</a></h2>`}</section>
-      <section class="bento-card bento-card--english" aria-labelledby="english-card-title"><p class="card-kicker"><a href="/english/">DAILY ENGLISH / 英语学习</a></p><div id="english-card-title">${englishCard(latestLesson)}</div></section>
-      <section class="bento-card bento-card--writing" aria-labelledby="writing-card-title"><p class="card-kicker"><a href="/writing/">WRITING / 思考与写作</a></p><div class="bento-writing-items">${articles.slice(0, 2).map((article, idx) => `<article class="bento-list-item"><time datetime="${article.date}">${dateLabel(article.date)}</time><${idx === 0 ? 'h2 id="writing-card-title"' : 'h3'}><a href="/writing/${article.slug}/">${escapeHtml(article.title)}</a></${idx === 0 ? 'h2' : 'h3'}></article>`).join("")}</div><a class="card-link" href="/writing/">全部文章 →</a></section>
-      <section class="bento-card bento-card--about" aria-labelledby="about-card-title"><p class="card-kicker">ABOUT</p><h2 id="about-card-title"><a href="/about/">产品、工具和过程</a></h2></section>
+      <!-- 1. 自我介绍卡片：精炼自媒体风格介绍，建立清晰人设 -->
+      <section class="bento-card bento-card--identity" aria-labelledby="home-title">
+        <div class="identity-copy">
+          <p class="card-kicker">WELCOME / 关于我</p>
+          <h1 id="home-title">你好，我是良逍。</h1>
+          <p class="identity-bio">设计出身的产品经理，主业负责跨境电商 CMS/ERP。</p>
+          <p class="identity-bio">业余探索 AI 产品、独立开发与出海工具，把做出来的工具、真实的限制和当时的判断记录在这里。</p>
+          <div class="identity-links">
+            <a href="/about/">详细了解</a>
+            <a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">X</a>
+            <span class="social-pending" title="小红书、公众号后续加入">小红书 · 公众号</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. 产品与工具矩阵：收纳已发布应用、Chrome 扩展及开源工具 -->
+      <section class="bento-card bento-card--tools" aria-labelledby="tools-card-title">
+        <div class="card-heading">
+          <p class="card-kicker">PRODUCTS &amp; TOOLS</p>
+          <h2 id="tools-card-title">正在用，也在维护</h2>
+        </div>
+        <div class="bento-tool-list">${tools.map(compactTool).join("")}</div>
+        <a class="card-link" href="/tools/">全部工具 →</a>
+      </section>
+
+      <!-- 3. 风向标日报：商业情报资产核心展示区 -->
+      <section class="bento-card bento-card--daily" aria-labelledby="daily-card-title">
+        <p class="card-kicker"><a href="/daily/">WIND NOTES / 风向标日报</a></p>
+        <div id="daily-card-title">${dailyCard(latestDaily)}</div>
+      </section>
+
+      <!-- 4. 英语学习：情境化口语与点读资产，2 列宽舒展布局 -->
+      <section class="bento-card bento-card--english" aria-labelledby="english-card-title">
+        <p class="card-kicker"><a href="/english/">DAILY ENGLISH / 英语学习</a></p>
+        <div id="english-card-title">${englishCard(latestLesson)}</div>
+      </section>
+
+      <!-- 5. 思考与写作：精选深度实战复盘文章 -->
+      <section class="bento-card bento-card--writing" aria-labelledby="writing-card-title">
+        <p class="card-kicker"><a href="/writing/">WRITING / 思考与写作</a></p>
+        <div class="bento-writing-items">
+          ${articles.slice(0, 2).map((article, idx) => `<article class="bento-list-item"><time datetime="${article.date}">${dateLabel(article.date)}</time><${idx === 0 ? 'h2 id="writing-card-title"' : 'h3'}><a href="/writing/${article.slug}/">${escapeHtml(article.title)}</a></${idx === 0 ? 'h2' : 'h3'}></article>`).join("")}
+        </div>
+        <a class="card-link" href="/writing/">全部文章 →</a>
+      </section>
+
+      <!-- 6. 趣味与视觉交互：可旋转的赛博地球卡片 -->
       ${globeMarkup()}
-      <section class="bento-card bento-card--rss" aria-labelledby="rss-card-title"><p class="card-kicker">RSS</p><h2 id="rss-card-title"><a href="/rss.xml">订阅写作</a></h2></section>
-      <footer class="bento-card bento-card--footer"><p>© 2026 良逍</p><p><a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">X</a></p></footer>
+
+      <!-- 7. 通栏底部导航栏：一体化收纳版权、社媒、RSS 订阅与关于 -->
+      <footer class="bento-card bento-card--footer">
+        <p class="footer-copy">© 2026 良逍 · 把想法做成东西，再把过程写下来。</p>
+        <div class="footer-links">
+          <a href="${escapeAttribute(site.githubProfile)}" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="${escapeAttribute(site.xProfile)}" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="/rss.xml" class="rss-link">RSS 订阅</a>
+          <a href="/about/">关于</a>
+        </div>
+      </footer>
     </div></div></main>`
   });
 }

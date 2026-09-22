@@ -2931,95 +2931,6 @@ body.page-home::before {
   color: var(--rust-dark);
 }
 
-.page-home .bento-card--identity {
-  grid-column: 1 / span 3;
-  grid-row: 1 / span 4;
-  display: grid;
-  grid-template-columns: minmax(0, 0.64fr) minmax(170px, 0.36fr);
-  gap: 24px;
-  padding: 30px 32px;
-  border-color: #4a4a45;
-  background: #171717;
-}
-
-.page-home .identity-copy {
-  position: relative;
-  z-index: 1;
-  align-self: center;
-  max-width: 510px;
-  margin: 0;
-  font-family: var(--font-sans);
-}
-
-.page-home .bento-card--identity h1 {
-  margin: 0;
-  font-size: clamp(27px, 2.6vw, 34px);
-  line-height: 1.15;
-}
-
-.page-home .identity-copy > p:not(.card-kicker) {
-  margin: 12px 0 0;
-  color: var(--ink-soft);
-  font-size: 16px;
-  line-height: 1.68;
-}
-
-.page-home .identity-links,
-.page-home .home-contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 16px;
-}
-
-.page-home .identity-links {
-  margin-top: 20px;
-}
-
-.page-home .identity-links a,
-.page-home .home-contact-links a {
-  color: var(--ink);
-  font-size: 14px;
-  font-weight: 650;
-  text-decoration: none;
-}
-
-.page-home .identity-links a::after,
-.page-home .home-contact-links a::after {
-  margin-left: 5px;
-  color: var(--rust-dark);
-  content: "↗";
-}
-
-.page-home .bento-card--tools {
-  grid-column: 4;
-  grid-row: 1 / span 6;
-  padding: 23px 22px;
-}
-
-.page-home .bento-card--tools h2 {
-  font-size: 20px;
-}
-
-.page-home .bento-tool-list {
-  margin-top: 12px;
-}
-
-.page-home .bento-tool-item {
-  padding: 12px 0;
-  border-top-color: #343434;
-}
-
-.page-home .bento-tool-item p,
-.page-home .bento-tool-item span {
-  font-size: 12px;
-}
-
-.page-home .bento-tool-item h3 {
-  margin-top: 4px;
-  font-size: 16px;
-  line-height: 1.25;
-}
-
 .page-home .card-link {
   min-height: 0;
   margin-top: auto;
@@ -3030,38 +2941,137 @@ body.page-home::before {
   font-weight: 650;
 }
 
-.page-home .bento-card--contact {
-  grid-column: 1;
-  grid-row: 5 / span 4;
-  justify-content: flex-start;
-  padding: 24px;
-}
-
-.page-home .bento-card--contact h2 {
-  margin-top: 6px;
-  font-size: clamp(22px, 2vw, 27px);
-}
-
-.page-home .bento-card--contact > p:not(.card-kicker) {
-  margin: 15px 0 0;
-  color: var(--ink-soft);
-  font-size: 16px;
-  line-height: 1.62;
-}
-
-.page-home .home-contact-links {
+/* 首页自我介绍主卡片：占第 1 行左侧 3 列 */
+.page-home .bento-card--identity {
+  /* 跨越第 1 至第 3 列 */
+  grid-column: 1 / span 3;
+  /* 位于第 1 行 */
+  grid-row: 1;
+  /* 弹性纵向流式排布 */
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin-top: 28px;
+  justify-content: center;
+  /* 呼吸感内边距 */
+  padding: 26px 30px;
+  /* 深灰边框与深黑底色 */
+  border-color: #4a4a45;
+  background: #171717;
 }
 
+/* 首页自我介绍文本容器 */
+.page-home .identity-copy {
+  /* 相对定位 */
+  position: relative;
+  /* 占满可用空间 */
+  width: 100%;
+  margin: 0;
+}
+
+/* 自我介绍人设简介段落 */
+.page-home .identity-bio {
+  /* 段落上间距 */
+  margin: 10px 0 0;
+  /* 柔和文字颜色 */
+  color: var(--ink-soft);
+  /* 适度字号 */
+  font-size: 15.5px;
+  /* 舒适行高 */
+  line-height: 1.68;
+}
+
+/* 自我介绍底部社交与导航外链流 */
+.page-home .identity-links {
+  /* 弹性流式排布 */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  /* 顶部留白 */
+  margin-top: 18px;
+}
+
+/* 自我介绍中的导航与社交链接 */
+.page-home .identity-links a {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color var(--ease);
+}
+
+/* 链接悬停高亮 */
+.page-home .identity-links a:hover {
+  color: var(--rust-dark);
+}
+
+/* 外跳小箭头标记 */
+.page-home .identity-links a::after {
+  margin-left: 5px;
+  color: var(--rust-dark);
+  content: "↗";
+}
+
+/* 预留自媒体社交渠道灰色弱化标签 */
+.page-home .social-pending {
+  /* 弱化字号与颜色 */
+  font-size: 13px;
+  color: var(--muted);
+  /* 居中对齐 */
+  align-self: center;
+  /* 虚线提示 */
+  opacity: 0.75;
+}
+
+/* 产品与工具矩阵卡片：占第 1 行第 4 列 */
+.page-home .bento-card--tools {
+  /* 位于第 4 列 */
+  grid-column: 4;
+  /* 位于第 1 行 */
+  grid-row: 1;
+  /* 紧凑内边距 */
+  padding: 22px 20px;
+  /* 弹性纵向布局 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 工具卡片标题 */
+.page-home .bento-card--tools h2 {
+  font-size: 18px;
+}
+
+/* 工具列表流式容器 */
+.page-home .bento-tool-list {
+  /* 上间距 */
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 单个工具条目项 */
+.page-home .bento-tool-item {
+  /* 紧凑内边距 */
+  padding: 9px 0;
+  /* 浅色细边框分隔 */
+  border-top-color: #343434;
+}
+
+/* 风向标日报核心卡片：占第 2 行左侧 2 列 */
 .page-home .bento-card--daily {
-  grid-column: 2;
-  grid-row: 5 / span 2;
-  padding: 18px;
+  /* 跨越第 1、2 列 */
+  grid-column: 1 / span 2;
+  /* 位于第 2 行 */
+  grid-row: 2;
+  /* 舒适内边距 */
+  padding: 22px 24px;
+  /* 科技深灰背景 */
   background: #191919;
+  /* 弹性纵向排布 */
+  display: flex;
+  flex-direction: column;
 }
 
+/* 日报内部包裹层 */
 .page-home .bento-card--daily > div {
   display: flex;
   min-height: 0;
@@ -3069,142 +3079,62 @@ body.page-home::before {
   flex-direction: column;
 }
 
+/* 日报标题样式 */
 .page-home .bento-card--daily h2 {
   margin-top: 7px;
-  font-size: 20px;
+  font-size: 19px;
+  line-height: 1.35;
 }
 
+/* 日报核心摘要正文 */
 .page-home .bento-card--daily p:not(.card-kicker):not(.preview-marker) {
   display: -webkit-box;
-  margin: 9px 0 0;
+  margin: 10px 0 0;
   overflow: hidden;
   color: var(--ink-soft);
   font-size: 14px;
-  line-height: 1.55;
+  line-height: 1.6;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.page-home .bento-card--work {
-  grid-column: 3;
-  grid-row: 5;
-  padding: 0;
-  background: #101010;
-}
-
-.page-home .work-card-link {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  overflow: hidden;
-  color: #fff;
-  text-decoration: none;
-}
-
-.page-home .work-card-link::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgb(0 0 0 / 0.72), rgb(0 0 0 / 0.12));
-  content: "";
-}
-
-.page-home .work-card-link img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.72;
-}
-
-.page-home .work-card-link span {
-  position: absolute;
-  z-index: 1;
-  bottom: 15px;
-  left: 17px;
-  display: grid;
-  gap: 2px;
-}
-
-.page-home .work-card-link small {
-  color: #f4a3af;
-  font-size: 12px;
-  font-weight: 650;
-  letter-spacing: 0.055em;
-}
-
-.page-home .work-card-link strong {
-  font-size: 21px;
-  letter-spacing: -0.02em;
-}
-
-.page-home .bento-card--now {
-  grid-column: 3;
-  grid-row: 6;
-  padding: 16px 18px;
-}
-
-.page-home .compact-card-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.page-home .compact-card-head .card-kicker {
-  margin: 0;
-}
-
-.page-home .bento-card--now h2 {
-  display: -webkit-box;
-  margin-top: 6px;
-  overflow: hidden;
-  font-size: 17px;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
+/* 英语学习核心卡片：占第 2 行右侧 2 列（彻底解决此前卡片过小被挤爆的问题） */
 .page-home .bento-card--english {
-  grid-column: 2;
-  grid-row: 7;
-  padding: 15px 18px;
+  /* 跨越第 3、4 列 */
+  grid-column: 3 / span 2;
+  /* 位于第 2 行 */
+  grid-row: 2;
+  /* 充裕内边距 */
+  padding: 22px 24px;
+  /* 弹性纵向排布 */
+  display: flex;
+  flex-direction: column;
 }
 
+/* 英语卡片小眉题 */
 .page-home .bento-card--english .card-kicker {
   margin-bottom: 4px;
 }
 
-.page-home .bento-card--english .card-meta {
-  display: none;
-}
-
+/* 英语卡片主标题 */
 .page-home .bento-card--english h2 {
-  display: -webkit-box;
-  overflow: hidden;
-  font-size: 17px;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.page-home .bento-card--english .preview-marker {
-  /* 预览黄色提示小标签，标注开发样稿 */
-  margin-top: 4px;
-  color: #ffc875;
-  font-size: 11px;
-  letter-spacing: 0;
-  text-transform: none;
+  margin-top: 7px;
+  font-size: 19px;
+  line-height: 1.35;
 }
 
 /* 课程一句话目标简介 */
 .page-home .lesson-goal {
-  margin-top: 4px;
+  margin-top: 6px;
   color: #aab2bc;
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 13.5px;
+  line-height: 1.5;
 }
 
-/* 静态表达预览面板：采用浅暗色微透明面板，提供层次感与科技质感 */
+/* 静态表达预览面板：在 2 列宽度下完整舒展显示 */
 .page-home .lesson-preview-box {
-  margin: 10px 0;
-  padding: 10px 12px;
+  margin: 12px 0;
+  padding: 12px 14px;
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
@@ -3212,7 +3142,7 @@ body.page-home::before {
 
 /* 表达预览顶部小标题 */
 .page-home .preview-box-label {
-  margin: 0 0 4px;
+  margin: 0 0 5px;
   color: var(--rust-dark);
   font-size: 11px;
   font-weight: 600;
@@ -3220,231 +3150,154 @@ body.page-home::before {
   text-transform: uppercase;
 }
 
-/* 表达预览中的英文句子：清晰显眼，提升可读性 */
+/* 表达预览中的英文句子 */
 .page-home .preview-en {
-  margin: 0 0 3px;
+  margin: 0 0 4px;
   color: #f3f4f6;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
-/* 表达预览中的中文翻译：弱化层级，辅助理解 */
+/* 表达预览中的中文翻译 */
 .page-home .preview-zh {
   margin: 0;
   color: #8c96a4;
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: 12.5px;
+  line-height: 1.45;
 }
 
-/* 难度等级与预估练习时长 */
-.page-home .lesson-meta-foot {
-  margin: 6px 0 2px;
-  color: #8c96a4;
-  font-size: 12px;
+/* 思考与写作卡片：占第 3 行左侧 2 列 */
+.page-home .bento-card--writing {
+  /* 跨越第 1、2 列 */
+  grid-column: 1 / span 2;
+  /* 位于第 3 行 */
+  grid-row: 3;
+  /* 舒适内边距 */
+  padding: 22px 24px;
+  /* 弹性纵向排布 */
+  display: flex;
+  flex-direction: column;
 }
 
-/* 课程能力提示：告知用户详情页具备对话与点读能力 */
-.page-home .lesson-hint {
-  margin: 0 0 10px;
-  color: #6e7783;
-  font-size: 11px;
+/* 文章精选列表容器 */
+.page-home .bento-writing-items {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-/* 英语卡片与日报卡片的双操作按钮排布 */
-.page-home .lesson-actions,
-.page-home .card-actions {
+/* 单篇精选文章列表项 */
+.page-home .bento-writing-items .bento-list-item {
+  padding: 0 0 10px;
+  border-bottom: 1px solid #2e2e2e;
+}
+
+/* 文章日期微标签 */
+.page-home .bento-writing-items .bento-list-item time {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+/* 精选文章标题 */
+.page-home .bento-writing-items h2,
+.page-home .bento-writing-items h3 {
+  font-size: 16.5px;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* 地球卡片：占第 3 行右侧 2 列（居中大气舒展） */
+.page-home .bento-card--globe {
+  /* 跨越第 3、4 列 */
+  grid-column: 3 / span 2;
+  /* 位于第 3 行 */
+  grid-row: 3;
+  /* 居中弹性展示 */
+  padding: 18px 24px;
+  background: #151515;
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-top: auto;
-  padding-top: 8px;
-}
-
-/* 确保操作链接上下对齐且不产生多余外边距 */
-.page-home .lesson-actions .card-link,
-.page-home .card-actions .card-link {
-  margin-top: 0;
-  padding-top: 0;
-}
-
-/* 主操作按钮：使用红粉/珊瑚强调色加粗展示，形成强烈的引导感 */
-.page-home .card-link.primary-cta {
-  color: var(--rust-dark);
-  font-weight: 700;
-}
-
-.page-home .bento-card--writing {
-  grid-column: 3;
-  grid-row: 7;
-  padding: 15px 18px;
-}
-
-.page-home .bento-card--writing .card-kicker {
-  margin-bottom: 4px;
-}
-
-.page-home .bento-card--writing .bento-list-item {
-  padding: 0;
-  border: 0;
-}
-
-.page-home .bento-card--writing .bento-list-item time {
-  display: none;
-}
-
-.page-home .bento-card--writing h2 {
-  display: -webkit-box;
-  overflow: hidden;
-  font-size: 17px;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-}
-
-.page-home .bento-card--writing .card-link {
-  padding-top: 5px;
-}
-
-.page-home .bento-card--about {
-  grid-column: 4;
-  grid-row: 7;
   justify-content: center;
-  padding: 16px 18px;
 }
 
-.page-home .bento-card--about .card-kicker,
-.page-home .bento-card--rss .card-kicker {
-  margin-bottom: 4px;
-}
-
-.page-home .bento-card--about h2,
-.page-home .bento-card--rss h2 {
-  font-size: 17px;
-}
-
-.page-home .bento-card--globe {
-  grid-column: 2;
-  grid-row: 8;
-  padding: 12px 15px;
-  background: #151515;
-}
-
+/* 地球紧凑容器 */
 .page-home .globe-compact {
-  display: grid;
+  display: flex;
   width: 100%;
-  grid-template-columns: 64px minmax(0, 1fr);
-  gap: 11px;
   align-items: center;
+  justify-content: space-around;
+  gap: 20px;
 }
 
+/* 地球渲染画布 */
 .page-home .globe-stage {
-  width: 64px;
+  width: 88px;
+  height: 88px;
   margin: 0;
 }
 
+/* 地球 SVG 尺寸 */
 .page-home .globe-canvas {
-  width: 64px;
-  min-height: 0;
-  height: 64px;
-  margin: 0;
+  width: 88px;
+  height: 88px;
 }
 
+/* 地球文案区 */
 .page-home .globe-copy {
-  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.page-home .globe-label {
-  margin: 0;
-  color: var(--ink);
-  font-size: 14px;
-  font-weight: 650;
-  line-height: 1.2;
-}
-
-.page-home .globe-controls {
-  justify-content: flex-start;
-  gap: 4px;
-  margin-top: 7px;
-}
-
-.page-home .globe-controls button {
-  display: grid;
-  width: 27px;
-  min-width: 27px;
-  min-height: 27px;
-  place-items: center;
-  padding: 0;
-  border-color: #4c4c47;
-  border-radius: 6px;
-  background: #232323;
-  color: var(--ink);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 1;
-}
-
-.page-home .globe-controls button:hover {
-  border-color: var(--rust);
-  background: var(--rust);
-  color: #fff;
-  transform: none;
-}
-
-.page-home .globe-controls button[hidden] {
-  display: none;
-}
-
-.page-home .globe-status {
-  min-height: 0;
-  margin: 0;
-}
-
-.page-home .globe-sphere {
-  fill: #1a1a1a;
-  stroke: #8f8f89;
-}
-
-.page-home .globe-grid {
-  stroke: #5e5e59;
-}
-
-.page-home .globe-land {
-  fill: #a11c2e;
-  stroke: #f0a1ad;
-}
-
-.page-home .globe-outline {
-  stroke: #d2d2cb;
-}
-
-.page-home .bento-card--rss {
-  grid-column: 3;
-  grid-row: 8;
-  justify-content: center;
-  padding: 16px 18px;
-}
-
+/* 通栏底部导航栏卡片：通栏占满第 4 行 4 列 */
 .page-home .bento-card--footer {
-  grid-column: 4;
-  grid-row: 8;
-  justify-content: center;
-  padding: 16px 18px;
+  /* 跨越整整 4 列 */
+  grid-column: 1 / span 4;
+  /* 位于第 4 行 */
+  grid-row: 4;
+  /* 水平居中且两端对齐 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  /* 扁平底栏紧凑内边距 */
+  padding: 16px 26px;
+  min-height: 0;
+  border-radius: 12px;
+  background: #141414;
 }
 
-.page-home .bento-card--footer p {
+/* 页脚版权与品牌标语 */
+.page-home .bento-card--footer .footer-copy {
   margin: 0;
   color: var(--muted);
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 13.5px;
 }
 
-.page-home .bento-card--footer p + p {
-  margin-top: 4px;
+/* 页脚右侧链接群（整合 GitHub、X、RSS、关于） */
+.page-home .bento-card--footer .footer-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
-.page-home .bento-card--footer a {
-  color: var(--ink);
+/* 页脚链接样式 */
+.page-home .bento-card--footer .footer-links a {
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  font-weight: 500;
   text-decoration: none;
+  transition: color var(--ease);
+}
+
+/* 页脚链接悬停高亮 */
+.page-home .bento-card--footer .footer-links a:hover {
+  color: var(--rust-dark);
 }
 
 @media (max-width: 1024px) {
@@ -3457,94 +3310,86 @@ body.page-home::before {
     padding: 22px 0 42px;
   }
 
+  /* 平板端 2 列网格容器 */
   .page-home .bento-grid {
+    /* 自适应高度 */
     height: auto;
+    /* 采用 2 等分列 */
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: none;
-    grid-auto-rows: minmax(154px, auto);
+    /* 行高自适应内容 */
+    grid-auto-rows: auto;
+    gap: 16px;
   }
 
+  /* 平板端重置所有卡片的网格跨度为自动 */
   .page-home .bento-card--identity,
   .page-home .bento-card--tools,
-  .page-home .bento-card--contact,
   .page-home .bento-card--daily,
-  .page-home .bento-card--work,
-  .page-home .bento-card--now,
   .page-home .bento-card--english,
   .page-home .bento-card--writing,
-  .page-home .bento-card--about,
   .page-home .bento-card--globe,
-  .page-home .bento-card--rss,
   .page-home .bento-card--footer {
-    grid-column: auto;
+    /* 默认跨整整 2 列以保证内容可读性 */
+    grid-column: span 2;
     grid-row: auto;
   }
 
+  /* 自我介绍卡片平板端内边距 */
   .page-home .bento-card--identity {
-    grid-column: span 2;
-    min-height: 360px;
+    min-height: 0;
+    padding: 24px;
   }
 
-  .page-home .bento-card--tools,
-  .page-home .bento-card--contact,
-  .page-home .bento-card--daily {
-    grid-row: span 2;
-  }
-
-  .page-home .bento-card--work {
-    min-height: 154px;
-  }
-
+  /* 地球卡片平板端高度适度收拢 */
   .page-home .bento-card--globe {
-    min-height: 108px;
+    min-height: 110px;
   }
 }
 
 @media (max-width: 700px) {
+  /* 移动端页面主容器宽度填满视口边距 */
   body.page-home {
-    --page: calc(100% - 28px);
+    --page: calc(100% - 24px);
   }
 
+  /* 移动端单列流式布局 */
   .page-home .bento-grid {
+    /* 彻底采用单列模式 */
     grid-template-columns: minmax(0, 1fr);
     grid-auto-rows: auto;
-    gap: 12px;
+    gap: 14px;
   }
 
+  /* 移动端重置所有卡片为单列全宽 */
   .page-home .bento-card--identity,
   .page-home .bento-card--tools,
-  .page-home .bento-card--contact,
   .page-home .bento-card--daily,
-  .page-home .bento-card--work,
-  .page-home .bento-card--now,
   .page-home .bento-card--english,
   .page-home .bento-card--writing,
-  .page-home .bento-card--about,
   .page-home .bento-card--globe,
-  .page-home .bento-card--rss,
   .page-home .bento-card--footer {
-    grid-column: auto;
+    grid-column: span 1;
     grid-row: auto;
   }
 
+  /* 自我介绍移动端呼吸感排版 */
   .page-home .bento-card--identity {
-    min-height: 360px;
-    grid-template-columns: 1fr;
-    padding: 25px;
-  }
-
-  .page-home .bento-card--tools,
-  .page-home .bento-card--contact,
-  .page-home .bento-card--daily {
     min-height: 0;
+    padding: 22px;
   }
 
-  .page-home .bento-card--work {
-    min-height: 170px;
-  }
-
+  /* 地球卡片移动端自适应 */
   .page-home .bento-card--globe {
-    min-height: 98px;
+    min-height: 100px;
+    padding: 16px;
+  }
+
+  /* 页脚在移动端垂直流式排布 */
+  .page-home .bento-card--footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 }
 
