@@ -56,7 +56,6 @@ const scriptFreePersonalRoutes = [
   routes.tools,
   routes.about,
   routes.daily,
-  routes.englishLearning,
   ...articleSlugs.map((slug) => `writing/${slug}/index.html`)
 ];
 

@@ -1,5 +1,64 @@
 {
   "schemaVersion": 1,
   "kind": "daily",
-  "items": []
+  "items": [
+    {
+      "schemaVersion": 1,
+      "kind": "daily",
+      "id": "daily-2026-09-20",
+      "slug": "virtual-goods-and-skill-products",
+      "title": "变现主题回升，教育虚拟品与Skill形态成新信号",
+      "summary": "变现主题在连续两日低迷后回升，硬线索集中在多位独立作者观察到的「教育知识点可视化虚拟品」及小红书低价Skill模具。",
+      "editionDate": "2026-09-20",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "revision": "402c8a0bb13c50b7",
+      "publishedAt": "2026-09-21T10:43:00+08:00",
+      "overview": "变现主题虽有回升，但硬线索集中在两位独立作者各自发现的初中漫画图解与小学语文导图，指向低粉+虚拟自动发货+按知识点拆品矩阵的打法；同时出现将名师语料封装为Skill低价分发的模具。",
+      "discoveries": [
+        {
+          "id": "edu-visual-products",
+          "title": "教育知识点可视化虚拟品成独立共识",
+          "fact": "初中知识点漫画图解（手绘版销量5000+）与小学语文导图（2500~3000+）同日被不同作者独立观察到，均采用低粉+电子版自动发货+AI生成+按年级课文拆品矩阵。",
+          "judgement": "硬线索在于两位作者无关联，非单点噪声。题材虽是K12，但其可不断拆细品（SKU矩阵）的模具逻辑可直接复用到其他知识库赛道。",
+          "sourceIds": [
+            "daily-insight-20260920"
+          ]
+        },
+        {
+          "id": "xiaohongshu-skill-product",
+          "title": "小红书低价卖定制 Skill 模具验证",
+          "fact": "有作者将名师考公视频沉淀为语料投喂 AI 封装成 Skill，在小红书以 10 元单价卖出 1000+ 份，并尝试迁移到四六级和高中知识点。",
+          "judgement": "10 元单价对应的价值是模具而非收入量级：把垂直语料封装为开箱即用的 Agent Skill，低门槛直接交付，具有清晰的跨赛道复用潜力。",
+          "sourceIds": [
+            "daily-insight-20260920"
+          ]
+        },
+        {
+          "id": "platform-native-agents",
+          "title": "平台正将 Agent 能力原生内置到开发工具",
+          "fact": "微信开发者工具官方 Skill 上线，直接内置自动化工作流辅助。",
+          "judgement": "平台官方持续将通用 Agent 工具收编原生化，对单一转稿或搬运类 Agent 形成挤压，独立开发者需尽早建立垂直业务壁垒与私有语料护城河。",
+          "sourceIds": [
+            "daily-insight-20260920"
+          ]
+        }
+      ],
+      "nextStep": "持续关注教育类知识点虚拟品是否出现第三位独立验证者，以确认新周期主线；同时关注小红书 Skill 形态低价品是否被他人快速复现。",
+      "tags": [
+        "虚拟品",
+        "AgentSkill",
+        "商业洞察"
+      ],
+      "sources": [
+        {
+          "id": "daily-insight-20260920",
+          "title": "每日商业与 AI 趋势观察记录（2026-09-20）",
+          "url": null,
+          "publishedAt": "2026-09-20"
+        }
+      ]
+    }
+  ]
 }

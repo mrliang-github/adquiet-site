@@ -1,5 +1,143 @@
 {
   "schemaVersion": 1,
   "kind": "english",
-  "items": []
+  "items": [
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-21",
+      "slug": "following-up-on-overdue-invoice",
+      "title": "催收逾期尾款 · Following Up on an Overdue Invoice",
+      "summary": "练习在合作方逾期未付款时坚定跟进，直陈事实并约定明确截止日期，同时维系长期合作关系。",
+      "editionDate": "2026-09-21",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "revision": "cdbbcd6fa9723a04",
+      "publishedAt": "2026-09-21T10:43:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "向海外合作方跟进拖欠六周的项目尾款",
+      "goal": "催收逾期发票：直陈事实、锁定截止日，并保持未来续约关系。",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "past-due",
+          "phrase": "past due",
+          "translation": "已经过了该付款的日期，逾期的",
+          "example": "It is six weeks past due now.",
+          "sentenceId": "l2"
+        },
+        {
+          "id": "sort-out",
+          "phrase": "sort out",
+          "translation": "把事情理清楚，弄出一个明确结果",
+          "example": "I just want to sort out one clear date.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "chase",
+          "phrase": "chase",
+          "translation": "反复追问、追着催促",
+          "example": "I do not want to chase this every month.",
+          "sentenceId": "l8"
+        },
+        {
+          "id": "heads-up",
+          "phrase": "heads-up",
+          "translation": "提前给人提个醒、打个招呼",
+          "example": "And just a heads-up — if it goes past that, I will have to pause.",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "on-my-end",
+          "phrase": "on my end",
+          "translation": "在我这一方、我这边的责任范围",
+          "example": "Everything is ready on my end.",
+          "sentenceId": "l12"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Nora",
+          "text": "Hi, good to see you. Sorry I am two minutes late — our team meeting ran long.",
+          "translation": "嗨，见到你真好。抱歉我晚了两分钟——我们团队会议拖长了。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "No problem. Thanks for making time today. I want to talk about the invoice for the June training. It is six weeks past due now.",
+          "translation": "没关系。谢谢你今天抽时间。我想谈谈六月那场培训的发票。现在已经逾期六周了。"
+        },
+        {
+          "id": "l3",
+          "speaker": "Nora",
+          "text": "I know, and I am really sorry. Our finance person left in July, and things got messy after that.",
+          "translation": "我知道，真的很抱歉。我们做财务的同事七月离职了，之后就乱了。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "I appreciate that. I am not calling to blame anyone — I just want to sort out one clear date, so we are not doing this again next month.",
+          "translation": "我明白。我打这个电话不是要怪谁——我只想理出一个明确的日期，免得下个月又来一次。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Nora",
+          "text": "That is fair. I can send it to finance today. But honestly, they usually take about two weeks.",
+          "translation": "这话说得对。我今天就能把它发给财务。但说实话，他们一般要两周左右。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "Two weeks works. Let us say the tenth of October. And just a heads-up — if it goes past that, I will have to pause the next batch of videos for you.",
+          "translation": "两周可以。那就定十月十日。另外先跟你打个招呼——如果过了那天，我就得暂停给你们做的那批视频。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Nora",
+          "text": "Thanks for the heads-up. But pausing the videos? That sounds serious.",
+          "translation": "谢谢你提前说。但暂停视频？听起来挺严肃的。"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "It is not a punishment. It is cash flow. If your payment is late, then I pay my editor and my server late too. And I do not want to chase this every month.",
+          "translation": "这不是惩罚，是现金流。你们付款晚，我付剪辑师和服务器的钱也就晚。而且我不想每个月都来催这件事。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Nora",
+          "text": "Okay. That is fair. And I want to be honest with you — the delay is not on my end. I have been chasing our finance team since July. Nobody approved it.",
+          "translation": "好，这话说得对。我也想跟你说实话——拖的原因不在我这边。从七月起我一直在催我们财务。但没人批。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "I believe you. I am not asking you to explain it again. I am asking for the tenth of October, and one line from finance if that date is not possible.",
+          "translation": "我信你。我不是要你再解释一遍。我要的是十月十日；如果那个日期不行，让财务给我一句话说明。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Nora",
+          "text": "The tenth is possible. I will walk it through myself. I am sorry it went past due at all.",
+          "translation": "十月十日可以。我自己去走这个流程。很抱歉一开始就让它逾期了。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Thank you. A short note from you today would help a lot. Everything is ready on my end, so once finance moves, it is done. And I am glad we could sort this out.",
+          "translation": "谢谢。你今天能给我写封短邮件说明一下就好。我这边全都准备好了，只要财务一动就结束了。也很高兴我们把这件事理清了。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "Nora 提出只能先付一半，剩下十一月再给且没有具体日期。请用英文回应：接受一半、对剩下部分要一个具体书面日期，并告知暂停视频的后果。",
+          "referenceAnswer": "Half now helps, and I will take it. But November is too open for me — can we put the fifth of November in writing today? And just a heads-up: if the rest is not in by then, I will hold the next batch of videos. I do not want to chase this again in December.",
+          "explanation": "先接受一半表达诚意，把开放月份锁定为具体日期，最后用 heads-up 和 chase 点明共同的边界。"
+        }
+      ]
+    }
+  ]
 }

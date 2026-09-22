@@ -1,4 +1,7 @@
 {
   "version": 1,
-  "routes": []
+  "routes": [
+    "daily/virtual-goods-and-skill-products/index.html",
+    "english/following-up-on-overdue-invoice/index.html"
+  ]
 }
