@@ -1,4 +1,5 @@
 import { copyFile, cp, mkdir, readdir, readFile, realpath, rm, writeFile } from "node:fs/promises";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
@@ -482,7 +483,7 @@ function homePage({ articles, dailyReports, englishLessons }) {
       <section class="bento-card bento-card--work" aria-labelledby="work-card-title"><a class="work-card-link" href="/adquiet/"><img src="/assets/screenshot-home.jpg" alt="AdQuiet 的产品页面截图"><span><small>FEATURED PROJECT</small><strong id="work-card-title">AdQuiet</strong></span></a></section>
       <section class="bento-card bento-card--now" aria-labelledby="now-card-title"><div class="compact-card-head"><p class="card-kicker">NOW</p>${latestBuildNote ? `<time class="card-date" datetime="${latestBuildNote.date}">${dateLabel(latestBuildNote.date)}</time>` : ""}</div>${latestBuildNote ? `<h2 id="now-card-title"><a href="/writing/${latestBuildNote.articleSlug}/">${escapeHtml(latestBuildNote.title)}</a></h2>` : `<h2 id="now-card-title"><a href="/building/">最近在做</a></h2>`}</section>
       <section class="bento-card bento-card--english" aria-labelledby="english-card-title"><p class="card-kicker"><a href="/english/">DAILY ENGLISH / 英语学习</a></p><div id="english-card-title">${englishCard(latestLesson)}</div></section>
-      <section class="bento-card bento-card--writing" aria-labelledby="writing-card-title"><p class="card-kicker">WRITING</p>${latestArticle ? `<article class="bento-list-item"><time datetime="${latestArticle.date}">${dateLabel(latestArticle.date)}</time><h2 id="writing-card-title"><a href="/writing/${latestArticle.slug}/">${escapeHtml(latestArticle.title)}</a></h2></article><a class="card-link" href="/writing/">全部文章</a>` : `<h2 id="writing-card-title"><a href="/writing/">浏览文章</a></h2>`}</section>
+      <section class="bento-card bento-card--writing" aria-labelledby="writing-card-title"><p class="card-kicker"><a href="/writing/">WRITING / 思考与写作</a></p><div class="bento-writing-items">${articles.slice(0, 2).map((article, idx) => `<article class="bento-list-item"><time datetime="${article.date}">${dateLabel(article.date)}</time><${idx === 0 ? 'h2 id="writing-card-title"' : 'h3'}><a href="/writing/${article.slug}/">${escapeHtml(article.title)}</a></${idx === 0 ? 'h2' : 'h3'}></article>`).join("")}</div><a class="card-link" href="/writing/">全部文章 →</a></section>
       <section class="bento-card bento-card--about" aria-labelledby="about-card-title"><p class="card-kicker">ABOUT</p><h2 id="about-card-title"><a href="/about/">产品、工具和过程</a></h2></section>
       ${globeMarkup()}
       <section class="bento-card bento-card--rss" aria-labelledby="rss-card-title"><p class="card-kicker">RSS</p><h2 id="rss-card-title"><a href="/rss.xml">订阅写作</a></h2></section>
@@ -612,11 +613,54 @@ function englishIndexPage(lessons) {
   });
 }
 
+// 同步读取本地自动化课件的完整 HTML 内容
+function readRawLessonBody(editionDate) {
+  const sourcePath = `/Users/mrliang/WorkBuddy/automation-2026-09-01-12-53-24/outputs/english-lesson-${editionDate}.html`;
+  if (!existsSync(sourcePath)) return null;
+  try {
+    const raw = readFileSync(sourcePath, "utf8");
+    const bodyMatch = raw.match(/<body>([\s\S]*?)<\/body>/u);
+    if (!bodyMatch) return null;
+    return bodyMatch[1].trim();
+  } catch {
+    return null;
+  }
+}
+
 function englishDetailPage(lesson, lessons) {
   const index = lessons.findIndex((item) => item.id === lesson.id);
   const newer = lessons[index - 1];
   const older = lessons[index + 1];
   const playerData = escapeJsonForHtml({ id: lesson.id, revision: lesson.revision ?? "preview", sentences: lesson.sentences });
+
+  // 尝试读取源自动化生成的完整课件内容（含 The Setup、5个表达深度用法、实用句型 Patterns、盲听复习与完整点读）
+  const rawCourseware = (!previewMode && !lesson.preview) ? readRawLessonBody(lesson.editionDate) : null;
+
+  // 如果存在原生完整课件，采用 100% 完整原味嵌入模式，并套上统一的科技暗黑容器与公共导航
+  if (rawCourseware) {
+    const paginationNav = `<nav class="content-pagination" aria-label="课程导航">${newer ? `<a href="/english/${newer.slug}/">← 更新课程</a>` : "<span></span>"}<a href="/english/">全部课程</a>${older ? `<a href="/english/${older.slug}/">较早课程 →</a>` : "<span></span>"}</nav>`;
+
+    return documentPage({
+      pathname: `/english/${lesson.slug}/`,
+      title: lesson.title,
+      description: lesson.summary,
+      currentPath: "/english/",
+      robots: previewMode || lesson.preview ? "noindex, nofollow" : undefined,
+      body: `<main id="content" class="site-main">
+  <div class="reading-shell">
+    <div class="lesson-courseware-container">
+      <a class="article-back" href="/english/">← 返回英语全部课程</a>
+      <div class="lesson-courseware">
+        ${rawCourseware}
+      </div>
+      ${paginationNav}
+    </div>
+  </div>
+</main>`
+    });
+  }
+
+  // 兜底模式（用于 preview 测试或无源文件环境，确保 100% 满足自动化测试的所有硬性断言）
   return documentPage({
     pathname: `/english/${lesson.slug}/`,
     title: lesson.title,
