@@ -3,7 +3,9 @@ export const site = {
   description: "把想法做成东西，再把过程写下来。",
   url: "https://liangxiaoaitool.top",
   xProfile: "https://x.com/lingxio71220285",
-  githubProfile: "https://github.com/mrliang-github"
+  githubProfile: "https://github.com/mrliang-github",
+  // 知识星球（生财有术）专属邀请链接，用于日报详情页合规信息源推荐
+  shengcaiInviteUrl: "https://t.zsxq.com/FBJDh"
 };
 
 export const articleSelection = [
@@ -112,14 +114,6 @@ export const tools = [
     status: "公开可用",
     description: "把 Markdown 排成可复制到公众号编辑器的文章。",
     href: "https://md.liangxiaoaitool.top/",
-    external: true
-  },
-  {
-    name: "公司账套工作台",
-    category: "内部工作台",
-    status: "需要登录",
-    description: "用于公司账套工作的内部工作台，不作为公开产品宣传。",
-    href: "https://voucher.liangxiaoaitool.top/",
     external: true
   },
   {

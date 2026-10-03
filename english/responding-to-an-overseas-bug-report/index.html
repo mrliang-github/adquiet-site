@@ -1,0 +1,217 @@
+<!-- liangxiao-bento-managed-route -->
+<!doctype html>
+<html lang="zh-Hans" data-theme="paper">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="练习在「回应海外用户的 bug 反馈」场景下，用清晰、地道、专业的英语展开有效沟通。">
+  <meta name="theme-color" content="#111111">
+  <title>回应海外用户的 bug 反馈 · Responding to an Overseas Bug Report · 良逍</title>
+  <link rel="canonical" href="https://liangxiaoaitool.top/english/responding-to-an-overseas-bug-report/">
+  <link rel="alternate" type="application/rss+xml" title="良逍 的 RSS" href="https://liangxiaoaitool.top/rss.xml">
+  <link rel="stylesheet" href="/site-assets/personal.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+<header class="site-header">
+  <nav class="site-nav" aria-label="主导航">
+    <a class="site-brand" href="/" aria-label="良逍，返回首页">良逍 <span>AI</span></a>
+    <ul class="site-nav-links">
+      <li><a href="/">首页</a></li>
+      <li><a href="/writing/">文章</a></li>
+      <li><a href="/tools/">工具</a></li>
+      <li><a href="/daily/">风向标日报</a></li>
+      <li><a href="/english/" aria-current="page">英语学习</a></li>
+      <li><a href="/about/">关于</a></li>
+    </ul>
+  </nav>
+</header>
+  <main id="content" class="site-main">
+  <div class="reading-shell">
+    <div class="lesson-courseware-container" data-english-player data-translations-default="hidden">
+      <a class="article-back" href="/english/">← 返回英语全部课程</a>
+      <div class="lesson-courseware">
+        <header>
+  <h1>回应海外用户的 bug 反馈<span class="en">Responding to an Overseas Bug Report</span></h1>
+  <div class="meta">职业：独立开发者 / AI 内容创作者 · 难度：基础（可按反馈调整） · 主要沟通动作：Clarify 澄清 · 人物与数据均为虚构练习</div>
+  <p class="task">Today's task: Help Maya figure out why her AI export keeps failing — by asking clear, patient questions in English, one step at a time.</p>
+</header>
+
+<section class="setup">
+  <h2>The Setup</h2>
+  <div class="setup-grid">
+    <div class="setup-item">
+      <h3>Where</h3>
+      <p class="en">In your shared workspace chat, looking at a screenshot Maya just sent.</p>
+      <p class="cn hidden">在你们共享的工作区聊天里，看着 Maya 刚发来的截图。</p>
+    </div>
+    <div class="setup-item">
+      <h3>Who</h3>
+      <p class="en">You are the solo developer of an AI writing tool. Maya is a paying overseas user who tries every new release.</p>
+      <p class="cn hidden">你是一个人做 AI 写作工具的独立开发者。Maya 是一名付费海外用户，每次新功能发布她都会试用。</p>
+    </div>
+    <div class="setup-item">
+      <h3>At stake</h3>
+      <p class="en">Maya is blocked on a paid export feature. If you can't pin down the cause today, she may ask for a refund or stop using the tool.</p>
+      <p class="cn hidden">Maya 卡在一个付费的导出功能上。如果你今天定位不了原因，她可能要求退款或不再用。</p>
+    </div>
+    <div class="setup-item">
+      <h3>Mood</h3>
+      <p class="en">Calm and matter-of-fact. She is polite but a bit frustrated. You switch into problem-solving mode — questions first, conclusions later.</p>
+      <p class="cn hidden">平静且就事论事。她很有礼貌，但有点小沮丧。你已经切到"解决问题"模式——先提问，不急着给结论。</p>
+    </div>
+  </div>
+  <button class="toggle-setup" id="toggle-setup-cn" data-toggle-setup type="button">显示中文</button>
+</section>
+
+<section class="hint">
+  <h2>Scene Hint</h2>
+  <p>你坐在桌前，屏幕上是 Maya 发来的截图：她的"导出"按钮变成灰色，旁边一行小字写着 "Export failed"。这是本周她第三次找你聊这个问题了。这次你决定先开口问几个问题，把范围缩窄——先用英文问她：你能再试一下吗？哪个项目？换一个新项目试还复现吗？</p>
+</section>
+
+<section class="dialogue-section">
+  <h2>Dialogue</h2>
+  <div class="controls">
+    <button class="primary play-all" id="play-all" data-play-all type="button">▶ 播放全部</button>
+    <button class="stop" id="stop" data-stop type="button">■ 停止</button>
+    <label class="speed">Speed
+      <select id="speed" data-playback-rate>
+        <option value="0.85">慢 0.85x</option>
+        <option value="1" selected>正常 1.0x</option>
+        <option value="1.15">快 1.15x</option>
+      </select>
+    </label>
+    <label class="voice">Voice
+      <select id="voice" data-voice><option>(加载中…)</option></select>
+    </label>
+    <button class="toggle-dialogue" id="toggle-dialogue-cn" data-toggle-translations type="button">显示中文</button>
+    <button id="blind-listen" data-blind-listen type="button">🎧 盲听复习</button>
+    <button id="exit-blind" class="hidden" data-exit-blind type="button">退出盲听</button>
+  </div>
+  <p class="voice-warn hidden" id="voice-warn" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>
+  <ol class="dialogue" id="dialogue-list"><li class="line english-sentence" data-sentence-id="l1">
+      <div class="line-head"><span class="speaker">Maya</span><button type="button" class="play-line" data-play-sentence="l1" aria-label="点读第 l1 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Hi, sorry to bother you. The export button is greyed out, and a small message says &#39;Export failed.&#39; I tried twice this morning.</p><p class="cn-line" data-translation>嗨，不好意思又来打扰你。导出按钮变成灰色了，旁边有一行小字写着 &#39;Export failed&#39;。我今天早上试了两次。</p></li><li class="line english-sentence" data-sentence-id="l2">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l2" aria-label="点读第 l2 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Hi Maya, no bother at all. Sorry you&#39;re hitting this. Can you tell me which project you were working in when it failed?</p><p class="cn-line" data-translation>嗨 Maya，一点都不打扰，抱歉你撞上这问题。能告诉我是哪个项目失败的吗？</p></li><li class="line english-sentence" data-sentence-id="l3">
+      <div class="line-head"><span class="speaker">Maya</span><button type="button" class="play-line" data-play-sentence="l3" aria-label="点读第 l3 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">The &#39;Weekly Plan&#39; one. I started fresh and the message is still there, so it is not the old draft.</p><p class="cn-line" data-translation>是&#39;Weekly Plan&#39;那个项目。我重新开了一次，那个提示还在，所以不是旧草稿的问题。</p></li><li class="line english-sentence" data-sentence-id="l4">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l4" aria-label="点读第 l4 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Got it. Does this happen on every project, or only on that one? I am trying to narrow it down.</p><p class="cn-line" data-translation>好。是每个项目都这样，还是只有这一个项目？我想帮你把范围缩一缩。</p></li><li class="line english-sentence" data-sentence-id="l5">
+      <div class="line-head"><span class="speaker">Maya</span><button type="button" class="play-line" data-play-sentence="l5" aria-label="点读第 l5 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">I only tried that one, but earlier this week the export worked on my newsletter draft. So it is not every project for sure.</p><p class="cn-line" data-translation>我只试了那一个，但这周我导过 newsletter 那篇，是正常的。所以肯定不是每个项目都坏。</p></li><li class="line english-sentence" data-sentence-id="l6">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l6" aria-label="点读第 l6 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Thanks, that is really helpful. On my end, exports look fine in the test workspace. Could you try opening a brand-new project, just one short paragraph, and hit export once?</p><p class="cn-line" data-translation>谢谢，这信息很有用。我这边看，测试工作区里导出是正常的。你能不能新开一个项目，就写一小段，然后点一次导出试试？</p></li><li class="line english-sentence" data-sentence-id="l7">
+      <div class="line-head"><span class="speaker">Maya</span><button type="button" class="play-line" data-play-sentence="l7" aria-label="点读第 l7 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Okay, let me try... Same thing. Grey button, &#39;Export failed.&#39;</p><p class="cn-line" data-translation>好，我试一下……一样的。按钮灰着，提示 &#39;Export failed&#39;。</p></li><li class="line english-sentence" data-sentence-id="l8">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l8" aria-label="点读第 l8 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Alright, that points to something specific to your account, not the project itself. Could you send me a quick screenshot of the bottom of the screen where the error shows up? I will keep digging on my end.</p><p class="cn-line" data-translation>好，那看起来是跟你账号有关，不是项目本身的问题。能不能把屏幕底部那条报错的截图发我一下？我这边再继续排查。</p></li><li class="line english-sentence" data-sentence-id="l9">
+      <div class="line-head"><span class="speaker">Maya</span><button type="button" class="play-line" data-play-sentence="l9" aria-label="点读第 l9 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Sending it now. Please keep me posted on what you find, and thanks again for looking into this.</p><p class="cn-line" data-translation>现在就发。如果有发现随时告诉我进展，再次谢谢你跟进。</p></li><li class="line english-sentence" data-sentence-id="l10">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l10" aria-label="点读第 l10 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Got it, thanks. I will look at the logs tonight and keep you posted by tomorrow morning your time.</p><p class="cn-line" data-translation>收到，谢谢。我今晚去看一下日志，明天早上按你的时区给你回复。</p></li></ol>
+</section>
+
+<section class="expressions">
+  <h2>5 个重点表达</h2>
+
+  <div class="expr">
+    <h3>on my end <span class="ipa">/ɑn maɪ end/</span></h3>
+    <p class="def"><strong>核心含义：</strong>从我这一侧来讲；从我看到的。</p>
+    <p class="def"><strong>本课作用：</strong>用来对比"我这边的观察 vs 你那边的情况"，是 bug 排查里区分责任边界的常用开场。</p>
+    <p class="def"><strong>记忆提示：</strong>对应"on your end"（你那一侧）；"end"指一端，不是结束。</p>
+    <p class="def"><strong>换情境例句：</strong>"The file looks fine on my end — could you check on your end whether your inbox put it in spam?"</p>
+  </div>
+
+  <div class="expr">
+    <h3>narrow it down <span class="ipa">/ˈnær.oʊ ɪt daʊn/</span></h3>
+    <p class="def"><strong>核心含义：</strong>把可能的范围缩小、排除掉一些选项。</p>
+    <p class="def"><strong>本课作用：</strong>用来解释你问某个问题的目的——"我是在帮你 / 帮我把可能的原因从一堆缩到一两个"。</p>
+    <p class="def"><strong>记忆提示：</strong>像漏斗，开口大、底小；每问一个问题，底就小一格。</p>
+    <p class="def"><strong>换情境例句：</strong>"There are a few possible reasons, so let me ask one more question to narrow it down."</p>
+  </div>
+
+  <div class="expr">
+    <h3>specific to <span class="ipa">/spəˈsɪf.ɪk tuː/</span></h3>
+    <p class="def"><strong>核心含义：</strong>只发生在 / 跟……有关，特定于。</p>
+    <p class="def"><strong>本课作用：</strong>用来把你已经排除掉的可能性说出来，避免对方继续在错的方向上花时间。</p>
+    <p class="def"><strong>记忆提示：</strong>specific（具体的）+ to（对……）→ 只对这一个。</p>
+    <p class="def"><strong>换情境例句：</strong>"It doesn't look like a general server issue — it may be specific to the file format you're uploading."</p>
+  </div>
+
+  <div class="expr">
+    <h3>keep me posted <span class="ipa">/kiːp mi ˈpoʊ.stɪd/</span></h3>
+    <p class="def"><strong>核心含义：</strong>有新进展告诉我一声；保持联系。</p>
+    <p class="def"><strong>本课作用：</strong>用来收尾——你承诺会跟进，让对方不用反复追问、也降低对方焦虑。</p>
+    <p class="def"><strong>记忆提示：</strong>post 本意是"邮件/留言"，posted = 已发出；"继续给我发" = "有新进展就丢个信儿过来"。</p>
+    <p class="def"><strong>换情境例句：</strong>"I'll review the proposal tonight and keep you posted by tomorrow morning."</p>
+  </div>
+
+  <div class="expr">
+    <h3>hit (a bug / an issue) <span class="ipa">/hɪt/</span></h3>
+    <p class="def"><strong>核心含义：</strong>撞上、遇到（某个 bug 或问题）。</p>
+    <p class="def"><strong>本课作用：</strong>比 "have a problem" 更自然，用户说"sorry you're hitting this"是承认你确实撞上了麻烦、不是你的错。</p>
+    <p class="def"><strong>记忆提示：</strong>hit 像撞墙——没准备、突然撞上；可用于任何"撞上麻烦"的场景。</p>
+    <p class="def"><strong>换情境例句：</strong>"Some users on the latest build are hitting a slow login — we're tracking it down now."</p>
+  </div>
+</section>
+
+<section class="patterns">
+  <h2>实用句型（来自本课对话）</h2>
+
+  <div class="pat">
+    <strong>Does this happen on every project, or only on [that one]?</strong>
+    是每个项目都这样，还是只有 [那一个]？<span class="use">—— 想判断问题是"全局"还是"局部"时的第一句；适合开场澄清。</span>
+  </div>
+
+  <div class="pat">
+    <strong>Could you [do this one small thing] and send me [what you see]?</strong>
+    你能不能 [做这一件小事]，把 [看到的结果] 发我？<span class="use">—— 你需要对方帮你采集一点现场证据时；比 "please send..." 更礼貌、对方更愿意配合。</span>
+  </div>
+
+  <div class="pat">
+    <strong>I'll [do something] on my end and keep you posted by [time].</strong>
+    我 [做点事] 一下，[时间前] 给你回复。<span class="use">—— 需要先把对话停下、自己回去排查时；既给出承诺也给具体时间。</span>
+  </div>
+</section>
+
+<section class="my-turn">
+  <h2>My Turn</h2>
+  <div class="my-turn-body">
+    <p><strong>Situation:</strong> A new German user, Jonas, writes in: the AI summary shows a blank page on his phone, but the same feature works fine on his laptop.</p>
+    <p><strong>They say:</strong> "Quick question — the AI summary shows a blank page whenever I open it on my phone. Works fine on my laptop. Any idea why?"</p>
+    <p><strong>Your turn:</strong> Reply to Jonas. Ask one clarifying question to narrow down whether the issue is on his side or yours. (You can start with: <em>"Hi Jonas, thanks for the report —"</em>)</p>
+    <button class="reveal" id="show-answer" data-show-answer type="button">显示参考答案</button>
+    <div class="answer hidden" id="answer-block">
+      <div class="line-head">
+        <span class="speaker you">You</span>
+        <button class="play-line" data-line-id="answer" type="button" data-play-sentence="answer" aria-label="点读参考答案">🔊</button>
+      </div>
+      <p class="en-line" data-line-id="answer">Hi Jonas, thanks for the report — sorry about that. A quick question to narrow it down: are you on the latest app version on your phone? On my end, the summary loads on the latest build, so I want to check if it's specific to your version first.</p>
+      <p><em>思路：</em>先确认版本号 = 把"是不是老版本"从一堆可能里排除掉；用了 narrow it down、on my end、specific to 三个本课表达。即使对方版本对不上，这一步也不会白问——至少排除了一个嫌疑。</p>
+      <p class="note">参考答案不是唯一正确答案；版本信息、设备系统、是否登录账号、是否离线状态都可以做开场。</p>
+    </div>
+  </div>
+</section>
+
+<p class="footer-tip"><b>使用顺序：</b>先读 The Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>
+        <div class="lesson-progress-actions"><button type="button" data-mark-complete aria-pressed="false">标记本课完成</button></div>
+      </div>
+      <nav class="content-pagination" aria-label="课程导航"><a href="/english/pre-stream-check-with-an-overseas-guest/">← 更新课程</a><a href="/english/">全部课程</a><span></span></nav>
+    </div>
+  </div>
+</main>
+  <footer class="site-footer">
+  <div class="footer-grid">
+    <p class="footer-copy">© 2026 良逍 · 把产品、过程和每天的学习留在这里。</p>
+    <ul class="footer-links">
+      <li><a href="https://github.com/mrliang-github" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href="https://x.com/lingxio71220285" target="_blank" rel="noopener noreferrer">X</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>
+  <script id="english-player-data" type="application/json">{"id":"english-2026-09-13","revision":"0dc7092e9984ae0b","sentences":[{"id":"l1","speaker":"Maya","text":"Hi, sorry to bother you. The export button is greyed out, and a small message says 'Export failed.' I tried twice this morning.","translation":"嗨，不好意思又来打扰你。导出按钮变成灰色了，旁边有一行小字写着 'Export failed'。我今天早上试了两次。"},{"id":"l2","speaker":"You","text":"Hi Maya, no bother at all. Sorry you're hitting this. Can you tell me which project you were working in when it failed?","translation":"嗨 Maya，一点都不打扰，抱歉你撞上这问题。能告诉我是哪个项目失败的吗？"},{"id":"l3","speaker":"Maya","text":"The 'Weekly Plan' one. I started fresh and the message is still there, so it is not the old draft.","translation":"是'Weekly Plan'那个项目。我重新开了一次，那个提示还在，所以不是旧草稿的问题。"},{"id":"l4","speaker":"You","text":"Got it. Does this happen on every project, or only on that one? I am trying to narrow it down.","translation":"好。是每个项目都这样，还是只有这一个项目？我想帮你把范围缩一缩。"},{"id":"l5","speaker":"Maya","text":"I only tried that one, but earlier this week the export worked on my newsletter draft. So it is not every project for sure.","translation":"我只试了那一个，但这周我导过 newsletter 那篇，是正常的。所以肯定不是每个项目都坏。"},{"id":"l6","speaker":"You","text":"Thanks, that is really helpful. On my end, exports look fine in the test workspace. Could you try opening a brand-new project, just one short paragraph, and hit export once?","translation":"谢谢，这信息很有用。我这边看，测试工作区里导出是正常的。你能不能新开一个项目，就写一小段，然后点一次导出试试？"},{"id":"l7","speaker":"Maya","text":"Okay, let me try... Same thing. Grey button, 'Export failed.'","translation":"好，我试一下……一样的。按钮灰着，提示 'Export failed'。"},{"id":"l8","speaker":"You","text":"Alright, that points to something specific to your account, not the project itself. Could you send me a quick screenshot of the bottom of the screen where the error shows up? I will keep digging on my end.","translation":"好，那看起来是跟你账号有关，不是项目本身的问题。能不能把屏幕底部那条报错的截图发我一下？我这边再继续排查。"},{"id":"l9","speaker":"Maya","text":"Sending it now. Please keep me posted on what you find, and thanks again for looking into this.","translation":"现在就发。如果有发现随时告诉我进展，再次谢谢你跟进。"},{"id":"l10","speaker":"You","text":"Got it, thanks. I will look at the logs tonight and keep you posted by tomorrow morning your time.","translation":"收到，谢谢。我今晚去看一下日志，明天早上按你的时区给你回复。"}]}</script>
+  <script src="/site-assets/speech-player.js" defer></script>
+</body>
+</html>

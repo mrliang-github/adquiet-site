@@ -1,0 +1,1236 @@
+{
+  "schemaVersion": 1,
+  "kind": "english",
+  "items": [
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-13",
+      "slug": "responding-to-an-overseas-bug-report",
+      "title": "回应海外用户的 bug 反馈 · Responding to an Overseas Bug Report",
+      "summary": "练习在「回应海外用户的 bug 反馈」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-13",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "bodyHtml": "<header>\n  <h1>回应海外用户的 bug 反馈<span class=\"en\">Responding to an Overseas Bug Report</span></h1>\n  <div class=\"meta\">职业：独立开发者 / AI 内容创作者 · 难度：基础（可按反馈调整） · 主要沟通动作：Clarify 澄清 · 人物与数据均为虚构练习</div>\n  <p class=\"task\">Today's task: Help Maya figure out why her AI export keeps failing — by asking clear, patient questions in English, one step at a time.</p>\n</header>\n\n<section class=\"setup\">\n  <h2>The Setup</h2>\n  <div class=\"setup-grid\">\n    <div class=\"setup-item\">\n      <h3>Where</h3>\n      <p class=\"en\">In your shared workspace chat, looking at a screenshot Maya just sent.</p>\n      <p class=\"cn hidden\">在你们共享的工作区聊天里，看着 Maya 刚发来的截图。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Who</h3>\n      <p class=\"en\">You are the solo developer of an AI writing tool. Maya is a paying overseas user who tries every new release.</p>\n      <p class=\"cn hidden\">你是一个人做 AI 写作工具的独立开发者。Maya 是一名付费海外用户，每次新功能发布她都会试用。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>At stake</h3>\n      <p class=\"en\">Maya is blocked on a paid export feature. If you can't pin down the cause today, she may ask for a refund or stop using the tool.</p>\n      <p class=\"cn hidden\">Maya 卡在一个付费的导出功能上。如果你今天定位不了原因，她可能要求退款或不再用。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Mood</h3>\n      <p class=\"en\">Calm and matter-of-fact. She is polite but a bit frustrated. You switch into problem-solving mode — questions first, conclusions later.</p>\n      <p class=\"cn hidden\">平静且就事论事。她很有礼貌，但有点小沮丧。你已经切到\"解决问题\"模式——先提问，不急着给结论。</p>\n    </div>\n  </div>\n  <button class=\"toggle-setup\" id=\"toggle-setup-cn\" data-toggle-setup type=\"button\">显示中文</button>\n</section>\n\n<section class=\"hint\">\n  <h2>Scene Hint</h2>\n  <p>你坐在桌前，屏幕上是 Maya 发来的截图：她的\"导出\"按钮变成灰色，旁边一行小字写着 \"Export failed\"。这是本周她第三次找你聊这个问题了。这次你决定先开口问几个问题，把范围缩窄——先用英文问她：你能再试一下吗？哪个项目？换一个新项目试还复现吗？</p>\n</section>\n\n<section class=\"dialogue-section\">\n  <h2>Dialogue</h2>\n  <div class=\"controls\">\n    <button class=\"primary play-all\" id=\"play-all\" data-play-all type=\"button\">▶ 播放全部</button>\n    <button class=\"stop\" id=\"stop\" data-stop type=\"button\">■ 停止</button>\n    <label class=\"speed\">Speed\n      <select id=\"speed\" data-playback-rate>\n        <option value=\"0.85\">慢 0.85x</option>\n        <option value=\"1\" selected>正常 1.0x</option>\n        <option value=\"1.15\">快 1.15x</option>\n      </select>\n    </label>\n    <label class=\"voice\">Voice\n      <select id=\"voice\" data-voice><option>(加载中…)</option></select>\n    </label>\n    <button class=\"toggle-dialogue\" id=\"toggle-dialogue-cn\" data-toggle-translations type=\"button\">显示中文</button>\n    <button id=\"blind-listen\" data-blind-listen type=\"button\">🎧 盲听复习</button>\n    <button id=\"exit-blind\" class=\"hidden\" data-exit-blind type=\"button\">退出盲听</button>\n  </div>\n  <p class=\"voice-warn hidden\" id=\"voice-warn\" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>\n  <ol class=\"dialogue\" id=\"dialogue-list\">\n    \n  </ol>\n</section>\n\n<section class=\"expressions\">\n  <h2>5 个重点表达</h2>\n\n  <div class=\"expr\">\n    <h3>on my end <span class=\"ipa\">/ɑn maɪ end/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>从我这一侧来讲；从我看到的。</p>\n    <p class=\"def\"><strong>本课作用：</strong>用来对比\"我这边的观察 vs 你那边的情况\"，是 bug 排查里区分责任边界的常用开场。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>对应\"on your end\"（你那一侧）；\"end\"指一端，不是结束。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"The file looks fine on my end — could you check on your end whether your inbox put it in spam?\"</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>narrow it down <span class=\"ipa\">/ˈnær.oʊ ɪt daʊn/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>把可能的范围缩小、排除掉一些选项。</p>\n    <p class=\"def\"><strong>本课作用：</strong>用来解释你问某个问题的目的——\"我是在帮你 / 帮我把可能的原因从一堆缩到一两个\"。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>像漏斗，开口大、底小；每问一个问题，底就小一格。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"There are a few possible reasons, so let me ask one more question to narrow it down.\"</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>specific to <span class=\"ipa\">/spəˈsɪf.ɪk tuː/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>只发生在 / 跟……有关，特定于。</p>\n    <p class=\"def\"><strong>本课作用：</strong>用来把你已经排除掉的可能性说出来，避免对方继续在错的方向上花时间。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>specific（具体的）+ to（对……）→ 只对这一个。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"It doesn't look like a general server issue — it may be specific to the file format you're uploading.\"</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>keep me posted <span class=\"ipa\">/kiːp mi ˈpoʊ.stɪd/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>有新进展告诉我一声；保持联系。</p>\n    <p class=\"def\"><strong>本课作用：</strong>用来收尾——你承诺会跟进，让对方不用反复追问、也降低对方焦虑。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>post 本意是\"邮件/留言\"，posted = 已发出；\"继续给我发\" = \"有新进展就丢个信儿过来\"。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"I'll review the proposal tonight and keep you posted by tomorrow morning.\"</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>hit (a bug / an issue) <span class=\"ipa\">/hɪt/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>撞上、遇到（某个 bug 或问题）。</p>\n    <p class=\"def\"><strong>本课作用：</strong>比 \"have a problem\" 更自然，用户说\"sorry you're hitting this\"是承认你确实撞上了麻烦、不是你的错。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>hit 像撞墙——没准备、突然撞上；可用于任何\"撞上麻烦\"的场景。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Some users on the latest build are hitting a slow login — we're tracking it down now.\"</p>\n  </div>\n</section>\n\n<section class=\"patterns\">\n  <h2>实用句型（来自本课对话）</h2>\n\n  <div class=\"pat\">\n    <strong>Does this happen on every project, or only on [that one]?</strong>\n    是每个项目都这样，还是只有 [那一个]？<span class=\"use\">—— 想判断问题是\"全局\"还是\"局部\"时的第一句；适合开场澄清。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>Could you [do this one small thing] and send me [what you see]?</strong>\n    你能不能 [做这一件小事]，把 [看到的结果] 发我？<span class=\"use\">—— 你需要对方帮你采集一点现场证据时；比 \"please send...\" 更礼貌、对方更愿意配合。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>I'll [do something] on my end and keep you posted by [time].</strong>\n    我 [做点事] 一下，[时间前] 给你回复。<span class=\"use\">—— 需要先把对话停下、自己回去排查时；既给出承诺也给具体时间。</span>\n  </div>\n</section>\n\n<section class=\"my-turn\">\n  <h2>My Turn</h2>\n  <div class=\"my-turn-body\">\n    <p><strong>Situation:</strong> A new German user, Jonas, writes in: the AI summary shows a blank page on his phone, but the same feature works fine on his laptop.</p>\n    <p><strong>They say:</strong> \"Quick question — the AI summary shows a blank page whenever I open it on my phone. Works fine on my laptop. Any idea why?\"</p>\n    <p><strong>Your turn:</strong> Reply to Jonas. Ask one clarifying question to narrow down whether the issue is on his side or yours. (You can start with: <em>\"Hi Jonas, thanks for the report —\"</em>)</p>\n    <button class=\"reveal\" id=\"show-answer\" data-show-answer type=\"button\">显示参考答案</button>\n    <div class=\"answer hidden\" id=\"answer-block\">\n      <div class=\"line-head\">\n        <span class=\"speaker you\">You</span>\n        <button class=\"play-line\" data-line-id=\"answer\" type=\"button\" data-play-sentence=\"answer\" aria-label=\"点读参考答案\">🔊</button>\n      </div>\n      <p class=\"en-line\" data-line-id=\"answer\">Hi Jonas, thanks for the report — sorry about that. A quick question to narrow it down: are you on the latest app version on your phone? On my end, the summary loads on the latest build, so I want to check if it's specific to your version first.</p>\n      <p><em>思路：</em>先确认版本号 = 把\"是不是老版本\"从一堆可能里排除掉；用了 narrow it down、on my end、specific to 三个本课表达。即使对方版本对不上，这一步也不会白问——至少排除了一个嫌疑。</p>\n      <p class=\"note\">参考答案不是唯一正确答案；版本信息、设备系统、是否登录账号、是否离线状态都可以做开场。</p>\n    </div>\n  </div>\n</section>\n\n<p class=\"footer-tip\"><b>使用顺序：</b>先读 The Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>",
+      "revision": "0dc7092e9984ae0b",
+      "publishedAt": "2026-09-13T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "In your shared workspace chat, looking at a screenshot Maya just sent.",
+      "goal": "Help Maya figure out why her AI export keeps failing — by asking clear, patient questions in English, one step at a time.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "on-my-end",
+          "phrase": "on my end",
+          "translation": "从我这一侧来讲；从我看到的。",
+          "example": "The file looks fine on my end — could you check on your end whether your inbox put it in spam?",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "narrow-it-down",
+          "phrase": "narrow it down",
+          "translation": "把可能的范围缩小、排除掉一些选项。",
+          "example": "There are a few possible reasons, so let me ask one more question to narrow it down.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "specific-to",
+          "phrase": "specific to",
+          "translation": "只发生在 / 跟……有关，特定于。",
+          "example": "It doesn't look like a general server issue — it may be specific to the file format you're uploading.",
+          "sentenceId": "l8"
+        },
+        {
+          "id": "keep-me-posted",
+          "phrase": "keep me posted",
+          "translation": "有新进展告诉我一声；保持联系。",
+          "example": "I'll review the proposal tonight and keep you posted by tomorrow morning.",
+          "sentenceId": "l9"
+        },
+        {
+          "id": "hit-a-bug-an-issue",
+          "phrase": "hit (a bug / an issue)",
+          "translation": "撞上、遇到（某个 bug 或问题）。",
+          "example": "Some users on the latest build are hitting a slow login — we're tracking it down now.",
+          "sentenceId": "l1"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Maya",
+          "text": "Hi, sorry to bother you. The export button is greyed out, and a small message says 'Export failed.' I tried twice this morning.",
+          "translation": "嗨，不好意思又来打扰你。导出按钮变成灰色了，旁边有一行小字写着 'Export failed'。我今天早上试了两次。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "Hi Maya, no bother at all. Sorry you're hitting this. Can you tell me which project you were working in when it failed?",
+          "translation": "嗨 Maya，一点都不打扰，抱歉你撞上这问题。能告诉我是哪个项目失败的吗？"
+        },
+        {
+          "id": "l3",
+          "speaker": "Maya",
+          "text": "The 'Weekly Plan' one. I started fresh and the message is still there, so it is not the old draft.",
+          "translation": "是'Weekly Plan'那个项目。我重新开了一次，那个提示还在，所以不是旧草稿的问题。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "Got it. Does this happen on every project, or only on that one? I am trying to narrow it down.",
+          "translation": "好。是每个项目都这样，还是只有这一个项目？我想帮你把范围缩一缩。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Maya",
+          "text": "I only tried that one, but earlier this week the export worked on my newsletter draft. So it is not every project for sure.",
+          "translation": "我只试了那一个，但这周我导过 newsletter 那篇，是正常的。所以肯定不是每个项目都坏。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "Thanks, that is really helpful. On my end, exports look fine in the test workspace. Could you try opening a brand-new project, just one short paragraph, and hit export once?",
+          "translation": "谢谢，这信息很有用。我这边看，测试工作区里导出是正常的。你能不能新开一个项目，就写一小段，然后点一次导出试试？"
+        },
+        {
+          "id": "l7",
+          "speaker": "Maya",
+          "text": "Okay, let me try... Same thing. Grey button, 'Export failed.'",
+          "translation": "好，我试一下……一样的。按钮灰着，提示 'Export failed'。"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "Alright, that points to something specific to your account, not the project itself. Could you send me a quick screenshot of the bottom of the screen where the error shows up? I will keep digging on my end.",
+          "translation": "好，那看起来是跟你账号有关，不是项目本身的问题。能不能把屏幕底部那条报错的截图发我一下？我这边再继续排查。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Maya",
+          "text": "Sending it now. Please keep me posted on what you find, and thanks again for looking into this.",
+          "translation": "现在就发。如果有发现随时告诉我进展，再次谢谢你跟进。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Got it, thanks. I will look at the logs tonight and keep you posted by tomorrow morning your time.",
+          "translation": "收到，谢谢。我今晚去看一下日志，明天早上按你的时区给你回复。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "A new German user, Jonas, writes in: the AI summary shows a blank page on his phone, but the same feature works fine on his laptop.\n\n对方说: \"Quick question — the AI summary shows a blank page whenever I open it on my phone. Works fine on my laptop. Any idea why?\"\n\n你的任务: Reply to Jonas. Ask one clarifying question to narrow down whether the issue is on his side or yours. (You can start with: \"Hi Jona",
+          "referenceAnswer": "Hi Jonas, thanks for the report — sorry about that. A quick question to narrow it down: are you on the latest app version on your phone? On my end, the summary loads on the latest build, so I want to check if it's specific to your version first.",
+          "explanation": "先确认版本号 = 把\"是不是老版本\"从一堆可能里排除掉；用了 narrow it down、on my end、specific to 三个本课表达。即使对方版本对不上，这一步也不会白问——至少排除了一个嫌疑。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-15",
+      "slug": "pre-stream-check-with-an-overseas-guest",
+      "title": "连麦直播前的技术与流程核对 · Pre-stream Check with an Overseas Guest",
+      "summary": "练习在「连麦直播前的技术与流程核对」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-15",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "bodyHtml": "<header>\n  <h1>连麦直播前的技术与流程核对<span class=\"en\">Pre-stream Check with an Overseas Guest</span></h1>\n  <div class=\"meta\">职业：独立开发者 / AI 内容创作者（AI 工具方向） · 难度：基础 · 主要沟通动作：Confirm 核对 · 人物与数据均为虚构练习</div>\n  <p class=\"task\">Today's task: In a short test call, confirm the time, the demo and the risks with your overseas guest — in English, before the stream goes live.</p>\n</header>\n\n<section class=\"setup\">\n  <h2>The Setup</h2>\n  <div class=\"setup-grid\">\n    <div class=\"setup-item\">\n      <h3>Where</h3>\n      <p class=\"en\">Fifty minutes before the livestream, in your small home studio. Only you and your guest are in the test call; the audience has not joined yet.</p>\n      <p class=\"cn hidden\">开播前五十分钟，在你的居家小工作室里。测试通话中只有你和嘉宾两个人，观众还没进来。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Who</h3>\n      <p class=\"en\">You run an AI tools channel with both Chinese and English viewers. Alex is an overseas indie developer you met on X. This is your first live session together.</p>\n      <p class=\"cn hidden\">你运营一个 AI 工具方向的频道，观众里有中文用户也有英文用户。Alex 是你在 X 上认识的海外独立开发者。这是你们第一次连麦。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>At stake</h3>\n      <p class=\"en\">Alex will demo an unreleased feature. His screen shows a test key and a private repo name. Half the viewers are Chinese, so questions may come in Chinese. One slip is a real problem for him.</p>\n      <p class=\"cn hidden\">Alex 要演示一个还没发布的功能，他的屏幕上有测试的 key 和一个私有仓库名。一半观众是中文用户，所以提问可能是中文。说漏一点对他就是真麻烦。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Mood</h3>\n      <p class=\"en\">Friendly but rushed. Alex asks about the time the moment he joins, so he is worried about the time difference. He speaks fast; everything on your side is working.</p>\n      <p class=\"cn hidden\">友好但偏赶。Alex 一进来就问时间，说明他在担心时差。他语速偏快；你这边一切正常。</p>\n    </div>\n  </div>\n  <button id=\"toggle-setup-cn\" data-toggle-setup type=\"button\">显示中文</button>\n</section>\n\n<section class=\"hint\">\n  <h2>Scene Hint</h2>\n  <p>你刚戴上耳机，测试间里只有你和 Alex 两个人，观众席还是黑的。摄像头里能看到他桌上摊着笔记，背景有轻轻的键盘声。他开口第一句就在对时间。离正式开播还有五十分钟——你要在这一通电话里，把时间、演示方式和可能出问题的地方都确认清楚，别等开播了才发现对不上。</p>\n</section>\n\n<section class=\"dialogue-section\">\n  <h2>Dialogue</h2>\n  <div class=\"controls\">\n    <button class=\"primary play-all\" id=\"play-all\" data-play-all type=\"button\">▶ 播放全部</button>\n    <button class=\"stop\" id=\"stop\" data-stop type=\"button\">■ 停止</button>\n    <label class=\"speed\">Speed\n      <select id=\"speed\" data-playback-rate>\n        <option value=\"0.85\">慢 0.85x</option>\n        <option value=\"1\" selected>正常 1.0x</option>\n        <option value=\"1.15\">快 1.15x</option>\n      </select>\n    </label>\n    <label class=\"voice\">Voice\n      <select id=\"voice\" data-voice><option>(加载中…)</option></select>\n    </label>\n    <button class=\"toggle-dialogue\" id=\"toggle-dialogue-cn\" data-toggle-translations type=\"button\">显示中文</button>\n    <button id=\"blind-listen\" data-blind-listen type=\"button\">🎧 盲听复习</button>\n    <button id=\"exit-blind\" class=\"hidden\" data-exit-blind type=\"button\">退出盲听</button>\n  </div>\n  <p class=\"voice-warn hidden\" id=\"voice-warn\" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>\n  <ol class=\"dialogue\" id=\"dialogue-list\"></ol>\n</section>\n\n<section class=\"expressions\">\n  <h2>5 个重点表达</h2>\n\n  <div class=\"expr\">\n    <h3>double-check <span class=\"ipa\">/ˌdʌb.əl ˈtʃek/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>再确认一遍、复核一次。</p>\n    <p class=\"def\"><strong>本课作用：</strong>时间是最容易错的一项，用它在开播前把时区和时间锁死——不是\"查一次\"，是\"再查一次\"。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）check 一次不够，前面加 double 就是\"再来一遍\"。对应中文的\"再对一下\"。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Before I send the invoice, let me double-check the billing address with you.\"（寄发票前，我再跟你对一下账单地址。——换成了财务场景，动作从\"对时间\"换成\"对地址\"。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>heads-up <span class=\"ipa\">/ˌhedz ˈʌp/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>提前提醒一声、事先打个招呼。</p>\n    <p class=\"def\"><strong>本课作用：</strong>提醒对方\"你屏幕上会露出测试 key\"，把提醒说得自然不生硬，说完立刻接一个可以要求对方做的动作。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）head 抬起、up 向上——\"提前让你抬个头看一眼\"。常跟 just a 连用：just a heads-up。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Just a heads-up — the client moved the meeting to Monday, so we need the deck one day earlier.\"（提前说一声：客户把会挪到周一了，所以材料要提前一天。——换成客户会议场景，提醒内容是\"时间变动\"。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>blur out <span class=\"ipa\">/blɜːr aʊt/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>把某处模糊掉、打码处理。</p>\n    <p class=\"def\"><strong>本课作用：</strong>给出一个具体可执行的动作——不是\"关掉那个窗口\"，而是\"把那块糊掉\"，对方听完就知道该怎么做。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>blur（模糊）+ out（去掉）→ 糊到看不清。注意和 delete（删掉）不同，画面还在，只是看不清。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"I had to blur out my home address before posting the screenshot.\"（发截图前我得把家庭住址打码。——换成社交媒体场景，被糊的对象从 key 换成地址。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>run through <span class=\"ipa\">/rʌn θruː/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>把流程或材料从头到尾过一遍。</p>\n    <p class=\"def\"><strong>本课作用：</strong>在开播前把顺序和幻灯片快速走一遍，避免正式开始后才发现漏了什么。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）这里的 run 不是\"跑\"，是\"从头跑到尾\"——走一遍流程。后面直接跟要过的东西：run through the slides。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Can we run through the agenda once before the client call?\"（客户电话前我们能把议程过一遍吗？——换成客户会议场景，过的是议程不是幻灯片。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>backup plan <span class=\"ipa\">/ˈbæk.ʌp plæn/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>备选方案、兜底办法。</p>\n    <p class=\"def\"><strong>本课作用：</strong>网络或共享屏幕出问题时用来说\"我们有第二套\"，让对方不用紧张，也让你的直播不至于中断。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>backup（备用的）+ plan（方案）→ 提前想好的第二套。和 plan B 意思接近，但 backup plan 更常指\"技术/执行上的兜底\"。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"The hotel Wi-Fi is slow, so my backup plan is to use my phone as a hotspot.\"（酒店网络慢，所以我的备选是用手机开热点。——换成出差场景，兜底对象从共享屏幕换成网络。）</p>\n  </div>\n</section>\n\n<section class=\"patterns\">\n  <h2>实用句型（来自本课对话）</h2>\n\n  <div class=\"pat\">\n    <strong>Let me double-check [the detail] with you — [具体信息]. Does that still work?</strong>\n    我再跟你确认一下 [这个细节]——[具体信息]。这样还行吗？\n    <span class=\"use\">—— 把最容易出错的一项（时间、金额、版本号）和对方对一遍。适合开场、发出前、开始前的最后确认。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>Just a heads-up — [风险或变更]. Can you [具体动作]?</strong>\n    提前说一声——[风险或变更]。你能 [做个动作] 吗？\n    <span class=\"use\">—— 提醒风险后立刻给一个可执行动作，而不是只丢一句警告。适合演示前、交付前、上线前提醒对方。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>If [出问题], we'll [备选方案].</strong>\n    如果 [出问题]，我们就 [备选方案]。\n    <span class=\"use\">—— 提前给出兜底，降低对方压力。适合技术环节不确定、或对方明显紧张时收尾。</span>\n  </div>\n</section>\n\n<section class=\"my-turn\">\n  <h2>My Turn</h2>\n  <div class=\"my-turn-body\">\n    <p><strong>Situation:</strong> It is four minutes before the stream. Alex messages you in the test chat: he now wants to demo a brand-new feature that is still private, and he asks you to stop the recording for that part. Your channel always keeps a replay for viewers.</p>\n    <p><strong>They say:</strong> \"Can we show the new feature instead? It's way more fun. And please don't record this bit — I can't have it online.\"</p>\n    <p><strong>Your turn:</strong> Reply to Alex. Give him a heads-up about the problem, and offer a backup plan so you can still keep the replay. Say it out loud first. (You can start with: <em>\"Hey Alex, quick heads-up —\"</em>)</p>\n    <button class=\"reveal\" id=\"show-answer\" data-show-answer type=\"button\">显示参考答案</button>\n    <div class=\"answer hidden\" id=\"answer-block\">\n      <div class=\"line-head\">\n        <span class=\"speaker you\">You</span>\n        <button class=\"play-line\" data-line-id=\"answer\" type=\"button\" data-play-sentence=\"answer\" aria-label=\"点读参考答案\">🔊</button>\n      </div>\n      <p class=\"en-line\" data-line-id=\"answer\">Hey Alex, quick heads-up — I can't turn off the recording, because my viewers expect the replay. But here's a backup plan: you talk us through the new feature without sharing your screen, and I'll blur out anything sensitive on my end. How does that sound?</p>\n      <p><em>思路：</em>先用 heads-up 把\"不能关录制\"这个限制说清楚，再给 backup plan 让对方有台阶下——先回应限制，再给替代方案，比直接说 no 更容易被接受。用了本课两个表达。</p>\n      <p class=\"note\">参考答案不是唯一正确答案。你可以改成\"只录声音不录屏幕\"、\"先把这段剪掉再上传\"、\"改到下期再讲\"，只要把限制和替代方案都说出来就行。</p>\n    </div>\n  </div>\n</section>\n\n<p class=\"footer-tip\"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>",
+      "revision": "d046f04c5ffe80b9",
+      "publishedAt": "2026-09-15T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "Fifty minutes before the livestream, in your small home studio. Only you and your guest are in the test call; the audience has not joined yet.",
+      "goal": "In a short test call, confirm the time, the demo and the risks with your overseas guest — in English, before the stream goes live.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "double-check",
+          "phrase": "double-check",
+          "translation": "再确认一遍、复核一次。",
+          "example": "Before I send the invoice, let me double-check the billing address with you.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "heads-up",
+          "phrase": "heads-up",
+          "translation": "提前提醒一声、事先打个招呼。",
+          "example": "Just a heads-up — the client moved the meeting to Monday, so we need the deck one day earlier.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "blur-out",
+          "phrase": "blur out",
+          "translation": "把某处模糊掉、打码处理。",
+          "example": "I had to blur out my home address before posting the screenshot.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "run-through",
+          "phrase": "run through",
+          "translation": "把流程或材料从头到尾过一遍。",
+          "example": "Can we run through the agenda once before the client call?",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "backup-plan",
+          "phrase": "backup plan",
+          "translation": "备选方案、兜底办法。",
+          "example": "The hotel Wi-Fi is slow, so my backup plan is to use my phone as a hotspot.",
+          "sentenceId": "l10"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Alex",
+          "text": "Hey, can you hear me? My calendar says nine PM, but I want to double-check: is that nine PM your time or mine?",
+          "translation": "嘿，能听到我吗？我日历上写的是晚上九点，但我想再确认一下：是北京时间九点还是我这边的九点？"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "Loud and clear. Let me double-check the time with you now — nine PM Beijing time, that is nine AM for you. Does that still work?",
+          "translation": "很清楚。我现在跟你再对一下时间——北京时间晚上九点，也就是你这边的早上九点。这个时间还行吗？"
+        },
+        {
+          "id": "l3",
+          "speaker": "Alex",
+          "text": "Yes, nine AM works. Sorry, I always mix up the time difference. So, do you want me to share my screen for the demo?",
+          "translation": "可以，早上九点没问题。抱歉，我老是搞混时差。那演示的时候要我共享屏幕吗？"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "Yes, please. Just a heads-up — your demo screen shows a test key at the top. Can you blur that out before we go live?",
+          "translation": "要的，麻烦你了。提前提醒一下——你演示画面顶部有个测试的 key。开播前你能把那个打码糊掉吗？"
+        },
+        {
+          "id": "l5",
+          "speaker": "Alex",
+          "text": "Oh, good catch. I'll blur it out. Should I hide the repo name too? The feature is not public yet.",
+          "translation": "哦，多亏你提醒。我会糊掉的。仓库名也一起藏起来吗？这个功能还没公开。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "Yes, please keep the repo name off screen too. Let's run through the order one more time: intro, your ten-minute demo, then Q and A. Is that still okay with you?",
+          "translation": "对，仓库名也别出现在画面里。我们把顺序再过一遍：开场介绍、你十分钟的演示、然后问答。这样你这边没问题吧？"
+        },
+        {
+          "id": "l7",
+          "speaker": "Alex",
+          "text": "That works. One thing though — the questions might be in Chinese, and I only speak English.",
+          "translation": "没问题。不过有件事——观众的提问可能是中文，而我只会说英语。"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "No problem, I'll translate the questions and read them out in English for you. Also, can you send me your slides before eight thirty my time? I'd like to run through them once before we start.",
+          "translation": "没关系，我会把问题翻译好，用英文念给你听。另外，你能在北京时间八点半之前把幻灯片发我吗？开播前我想先过一遍。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Alex",
+          "text": "Sending them now. And what if my screen share fails? My Wi-Fi dropped twice last week.",
+          "translation": "现在就发。那如果我共享屏幕失败了怎么办？我家的网络上周断过两次。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Good question. We'll have a backup plan: if your share drops, I'll put your slides on my screen and you just talk us through them.",
+          "translation": "问得好。我们会有备选方案：如果你的共享断了，我就把你的幻灯片放到我的屏幕上，你直接口头带着大家过一遍。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Alex",
+          "text": "Perfect, that takes the pressure off. See you at nine your time.",
+          "translation": "太好了，这样我就没那么大压力了。北京时间九点见。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "See you then. And if anything changes, just give me a heads-up — even five minutes before is fine.",
+          "translation": "到时候见。如果有任何变动，提前跟我说一声就行——哪怕开播前五分钟说也没关系。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "It is four minutes before the stream. Alex messages you in the test chat: he now wants to demo a brand-new feature that is still private, and he asks you to stop the recording for that part. Your channel always keeps a replay for viewers.\n\n对方说: \"Can we show the new feature instead? It's way more fun. And please don't record this bit — I can't have it online.\"\n\n你的任务: Reply to Alex. Give him a heads",
+          "referenceAnswer": "Hey Alex, quick heads-up — I can't turn off the recording, because my viewers expect the replay. But here's a backup plan: you talk us through the new feature without sharing your screen, and I'll blur out anything sensitive on my end. How does that sound?",
+          "explanation": "先用 heads-up 把\"不能关录制\"这个限制说清楚，再给 backup plan 让对方有台阶下——先回应限制，再给替代方案，比直接说 no 更容易被接受。用了本课两个表达。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-16",
+      "slug": "negotiating-a-sponsorship-deal",
+      "title": "与海外品牌谈视频赞助合作 · Negotiating a Sponsorship Deal",
+      "summary": "练习在「与海外品牌谈视频赞助合作」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-16",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "bodyHtml": "<header>\n  <h1>与海外品牌谈视频赞助合作<span class=\"en\">Negotiating a Sponsorship Deal</span></h1>\n  <div class=\"meta\">职业：独立开发者 / AI 内容创作者（AI 工具方向） · 难度：基础 · 主要沟通动作：Negotiate 协商边界 · 人物与数据均为虚构练习</div>\n  <p class=\"task\">Today's task: In a first call with an overseas sponsor, agree on the money, the sixty-second mention and who keeps the final words — in English.</p>\n</header>\n\n<section class=\"setup\">\n  <h2>The Setup</h2>\n  <div class=\"setup-grid\">\n    <div class=\"setup-item\">\n      <h3>Where</h3>\n      <p class=\"en\">Tuesday morning, in your small home studio. Your camera is off, only the call is on. Your next AI tools video is planned for two weeks from now.</p>\n      <p class=\"cn hidden\">周二上午，在你的居家小工作室里。摄像头关着，只有通话开着。你下一期 AI 工具视频计划两周后发。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Who</h3>\n      <p class=\"en\">You run a small AI tools channel with Chinese and English viewers. Daniel is a marketing lead at an overseas AI startup. You used their tool once in a video three months ago.</p>\n      <p class=\"cn hidden\">你运营一个 AI 工具频道，观众里有中文也有英文用户。Daniel 是一家海外 AI 初创公司的市场负责人。三个月前你在视频里用过一次他们的工具。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>At stake</h3>\n      <p class=\"en\">Daniel offers two thousand US dollars for one video. But his team also wants to read your script before you publish it. Your viewers trust you because you say what you really think.</p>\n      <p class=\"cn hidden\">Daniel 出两千美元赞助一期视频。但他团队还想在你发布前先看你的脚本。你的观众信你，正是因为你说真实想法。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Mood</h3>\n      <p class=\"en\">Friendly and direct. Daniel is open about what he wants, and the money is real. His first question is about your audience, so he has read your channel page.</p>\n      <p class=\"cn hidden\">友好且直接。Daniel 想要什么说得很清楚，钱也是真的。他第一个问题问的是你的观众，说明他看过你的频道主页。</p>\n    </div>\n  </div>\n  <button id=\"toggle-setup-cn\" data-toggle-setup type=\"button\">显示中文</button>\n</section>\n\n<section class=\"hint\">\n  <h2>Scene Hint</h2>\n  <p>你坐在桌前，桌上摊着一本写满字的笔记本，旁边是一杯已经凉了的咖啡。耳机里能听到 Daniel 那边轻微的空调声，他说到\"两千美元\"的时候语气很松，像是在谈一件已经定了的事。屏幕上是你自己频道的页面，粉丝数就写在右上角。钱是真的，脚本审批也是真的——你要在这通电话里谈清三件事：钱、那六十秒怎么放，以及最后的话由谁写。</p>\n</section>\n\n<section class=\"dialogue-section\">\n  <h2>Dialogue</h2>\n  <div class=\"controls\">\n    <button class=\"primary play-all\" id=\"play-all\" data-play-all type=\"button\">▶ 播放全部</button>\n    <button class=\"stop\" id=\"stop\" data-stop type=\"button\">■ 停止</button>\n    <label class=\"speed\">Speed\n      <select id=\"speed\" data-playback-rate>\n        <option value=\"0.85\">慢 0.85x</option>\n        <option value=\"1\" selected>正常 1.0x</option>\n        <option value=\"1.15\">快 1.15x</option>\n      </select>\n    </label>\n    <label class=\"voice\">Voice\n      <select id=\"voice\" data-voice><option>(加载中…)</option></select>\n    </label>\n    <button class=\"toggle-dialogue\" id=\"toggle-dialogue-cn\" data-toggle-translations type=\"button\">显示中文</button>\n    <button id=\"blind-listen\" data-blind-listen type=\"button\">🎧 盲听复习</button>\n    <button id=\"exit-blind\" class=\"hidden\" data-exit-blind type=\"button\">退出盲听</button>\n  </div>\n  <p class=\"voice-warn hidden\" id=\"voice-warn\" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>\n  <ol class=\"dialogue\" id=\"dialogue-list\"></ol>\n</section>\n\n<section class=\"expressions\">\n  <h2>5 个重点表达</h2>\n\n  <div class=\"expr\">\n    <h3>a good fit <span class=\"ipa\">/ə ɡʊd ˈfɪt/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>合适、契合——两边合得来。</p>\n    <p class=\"def\"><strong>本课作用：</strong>在还没谈钱之前先说这句话，等于告诉对方\"我要先看合不合适，不是有单就接\"。它让后面的条件谈判有一个正当理由。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）fit 就是\"合身\"，像衣服试穿。中文说\"这个品牌调性对不对得上\"，英文常讲 a good fit。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Thanks for the intro — before we meet, can you tell me if this project is a good fit for my design skills?\"（谢谢介绍——见面之前，你能告诉我这个项目跟我的设计能力合不合吗？——换成自由职业接单场景，判断对象从\"视频和观众\"换成\"项目和个人技能\"。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>up front <span class=\"ipa\">/ˌʌp ˈfrʌnt/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>把话提前说明白、一开始就摆在桌面上。</p>\n    <p class=\"def\"><strong>本课作用：</strong>把最难接受的一条（\"我不会硬夸\"）说在合作开始之前，而不是等签完再说。注意是 be up front about，不是 be honest（后者听起来像在指责对方不诚实）。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）front 是前面——把话放在前面说，而不是藏在后面。常搭：Let me be up front with you.</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"I'll be up front with you — I can finish the site in three weeks, not two.\"（我跟你说实话——这个网站我要三周，不是两周。——换成客户交付场景，提前说明的是工期而不是内容立场。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>push back <span class=\"ipa\">/pʊʃ ˈbæk/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>对某个要求提出异议、往回顶一下。</p>\n    <p class=\"def\"><strong>本课作用：</strong>对\"改你脚本\"这一条明确说不。用 push back on 比说 I don't agree 更专业，听起来是理性分歧，不是情绪对抗。<em>（本课为复习表达：此前在需求评审场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）别人推你，你往回推——不是打架，是\"我不完全接受这一条\"。后面固定接 on：push back on a clause。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"The client wants it by Friday, but I'm going to push back on the deadline — two days is not enough for testing.\"（客户要周五交，但截止时间我要顶一下——两天不够测。——换成交期场景，被顶的是工期而不是合同条款。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>in exchange for <span class=\"ipa\">/ɪn ɪksˈtʃeɪndʒ fər/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>作为交换、以此换取。</p>\n    <p class=\"def\"><strong>本课作用：</strong>把\"钱\"和\"你要做的事\"一句话绑在一起说清楚。赞助谈的是等价交换，用这个词组能让双方都清楚自己换到了什么、让出了什么。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>exchange 是交换，后面直接跟换到的东西：in exchange for the money / for a mention。注意介词是 for，不是 with。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"We can give you the tool for free in exchange for a written review on your blog.\"（我们可以免费给你用这个工具，换一篇你博客上的文字评测。——换成软件合作场景，交换的两头从\"钱/口播\"换成\"免费使用/评测\"。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>keep me posted <span class=\"ipa\">/ˌkiːp mi ˈpoʊstɪd/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>有进展就告诉我一声。</p>\n    <p class=\"def\"><strong>本课作用：</strong>收尾时用，把\"之后还要联系\"变成一句很轻的请求——不显得催，也不显得急着要钱。它保护的是后续节奏，而不是催对方。<em>（本课为复习表达：此前在用户支持场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>posted 这里不是\"邮寄\"，是\"保持知情\"（keep someone posted）。比 let me know 更像一句持续的请求，而不是一次性的。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Keep me posted on when the new laptop arrives — I'll fly out as soon as it lands in the office.\"（新电脑到了就告诉我一声——一到办公室我就飞过去。——换成交付等待场景，等的东西从合同变设备。）</p>\n  </div>\n</section>\n\n<section class=\"patterns\">\n  <h2>实用句型（来自本课对话）</h2>\n\n  <div class=\"pat\">\n    <strong>Before I say yes, I want to make sure this is a good fit for [一群人].</strong>\n    在我答应之前，我想先确认这件事对 [一群人] 是否合适。\n    <span class=\"use\">—— 先不表态、先讲判断标准。适合接受合作、接单、答应请求之前，把\"我要先想清楚\"说得不失礼貌。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>Let me be up front with you — [真实情况或限制].</strong>\n    我跟你说清楚——[真实情况或限制]。\n    <span class=\"use\">—— 把最容易谈崩的那一条提前摆出来。适合合作刚开始、或需要明确自己底线的时候。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>I can't [不能做的事], but here's what I can do — [替代方案].</strong>\n    我不能 [不能做的事]，但有一件我可以做的——[替代方案]。\n    <span class=\"use\">—— 先说不，再给一个能谈的选项。适合对方的要求你做不到一半、但又不想直接谈崩的场合。</span>\n  </div>\n</section>\n\n<section class=\"my-turn\">\n  <h2>My Turn</h2>\n  <div class=\"my-turn-body\">\n    <p><strong>Situation:</strong> The video is almost ready. Two days before you publish, Daniel sends a message: his manager now wants to check the whole video, not only the sixty-second part. You already told him the final words stay with you.</p>\n    <p><strong>They say:</strong> \"Sorry, my manager wants to see the full video before you publish. It's just one email, right?\"</p>\n    <p><strong>Your turn:</strong> Reply to Daniel. Say your limit clearly, and offer one thing you can do so the deal still works. Say it out loud first. (You can start with: <em>\"Thanks, Daniel — I need to be up front —\"</em>)</p>\n    <button class=\"reveal\" id=\"show-answer\" data-show-answer type=\"button\">显示参考答案</button>\n    <div class=\"answer hidden\" id=\"answer-block\">\n      <div class=\"line-head\">\n        <span class=\"speaker you\">You</span>\n        <button class=\"play-line\" data-line-id=\"answer\" type=\"button\" data-play-sentence=\"answer\" aria-label=\"点读参考答案\">🔊</button>\n      </div>\n      <p class=\"en-line\" data-line-id=\"answer\">Thanks, Daniel — I need to be up front: the final words have to stay with me, so I can't send the whole video for approval. But here's what I can do — you get the sixty-second part one week early, and your team can check every fact and every number before I publish. Does that work for you?</p>\n      <p><em>思路：</em>先把不能退的那一条说清楚（up front），再用\"我不能 X，但可以 Y\"的句型给一个真的能落地的替代方案——对方要的是安全感和数据准确，不一定非要整片。用了本课两个表达。</p>\n      <p class=\"note\">参考答案不是唯一正确答案。你也可以改成\"只提前给脚本的文字部分\"\"由你截图给他看关键画面\"\"把赞助段单独剪成预览片先发\"——只要把限制和替代方案都说出来就行。</p>\n    </div>\n  </div>\n</section>\n\n<p class=\"footer-tip\"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>",
+      "revision": "7d0d1d2cf65b1db8",
+      "publishedAt": "2026-09-16T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "Tuesday morning, in your small home studio. Your camera is off, only the call is on. Your next AI tools video is planned for two weeks from now.",
+      "goal": "In a first call with an overseas sponsor, agree on the money, the sixty-second mention and who keeps the final words — in English.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "a-good-fit",
+          "phrase": "a good fit",
+          "translation": "合适、契合——两边合得来。",
+          "example": "Thanks for the intro — before we meet, can you tell me if this project is a good fit for my design skills?",
+          "sentenceId": "l2"
+        },
+        {
+          "id": "up-front",
+          "phrase": "up front",
+          "translation": "把话提前说明白、一开始就摆在桌面上。",
+          "example": "I'll be up front with you — I can finish the site in three weeks, not two.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "push-back",
+          "phrase": "push back",
+          "translation": "对某个要求提出异议、往回顶一下。",
+          "example": "The client wants it by Friday, but I'm going to push back on the deadline — two days is not enough for testing.",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "in-exchange-for",
+          "phrase": "in exchange for",
+          "translation": "作为交换、以此换取。",
+          "example": "We can give you the tool for free in exchange for a written review on your blog.",
+          "sentenceId": "l3"
+        },
+        {
+          "id": "keep-me-posted",
+          "phrase": "keep me posted",
+          "translation": "有进展就告诉我一声。",
+          "example": "Keep me posted on when the new laptop arrives — I'll fly out as soon as it lands in the office.",
+          "sentenceId": "l12"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Daniel",
+          "text": "Hi, good to finally talk to you. I've watched your channel for a few months. We just launched a new AI writing tool, and we would like to sponsor one video.",
+          "translation": "嗨，终于跟你通上话了。你的频道我看了几个月。我们刚上线了一款新的 AI 写作工具，想赞助你一期视频。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "Thanks, good to hear. Before I say yes, I want to make sure this is a good fit for my viewers. What do you have in mind?",
+          "translation": "谢谢，很高兴听到这个。在我答应之前，我想先确认这件事对我的观众是否合适。你们具体是怎么想的？"
+        },
+        {
+          "id": "l3",
+          "speaker": "Daniel",
+          "text": "Of course. Two thousand US dollars. In exchange for that, we get a sixty-second part in the video, and our logo in the first minute.",
+          "translation": "当然。两千美元。作为交换，我们在视频里拿到六十秒的段落，还有第一个一分钟里的 logo。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "That part works for me. Let me be up front with you about one thing, though — my viewers come to me for my real opinion. I can't say a tool is great if I don't think it is.",
+          "translation": "这部分我可以。但有件事我得跟你说清楚——观众来看我是为了听真话。如果我觉得一个工具不好，我不能说它好。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Daniel",
+          "text": "I understand. That's why I picked your channel, not a big one. But our team would like to read your script before you publish it — just to check the facts.",
+          "translation": "我理解。这也是我选你而不是大号的原因。不过我们团队想在你发布前看一下脚本——只是核对事实。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "A fact check is fine. But I have to push back on one thing: if you can change my words, then it's not my video any more.",
+          "translation": "核对事实没问题。但有一点我必须顶一下：如果你们能改我的措辞，那这就不是我的视频了。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Daniel",
+          "text": "Fair enough. What do you suggest?",
+          "translation": "有道理。你有什么建议？"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "Here's an idea. I send you the sixty-second part only. You check the facts and the numbers, and I keep the final words.",
+          "translation": "我有个想法。我只把那六十秒的段落发给你。你们核对事实和数字，最终措辞由我来定。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Daniel",
+          "text": "That works for us. One more thing — could you say our tool is the best one you have tried this year? That would really help.",
+          "translation": "这个我们可以接受。还有一件事——你能不能说我们这款工具是你今年试过最好的？那对我们帮助很大。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "I can't say that if I don't believe it. But I can tell my viewers what I really think after three weeks of using it — the good parts and the weak parts. That is more useful for you anyway.",
+          "translation": "如果我自己不信，我就不能说。但我可以告诉观众我用了三周之后的真实感受——好用的地方和不够的地方。这样对你们其实更有用。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Daniel",
+          "text": "You're right. Let's do it your way.",
+          "translation": "你说得对。就按你的方式来。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Great. I'll send you a short plan this week — the date, the sixty-second part, and the payment terms. Keep me posted if anything changes on your side.",
+          "translation": "好。这周我给你发一个简短的计划——发布日期、那六十秒的段落、还有付款条件。你那边有变动就跟我说一声。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "The video is almost ready. Two days before you publish, Daniel sends a message: his manager now wants to check the whole video, not only the sixty-second part. You already told him the final words stay with you.\n\n对方说: \"Sorry, my manager wants to see the full video before you publish. It's just one email, right?\"\n\n你的任务: Reply to Daniel. Say your limit clearly, and offer one thing you can do so the",
+          "referenceAnswer": "Thanks, Daniel — I need to be up front: the final words have to stay with me, so I can't send the whole video for approval. But here's what I can do — you get the sixty-second part one week early, and your team can check every fact and every number before I publish. Does that work for you?",
+          "explanation": "先把不能退的那一条说清楚（up front），再用\"我不能 X，但可以 Y\"的句型给一个真的能落地的替代方案——对方要的是安全感和数据准确，不一定非要整片。用了本课两个表达。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-17",
+      "slug": "walking-an-overseas-client-through-your-tool",
+      "title": "与海外客户做产品演示 · Walking an Overseas Client Through Your Tool",
+      "summary": "练习在「与海外客户做产品演示」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-17",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "bodyHtml": "<header>\n  <h1>与海外客户做产品演示<span class=\"en\">Walking an Overseas Client Through Your Tool</span></h1>\n  <div class=\"meta\">职业：独立开发者 / AI 内容创作者（AI 工具方向） · 难度：基础 · 主要沟通动作：Explain 说明现状与管理预期 · 人物与数据均为虚构练习</div>\n  <p class=\"task\">Today's task: In a thirty-minute demo with an overseas client, walk her through what your tool does today, say clearly what it does not do yet, and still keep the deal moving — in English.</p>\n</header>\n\n<section class=\"setup\">\n  <h2>The Setup</h2>\n  <div class=\"setup-grid\">\n    <div class=\"setup-item\">\n      <h3>Where</h3>\n      <p class=\"en\">Wednesday afternoon, in your home studio. You are sharing your screen. The call is thirty minutes long, and twenty minutes are already gone.</p>\n      <p class=\"cn hidden\">周三下午，在你的居家工作室里。你正在共享屏幕。这通电话总共三十分钟，现在已经过去二十分钟。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Who</h3>\n      <p class=\"en\">You build a small AI image tool on your own. Maya runs a design studio overseas with eight people on her team. She and her team have used your free plan for two weeks.</p>\n      <p class=\"cn hidden\">你一个人做了一款小的 AI 图片工具。Maya 在海外经营一家设计工作室，团队八个人。她和团队已经用了你的免费版两周。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>At stake</h3>\n      <p class=\"en\">Maya wants a team plan for eight people for one year. That is real money for you. But the three things her team needs are not all in your tool today. If you say yes to everything, she will find out next week.</p>\n      <p class=\"cn hidden\">Maya 想为八个人的团队买一年的团队版。这对你来说是真实的收入。但她团队需要的那三件事，你的工具今天并不是全都做得到。如果你什么都说\"可以\"，她下周就会发现。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Mood</h3>\n      <p class=\"en\">Maya is quick and specific. She asks about her team's real workflow, not about features in general. Twice she says, \"our whole process depends on this.\"</p>\n      <p class=\"cn hidden\">Maya 语速快、问题很具体。她问的是团队真实的工作流程，不是泛泛的功能。她有两次都说\"我们整个流程都靠这个\"。</p>\n    </div>\n  </div>\n  <button id=\"toggle-setup-cn\" data-toggle-setup type=\"button\">显示中文</button>\n</section>\n\n<section class=\"hint\">\n  <h2>Scene Hint</h2>\n  <p>你共享着屏幕，产品界面就摊在对面眼前，鼠标停在那个还没做完的按钮旁边。耳机里能听到 Maya 那边有人在敲键盘，她一边说一边切自己的窗口给你看他们的文件夹结构。她的问题一个比一个具体，而你已经能感觉到，其中有一件事你现在还交不出来。这一课要练的，就是在不吹牛的前提下，把\"现在有什么、现在没有什么、眼下能怎么办\"三件事讲清楚。</p>\n</section>\n\n<section class=\"dialogue-section\">\n  <h2>Dialogue</h2>\n  <div class=\"controls\">\n    <button class=\"primary play-all\" id=\"play-all\" data-play-all type=\"button\">▶ 播放全部</button>\n    <button class=\"stop\" id=\"stop\" data-stop type=\"button\">■ 停止</button>\n    <label class=\"speed\">Speed\n      <select id=\"speed\" data-playback-rate>\n        <option value=\"0.85\">慢 0.85x</option>\n        <option value=\"1\" selected>正常 1.0x</option>\n        <option value=\"1.15\">快 1.15x</option>\n      </select>\n    </label>\n    <label class=\"voice\">Voice\n      <select id=\"voice\" data-voice><option>(加载中…)</option></select>\n    </label>\n    <button class=\"toggle-dialogue\" id=\"toggle-dialogue-cn\" data-toggle-translations type=\"button\">显示中文</button>\n    <button id=\"blind-listen\" data-blind-listen type=\"button\">🎧 盲听复习</button>\n    <button id=\"exit-blind\" class=\"hidden\" data-exit-blind type=\"button\">退出盲听</button>\n  </div>\n  <p class=\"voice-warn hidden\" id=\"voice-warn\" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>\n  <ol class=\"dialogue\" id=\"dialogue-list\"></ol>\n</section>\n\n<section class=\"expressions\">\n  <h2>5 个重点表达</h2>\n\n  <div class=\"expr\">\n    <h3>walk you through <span class=\"ipa\">/wɔːk juː θruː/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>带着你一步一步看一遍、过一遍。</p>\n    <p class=\"def\"><strong>本课作用：</strong>演示时用这句话开头，等于告诉对方\"我按顺序讲，你跟着看\"，而不是把屏幕丢给对方自己摸索。它把\"演示\"这个动作说出口，也让后面的节奏由你控制。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）walk 是走——你带着对方\"走\"过一遍，不是站在旁边看他走。后面直接接被讲的东西：walk you through the tool / the numbers。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Let me walk you through this invoice in two minutes, so you can see exactly what you are paying for.\"（我用两分钟带你过一遍这张账单，你就能看清每一笔付的是什么。——换成跟客户解释账单的场景，被带着过一遍的东西从产品变成账单。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>as of now <span class=\"ipa\">/əz əv ˈnaʊ/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>就目前而言、截止到此刻。</p>\n    <p class=\"def\"><strong>本课作用：</strong>说自己的产品做不到某件事时，用这三个字把话说成一个\"当下的状态\"，而不是\"永远没有\"。它比直接说 no 更准确，也比含糊地说 maybe 更诚实。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）把它当成一个时间戳：话里带着\"截至今天\"这个记号。后面通常接一句现状，再接一句\"变了我会告诉你\"。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"As of now, we only ship to three countries — I will tell you the day that changes.\"（就目前而言，我们只发三个国家；哪天变了我会告诉你。——换成跨境发货场景，说明的是配送范围而不是产品功能。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>on the roadmap <span class=\"ipa\">/ɑːn ðə ˈroʊdmæp/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>在开发计划里、被列进后续要做的清单。</p>\n    <p class=\"def\"><strong>本课作用：</strong>对方问\"什么时候有\"时，用这句话表示\"我记下了、会做\"，同时不承诺日期。注意分寸：说它是诚实，说它是\"下周就上\"就是吹牛。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）roadmap 是路线图——它说明方向，不说明几点到。所以这句话天然不带日期，需要日期时要另外明说。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Bulk editing is on the roadmap for next quarter, but I will not sell it to you as if it is ready.\"（批量编辑在下一季度的计划里，但我不会把它当成已经做好的东西卖给你。——换成软件销售场景，谈的是将来的功能，而不是集成方式。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>narrow it down <span class=\"ipa\">/ˈnæroʊ ɪt daʊn/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>把范围收窄、把大问题缩成小问题。</p>\n    <p class=\"def\"><strong>本课作用：</strong>对方一口气提了三件事时用它，把\"全都要\"收成一个二选一的问题。这样你才知道哪一条是真的卡点，而不是被三条一起压住。<em>（本课为复习表达：此前在用户支持场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）narrow 是\"变窄\"——像把一条宽路收成一条车道，只留一条能走的。常搭：Can I narrow it down a little?</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"There are six things on your list — let me narrow it down: which two actually block you this week?\"（你列了六件事——我把它收窄一下：这周真正卡住你的是哪两件？——换成项目排期场景，收窄的对象从产品需求变成待办清单。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>double-check <span class=\"ipa\">/ˌdʌbl ˈtʃek/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>再核对一遍。</p>\n    <p class=\"def\"><strong>本课作用：</strong>由对方说出来，是她给自己的决定留一道程序——她要先跟团队核对，才给答复。听懂这句，你就知道今天这通电话不会有最终答案，不用急着逼单。<em>（本课为复习表达：此前在直播前核对场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）double 是\"两遍\"——不是\"怀疑你\"，而是\"我要再看一次\"。所以它是中性词，不含指责。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Let me double-check the delivery address before we ship — it is cheaper than sending it twice.\"（发货前我核对一下收货地址——总比寄两次便宜。——换成物流发货场景，核对对象从导出文件变成收货地址。）</p>\n  </div>\n</section>\n\n<section class=\"patterns\">\n  <h2>实用句型（来自本课对话）</h2>\n\n  <div class=\"pat\">\n    <strong>Let me walk you through [某件事] — starting with [第一步].</strong>\n    我带你过一遍 [某件事]——先从 [第一步] 开始。\n    <span class=\"use\">—— 演示、讲解流程、说明账单时用。它把节奏握在你手里，也避免\"你自己看吧\"这种让人无措的收场。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>[某个功能] is on the roadmap, but I am not going to promise you a date today.</strong>\n    [某个功能] 在开发计划里，但我今天不会给你一个日期。\n    <span class=\"use\">—— 被问\"什么时候有\"而你确实不知道时用。给方向、不给假日期，比含糊的 soon 更能保住信任。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>Can I narrow it down a little? Is [A] needed on day one? Or is it enough if [B]?</strong>\n    我能不能把范围收窄一点？[A] 是第一天就必须有吗？还是只要 [B] 就够？\n    <span class=\"use\">—— 对方一次提了好几个要求时用。把大问题收成二选一，你才知道哪一条是真的卡点。</span>\n  </div>\n</section>\n\n<section class=\"my-turn\">\n  <h2>My Turn</h2>\n  <div class=\"my-turn-body\">\n    <p><strong>Situation:</strong> The demo is over, but Maya's partner Jonas joins for the last two minutes. Their team keeps every client project in Notion, and Jonas asks about that side of the workflow. You still have not promised Maya a date for the Figma link.</p>\n    <p><strong>They say:</strong> \"One more thing — can your tool push the finished images straight into our Notion database? Every client project of ours lives there.\"</p>\n    <p><strong>Your turn:</strong> Answer Jonas. Find out what he really needs first, say honestly where the tool stands today, and give him one thing that works right now. Say it out loud first. (You can start with: <em>\"Can I narrow it down a little? —\"</em>)</p>\n    <button class=\"reveal\" id=\"show-answer\" data-show-answer type=\"button\">显示参考答案</button>\n    <div class=\"answer hidden\" id=\"answer-block\">\n      <div class=\"line-head\">\n        <span class=\"speaker you\">You</span>\n        <button class=\"play-line\" data-line-id=\"answer\" type=\"button\" data-play-sentence=\"answer\" aria-label=\"点读参考答案\">🔊</button>\n      </div>\n      <p class=\"en-line\" data-line-id=\"answer\">Can I narrow it down a little? Is it the finished images you need in Notion, or just the file names and the links? Because as of now, we do not push into Notion directly. What I can do today is give you a clean export with one link per client, so your team can paste it in. And I will put the Notion link on the roadmap — I just will not promise you a date today.</p>\n      <p><em>思路：</em>先用 narrow it down 把\"接 Notion\"这个笼统要求收成一个二选一（图片本身，还是文件名和链接），再用 as of now 说清现状，然后给一个今天就能用的做法，最后用 on the roadmap 给方向但不给日期。用了本课三个表达。</p>\n      <p class=\"note\">参考答案不是唯一正确答案。你也可以改成\"先给你一个每周自动发到你邮箱的整理包\"\"只做文件名和链接的同步\"\"先和他们团队里负责 Notion 的人单独聊十分钟\"——只要把\"先问清要什么、再说现状、再给眼下能做的\"三步都走到就行。</p>\n    </div>\n  </div>\n</section>\n\n<p class=\"footer-tip\"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>",
+      "revision": "43aafb937990df7c",
+      "publishedAt": "2026-09-17T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "Wednesday afternoon, in your home studio. You are sharing your screen. The call is thirty minutes long, and twenty minutes are already gone.",
+      "goal": "In a thirty-minute demo with an overseas client, walk her through what your tool does today, say clearly what it does not do yet, and still keep the deal moving — in English.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "walk-you-through",
+          "phrase": "walk you through",
+          "translation": "带着你一步一步看一遍、过一遍。",
+          "example": "Let me walk you through this invoice in two minutes, so you can see exactly what you are paying for.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "as-of-now",
+          "phrase": "as of now",
+          "translation": "就目前而言、截止到此刻。",
+          "example": "As of now, we only ship to three countries — I will tell you the day that changes.",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "on-the-roadmap",
+          "phrase": "on the roadmap",
+          "translation": "在开发计划里、被列进后续要做的清单。",
+          "example": "Bulk editing is on the roadmap for next quarter, but I will not sell it to you as if it is ready.",
+          "sentenceId": "l10"
+        },
+        {
+          "id": "narrow-it-down",
+          "phrase": "narrow it down",
+          "translation": "把范围收窄、把大问题缩成小问题。",
+          "example": "There are six things on your list — let me narrow it down: which two actually block you this week?",
+          "sentenceId": "l2"
+        },
+        {
+          "id": "double-check",
+          "phrase": "double-check",
+          "translation": "再核对一遍。",
+          "example": "Let me double-check the delivery address before we ship — it is cheaper than sending it twice.",
+          "sentenceId": "l1"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Maya",
+          "text": "Thanks for making time. We have used your free plan with the whole team for two weeks now, eight people. Before we talk about the team plan, can I show you how we work?",
+          "translation": "谢谢你抽时间。我们整个团队用你的免费版已经两周了，八个人。在我们谈团队版之前，我先给你看看我们是怎么工作的，可以吗？"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "Please do. That helps me narrow it down — I want to see the two or three steps your team does most often, not the whole process.",
+          "translation": "你说。这样我比较好把范围缩小——我想看你们团队最常做的那两三个步骤，不是整个流程。"
+        },
+        {
+          "id": "l3",
+          "speaker": "Maya",
+          "text": "Okay. First, we run about fifty images at a time for one client. Second, everything has to go into our Figma files. Third, each client should see only their own folder.",
+          "translation": "好。第一，我们为一个客户一次要跑大约五十张图。第二，所有东西都必须进我们的 Figma 文件。第三，每个客户只能看到自己的那个文件夹。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "Got it. Let me walk you through what the tool does today. Batch runs are in — I can show you fifty images in one go. Client folders are in too. Let me show you both.",
+          "translation": "明白了。我带你过一遍这个工具现在能做什么。批量处理是有的——我可以一次跑五十张图给你看。客户文件夹也有。两个都给你看。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Maya",
+          "text": "Good. Now the Figma part — that is the one our whole process depends on. Do you connect to Figma directly?",
+          "translation": "好。那 Figma 这部分——我们整个流程就靠这个。你们能直接连到 Figma 吗？"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "As of now, no — and I would rather tell you that on this call than next month. The export is clean, but it is still a download and an upload.",
+          "translation": "就目前而言，还不能——而且我宁愿在这通电话里就告诉你，而不是下个月。导出是干净的，但现在还是要下载一次、再上传一次。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Maya",
+          "text": "That is a problem. If it stays manual, my team will not use it. That could be a deal-breaker for us this year.",
+          "translation": "那就有问题。如果一直要手动，我团队就不会用。那对我们今年来说可能就是个过不去的坎。"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "I hear you. Can I narrow it down a little? Is the Figma link needed on day one? Or is it enough if the export is clean and your team can drag it in?",
+          "translation": "我明白。我能不能把范围再收窄一点？Figma 直连是第一天就必须有吗？还是只要导出干净、你团队能直接拖进去就够？"
+        },
+        {
+          "id": "l9",
+          "speaker": "Maya",
+          "text": "Day one would be better. But if the export lands in the right format, we can live with it for a while.",
+          "translation": "第一天就有当然更好。但如果导出格式对，我们暂时也能接受。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Then here is what I can do. For now, I will set the export to match your Figma setup, so it is one drag, not ten clicks. And I will put the Figma link on the roadmap — but I am not going to promise you a date today.",
+          "translation": "那我能做的是这样。眼下我把导出调成匹配你们 Figma 的格式，那样就是拖一下，不是点十次。Figma 直连我会放进开发计划——但我今天不会给你一个日期。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Maya",
+          "text": "That is fair. Let me double-check the export with my design lead tonight. I will come back to you tomorrow with a yes or a no.",
+          "translation": "这样合理。我今晚跟我们设计负责人核对一下导出。明天给你一个明确的答复，行还是不行。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Perfect. I will send you a short note today, with the export settings and a screen recording of the batch run. If anything in your workflow changes, tell me — I would rather hear it early.",
+          "translation": "好。我今天会给你发一封简短说明，包含导出设置和批量处理的录屏。你那边流程如果有变化，告诉我——我更愿意早点知道。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "The demo is over, but Maya's partner Jonas joins for the last two minutes. Their team keeps every client project in Notion, and Jonas asks about that side of the workflow. You still have not promised Maya a date for the Figma link.\n\n对方说: \"One more thing — can your tool push the finished images straight into our Notion database? Every client project of ours lives there.\"\n\n你的任务: Answer Jonas. Find o",
+          "referenceAnswer": "Can I narrow it down a little? Is it the finished images you need in Notion, or just the file names and the links? Because as of now, we do not push into Notion directly. What I can do today is give you a clean export with one link per client, so your team can paste it in. And I will put the Notion link on the roadmap — I just will not promise you a date today.",
+          "explanation": "先用 narrow it down 把\"接 Notion\"这个笼统要求收成一个二选一（图片本身，还是文件名和链接），再用 as of now 说清现状，然后给一个今天就能用的做法，最后用 on the roadmap 给方向但不给日期。用了本课三个表达。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-18",
+      "slug": "giving-notes-on-the-first-cut",
+      "title": "给海外剪辑师的改片反馈 · Giving Notes on the First Cut",
+      "summary": "练习在「给海外剪辑师的改片反馈」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-18",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "bodyHtml": "<header>\n  <h1>给海外剪辑师的改片反馈<span class=\"en\">Giving Notes on the First Cut</span></h1>\n  <div class=\"meta\">职业：独立开发者 / AI 内容创作者（AI 工具方向） · 难度：基础 · 主要沟通动作：Give feedback 给出具体、可执行的修改意见 · 人物与数据均为虚构练习</div>\n  <p class=\"task\">Today's task: Give an overseas video editor clear, specific notes on the first cut of your launch video — three changes, one night, and no room for a second round.</p>\n</header>\n\n<section class=\"setup\">\n  <h2>The Setup</h2>\n  <div class=\"setup-grid\">\n    <div class=\"setup-item\">\n      <h3>Where</h3>\n      <p class=\"en\">Thursday morning, at your desk. You have just watched the first cut of your launch video twice. Marco sent it last night with a link and one line: \"timecodes please.\"</p>\n      <p class=\"cn hidden\">周四早上，你在自己的书桌前。你刚把发布视频的第一版看了两遍。Marco 昨晚把它发了过来，只附了一个链接和一句话：\"请给时间码。\"</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Who</h3>\n      <p class=\"en\">You make videos about AI tools, on your own. Marco is a freelance video editor overseas. This is the fourth video he has cut for you.</p>\n      <p class=\"cn hidden\">你一个人做 AI 工具方向的视频。Marco 是一位海外的自由剪辑师，这是他给你剪的第四个视频。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>At stake</h3>\n      <p class=\"en\">The video was planned for next week, but it now goes out Friday. The tool you are featuring shipped a new version this morning, and a bigger channel will only co-post on Friday. Marco has another job booked all day Friday, so tonight is his only window to re-cut.</p>\n      <p class=\"cn hidden\">这条视频原本计划下周发，但现在改成周五发——你要讲的这款工具今天早上发了新版本，而一个更大的频道只在周五愿意同步转发。Marco 周五整天排了别的活，所以今晚是他唯一能重剪的窗口。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Mood</h3>\n      <p class=\"en\">Marco is calm and practical. He asks short questions, like \"cut it, or just make it faster?\" He does not defend his cut. In his message he asks for all the notes at once.</p>\n      <p class=\"cn hidden\">Marco 平静、务实。他问的问题都很短，比如\"是剪掉，还是只加快？\"他不为自己的剪辑辩解。他在消息里要求把所有意见一次发给他。</p>\n    </div>\n  </div>\n  <button id=\"toggle-setup-cn\" data-toggle-setup type=\"button\">显示中文</button>\n</section>\n\n<section class=\"hint\">\n  <h2>Scene Hint</h2>\n  <p>你面前的屏幕上，第一版视频停在开场那段自我介绍上，进度条已经过了四十秒，工具画面还没出现。桌上摊着一张纸，上面列了三行改稿意见，其中一行旁边画了个大问号——因为今天早上产品发了新版本，昨天录的那些界面已经不能用了。你要做的事情很具体：在今晚这个唯一的窗口里，把三条意见按顺序讲清楚，每一条都让对方知道\"改哪里、改到什么程度\"，不用再来回问第二轮。</p>\n</section>\n\n<section class=\"dialogue-section\">\n  <h2>Dialogue</h2>\n  <div class=\"controls\">\n    <button class=\"primary play-all\" id=\"play-all\" data-play-all type=\"button\">▶ 播放全部</button>\n    <button class=\"stop\" id=\"stop\" data-stop type=\"button\">■ 停止</button>\n    <label class=\"speed\">Speed\n      <select id=\"speed\" data-playback-rate>\n        <option value=\"0.75\">很慢 0.75x</option>\n        <option value=\"0.85\">慢 0.85x</option>\n        <option value=\"1\" selected>正常 1.0x</option>\n        <option value=\"1.15\">快 1.15x</option>\n      </select>\n    </label>\n    <label class=\"voice\">Voice\n      <select id=\"voice\" data-voice><option>(加载中…)</option></select>\n    </label>\n    <button class=\"toggle-dialogue\" id=\"toggle-dialogue-cn\" data-toggle-translations type=\"button\">显示中文</button>\n    <button id=\"blind-listen\" data-blind-listen type=\"button\">🎧 盲听复习</button>\n    <button id=\"exit-blind\" class=\"hidden\" data-exit-blind type=\"button\">退出盲听</button>\n  </div>\n  <p class=\"voice-warn hidden\" id=\"voice-warn\" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>\n  <ol class=\"dialogue\" id=\"dialogue-list\"></ol>\n</section>\n\n<section class=\"expressions\">\n  <h2>5 个重点表达</h2>\n\n  <div class=\"expr\">\n    <h3>heads-up <span class=\"ipa\">/ˈhedz ʌp/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>提前打个招呼、事先提醒一句。</p>\n    <p class=\"def\"><strong>本课作用：</strong>提修改意见之前，先用它把\"时间变了\"这件事单独拎出来讲。对方先调整预期，再听后面的要求，就不会觉得自己是被突袭。<em>（本课为复习表达：此前在直播前核对场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）像走路时抬头看一眼前方——先看清有什么，再往前走。常搭：a quick heads-up / give you a heads-up。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Just a heads-up: I will be travelling next Tuesday, so anything you need approved should reach me on Monday.\"（先跟你说一声：我下周二在路上，需要我确认的事请在周一发我。——换成出差办公场景，提醒的是自己的可响应时间，不是视频的发布时间。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>tighten up <span class=\"ipa\">/ˈtaɪtn ʌp/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>收紧、压缩，让节奏变紧。</p>\n    <p class=\"def\"><strong>本课作用：</strong>给剪辑意见时，它比 make it shorter 更准——你要的不是内容变少，而是节奏变紧。把它用在\"前四十秒\"，对方立刻明白动的是节奏，不是要删掉哪一段。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）tighten 是把绳子拉紧——长度可能只少一点，但松垮的空档没了。视频、文案、演示文稿里都通用。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Can you tighten up the last slide? The same point shows up on it three times.\"（最后那页能收紧一点吗？同一个点在上面出现了三次。——换成做演示文稿的场景，被收紧的对象从视频变成了幻灯片。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>swap out <span class=\"ipa\">/swɑːp aʊt/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>换掉、用新的替换旧的。</p>\n    <p class=\"def\"><strong>本课作用：</strong>改版时最常用的动作词。它把\"旧的不要、新的换上\"一次说清，比只说 change 明确得多，对方不会再反过来问你要改哪里。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）swap 是交换——一个出、一个进，数量不变，只换内容。后面直接接被换掉的东西：swap out the clips / the logo。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"We have to swap out the price in the ad — the discount ends on Sunday.\"（广告里的价格得换掉——折扣周日就结束了。——换成投放广告场景，换掉的是价格信息，不是画面。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>hold off on <span class=\"ipa\">/hoʊld ɔːf ɑːn/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>先别做、往后放一放。</p>\n    <p class=\"def\"><strong>本课作用：</strong>当你不确定某件事定没定时，用它把决定往后推，而不是生硬地说 no。对方不会白做一遍，你的钱和时间也都省下来。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）hold 是握住不动——把某件事按在原地，等条件清楚了再放行。常搭：hold off on [某件事] until [某个条件]。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Let's hold off on the paid ads until we see the numbers from the free test.\"（付费投放先放一放，等看完免费测试的数据再说。——换成市场投放场景，被按住的事情从动画变成了花钱的动作。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>on my end <span class=\"ipa\">/ɑːn maɪ end/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>在我这边、从我这一侧看。</p>\n    <p class=\"def\"><strong>本课作用：</strong>把\"我这边的状态\"和\"你那边的情况\"分开说。远程协作最容易互相甩锅，这句话能把讨论拉回事实：我这边是什么样，你那边是什么样，然后再找差别。<em>（本课为复习表达：此前在用户反馈场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）end 是\"这一头\"——像打电话，线有两头，各说各的那一头，不抢着替对方下结论。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"The file opened fine on my end, so it may be a browser issue on yours.\"（文件在我这边能正常打开，所以可能是你那边浏览器的问题。——换成技术支持场景，说的是同一份文件在两台机器上的不同结果。）</p>\n  </div>\n</section>\n\n<section class=\"patterns\">\n  <h2>实用句型（来自本课对话）</h2>\n\n  <div class=\"pat\">\n    <strong>Can you tighten up [某个部分]? It takes too long to get to [重点].</strong>\n    能把 [某个部分] 收紧一点吗？到 [重点] 太慢了。\n    <span class=\"use\">—— 给剪辑、文案、演示意见时用。前半句说改哪里、怎么改，后半句给理由，对方一次就能改对。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>Let's hold off on [X] until [Y].</strong>\n    [X] 先放一放，等 [Y] 再说。\n    <span class=\"use\">—— 不确定某件事定没定时用。不直接说 no，也不硬着头皮做，而是把决定挂在下一个条件上。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>Quick heads-up — [变化].</strong>\n    先提醒你一句——[变化]。\n    <span class=\"use\">—— 在提要求之前，先把变化单独讲出来。顺序很重要：先说变化，再说要求，对方的接受度高得多。</span>\n  </div>\n</section>\n\n<section class=\"my-turn\">\n  <h2>My Turn</h2>\n  <div class=\"my-turn-body\">\n    <p><strong>Situation:</strong> The new cut lands in your inbox in the morning, and it is good. Marco also cut a fifteen-second vertical version for Shorts, without being asked. He asks whether you want to keep it. The launch is still Friday.</p>\n    <p><strong>They say:</strong> \"I also cut a fifteen-second vertical version for Shorts, in case you want it. Want me to keep it?\"</p>\n    <p><strong>Your turn:</strong> Answer him. Say whether to keep it, give him one specific change, and tell him where it will go out. Say it out loud first. (You can start with: <em>\"Yes, let's keep it — and a quick heads-up:\"</em>)</p>\n    <button class=\"reveal\" id=\"show-answer\" data-show-answer type=\"button\">显示参考答案</button>\n    <div class=\"answer hidden\" id=\"answer-block\">\n      <div class=\"line-head\">\n        <span class=\"speaker you\">You</span>\n        <button class=\"play-line\" data-line-id=\"answer\" type=\"button\" data-play-sentence=\"answer\" aria-label=\"点读参考答案\">🔊</button>\n      </div>\n      <p class=\"en-line\" data-line-id=\"answer\">Yes, let's keep it — and a quick heads-up: it would go out on Friday too, right after the long video. Two small things. Can you swap out the logo in the first second? That one is the old mark. And can you tighten up the first three seconds? Right now the hook lands at second five, and on Shorts people leave before that.</p>\n      <p><em>思路：</em>先用 heads-up 把\"周五也发\"这件事单独讲出来，再用 swap out 和 tighten up 各给一条具体到\"第几秒\"的修改，最后附一句理由。三条意见全部落到可执行的动作上，对方不用再问一遍。</p>\n      <p class=\"note\">参考答案不是唯一正确答案。你也可以说\"先留着，等长视频上线两天后再发\"\"换个更快的开头钩子\"\"换掉背景音乐而不是 logo\"——只要做到\"先回应要不要保留、再给一条具体到某一秒的修改、最后说清发在哪里\"就行。</p>\n    </div>\n  </div>\n</section>\n\n<p class=\"footer-tip\"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>",
+      "revision": "44dd91afd160d8f8",
+      "publishedAt": "2026-09-18T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "Thursday morning, at your desk. You have just watched the first cut of your launch video twice. Marco sent it last night with a link and one line: \"ti",
+      "goal": "Give an overseas video editor clear, specific notes on the first cut of your launch video — three changes, one night, and no room for a second round.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "heads-up",
+          "phrase": "heads-up",
+          "translation": "提前打个招呼、事先提醒一句。",
+          "example": "Just a heads-up: I will be travelling next Tuesday, so anything you need approved should reach me on Monday.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "tighten-up",
+          "phrase": "tighten up",
+          "translation": "收紧、压缩，让节奏变紧。",
+          "example": "Can you tighten up the last slide? The same point shows up on it three times.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "swap-out",
+          "phrase": "swap out",
+          "translation": "换掉、用新的替换旧的。",
+          "example": "We have to swap out the price in the ad — the discount ends on Sunday.",
+          "sentenceId": "l8"
+        },
+        {
+          "id": "hold-off-on",
+          "phrase": "hold off on",
+          "translation": "先别做、往后放一放。",
+          "example": "Let's hold off on the paid ads until we see the numbers from the free test.",
+          "sentenceId": "l10"
+        },
+        {
+          "id": "on-my-end",
+          "phrase": "on my end",
+          "translation": "在我这边、从我这一侧看。",
+          "example": "The file opened fine on my end, so it may be a browser issue on yours.",
+          "sentenceId": "l10"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Marco",
+          "text": "Hey, I just pushed the first cut. It runs about six minutes and twenty seconds. Send me everything you want changed at once — I would rather do one pass than five small ones.",
+          "translation": "嗨，我刚把第一版传上去了。大概六分二十秒。你想改的一次全发我——我宁愿一次改完，也不想分五小次改。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "Thanks, watching it now. Quick heads-up before the notes: the launch moved up to Friday, not next week. Is tonight still open for you?",
+          "translation": "谢谢，我正在看。说意见之前先提醒你一句：发布时间提前到周五了，不是下周。你今晚还有档期吗？"
+        },
+        {
+          "id": "l3",
+          "speaker": "Marco",
+          "text": "Thanks for the heads-up. Tonight works — I have another job booked all day Friday, so tonight is my only window. Send me timecodes and I will send it back the same night.",
+          "translation": "谢谢提醒。今晚可以——我周五整整一天都排了另一个活，所以今晚是我唯一的窗口。把时间码发我，我当晚就传回给你。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "Good. Three things. First, can you tighten up the first forty seconds? It takes too long to get to the tool, and I think people will click away.",
+          "translation": "好。三件事。第一，能把前四十秒收紧一点吗？进到工具画面的时间太长了，我觉得人会划走。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Marco",
+          "text": "Sure. Do you want me to cut the intro, or just make it faster?",
+          "translation": "行。你是要我把开头剪掉，还是只加快一点？"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "Faster. I still want the two lines about the problem — just tighten up the space between them.",
+          "translation": "加快就好。那两句讲问题的我还是想要——只要把它们中间的空档收紧就行。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Marco",
+          "text": "Got it. What is the second thing?",
+          "translation": "明白了。第二件是什么？"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "The dashboard shots. We shipped a new version this morning, so those screens are already out of date. Can we swap out the four clips after the first demo? I will send you a fresh recording within the hour.",
+          "translation": "仪表盘的镜头。我们今天早上发了新版本，所以那些界面已经过时了。能不能把第一段演示之后的四个片段换掉？我一小时内给你发一段新的录屏。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Marco",
+          "text": "No problem. Anything else?",
+          "translation": "没问题。还有别的吗？"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Last one — let's hold off on the end animation. I am not sure the new logo is final yet, and I do not want you to do that part twice. The captions are already done on my end, so you can just drop them in.",
+          "translation": "最后一件事——结尾动画先别做。我不确定新 logo 定下来了没有，不想让你那部分做两遍。字幕我这边已经做好了，你直接放进去就行。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Marco",
+          "text": "That all makes sense. So: tighten up the intro, swap out the four clips, and hold off on the end. The audio sounds clean on my end, so I will leave it alone. I will send the new cut back tonight.",
+          "translation": "这些都说得通。那就是：收紧开头、换掉那四个片段、结尾先不做。音频我这边听着是干净的，那我就不动它。今晚我把新版传回给你。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Perfect. I will send the new recording and the caption files within the hour. And if anything changes on my side, I will tell you before you start — I do not want you to do the same work twice.",
+          "translation": "太好了。我一小时内把新录屏和字幕文件发你。如果我这边有任何变化，我会在你动手之前告诉你——我不想让你把同一个活做两遍。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "The new cut lands in your inbox in the morning, and it is good. Marco also cut a fifteen-second vertical version for Shorts, without being asked. He asks whether you want to keep it. The launch is still Friday.\n\n对方说: \"I also cut a fifteen-second vertical version for Shorts, in case you want it. Want me to keep it?\"\n\n你的任务: Answer him. Say whether to keep it, give him one specific change, and tell h",
+          "referenceAnswer": "Yes, let's keep it — and a quick heads-up: it would go out on Friday too, right after the long video. Two small things. Can you swap out the logo in the first second? That one is the old mark. And can you tighten up the first three seconds? Right now the hook lands at second five, and on Shorts people leave before that.",
+          "explanation": "先用 heads-up 把\"周五也发\"这件事单独讲出来，再用 swap out 和 tighten up 各给一条具体到\"第几秒\"的修改，最后附一句理由。三条意见全部落到可执行的动作上，对方不用再问一遍。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-19",
+      "slug": "turning-down-a-collaboration-offer",
+      "title": "婉拒海外合作邀请 · Turning Down a Collaboration Offer",
+      "summary": "练习在「婉拒海外合作邀请」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-19",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "bodyHtml": "<header>\n  <h1>婉拒海外合作邀请<span class=\"en\">Turning Down a Collaboration Offer</span></h1>\n  <div class=\"meta\">职业：独立开发者 / AI 内容创作者（AI 工具方向） · 难度：基础 · 主要沟通动作：Decline 礼貌拒绝并给出替代方案 · 人物与数据均为虚构练习</div>\n  <p class=\"task\">Today's task: Say no to a collaboration offer you actually like — clearly, kindly, and with one alternative left on the table.</p>\n</header>\n\n<section class=\"setup\">\n  <h2>The Setup</h2>\n  <div class=\"setup-grid\">\n    <div class=\"setup-item\">\n      <h3>Where</h3>\n      <p class=\"en\">A video call on a Saturday morning, your time. Dana booked thirty minutes. A slide with three bullet points is on the screen, and she is still on the first one. Her office window shows late Friday afternoon.</p>\n      <p class=\"cn hidden\">周六上午，你这边开着一通视频电话，Dana 约了三十分钟。屏幕上共享着一张只有三条要点的幻灯片，她还在讲第一条。她办公室窗外是周五傍晚的光。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Who</h3>\n      <p class=\"en\">You build your own small AI tool and make videos about AI tools, on your own. Dana Whitfield manages the community at Tidepool AI, a small overseas tool team. She has watched your videos for a year.</p>\n      <p class=\"cn hidden\">你一个人做自己的小工具，也做 AI 工具方向的视频。Dana Whitfield 是一家海外小型工具团队 Tidepool AI 的社区负责人，她看你的视频看了一年。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>At stake</h3>\n      <p class=\"en\">Tidepool wants you as their community ambassador for six months: one short post a week, one live session a month, no money — only a free Pro license and your name on their site. Your own tool launches next month, and your calendar is full until the end of November.</p>\n      <p class=\"cn hidden\">Tidepool 想请你做他们六个月的社区大使：每周一条短帖，每月一次直播，不给钱——只给一个免费的 Pro 授权，加上在他们网站上挂你的名字。可你自己的工具下个月就要发布，日程一直排到十一月底。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Mood</h3>\n      <p class=\"en\">Dana is warm and a little nervous. She keeps saying how much the community likes your videos, and the slide is already prepared. When you slow down, she slows down too.</p>\n      <p class=\"cn hidden\">Dana 热情，也有点紧张。她反复说社区很喜欢你的视频，幻灯片也早就准备好了。你放慢语速的时候，她也跟着放慢。</p>\n    </div>\n  </div>\n  <button id=\"toggle-setup-cn\" data-toggle-setup type=\"button\">显示中文</button>\n</section>\n\n<section class=\"hint\">\n  <h2>Scene Hint</h2>\n  <p>屏幕共享开着，你桌上摊着一张手写的发布排期表，十一月那几行被圈了三遍。耳机里能听见 Dana 那边翻页的声音，幻灯片第一行写着「Community Ambassador — six months」，她的语速比刚才快了一点。你心里其实已经有答案了：这件事做不了。但今天这通电话，你要做到的不只是说出那个\"不\"——你得让她听懂原因，还得给她留一条以后还能走下去的路。</p>\n</section>\n\n<section class=\"dialogue-section\">\n  <h2>Dialogue</h2>\n  <div class=\"controls\">\n    <button class=\"primary play-all\" id=\"play-all\" data-play-all type=\"button\">▶ 播放全部</button>\n    <button class=\"stop\" id=\"stop\" data-stop type=\"button\">■ 停止</button>\n    <label class=\"speed\">Speed\n      <select id=\"speed\" data-playback-rate>\n        <option value=\"0.75\">很慢 0.75x</option>\n        <option value=\"0.85\">慢 0.85x</option>\n        <option value=\"1\" selected>正常 1.0x</option>\n        <option value=\"1.15\">快 1.15x</option>\n      </select>\n    </label>\n    <label class=\"voice\">Voice\n      <select id=\"voice\" data-voice><option>(加载中…)</option></select>\n    </label>\n    <button class=\"toggle-dialogue\" id=\"toggle-dialogue-cn\" data-toggle-translations type=\"button\">显示中文</button>\n    <button id=\"blind-listen\" data-blind-listen type=\"button\">🎧 盲听复习</button>\n    <button id=\"exit-blind\" class=\"hidden\" data-exit-blind type=\"button\">退出盲听</button>\n  </div>\n  <p class=\"voice-warn hidden\" id=\"voice-warn\" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>\n  <ol class=\"dialogue\" id=\"dialogue-list\"></ol>\n</section>\n\n<section class=\"expressions\">\n  <h2>5 个重点表达</h2>\n\n  <div class=\"expr\">\n    <h3>turn down <span class=\"ipa\">/tɜrn daʊn/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>谢绝、拒绝（一个提议、邀请或机会）。</p>\n    <p class=\"def\"><strong>本课作用：</strong>让你的\"不\"变成一个明确的动作，而不是讲一堆理由之后对方还不确定你答没答应。它出现在句子的后半段：先说感谢，再 turn this down，对方立刻知道结论在哪。<em>（注意它另一个常见意思是\"把音量调小\"，那是 turn down the volume；本课用的是\"谢绝提议\"。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）down 是往下按——对方把东西递上来，你把它按回去。常搭：turn down an offer / I have to turn this down / turn it down。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"We turned down the first quote — it came in at almost double our budget.\"（第一家报价我们拒了——差不多是预算的两倍。——换成采购比价场景，被拒绝的是一份报价单，不是合作邀请。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>swamped <span class=\"ipa\">/swɑːmpt/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>忙得不可开交、被事情淹没。</p>\n    <p class=\"def\"><strong>本课作用：</strong>给出\"做不到\"的真实原因，而且听起来具体、可信，不像找借口。它说的是工作量已经满了，不是\"我不想做\"，所以不会伤到对方的热情。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）swamp 是沼泽——人陷进去，脚拔不出来。它比 busy 重得多，所以别用来形容\"今天有点忙\"，那会显得夸张。常搭：I am swamped / swamped with + 事情。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"We are swamped with support tickets this week, so the blog post moves to next Monday.\"（我们这周工单多得做不完，所以那篇博客挪到下周一。——换成客服团队场景，被淹没的从个人日程变成了整个团队的工单量。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>down the line <span class=\"ipa\">/ˌdaʊn ðə ˈlaɪn/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>以后、将来某个时候（不指明具体时间）。</p>\n    <p class=\"def\"><strong>本课作用：</strong>拒绝里最值钱的一句话——它把\"现在不行\"和\"永远不行\"分开。你可以把门留着，同时不承诺任何日期，所以对方不能拿它当合同的替代品。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）line 像一条时间线，沿着线往下走就是往后推移。它有意说得模糊，正因为模糊才安全；想给承诺就别用它，直接说日期。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"We are not hiring this quarter, but send me your portfolio — something may open up down the line.\"（我们这季度不招人，但你作品集发我——以后可能有位置。——换成招聘场景，留的是求职者的机会，不是合作项目。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>a good fit <span class=\"ipa\">/ə ɡʊd fɪt/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>合适、匹配（人、事、机会之间的对得上）。</p>\n    <p class=\"def\"><strong>本课作用：</strong>把拒绝从\"你不好\"转成\"这件事和我现在的情况对不上\"。对方听到的是对事情的判断，不是对人的评价——这就是拒绝能不伤人的关键句式。<em>（本课为复习表达：此前在赞助合作场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）fit 是衣服合身——衣服没问题，人也没问题，只是尺寸对不上。常搭：a good fit for me / for this team / not a good fit right now。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"This room is a good fit for a forty-person workshop, but not for a two-hundred-person meetup.\"（这个场地办四十人的工作坊正合适，两百人的聚会就不行了。——换成活动场地场景，判断的是空间与规模是否匹配。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>up front <span class=\"ipa\">/ˌʌp ˈfrʌnt/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>坦白地、把话先说在前面。</p>\n    <p class=\"def\"><strong>本课作用：</strong>拒绝最怕把结论拖到最后一句话。用它把不好说的部分提前摆出来，后面的话才听得进去，对方也不会觉得被绕了一圈。<em>（本课为复习表达：此前在赞助合作场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）把东西摆到台前（front），不藏在后面。注意它还有个意思是\"预付款\"（pay up front），本课用的是\"坦白说\"。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"I want to be up front: the timeline you asked for is not possible at that price.\"（我想先说明白：你要的这个时间表，那个价格做不出来。——换成报价场景，提前摊开的是价格和工期之间的矛盾。）</p>\n  </div>\n</section>\n\n<section class=\"patterns\">\n  <h2>实用句型（来自本课对话）</h2>\n\n  <div class=\"pat\">\n    <strong>Thanks for thinking of me — but I have to turn this down.</strong>\n    谢谢你想到我——但这件事我得拒了。\n    <span class=\"use\">—— 任何邀约、合作、机会都能用。前半句给足尊重，破折号之后立刻给结论，不给对方悬着。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>Let me be up front: [不容易说出口的事实].</strong>\n    我先直说：[不容易说出口的事实]。\n    <span class=\"use\">—— 要拒绝、要说明限制、要报坏消息时用。把最难的那句提到前面，后面的解释才不会被当成找借口。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>I can't do [X], but I can do [Y].</strong>\n    [X] 我做不了，但 [Y] 我可以做。\n    <span class=\"use\">—— 拒绝之后马上给替代方案。这一句能把\"这事黄了\"变成\"我们换个方式继续\"。注意 [Y] 必须是你真做得到的。</span>\n  </div>\n</section>\n\n<section class=\"my-turn\">\n  <h2>My Turn</h2>\n  <div class=\"my-turn-body\">\n    <p><strong>Situation:</strong> The call is almost over. Dana thanks you, then tries one more thing. Instead of the ambassador role, she asks for a single free post about their new feature — next week, which is your launch week. Same deal: no budget.</p>\n    <p><strong>They say:</strong> \"Okay, forget the ambassador thing. But could you just do one free post about our new feature next week? It would only take you an hour.\"</p>\n    <p><strong>Your turn:</strong> Answer her. Four things: thank her, say no clearly, give your real reason, and offer one alternative. Say it out loud first. (You can start with: <em>\"I appreciate you asking — and let me be up front:\"</em>)</p>\n    <button class=\"reveal\" id=\"show-answer\" data-show-answer type=\"button\">显示参考答案</button>\n    <div class=\"answer hidden\" id=\"answer-block\">\n      <div class=\"line-head\">\n        <span class=\"speaker you\">You</span>\n        <button class=\"play-line\" data-line-id=\"answer\" type=\"button\" data-play-sentence=\"answer\" aria-label=\"点读参考答案\">🔊</button>\n      </div>\n      <p class=\"en-line\" data-line-id=\"answer\">I appreciate you asking, and let me be up front: this one is still a no. Next week is my launch week, so I am swamped, and one post means a full day of writing and recording for me. What I can do is put your new feature into my December video — or if you need it next week, I can send you our sponsor page and you can book a slot.</p>\n      <p><em>思路：</em>先用 up front 把\"还是不行\"直接放出来，再用 swamped 给真实原因，最后用「I can't do X, but I can do Y」给两条可走的路（一个是未来，一个是花钱）。关键是不要因为对方说\"只要一小时\"就顺着答应——那是对方估的时间，不是你的。</p>\n      <p class=\"note\">参考答案不是唯一正确答案。你也可以说\"这个月真的排满了，一月的视频里给你留一段\"\"让你们的团队先出一版素材，我看完再决定\"\"要不你走我们的赞助流程\"——只要做到\"先谢、再明确说不、给出真实原因、最后给一条可执行的替代\"就行。</p>\n    </div>\n  </div>\n</section>\n\n<p class=\"footer-tip\"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>",
+      "revision": "97364e0664ee3060",
+      "publishedAt": "2026-09-19T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "A video call on a Saturday morning, your time. Dana booked thirty minutes. A slide with three bullet points is on the screen, and she is still on the",
+      "goal": "Say no to a collaboration offer you actually like — clearly, kindly, and with one alternative left on the table.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "turn-down",
+          "phrase": "turn down",
+          "translation": "谢绝、拒绝（一个提议、邀请或机会）。",
+          "example": "We turned down the first quote — it came in at almost double our budget.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "swamped",
+          "phrase": "swamped",
+          "translation": "忙得不可开交、被事情淹没。",
+          "example": "We are swamped with support tickets this week, so the blog post moves to next Monday.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "down-the-line",
+          "phrase": "down the line",
+          "translation": "以后、将来某个时候（不指明具体时间）。",
+          "example": "We are not hiring this quarter, but send me your portfolio — something may open up down the line.",
+          "sentenceId": "l8"
+        },
+        {
+          "id": "a-good-fit",
+          "phrase": "a good fit",
+          "translation": "合适、匹配（人、事、机会之间的对得上）。",
+          "example": "This room is a good fit for a forty-person workshop, but not for a two-hundred-person meetup.",
+          "sentenceId": "l2"
+        },
+        {
+          "id": "up-front",
+          "phrase": "up front",
+          "translation": "坦白地、把话先说在前面。",
+          "example": "I want to be up front: the timeline you asked for is not possible at that price.",
+          "sentenceId": "l4"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Dana",
+          "text": "Thanks for making time — I know it is late where you are. Half our team watches your channel, so I have been looking forward to this call.",
+          "translation": "谢谢你抽时间——我知道你那边已经很晚了。我们团队一半的人都在看你的频道，所以我一直很期待这通电话。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "That is kind of you to say. I read your email, but I wanted to hear the whole idea from you before I decide whether it is a good fit.",
+          "translation": "你这么说太客气了。你的邮件我看了，但我想先听你完整讲一遍，再判断这件事合不合适。"
+        },
+        {
+          "id": "l3",
+          "speaker": "Dana",
+          "text": "So, here it is. We would love you to be our community ambassador for six months. One short post a week, one live session a month. In return, you get a free Pro license and your name on our site.",
+          "translation": "那我来说。我们想请你做六个月的社区大使。每周一条短帖，每月一次直播。作为回报，你得到一个免费的 Pro 授权，名字也会挂在我们网站上。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "Thanks for thinking of me — I mean that. But let me be up front: I am launching my own tool next month, and I am swamped until the end of November.",
+          "translation": "谢谢你想到我——这是真心话。但我先直说：我下个月要发布自己的工具，一直忙到十一月底，事情多得做不完。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Dana",
+          "text": "Oh. That is soon. Could you start after your launch? We are flexible about the start date.",
+          "translation": "哦，那挺近的。你能在发布之后开始吗？开始时间我们是可以商量的。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "It is not only the timing. Six months of weekly posts is a lot of extra work, and there is no budget on your side — so I have to turn this down. I do not want you to think I am saying no to you.",
+          "translation": "不只是时间问题。连续六个月每周发帖是很大的额外工作量，而你们那边又没有预算——所以这件事我得拒了。我不希望你觉得我是在拒绝你这个人。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Dana",
+          "text": "No, I get it. It is just... our budget this year is really small. That is why I hoped the license would be enough.",
+          "translation": "不会，我明白。只是……我们今年的预算真的很小。所以我本来指望一个授权就够了。"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "I understand. So let me be up front about that part too: this is not a good fit for me right now, but it is not a no forever. Down the line, something smaller could work really well.",
+          "translation": "我理解。那这部分我也直说：这件事现在对我来说不合适，但不是永远不行。以后有更小的合作方式，其实可能很合适。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Dana",
+          "text": "Okay. So is there any version of it that works this year? Even a small one?",
+          "translation": "好。那今年有没有哪种形式是可行的？哪怕小一点的？"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Maybe one. I cannot do a weekly series, but I can do one paid workshop in January — two hours long, and you keep the recording. If that sounds useful, send me the details and I will look at it after the launch.",
+          "translation": "也许有一个。每周连载我做不了，但一月份我可以做一场付费的工作坊——两个小时，录屏你们留着。如果这个有用，把细节发我，我发布之后再看。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Dana",
+          "text": "That could work. I would have to check with my manager. So I should tell him you turned the big one down, and come back to you in December about the workshop?",
+          "translation": "这个也许行。我得跟我的主管确认一下。所以我就跟他说那个大的你拒了，然后十二月份再来找你聊工作坊？"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Yes, please. And Dana — if the workshop is too expensive this year, come back to me down the line. I am swamped now, but I am not going anywhere.",
+          "translation": "对，麻烦你了。还有 Dana——如果今年工作坊对你们来说太贵，以后再回来找我。我现在是忙得脱不开身，但我不会消失。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "The call is almost over. Dana thanks you, then tries one more thing. Instead of the ambassador role, she asks for a single free post about their new feature — next week, which is your launch week. Same deal: no budget.\n\n对方说: \"Okay, forget the ambassador thing. But could you just do one free post about our new feature next week? It would only take you an hour.\"\n\n你的任务: Answer her. Four things: thank",
+          "referenceAnswer": "I appreciate you asking, and let me be up front: this one is still a no. Next week is my launch week, so I am swamped, and one post means a full day of writing and recording for me. What I can do is put your new feature into my December video — or if you need it next week, I can send you our sponsor page and you can book a slot.",
+          "explanation": "先用 up front 把\"还是不行\"直接放出来，再用 swamped 给真实原因，最后用「I can't do X, but I can do Y」给两条可走的路（一个是未来，一个是花钱）。关键是不要因为对方说\"只要一小时\"就顺着答应——那是对方估的时间，不是你的。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-20",
+      "slug": "telling-a-long-time-user-about-a-price-change",
+      "title": "向老用户说明涨价 · Telling a Long-Time User About a Price Change",
+      "summary": "练习在「向老用户说明涨价」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-20",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "bodyHtml": "<header>\n  <h1>向老用户说明涨价<span class=\"en\">Telling a Long-Time User About a Price Change</span></h1>\n  <div class=\"meta\">职业：独立开发者 / AI 内容创作者（AI 工具方向） · 难度：基础 · 主要沟通动作：Announce 提前说明一个不受欢迎的变化 · 人物与数据均为虚构练习</div>\n  <p class=\"task\">Today's task: Tell a long-time customer about a price increase before the email goes out — say what changes, say what does not, and give her a clear date to act on.</p>\n</header>\n\n<section class=\"setup\">\n  <h2>The Setup</h2>\n  <div class=\"setup-grid\">\n    <div class=\"setup-item\">\n      <h3>Where</h3>\n      <p class=\"en\">A short video call on a weekday evening, your time. It is ten past nine. On your screen, next to the call window, an unsent email is open: the subject line says \"A new price from October first,\" and the send button has not been pressed yet.</p>\n      <p class=\"cn hidden\">工作日晚上一场短视频通话，你这边已经九点十分。屏幕上除了通话窗口，还开着一封没发出去的邮件：标题写着「A new price from October first」，发送按钮还没按下去。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Who</h3>\n      <p class=\"en\">You build an AI tool on your own. Priya Raman runs a five-person design studio overseas and has paid for your tool for eighteen months. She is one of your heaviest users — and one of the first people who ever paid you.</p>\n      <p class=\"cn hidden\">你一个人做一款 AI 工具。Priya Raman 在海外经营一家五个人的设计工作室，用付费版已经十八个月。她是你使用最深的用户之一——也是最早给你付钱的那批人之一。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>At stake</h3>\n      <p class=\"en\">From October first, the monthly plan goes from nineteen to twenty-nine dollars. Priya's five seats keep the old price. But she wanted to add two seats next month, for a new designer and an intern — those seats land after the change.</p>\n      <p class=\"cn hidden\">十月一日起，月付从十九美元涨到二十九美元。Priya 现有的五个席位保持旧价。但她下个月想加两个席位，给一位新设计师和一个实习生——那两个席位正好落在涨价之后。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Mood</h3>\n      <p class=\"en\">Priya is calm and direct. She says she saw a note about pricing in the changelog, and she starts the call with a question instead of small talk. Her two new hires are already on her screen in a document.</p>\n      <p class=\"cn hidden\">Priya 冷静直接。她说她在更新日志里看到过一句关于定价的说明，通话一开口就是提问，没有寒暄。那份新员工的文档已经开在她屏幕上。</p>\n    </div>\n  </div>\n  <button id=\"toggle-setup-cn\" data-toggle-setup type=\"button\">显示中文</button>\n</section>\n\n<section class=\"hint\">\n  <h2>Scene Hint</h2>\n  <p>那封涨价邮件就开在你屏幕上，发送按钮还没按。耳机里 Priya 那边有键盘敲击声，她一边听一边在文档里改招聘的排期。她说她看到过更新日志里那句话——所以她其实已经猜到你要说什么，只是还不知道自己会不会被算进去。你要在十分钟里说清三件事：变的到底是什么、她哪里不变、她想赶在变化之前做完什么；别让\"涨价\"两个字盖住后面这些具体信息。</p>\n</section>\n\n<section class=\"dialogue-section\">\n  <h2>Dialogue</h2>\n  <div class=\"controls\">\n    <button class=\"primary play-all\" id=\"play-all\" data-play-all type=\"button\">▶ 播放全部</button>\n    <button class=\"stop\" id=\"stop\" data-stop type=\"button\">■ 停止</button>\n    <label class=\"speed\">Speed\n      <select id=\"speed\" data-playback-rate>\n        <option value=\"0.75\">很慢 0.75x</option>\n        <option value=\"0.85\">慢 0.85x</option>\n        <option value=\"1\" selected>正常 1.0x</option>\n        <option value=\"1.15\">快 1.15x</option>\n      </select>\n    </label>\n    <label class=\"voice\">Voice\n      <select id=\"voice\" data-voice><option>(加载中…)</option></select>\n    </label>\n    <button class=\"toggle-dialogue\" id=\"toggle-dialogue-cn\" data-toggle-translations type=\"button\">显示中文</button>\n    <button id=\"blind-listen\" data-blind-listen type=\"button\">🎧 盲听复习</button>\n    <button id=\"exit-blind\" class=\"hidden\" data-exit-blind type=\"button\">退出盲听</button>\n  </div>\n  <p class=\"voice-warn hidden\" id=\"voice-warn\" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>\n  <p>播放发闷或有电流感时：先在下拉里换一个带 ★ 的音色；如果用蓝牙耳机，让耳机回到音乐／立体声模式——通话模式会明显降低音质。</p>\n  <ol class=\"dialogue\" id=\"dialogue-list\"></ol>\n</section>\n\n<section class=\"expressions\">\n  <h2>5 个重点表达</h2>\n\n  <div class=\"expr\">\n    <h3>run through <span class=\"ipa\">/ˌrʌn ˈθruː/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>把一件事从头到尾过一遍、讲一遍。</p>\n    <p class=\"def\"><strong>本课作用：</strong>涨价这种话，一上来就报价格最容易让对方只听那一个数字。用它先把\"我要跟你过一遍整件事\"摆出来，对方知道后面还有内容，就不会急着打断。<em>（注意它另一个常见意思是\"快速排练\"——run through the slides；本课用的是\"逐条讲清楚\"。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）从一个头跑到另一头——像沿着清单一路走到底，不停在中间。常搭：run through it with you / let me run through the details / can we run through this once。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Before I sign the contract, can we run through the delivery dates one more time?\"（签合同之前，我们能再把交付日期过一遍吗？——换成采购签约场景，要过的是日期条款，不是价格。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>bump up <span class=\"ipa\">/ˌbʌmp ˈʌp/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>把价格、数量或等级往上调一点。</p>\n    <p class=\"def\"><strong>本课作用：</strong>它比 raise 听上去更口语、也更\"轻\"，说明是一个调动作而不是什么大事；但它后面必须马上跟数字，否则对方会追着你问\"到底涨多少\"。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）bump 是轻轻撞一下——东西被撞得往上挪了一格。常搭：bump up the price / bump it up to + 数字。别说 bump up 来指\"大幅暴涨\"，那是 jump。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"We bump up the storage limit on the team plan next month, from fifty to two hundred gigabytes.\"（我们下个月把团队版的存储上限从五十调到两百 GB。——换成产品方案场景，被往上一格挪的是容量，不是价格。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>grandfathered in <span class=\"ipa\">/ˈɡrænfɑːðərd ɪn/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>老用户不受新规则影响，继续按老条件走。</p>\n    <p class=\"def\"><strong>本课作用：</strong>这是全课最值钱的一句。对方在涨价电话里最想知道的不是涨幅，而是\"我算不算里面\"。这个词一出来，问题就答完了，而且它天生只保护\"已在的\"部分，不给新增留口子。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）像爷爷辈的老规矩：新规矩从今天起，但已经在这个家门里的人按旧规矩。用法固定，多说 you are grandfathered in / your seats are grandfathered in；加\"新\"的部分不能 grandfather in。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Everyone who joined before June is grandfathered in and keeps the free plan forever.\"（六月之前注册的人不受影响，永久保留免费版。——换成会员制场景，被保住的是免费额度，不是价格。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>specific to <span class=\"ipa\">/spəˈsɪfɪk tuː/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>只针对某一类人或某一件事，不覆盖其他。</p>\n    <p class=\"def\"><strong>本课作用：</strong>把\"变化\"切成两块，明确哪一块跟对方无关。涨价通知最容易演变成恐慌，就是因为它听起来像\"所有东西都变了\"；这一句专门用来缩小范围。<em>（本课为复习表达：此前在用户支持场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）像贴标签——标签贴在哪一格，就只管那一格。常搭：this is specific to + 对象 / the change is specific to new orders。它不带感情，说的是范围，不是重要性。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"This delay is specific to orders going to Canada — everything else ships on the normal schedule.\"（这次延误只影响发往加拿大的订单，其他都按正常排期发。——换成物流场景，被限定的是一条线路，不是整批货。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>keep me posted <span class=\"ipa\">/ˌkiːp miː ˈpoʊstɪd/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>有进展就告诉我、别等到最后才说。</p>\n    <p class=\"def\"><strong>本课作用：</strong>涨价谈话的收尾。两个日期说完之后，把后续的主动权交回对方：她什么时候定那两个席位、定成什么样，让她主动同步给你，你不用隔几天去追一次。<em>（本课为复习表达：此前在用户支持与赞助合作场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）post 像往公告板上贴一张纸——有新情况就贴上来给你看。它比 let me know 多一层\"持续更新\"的意思：一次性的答复用 let me know，会变的事情才用 keep me posted。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Keep me posted on the shipment date — if it moves again, tell me the same day.\"（发货日期有变化随时告诉我——如果再挪，当天就跟我说一声。——换成物流跟单场景，要持续同步的是同一批货的日期。）</p>\n  </div>\n</section>\n\n<section class=\"patterns\">\n  <h2>实用句型（来自本课对话）</h2>\n\n  <div class=\"pat\">\n    <strong>I wanted to tell you first: [最难说出口的那句].</strong>\n    我想先跟你说：[最难说出口的那句]。\n    <span class=\"use\">—— 要涨价、要延期、要报坏消息时用。把结论提到最前面，一方面是尊重对方，另一方面是避免对方听完一堆铺垫后自己猜出更糟的版本。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>Here is what does not change: [不受影响的项].</strong>\n    不变的是这些：[不受影响的项]。\n    <span class=\"use\">—— 宣布任何变化时都能用。先说\"哪里不动\"，再谈\"哪里动\"，对方的注意力才会落到真正需要处理的那一小块上。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>If you [动作] before [日期], you can lock in [当前的条件].</strong>\n    如果你在 [日期] 之前 [动作]，就能锁定 [当前的条件]。\n    <span class=\"use\">—— 说完坏消息马上给一条可执行的路。它必须带具体日期和具体条件，否则只是安慰，对方第二天还会来问同样的问题。</span>\n  </div>\n</section>\n\n<section class=\"my-turn\">\n  <h2>My Turn</h2>\n  <div class=\"my-turn-body\">\n    <p><strong>Situation:</strong> The call is almost over. Priya thanks you for telling her directly, then asks one more thing. Her business partner is opening a small studio of her own next month, and Priya can tell her to sign up this week. Same tool, same plan — just a different studio.</p>\n    <p><strong>They say:</strong> \"One more thing — my partner is starting her own studio next month. If I tell her to sign up this week, can she get my old price too?\"</p>\n    <p><strong>Your turn:</strong> Answer her. Three things: say what the old price covers, say what stays the same for her, and offer one thing you can actually do for her partner. Say it out loud first. (You can start with: <em>\"Thanks for asking — let me run through that part too:\"</em>)</p>\n    <button class=\"reveal\" id=\"show-answer\" data-show-answer type=\"button\">显示参考答案</button>\n    <div class=\"answer hidden\" id=\"answer-block\">\n      <div class=\"line-head\">\n        <span class=\"speaker you\">You</span>\n        <button class=\"play-line\" data-line-id=\"answer\" type=\"button\" data-play-sentence=\"answer\" aria-label=\"点读参考答案\">🔊</button>\n      </div>\n      <p class=\"en-line\" data-line-id=\"answer\">Thanks for asking — let me run through that part too. The old price is specific to your five seats, so a new studio would be on the new price. What I can do is send you a trial link today, so your partner can start now and lock in the old price for her first month.</p>\n      <p><em>思路：</em>先承接对方的善意（她是你最早的付费用户，直接说\"不行\"太硬），再用 specific to 把范围划清——保的是\"她那五个席位\"，不是\"她认识的人\"。最后用 lock in 给一条她今天就能动的路。关键是别因为对方是老用户就把 to 越扩越大，那才是后面真正的麻烦。</p>\n      <p class=\"note\">参考答案不是唯一正确答案。你也可以说\"新工作室得按新价走，但我可以给她两周试用\"\"如果她这周注册，第一年我给她一个折扣\"\"你让她直接给我发邮件，我按情况看\"——只要做到\"说清旧价的范围、说清你哪里没变、最后给一条你真做得到的替代\"就行。</p>\n    </div>\n  </div>\n</section>\n\n<p class=\"footer-tip\"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>",
+      "revision": "c949772f4b3b148a",
+      "publishedAt": "2026-09-20T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "A short video call on a weekday evening, your time. It is ten past nine. On your screen, next to the call window, an unsent email is open: the subject",
+      "goal": "Tell a long-time customer about a price increase before the email goes out — say what changes, say what does not, and give her a clear date to act on.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "run-through",
+          "phrase": "run through",
+          "translation": "把一件事从头到尾过一遍、讲一遍。",
+          "example": "Before I sign the contract, can we run through the delivery dates one more time?",
+          "sentenceId": "l2"
+        },
+        {
+          "id": "bump-up",
+          "phrase": "bump up",
+          "translation": "把价格、数量或等级往上调一点。",
+          "example": "We bump up the storage limit on the team plan next month, from fifty to two hundred gigabytes.",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "grandfathered-in",
+          "phrase": "grandfathered in",
+          "translation": "老用户不受新规则影响，继续按老条件走。",
+          "example": "Everyone who joined before June is grandfathered in and keeps the free plan forever.",
+          "sentenceId": "l6"
+        },
+        {
+          "id": "specific-to",
+          "phrase": "specific to",
+          "translation": "只针对某一类人或某一件事，不覆盖其他。",
+          "example": "This delay is specific to orders going to Canada — everything else ships on the normal schedule.",
+          "sentenceId": "l8"
+        },
+        {
+          "id": "keep-me-posted",
+          "phrase": "keep me posted",
+          "translation": "有进展就告诉我、别等到最后才说。",
+          "example": "Keep me posted on the shipment date — if it moves again, tell me the same day.",
+          "sentenceId": "l12"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Priya",
+          "text": "Thanks for setting this up. I saw a note about pricing in the changelog last week, so I guessed this call was about that.",
+          "translation": "谢谢你约这个电话。我上周在更新日志里看到一句关于定价的说明，所以我猜这通电话是说这个。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "You guessed right. I wanted to run through it with you before the email goes out to everyone.",
+          "translation": "你猜对了。我想在邮件发给所有人之前，先跟你把这件事过一遍。"
+        },
+        {
+          "id": "l3",
+          "speaker": "Priya",
+          "text": "Okay. So how much is it going up, and when?",
+          "translation": "好。那涨多少，什么时候开始？"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "I wanted to tell you first, since you have been with us the longest: starting October first, we are going to bump up the monthly plan, from nineteen dollars to twenty-nine dollars. I know that is a big jump.",
+          "translation": "我想最先告诉你，因为你用我们的时间最久：十月一日起，月付方案要往上调，从十九美元调到二十九美元。我知道这个跳得不少。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Priya",
+          "text": "That is a big jump. Wait — does that mean my bill changes too? My team is five people now.",
+          "translation": "确实跳得不少。等等——那我的账单也要变吗？我团队现在五个人。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "No, and here is what does not change: you are grandfathered in. Your five seats stay at nineteen dollars, for as long as you keep the plan.",
+          "translation": "不变。不变的是这些：你属于老用户保留旧价。你那五个席位一直是十九美元，只要你不取消这个方案。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Priya",
+          "text": "Okay, that is a relief. But what about the two seats I wanted to add next month — for the new designer and the intern?",
+          "translation": "好，那我放心了。但我下个月想加的那两个席位呢——给新来的设计师和那个实习生的？"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "That is the part I really wanted to run through with you. The new price is specific to new seats. So your five stay the same, and any seat you add after October first is twenty-nine dollars.",
+          "translation": "这正是我最想跟你过一遍的部分。新价格只针对新增的席位。所以你原来那五个不变，十月一日之后加的任何席位都是二十九美元。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Priya",
+          "text": "So if I add them this week, it is still nineteen? That changes what I do — I would rather not rush two hires just to save twenty dollars a month.",
+          "translation": "那我这周加的话，还是十九吗？这会改变我的做法——我不想为了每月省二十美元就把两个招聘赶着做完。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "Yes. Anything you add before October first keeps the old price. You do not have to decide today, but if you want to lock in the old price for those two seats, you have about two weeks.",
+          "translation": "是的。十月一日之前加的任何席位都按旧价。你今天不用决定，但如果你想为那两个席位锁定旧价，大概还有两周时间。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Priya",
+          "text": "Two weeks. That is tight, but at least it is clear. Can I ask why you are doing it now? The tool feels the same to me as it did in March.",
+          "translation": "两周。是有点紧，但至少说得清楚。我能问一下为什么现在涨吗？对我来说，这个工具跟三月份没什么两样。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Fair question. The AI features cost me more every month now, and I cannot keep the same price and keep them running. I do not love the timing either, but I would rather say it to you straight than raise it quietly. I will send you the two dates in writing today. And keep me posted about the two new seats.",
+          "translation": "问得合理。现在 AI 功能每个月的成本都在涨，我没法既保持原价又把这些功能继续跑下去。这个时间点我也不喜欢，但我宁愿当面跟你说明白，也不想悄悄涨价。我今天会把那两个日期写成文字发给你。那两个新席位的事，有进展告诉我。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "The call is almost over. Priya thanks you for telling her directly, then asks one more thing. Her business partner is opening a small studio of her own next month, and Priya can tell her to sign up this week. Same tool, same plan — just a different studio.\n\n对方说: \"One more thing — my partner is starting her own studio next month. If I tell her to sign up this week, can she get my old price too?\"\n\n你",
+          "referenceAnswer": "Thanks for asking — let me run through that part too. The old price is specific to your five seats, so a new studio would be on the new price. What I can do is send you a trial link today, so your partner can start now and lock in the old price for her first month.",
+          "explanation": "先承接对方的善意（她是你最早的付费用户，直接说\"不行\"太硬），再用 specific to 把范围划清——保的是\"她那五个席位\"，不是\"她认识的人\"。最后用 lock in 给一条她今天就能动的路。关键是别因为对方是老用户就把 to 越扩越大，那才是后面真正的麻烦。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-21",
+      "slug": "following-up-on-overdue-invoice",
+      "title": "催收逾期尾款 · Following Up on an Overdue Invoice",
+      "summary": "练习在「催收逾期尾款」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-21",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "bodyHtml": "<header>\n  <h1>催收逾期尾款<span class=\"en\">Following Up on an Overdue Invoice</span></h1>\n  <div class=\"meta\">职业：独立开发者 / AI 内容创作者（AI 工具方向） · 难度：基础 · 主要沟通动作：Follow up 提醒并推进一件已拖延的事 · 人物与数据均为虚构练习</div>\n  <p class=\"task\">Today's task: Follow up on an invoice that is six weeks late — say it plainly, agree on one firm date, and keep the relationship for next year.</p>\n</header>\n\n<section class=\"setup\">\n  <h2>The Setup</h2>\n  <div class=\"setup-grid\">\n    <div class=\"setup-item\">\n      <h3>Where</h3>\n      <p class=\"en\">A short video call you asked for, on a weekday evening your time. Next to the call window, your invoicing page is open. The invoice for the June training was sent in early August, the payment terms say thirty days, and the status still says unpaid.</p>\n      <p class=\"cn hidden\">一场你自己约的短视频通话，在你这边的某个工作日晚上。通话窗口旁边开着你的开票页面：六月那场培训的发票八月上旬就开了，付款条件写着三十天，状态栏到现在还是未付款。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Who</h3>\n      <p class=\"en\">You build an AI tool and make videos about it on your own. Nora Bennett runs a small education company overseas. In June she bought a company license and you ran a three-hour training for her team. Nora runs the day-to-day work and signs off on spending; another team does the actual payment.</p>\n      <p class=\"cn hidden\">你一个人做一款 AI 工具，也自己拍相关视频。Nora Bennett 在海外经营一家小型教育公司。六月她买了企业授权，你还给她的团队做了三小时培训。Nora 管日常业务、也批开销，真正付款的是另一个团队。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>At stake</h3>\n      <p class=\"en\">The last payment is four thousand two hundred dollars, and it is six weeks late. Your editor and your server bills come out of that same money, and your quarter closes in ten days. You also want their renewal next year, so this call has to move the money without burning the relationship.</p>\n      <p class=\"cn hidden\">最后这笔款是四千二百美元，已经逾期六周。你的剪辑师和服务器费用就出在这笔钱里，而你的季度还有十天结账。你同时希望他们明年续约，所以这通电话既要推动付款，又不能把关系烧掉。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Mood</h3>\n      <p class=\"en\">Nora is warm and relaxed. There is quiet music in the background on her side. She apologizes easily and never argues, but every answer ends up as \"next week\" — she has no date in front of her.</p>\n      <p class=\"cn hidden\">Nora 热情、放松。她那边有很轻的背景音乐。她道歉很爽快，也从不争辩，但每个回答最后都会落到\"下周\"——她手上并没有一个具体日期。</p>\n    </div>\n  </div>\n  <button id=\"toggle-setup-cn\" data-toggle-setup type=\"button\">显示中文</button>\n</section>\n\n<section class=\"hint\">\n  <h2>Scene Hint</h2>\n  <p>你戴着耳机坐在书桌前，通话计时器刚跳到三分钟，Nora 那边有很轻的背景音乐，说一句话就笑一下。屏幕上那张发票还亮着：八月开出，状态未付款，付款条件「三十天」。她一直在说会去处理、会去问财务，语气很轻快，但你自己数了数，这已经是第三次听见\"下周\"这个词。你要在这通电话里把它推到一个能写进日历的日子，同时让明年的续约还有的谈。</p>\n</section>\n\n<section class=\"dialogue-section\">\n  <h2>Dialogue</h2>\n  <div class=\"controls\">\n    <button class=\"primary play-all\" id=\"play-all\" data-play-all type=\"button\">▶ 播放全部</button>\n    <button class=\"stop\" id=\"stop\" data-stop type=\"button\">■ 停止</button>\n    <label class=\"speed\">Speed\n      <select id=\"speed\" data-playback-rate>\n        <option value=\"0.75\">很慢 0.75x</option>\n        <option value=\"0.85\">慢 0.85x</option>\n        <option value=\"1\" selected>正常 1.0x</option>\n        <option value=\"1.15\">快 1.15x</option>\n      </select>\n    </label>\n    <label class=\"voice\">Voice\n      <select id=\"voice\" data-voice><option>(加载中…)</option></select>\n    </label>\n    <button class=\"toggle-dialogue\" id=\"toggle-dialogue-cn\" data-toggle-translations type=\"button\">显示中文</button>\n    <button id=\"blind-listen\" data-blind-listen type=\"button\">🎧 盲听复习</button>\n    <button id=\"exit-blind\" class=\"hidden\" data-exit-blind type=\"button\">退出盲听</button>\n  </div>\n  <p class=\"voice-warn hidden\" id=\"voice-warn\" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>\n  <p>播放发闷或有电流感时：先在下拉里换一个带 ★ 的音色；如果用蓝牙耳机，让耳机回到音乐／立体声模式——通话模式会明显降低音质。</p>\n  <ol class=\"dialogue\" id=\"dialogue-list\"></ol>\n</section>\n\n<section class=\"expressions\">\n  <h2>5 个重点表达</h2>\n\n  <div class=\"expr\">\n    <h3>past due <span class=\"ipa\">/ˌpæst ˈduː/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>已经过了该付款的日期，逾期的。</p>\n    <p class=\"def\"><strong>本课作用：</strong>把\"晚了\"从一句情绪（抱歉、不好意思）变成一个可以核对的事实。催款最怕绕，一开口就用它，对方就没有含糊的空间：不是\"你方便的时候\"，而是\"这笔已经过期了\"。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）due 是到期日，past 是走过——走过那条线，就是逾期。账务和账单里固定用 past due，语序不能倒过来写成 due past。日常也可以说 a past due bill。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Half the class is past due on the reading, so the teacher moved the quiz back a week.\"（半个班都没按时读完材料，老师把测验往后挪了一周。——换到教学场景，被越过的是阅读截止日，不是付款日。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>sort out <span class=\"ipa\">/ˈsɔːrt aʊt/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>把一团乱的事理清楚、处理掉，弄出一个结果。</p>\n    <p class=\"def\"><strong>本课作用：</strong>它比\"聊聊这件事\"更硬，又不像\"要求你付款\"那么对立。用\"我想理出一个明确日期\"，你既说出了目的，又给了对方一个台阶——重点是要结果，不是要吵架。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）sort 是先分类，out 是把结果弄出来——像把一抽屉乱线一根根理开。常搭：sort out a date / sort this out today / we need to sort out who does what。别用它指\"付款\"本身，它说的是把流程理清。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"There are two addresses saved in the app. Can you sort out which one the courier should use before tomorrow morning?\"（应用里存了两个地址。你能在明早之前理清楚快递该用哪一个吗？——换到快递地址场景，要理清的是一份数据，不是账单。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>chase <span class=\"ipa\">/tʃeɪs/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>（反复地）去追问、去催，这里指追着要钱。</p>\n    <p class=\"def\"><strong>本课作用：</strong>它说的不是你想要的，而是你不愿意做的那个动作。\"我不想每个月都催这件事\"比\"请你快点付\"更有效——因为对方真正不想承担的是被你反复提醒的麻烦。它把压力从\"我的需要\"换成\"我们都想避免的事\"。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）chase 是追着人跑——催款就是追着人跑。语气偏口语，朋友之间也用：chase up my order。注意它是\"多次去追\"，一次性问一句不算 chase。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"I have been chasing the landlord for three weeks about the broken heater, and he keeps saying he will call someone.\"（暖气坏了这事我催了房东三周，他每次都说会找人来看。——换到租房场景，被追的是一件事的进度。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>heads-up <span class=\"ipa\">/ˈhedz ʌp/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>提前给人提个醒、先说一声。</p>\n    <p class=\"def\"><strong>本课作用：</strong>你要说\"过了那天我就暂停做视频\"，这句话听起来像威胁，加一句 \"just a heads-up\" 就变成预报：我不是在压你，只是提前把规则告诉你。同一句后果，有它和没它，对方的反应会完全不同。<em>（本课为复习表达：此前在直播核对与改片反馈场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）像有人抬手示意你\"上面有东西\"——先给你一个提前量。常搭：just a heads-up / thanks for the heads-up / give you a heads-up。它只是\"提前通知\"，不含要求，所以后面还要补一句你的实际动作。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Just a heads-up: the school trip form is due on Friday, and we cannot take students who have not handed it in.\"（先提醒一下：秋游表格周五截止，没交的学生我们没法带上。——换到学校通知场景，提前说的是要交的东西，不是后果。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>on my end <span class=\"ipa\">/ɑːn maɪ ˈend/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>在我这一方、我这边（的情况或责任范围）。</p>\n    <p class=\"def\"><strong>本课作用：</strong>用来划责任线。对方说\"拖的原因不在我这边\"，你回\"我这边都已经准备好了\"，两边各说一句话，事情就更接近\"那卡在谁那里\"。它让话题从互相道歉转到找出真正的卡点。<em>（本课为复习表达：此前在用户支持与改片反馈场景出现过，这里换了场景与例句。）</em></p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）一件事像一根绳子，两头各叫一个 end——你这头就是 on my end。常搭：everything is ready on my end / the delay is not on my end / from my end it looks fine。换成别人的时候说 on your end，不用说 your side 再加 of the line。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"The order left our warehouse on Monday — the hold-up is not on my end, so please check with the courier.\"（那批货周一就出我们仓库了——卡住的原因不在我这边，麻烦你们跟快递确认。——换到发货跟单场景，要划清的是物流环节的责任。）</p>\n  </div>\n</section>\n\n<section class=\"patterns\">\n  <h2>实用句型（来自本课对话）</h2>\n\n  <div class=\"pat\">\n    <strong>I am not calling to blame anyone — I just want to [目标].</strong>\n    我打这个电话不是要怪谁——我只想 [目标]。\n    <span class=\"use\">—— 催款、催交付、催审批都能用。这类对话最大的浪费是花十分钟安抚对方的歉意；先用这句把\"我不是来怪你的\"说清，再直接说要什么结果。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>Let us say [具体日期]. And just a heads-up — if [条件], I will have to [后果].</strong>\n    那就定 [具体日期]。另外先给你提个醒——如果 [条件]，我就得 [后果]。\n    <span class=\"use\">—— 把\"下周\"\"尽快\"换成一个能写进日历的日期，同时把后果说成规则而不是威胁。关键在顺序：先给日期（合作姿态），再给后果（边界）。反过来就像最后通牒。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>I am not asking you to [对方不想做的事]. I am asking for [你能接受的最小要求].</strong>\n    我不是要你 [对方不想做的事]。我要的是 [你能接受的最小要求]。\n    <span class=\"use\">—— 对方态度很好、反复解释、但就是不推进时用。它把话头从\"再解释一遍\"拉回\"给我一个动作\"，而且第二句必须具体到能立刻执行，比如一个日期或一封邮件。</span>\n  </div>\n</section>\n\n<section class=\"my-turn\">\n  <h2>My Turn</h2>\n  <div class=\"my-turn-body\">\n    <p><strong>Situation:</strong> Same call, same company — but the answer is different this time. Nora says finance has a spending freeze until the end of the month, so she cannot send the full amount now. She offers half, and the rest \"sometime after November\" — with no date attached.</p>\n    <p><strong>They say:</strong> \"I can get you two thousand one hundred now. The rest has to wait until November. That is the most I can do.\"</p>\n    <p><strong>Your turn:</strong> Answer her. Three things: say yes or no to the half payment, ask for something firm about the rest of the money, and say what you will do about the videos in the meantime. Say it out loud first. (You can start with: <em>\"Half now helps, and —\"</em>)</p>\n    <button class=\"reveal\" id=\"show-answer\" data-show-answer type=\"button\">显示参考答案</button>\n    <div class=\"answer hidden\" id=\"answer-block\">\n      <div class=\"line-head\">\n        <span class=\"speaker you\">You</span>\n        <button class=\"play-line\" data-line-id=\"answer\" type=\"button\" data-play-sentence=\"answer\" aria-label=\"点读参考答案\">🔊</button>\n      </div>\n      <p class=\"en-line\" data-line-id=\"answer\">Half now helps, and I will take it. But November is too open for me — can we put the fifth of November in writing today? And just a heads-up: if the rest is not in by then, I will hold the next batch of videos. I do not want to chase this again in December.</p>\n      <p><em>思路：</em>先接受一半——对方把能做的和不能做的分开说，是诚意的信号，一句不肯让只会让整件事卡住。关键在第二句：不否认\"十一月\"，但把\"十一月\"换成一个日子、并且要求落到文字上。第三句才是边界，用 just a heads-up 包住后果，让\"暂停视频\"听上去是流程安排，不是报复。最后用 chase 收尾，把你们共同的麻烦（来回追同一笔钱）点出来。</p>\n      <p class=\"note\">参考答案不是唯一正确答案。你也可以说\"一半我现在收，剩下的写个计划给我，我要看到具体日期\"\"我可以等到十一月初，但那批视频我下周先做一半\"\"剩下的那部分按合同我可以收滞纳金，但我更想先拿到一个日期\"——只要做到\"对一半有明确答复、对剩下那部分要一个具体日期或书面确认、说清你这边接下来怎么做\"就行。</p>\n    </div>\n  </div>\n</section>\n\n<p class=\"footer-tip\"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>",
+      "revision": "1bafceb0ffa3ef7b",
+      "publishedAt": "2026-09-21T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "A short video call you asked for, on a weekday evening your time. Next to the call window, your invoicing page is open. The invoice for the June train",
+      "goal": "Follow up on an invoice that is six weeks late — say it plainly, agree on one firm date, and keep the relationship for next year.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "past-due",
+          "phrase": "past due",
+          "translation": "已经过了该付款的日期，逾期的。",
+          "example": "Half the class is past due on the reading, so the teacher moved the quiz back a week.",
+          "sentenceId": "l2"
+        },
+        {
+          "id": "sort-out",
+          "phrase": "sort out",
+          "translation": "把一团乱的事理清楚、处理掉，弄出一个结果。",
+          "example": "There are two addresses saved in the app. Can you sort out which one the courier should use before tomorrow morning?",
+          "sentenceId": "l4"
+        },
+        {
+          "id": "chase",
+          "phrase": "chase",
+          "translation": "（反复地）去追问、去催，这里指追着要钱。",
+          "example": "I have been chasing the landlord for three weeks about the broken heater, and he keeps saying he will call someone.",
+          "sentenceId": "l8"
+        },
+        {
+          "id": "heads-up",
+          "phrase": "heads-up",
+          "translation": "提前给人提个醒、先说一声。",
+          "example": "Just a heads-up: the school trip form is due on Friday, and we cannot take students who have not handed it in.",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "on-my-end",
+          "phrase": "on my end",
+          "translation": "在我这一方、我这边（的情况或责任范围）。",
+          "example": "The order left our warehouse on Monday — the hold-up is not on my end, so please check with the courier.",
+          "sentenceId": "l9"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "Nora",
+          "text": "Hi, good to see you. Sorry I am two minutes late — our team meeting ran long.",
+          "translation": "嗨，见到你真好。抱歉我晚了两分钟——我们团队会议拖长了。"
+        },
+        {
+          "id": "l2",
+          "speaker": "You",
+          "text": "No problem. Thanks for making time today. I want to talk about the invoice for the June training. It is six weeks past due now.",
+          "translation": "没关系。谢谢你今天抽时间。我想谈谈六月那场培训的发票。现在已经逾期六周了。"
+        },
+        {
+          "id": "l3",
+          "speaker": "Nora",
+          "text": "I know, and I am really sorry. Our finance person left in July, and things got messy after that.",
+          "translation": "我知道，真的很抱歉。我们做财务的同事七月离职了，之后就乱了。"
+        },
+        {
+          "id": "l4",
+          "speaker": "You",
+          "text": "I appreciate that. I am not calling to blame anyone — I just want to sort out one clear date, so we are not doing this again next month.",
+          "translation": "我明白。我打这个电话不是要怪谁——我只想理出一个明确的日期，免得下个月又来一次。"
+        },
+        {
+          "id": "l5",
+          "speaker": "Nora",
+          "text": "That is fair. I can send it to finance today. But honestly, they usually take about two weeks.",
+          "translation": "这话说得对。我今天就能把它发给财务。但说实话，他们一般要两周左右。"
+        },
+        {
+          "id": "l6",
+          "speaker": "You",
+          "text": "Two weeks works. Let us say the tenth of October. And just a heads-up — if it goes past that, I will have to pause the next batch of videos for you.",
+          "translation": "两周可以。那就定十月十日。另外先跟你打个招呼——如果过了那天，我就得暂停给你们做的那批视频。"
+        },
+        {
+          "id": "l7",
+          "speaker": "Nora",
+          "text": "Thanks for the heads-up. But pausing the videos? That sounds serious.",
+          "translation": "谢谢你提前说。但暂停视频？听起来挺严肃的。"
+        },
+        {
+          "id": "l8",
+          "speaker": "You",
+          "text": "It is not a punishment. It is cash flow. If your payment is late, then I pay my editor and my server late too. And I do not want to chase this every month.",
+          "translation": "这不是惩罚，是现金流。你们付款晚，我付剪辑师和服务器的钱也就晚。而且我不想每个月都来催这件事。"
+        },
+        {
+          "id": "l9",
+          "speaker": "Nora",
+          "text": "Okay. That is fair. And I want to be honest with you — the delay is not on my end. I have been chasing our finance team since July. Nobody approved it.",
+          "translation": "好，这话说得对。我也想跟你说实话——拖的原因不在我这边。从七月起我一直在催我们财务。但没人批。"
+        },
+        {
+          "id": "l10",
+          "speaker": "You",
+          "text": "I believe you. I am not asking you to explain it again. I am asking for the tenth of October, and one line from finance if that date is not possible.",
+          "translation": "我信你。我不是要你再解释一遍。我要的是十月十日；如果那个日期不行，让财务给我一句话说明。"
+        },
+        {
+          "id": "l11",
+          "speaker": "Nora",
+          "text": "The tenth is possible. I will walk it through myself. I am sorry it went past due at all.",
+          "translation": "十月十日可以。我自己去走这个流程。很抱歉一开始就让它逾期了。"
+        },
+        {
+          "id": "l12",
+          "speaker": "You",
+          "text": "Thank you. A short note from you today would help a lot. Everything is ready on my end, so once finance moves, it is done. And I am glad we could sort this out.",
+          "translation": "谢谢。你今天能给我写封短邮件说明一下就好。我这边全都准备好了，只要财务一动就结束了。也很高兴我们把这件事理清了。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "Same call, same company — but the answer is different this time. Nora says finance has a spending freeze until the end of the month, so she cannot send the full amount now. She offers half, and the rest \"sometime after November\" — with no date attached.\n\n对方说: \"I can get you two thousand one hundred now. The rest has to wait until November. That is the most I can do.\"\n\n你的任务: Answer her. Three thing",
+          "referenceAnswer": "Half now helps, and I will take it. But November is too open for me — can we put the fifth of November in writing today? And just a heads-up: if the rest is not in by then, I will hold the next batch of videos. I do not want to chase this again in December.",
+          "explanation": "先接受一半——对方把能做的和不能做的分开说，是诚意的信号，一句不肯让只会让整件事卡住。关键在第二句：不否认\"十一月\"，但把\"十一月\"换成一个日子、并且要求落到文字上。第三句才是边界，用 just a heads-up 包住后果，让\"暂停视频\"听上去是流程安排，不是报复。最后用 chase 收尾，把你们共同的麻烦（来回追同一笔钱）点出来。"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "english",
+      "id": "english-2026-09-22",
+      "slug": "asking-a-long-time-user-what-breaks-her-day",
+      "title": "约老用户做产品访谈 · Asking a Long-Time User What Breaks Her Day",
+      "summary": "练习在「约老用户做产品访谈」场景下，用清晰、地道、专业的英语展开有效沟通。",
+      "editionDate": "2026-09-22",
+      "publicationTimeZone": "Asia/Shanghai",
+      "status": "published",
+      "preview": false,
+      "bodyHtml": "<header>\n  <h1>约老用户做产品访谈<span class=\"en\">Asking a Long-Time User What Breaks Her Day</span></h1>\n  <div class=\"meta\">职业：独立开发者 / AI 内容创作者（AI 工具方向） · 难度：基础 · 主要沟通动作：Ask and dig deeper 追问，把笼统回答挖成一件具体的事 · 人物与数据均为虚构练习</div>\n  <p class=\"task\">Today's task: Interview a friendly user for twenty minutes, and turn polite answers like fine into one specific problem you can build for.</p>\n</header>\n\n<section class=\"setup\">\n  <h2>The Setup</h2>\n  <div class=\"setup-grid\">\n    <div class=\"setup-item\">\n      <h3>Where</h3>\n      <p class=\"en\">A video call you booked with one of your users. It is evening on her side, and the call is only twenty minutes long — she has a client project due tonight. A small red dot in the corner of your screen tells you the call is being recorded.</p>\n      <p class=\"cn hidden\">一场你约的用户视频通话。她那边是晚上，通话只有二十分钟——她今晚还有一个客户项目要交。屏幕角落一个小小的红点，说明这通电话正在被录下来。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Who</h3>\n      <p class=\"en\">You are the only person building the tool, and you also make videos about it on your own. Dana runs a small design studio with three people and uses your tool every day. She has been a user for nine months and often tests your new versions for free.</p>\n      <p class=\"cn hidden\">你是一个人做这款工具，也自己拍相关视频。Dana 经营一家只有三个人的小型设计工作室，每天都在用你的工具。她当用户已经九个月了，平时还常常免费帮你测新版本。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>At stake</h3>\n      <p class=\"en\">The next version has two months of work left, and one big feature is all that fits. You believe her team wants a sharing feature, but you have never heard a real user describe a normal work day. If this call stays polite, you will spend two months building the wrong thing.</p>\n      <p class=\"cn hidden\">下一个版本还剩两个月的工作量，只够做一个大功能。你以为她的团队想要共享功能，但你从来没听真实用户描述过普通的一天。如果这通电话一直停在客气层面，你就会用两个月做出错误的东西。</p>\n    </div>\n    <div class=\"setup-item\">\n      <h3>Mood</h3>\n      <p class=\"en\">Warm and easy. She laughs a lot, calls the tool fine, and answers in short, general sentences. The call timer on your screen is running the whole time.</p>\n      <p class=\"cn hidden\">气氛温暖轻松。她经常笑，说这个工具挺好的，回答都很短、很笼统。你屏幕上的通话计时器一直在走。</p>\n    </div>\n  </div>\n  <button id=\"toggle-setup-cn\" data-toggle-setup type=\"button\">显示中文</button>\n</section>\n\n<section class=\"hint\">\n  <h2>Scene Hint</h2>\n  <p>你戴着耳机，笔记本旁边摊着一张白纸，上面只写了一行字：她到底卡在哪一步。屏幕里她那边台灯刚打开，墙角堆着四个没来得及收的客户文件夹，背景里偶尔有键盘声。录音的小红点在角落一闪一闪，计时器已经走到三分钟。你要在剩下的十七分钟里穿过一串挺好的，问出一件真实发生过、有日期的具体事情。</p>\n</section>\n\n<section class=\"dialogue-section\">\n  <h2>Dialogue</h2>\n  <div class=\"controls\">\n    <button class=\"primary play-all\" id=\"play-all\" data-play-all type=\"button\">▶ 播放全部</button>\n    <button class=\"stop\" id=\"stop\" data-stop type=\"button\">■ 停止</button>\n    <label class=\"speed\">Speed\n      <select id=\"speed\" data-playback-rate>\n        <option value=\"0.75\">很慢 0.75x</option>\n        <option value=\"0.85\">慢 0.85x</option>\n        <option value=\"1\" selected>正常 1.0x</option>\n        <option value=\"1.15\">快 1.15x</option>\n      </select>\n    </label>\n    <label class=\"voice\">Voice\n      <select id=\"voice\" data-voice><option>(加载中…)</option></select>\n    </label>\n    <button class=\"toggle-dialogue\" id=\"toggle-dialogue-cn\" data-toggle-translations type=\"button\">显示中文</button>\n    <button id=\"blind-listen\" data-blind-listen type=\"button\">🎧 盲听复习</button>\n    <button id=\"exit-blind\" class=\"hidden\" data-exit-blind type=\"button\">退出盲听</button>\n  </div>\n  <p class=\"voice-warn hidden\" id=\"voice-warn\" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>\n  <p>播放发闷或有电流感时：先在下拉里换一个带 ★ 的音色；如果用蓝牙耳机，让耳机回到音乐／立体声模式——通话模式会明显降低音质。</p>\n  <ol class=\"dialogue\" id=\"dialogue-list\"></ol>\n</section>\n\n<section class=\"expressions\">\n  <h2>5 个重点表达</h2>\n\n  <div class=\"expr\">\n    <h3>pick your brain <span class=\"ipa\">/pɪk jər breɪn/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>向某人请教、借用对方的经验（口语，语气客气）。</p>\n    <p class=\"def\"><strong>本课作用：</strong>它一次说清三件事：我不是来推销的、我尊重你的经验、我只占你一点时间。约访谈最难的一步是让对方有动力认真讲，这句把姿态放低，之后对方才愿意说真话而不是客套话。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）brain 是脑子，pick 是掏出来看看——借你脑子里的东西用一下。固定说 pick someone's brain，不说 head。它只用于\"请教意见\"，不用于让对方替你干活；要人干活得用 ask for help。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"You have shipped six courses already. Can I pick your brain about pricing for fifteen minutes next week?\"（你已经上线过六门课了。下周能不能借你十五分钟，聊聊定价的事？——换到向同行请教定价，借的是经验，不是请对方帮你做。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>the last time <span class=\"ipa\">/ðə læst taɪm/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>上一次、最近一次（真实发生过的那一次）。</p>\n    <p class=\"def\"><strong>本课作用：</strong>这是把笼统回答变成具体事件的钥匙。用户说导出经常出问题，你其实不需要知道经常有多经常；你需要知道那一次。the last time 把话题从\"印象\"拉到记忆里某个可以复述的下午，文件数、卡在哪、花多久这些细节会自动跟着出来。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）用一个被身体记住的具体时刻，替换掉\"经常\"\"有时候\"这类模糊的频率。常搭：the last time it happened / the last time we talked。提问时它比 do you often 有效得多，因为它不给\"还好\"这种答案留位置。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"The last time we talked, you said the export was slow. Is that still happening?\"（上次我们聊的时候，你说导出很慢。现在还是这样吗？——换到跟进旧反馈，用它把旧话头准确地接回来。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>run into <span class=\"ipa\">/rʌn ˈɪntuː/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>偶然碰见；也指遇到麻烦、问题（不是计划中的）。</p>\n    <p class=\"def\"><strong>本课作用：</strong>说\"你遇到这个问题\"时，它比 have a problem 轻得多——问题不是对方的过错，只是路上撞到的。用户更愿意承认自己 run into 了什么，而不是承认自己有 problem。这也是让访谈不变成抱怨会的一句话。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）走路时撞上了横在路上的东西——不是你不好，是它挡在那儿。常搭：run into a problem / run into issues / run into each other。区分：run into 是意外撞上，meet 是约好的。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Every new teammate runs into the same setup screen, so we recorded a short video for it.\"（每个新同事都会卡在同一个设置页，所以我们录了一段短视频。——换到新人入职场景，撞上的是一个界面。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>step by step <span class=\"ipa\">/step baɪ step/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>一步一步地、按顺序地（讲或做）。</p>\n    <p class=\"def\"><strong>本课作用：</strong>当对方只给你结论（我得重做一遍）而过程不清楚时，用它要求展开。它同时递出一个承诺：我不会跳着问，你从头说就行。访谈里真正值钱的东西通常藏在步骤中间，而不在结论里——结论只告诉你她痛，步骤才告诉你该改哪里。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）台阶一级一级往上走。可以放句尾（explain it step by step），也可以当开场（step by step, here is what I do）。别和 one by one 混：one by one 说的是多件事依次处理，step by step 说的是一个过程里的每一步。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"Send the handover as a checklist, step by step, so the client can follow it without calling us.\"（把交接写成清单，一步一步来，这样客户照着做就不用打电话问我们。——换到外包交接场景，要拆开的是一份流程。）</p>\n  </div>\n\n  <div class=\"expr\">\n    <h3>if you had to pick one <span class=\"ipa\">/ɪf ju hæd tə pɪk wʌn/</span></h3>\n    <p class=\"def\"><strong>核心含义：</strong>如果只能选一个的话（虚拟语气，用来逼出优先级）。</p>\n    <p class=\"def\"><strong>本课作用：</strong>本课的收口句。用户会把所有痛点都说成同等重要，因为在她眼里确实都烦。had to 是虚拟的\"不得不\"，等于先把\"全都要\"这个选项从桌上拿走，对方就必须排序。拿到第一位，你才知道两个月该花在哪里。</p>\n    <p class=\"def\"><strong>记忆提示：</strong>（联想）先封掉退路，再问。时态是 had to（虚拟），不是 have to；说的时候重心落在 pick one。后面可以直接接名词：pick one feature / pick one thing to fix first。语气是商量，但效果很硬——对方只能给出排序。</p>\n    <p class=\"def\"><strong>换情境例句：</strong>\"We can only redo one scene this week. If you had to pick one, which shot would help the video most?\"（这周只能重做一场。如果只能选一场，你会选哪个镜头对整支片子帮助最大？——换到视频修改排期，要排序的是镜头。）</p>\n  </div>\n</section>\n\n<section class=\"patterns\">\n  <h2>实用句型（来自本课对话）</h2>\n\n  <div class=\"pat\">\n    <strong>Can you tell me about the last time ___?</strong>\n    能不能说说最近一次 ___ 是什么时候？\n    <span class=\"use\">—— 用户访谈、绩效反馈、故障复盘都能用。关键在 the last time：它会自动调用对方的记忆细节（哪一天、几个文件、花多久），比\"你经常遇到吗\"有效得多，因为后者只配得到一个\"还好\"。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>When you run into ___, how often is it — once a month, or most weeks?</strong>\n    你碰到 ___ 的时候，多久一次——一个月一次，还是大部分周都会？\n    <span class=\"use\">—— 用来判断这件事是\"偶发麻烦\"还是\"常态成本\"，两者该不该进版本完全不一样。给两个具体选项（而不是直接问 how often）能降低回答门槛，对方给的答案也更接近事实。</span>\n  </div>\n\n  <div class=\"pat\">\n    <strong>If you had to pick one ___, what would it be?</strong>\n    如果只能选一个 ___，你会选哪个？\n    <span class=\"use\">—— 排期、预算、选方案时都能用。它的价值不在礼貌，而在封掉了\"都要\"这个退路：对方必须排序，你就拿到了决定下一步的凭据。问完记得把她选的那个复述一遍，确认没听错。</span>\n  </div>\n</section>\n\n<section class=\"my-turn\">\n  <h2>My Turn</h2>\n  <div class=\"my-turn-body\">\n    <p><strong>Situation:</strong> Same call, twenty minutes in. Dana has just described three problems — the export size, slow search, and no sharing for her team of three. You have two months left and room for one big feature.</p>\n    <p><strong>They say:</strong> \"Honestly, they all matter to me. Can you really not do all three?\"</p>\n    <p><strong>Your turn:</strong> Ask her to rank the three with one question, then say what you will do next. Say it out loud first. (You can start with: <em>\"I wish I could —\"</em>)</p>\n    <button class=\"reveal\" id=\"show-answer\" data-show-answer type=\"button\">显示参考答案</button>\n    <div class=\"answer hidden\" id=\"answer-block\">\n      <div class=\"line-head\">\n        <span class=\"speaker you\">You</span>\n        <button class=\"play-line\" data-line-id=\"answer\" type=\"button\" data-play-sentence=\"answer\" aria-label=\"点读参考答案\">🔊</button>\n      </div>\n      <p class=\"en-line\" data-line-id=\"answer\">I wish I could, but two months buys one feature, not three. So, if you had to pick one, which of them would save you the most time every week? That one goes into the next build, and I will bring you a rough version to test before it ships.</p>\n      <p><em>思路：</em>先不否掉她的\"三个都要\"——那是真实感受，不是贪心，硬顶只会让她开始客气。第二句是本课的核心动作：用 if you had to pick one 把\"全都要\"这条退路拿走，她只能排序。第三句给她确定性（选中的那个进版本），并把她放回流程里（你先测）——这一步很重要，它把\"我被拒绝了两项\"变成\"我参与了下个版本\"，关系不会掉。</p>\n      <p class=\"note\">参考答案不是唯一正确答案。你也可以说\"三件事我都记下了，但这一版只能进一个——如果只能选一个，你会选哪个？\"\"我不能全做，但我可以先做最费你时间的那一个；如果只能挑一个，是哪个？\"\"这版一个、下版一个。先告诉我哪一个每周都在浪费你的时间\"——只要做到\"不假装全都能做、用一个二选一的问题逼出排序、并说明你接下来会怎么处理\"就行。</p>\n    </div>\n  </div>\n</section>\n\n<p class=\"footer-tip\"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>",
+      "revision": "80006c1669344c33",
+      "publishedAt": "2026-09-22T10:00:00+08:00",
+      "level": "foundation",
+      "profession": "独立开发者 / AI 内容创作者",
+      "scenario": "A video call you booked with one of your users. It is evening on her side, and the call is only twenty minutes long — she has a client project due ton",
+      "goal": "Interview a friendly user for twenty minutes, and turn polite answers like fine into one specific problem you can build for.",
+      "durationMinutes": 12,
+      "expressions": [
+        {
+          "id": "pick-your-brain",
+          "phrase": "pick your brain",
+          "translation": "向某人请教、借用对方的经验（口语，语气客气）。",
+          "example": "You have shipped six courses already. Can I pick your brain about pricing for fifteen minutes next week?",
+          "sentenceId": "l1"
+        },
+        {
+          "id": "the-last-time",
+          "phrase": "the last time",
+          "translation": "上一次、最近一次（真实发生过的那一次）。",
+          "example": "The last time we talked, you said the export was slow. Is that still happening?",
+          "sentenceId": "l5"
+        },
+        {
+          "id": "run-into",
+          "phrase": "run into",
+          "translation": "偶然碰见；也指遇到麻烦、问题（不是计划中的）。",
+          "example": "Every new teammate runs into the same setup screen, so we recorded a short video for it.",
+          "sentenceId": "l7"
+        },
+        {
+          "id": "step-by-step",
+          "phrase": "step by step",
+          "translation": "一步一步地、按顺序地（讲或做）。",
+          "example": "Send the handover as a checklist, step by step, so the client can follow it without calling us.",
+          "sentenceId": "l9"
+        },
+        {
+          "id": "if-you-had-to-pick-one",
+          "phrase": "if you had to pick one",
+          "translation": "如果只能选一个的话（虚拟语气，用来逼出优先级）。",
+          "example": "We can only redo one scene this week. If you had to pick one, which shot would help the video most?",
+          "sentenceId": "l11"
+        }
+      ],
+      "sentences": [
+        {
+          "id": "l1",
+          "speaker": "You",
+          "text": "Thanks for making time, Dana. I know it is late on your side. I have wanted to pick your brain for a while. I am not selling anything today — I just want to hear how the tool fits into your work.",
+          "translation": "谢谢你抽时间，Dana。我知道你那边已经很晚了。我早就想请你聊聊了。今天不是来推销的——我只想听听这个工具是怎么嵌进你的工作里的。"
+        },
+        {
+          "id": "l2",
+          "speaker": "Dana",
+          "text": "Happy to help. I use it every day, so I have a lot to say.",
+          "translation": "很乐意。我每天都在用，所以有不少话想说。"
+        },
+        {
+          "id": "l3",
+          "speaker": "You",
+          "text": "That is why I asked you and not a new user. So, first question: which part of your day does the tool touch the most?",
+          "translation": "这就是我找你、而不是找一个新用户的原因。第一个问题：一天里，这个工具最常出现在哪个环节？"
+        },
+        {
+          "id": "l4",
+          "speaker": "Dana",
+          "text": "The export, probably. Everything we make ends up in a client file, so I live in that screen.",
+          "translation": "大概是导出。我们做的东西最后都要进客户文件，所以我天天待在那个界面。"
+        },
+        {
+          "id": "l5",
+          "speaker": "You",
+          "text": "Good. Can you tell me about the last time the export gave you trouble? Take me back to that day.",
+          "translation": "好。能说说最近一次导出出问题是什么时候吗？带我回到那一天。"
+        },
+        {
+          "id": "l6",
+          "speaker": "Dana",
+          "text": "That was Thursday. I had four files from a client, and two of them came out the wrong size. I had to redo them one by one.",
+          "translation": "那是周四。客户给了四个文件，其中两个导出来尺寸不对。我只能一个一个重做。"
+        },
+        {
+          "id": "l7",
+          "speaker": "You",
+          "text": "That is the part I wanted to hear. When you run into that, how often is it — once a month, or most weeks?",
+          "translation": "这正是我想听的部分。你碰到这个情况的时候，多久一次——一个月一次，还是大部分周都会？"
+        },
+        {
+          "id": "l8",
+          "speaker": "Dana",
+          "text": "Most weeks, I think. Most days it is not a big deal. But on a deadline day it really hurts.",
+          "translation": "我想大部分周都有。平时算不上大事。但一到交稿那天就很痛。"
+        },
+        {
+          "id": "l9",
+          "speaker": "You",
+          "text": "So on a deadline day it hurts. Now tell me step by step what you do when it goes wrong. Start from the moment you see the wrong size.",
+          "translation": "所以到了交稿那天就很痛。现在请你一步一步讲，出问题的时候你是怎么做的。从你看到尺寸不对那一刻开始。"
+        },
+        {
+          "id": "l10",
+          "speaker": "Dana",
+          "text": "First I check the original file. Then I open the export settings and try a different preset. If that does not work, I rebuild the file by hand. It takes about twenty minutes each time.",
+          "translation": "我先检查原文件。然后打开导出设置，换一个预设试试。要是还不行，我就手动把文件重建一遍。每次大概二十分钟。"
+        },
+        {
+          "id": "l11",
+          "speaker": "You",
+          "text": "Twenty minutes, and you would rather rebuild it than wait for me. That is painful to hear, but it is useful. One last question: if you had to pick one thing I fix first, what would it be?",
+          "translation": "二十分钟，而且你宁愿自己重建也不等我。听着挺难受，但很有用。最后问一个：如果我只能先修一个，你会选哪个？"
+        },
+        {
+          "id": "l12",
+          "speaker": "Dana",
+          "text": "The size thing. Everything else I can live with. Oh, and let me know when you fix it — I will test it for you.",
+          "translation": "尺寸那个。其他我都能忍。对了，修好了告诉我——我帮你测。"
+        }
+      ],
+      "practice": [
+        {
+          "prompt": "Same call, twenty minutes in. Dana has just described three problems — the export size, slow search, and no sharing for her team of three. You have two months left and room for one big feature.\n\n对方说: \"Honestly, they all matter to me. Can you really not do all three?\"\n\n你的任务: Ask her to rank the three with one question, then say what you will do next. Say it out loud first. (You can start with: \"I w",
+          "referenceAnswer": "I wish I could, but two months buys one feature, not three. So, if you had to pick one, which of them would save you the most time every week? That one goes into the next build, and I will bring you a rough version to test before it ships.",
+          "explanation": "先不否掉她的\"三个都要\"——那是真实感受，不是贪心，硬顶只会让她开始客气。第二句是本课的核心动作：用 if you had to pick one 把\"全都要\"这条退路拿走，她只能排序。第三句给她确定性（选中的那个进版本），并把她放回流程里（你先测）——这一步很重要，它把\"我被拒绝了两项\"变成\"我参与了下个版本\"，关系不会掉。"
+        }
+      ]
+    }
+  ]
+}

@@ -467,7 +467,7 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(`Unable to build personal site: ${error.message}`);
-  process.exitCode = 1;
-});
+// Keep the historical entry point working for local scripts or bookmarks.
+// The Bento generator owns the current public output.
+console.warn("scripts/build-site.mjs is retained for compatibility; using build-bento-site.mjs.");
+await import("./build-bento-site.mjs");
