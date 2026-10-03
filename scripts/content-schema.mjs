@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { sanitizeContentBody } from "./content-html.mjs";
 
 export const CONTENT_KINDS = ["daily", "english"];
 
@@ -164,6 +165,10 @@ function normalizeBase(raw, expectedKind) {
     preview: value.preview === true
   };
 
+  if (value.bodyHtml !== undefined) {
+    const body = asText(value.bodyHtml, "bodyHtml", { max: 200_000 });
+    normalized.bodyHtml = asText(sanitizeContentBody(body, kind), "bodyHtml", { max: 200_000 });
+  }
   if (value.revision !== undefined) {
     normalized.revision = asRevision(value.revision, "revision");
   }

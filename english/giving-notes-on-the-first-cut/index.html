@@ -28,7 +28,7 @@
 </header>
   <main id="content" class="site-main">
   <div class="reading-shell">
-    <div class="lesson-courseware-container">
+    <div class="lesson-courseware-container" data-english-player data-translations-default="hidden">
       <a class="article-back" href="/english/">← 返回英语全部课程</a>
       <div class="lesson-courseware">
         <header>
@@ -61,7 +61,7 @@
       <p class="cn hidden">Marco 平静、务实。他问的问题都很短，比如"是剪掉，还是只加快？"他不为自己的剪辑辩解。他在消息里要求把所有意见一次发给他。</p>
     </div>
   </div>
-  <button id="toggle-setup-cn" style="margin-top:12px;font-size:12.5px;padding:6px 10px;border:1px solid var(--line);border-radius:5px;background:#fff;cursor:pointer;color:var(--ink-soft);font-family:inherit;">显示中文</button>
+  <button id="toggle-setup-cn" data-toggle-setup type="button">显示中文</button>
 </section>
 
 <section class="hint">
@@ -72,10 +72,10 @@
 <section class="dialogue-section">
   <h2>Dialogue</h2>
   <div class="controls">
-    <button class="primary play-all" id="play-all">▶ 播放全部</button>
-    <button class="stop" id="stop">■ 停止</button>
+    <button class="primary play-all" id="play-all" data-play-all type="button">▶ 播放全部</button>
+    <button class="stop" id="stop" data-stop type="button">■ 停止</button>
     <label class="speed">Speed
-      <select id="speed">
+      <select id="speed" data-playback-rate>
         <option value="0.75">很慢 0.75x</option>
         <option value="0.85">慢 0.85x</option>
         <option value="1" selected>正常 1.0x</option>
@@ -83,14 +83,38 @@
       </select>
     </label>
     <label class="voice">Voice
-      <select id="voice"><option value="">(加载中…)</option></select>
+      <select id="voice" data-voice><option>(加载中…)</option></select>
     </label>
-    <button class="toggle-dialogue" id="toggle-dialogue-cn">显示中文</button>
-    <button id="blind-listen" style="background:#fff;color:var(--accent);border-color:var(--accent);">🎧 盲听复习</button>
-    <button id="exit-blind" class="hidden" style="background:#fff;color:var(--ink-soft);">退出盲听</button>
+    <button class="toggle-dialogue" id="toggle-dialogue-cn" data-toggle-translations type="button">显示中文</button>
+    <button id="blind-listen" data-blind-listen type="button">🎧 盲听复习</button>
+    <button id="exit-blind" class="hidden" data-exit-blind type="button">退出盲听</button>
   </div>
-  <p class="voice-warn hidden" id="voice-warn">提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>
-  <ol class="dialogue" id="dialogue-list"></ol>
+  <p class="voice-warn hidden" id="voice-warn" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>
+  <ol class="dialogue" id="dialogue-list"><li class="line english-sentence" data-sentence-id="l1">
+      <div class="line-head"><span class="speaker">Marco</span><button type="button" class="play-line" data-play-sentence="l1" aria-label="点读第 l1 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Hey, I just pushed the first cut. It runs about six minutes and twenty seconds. Send me everything you want changed at once — I would rather do one pass than five small ones.</p><p class="cn-line" data-translation>嗨，我刚把第一版传上去了。大概六分二十秒。你想改的一次全发我——我宁愿一次改完，也不想分五小次改。</p></li><li class="line english-sentence" data-sentence-id="l2">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l2" aria-label="点读第 l2 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Thanks, watching it now. Quick heads-up before the notes: the launch moved up to Friday, not next week. Is tonight still open for you?</p><p class="cn-line" data-translation>谢谢，我正在看。说意见之前先提醒你一句：发布时间提前到周五了，不是下周。你今晚还有档期吗？</p></li><li class="line english-sentence" data-sentence-id="l3">
+      <div class="line-head"><span class="speaker">Marco</span><button type="button" class="play-line" data-play-sentence="l3" aria-label="点读第 l3 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Thanks for the heads-up. Tonight works — I have another job booked all day Friday, so tonight is my only window. Send me timecodes and I will send it back the same night.</p><p class="cn-line" data-translation>谢谢提醒。今晚可以——我周五整整一天都排了另一个活，所以今晚是我唯一的窗口。把时间码发我，我当晚就传回给你。</p></li><li class="line english-sentence" data-sentence-id="l4">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l4" aria-label="点读第 l4 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Good. Three things. First, can you tighten up the first forty seconds? It takes too long to get to the tool, and I think people will click away.</p><p class="cn-line" data-translation>好。三件事。第一，能把前四十秒收紧一点吗？进到工具画面的时间太长了，我觉得人会划走。</p></li><li class="line english-sentence" data-sentence-id="l5">
+      <div class="line-head"><span class="speaker">Marco</span><button type="button" class="play-line" data-play-sentence="l5" aria-label="点读第 l5 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Sure. Do you want me to cut the intro, or just make it faster?</p><p class="cn-line" data-translation>行。你是要我把开头剪掉，还是只加快一点？</p></li><li class="line english-sentence" data-sentence-id="l6">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l6" aria-label="点读第 l6 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Faster. I still want the two lines about the problem — just tighten up the space between them.</p><p class="cn-line" data-translation>加快就好。那两句讲问题的我还是想要——只要把它们中间的空档收紧就行。</p></li><li class="line english-sentence" data-sentence-id="l7">
+      <div class="line-head"><span class="speaker">Marco</span><button type="button" class="play-line" data-play-sentence="l7" aria-label="点读第 l7 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Got it. What is the second thing?</p><p class="cn-line" data-translation>明白了。第二件是什么？</p></li><li class="line english-sentence" data-sentence-id="l8">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l8" aria-label="点读第 l8 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">The dashboard shots. We shipped a new version this morning, so those screens are already out of date. Can we swap out the four clips after the first demo? I will send you a fresh recording within the hour.</p><p class="cn-line" data-translation>仪表盘的镜头。我们今天早上发了新版本，所以那些界面已经过时了。能不能把第一段演示之后的四个片段换掉？我一小时内给你发一段新的录屏。</p></li><li class="line english-sentence" data-sentence-id="l9">
+      <div class="line-head"><span class="speaker">Marco</span><button type="button" class="play-line" data-play-sentence="l9" aria-label="点读第 l9 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">No problem. Anything else?</p><p class="cn-line" data-translation>没问题。还有别的吗？</p></li><li class="line english-sentence" data-sentence-id="l10">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l10" aria-label="点读第 l10 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Last one — let&#39;s hold off on the end animation. I am not sure the new logo is final yet, and I do not want you to do that part twice. The captions are already done on my end, so you can just drop them in.</p><p class="cn-line" data-translation>最后一件事——结尾动画先别做。我不确定新 logo 定下来了没有，不想让你那部分做两遍。字幕我这边已经做好了，你直接放进去就行。</p></li><li class="line english-sentence" data-sentence-id="l11">
+      <div class="line-head"><span class="speaker">Marco</span><button type="button" class="play-line" data-play-sentence="l11" aria-label="点读第 l11 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">That all makes sense. So: tighten up the intro, swap out the four clips, and hold off on the end. The audio sounds clean on my end, so I will leave it alone. I will send the new cut back tonight.</p><p class="cn-line" data-translation>这些都说得通。那就是：收紧开头、换掉那四个片段、结尾先不做。音频我这边听着是干净的，那我就不动它。今晚我把新版传回给你。</p></li><li class="line english-sentence" data-sentence-id="l12">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l12" aria-label="点读第 l12 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Perfect. I will send the new recording and the caption files within the hour. And if anything changes on my side, I will tell you before you start — I do not want you to do the same work twice.</p><p class="cn-line" data-translation>太好了。我一小时内把新录屏和字幕文件发你。如果我这边有任何变化，我会在你动手之前告诉你——我不想让你把同一个活做两遍。</p></li></ol>
 </section>
 
 <section class="expressions">
@@ -165,11 +189,11 @@
     <p><strong>Situation:</strong> The new cut lands in your inbox in the morning, and it is good. Marco also cut a fifteen-second vertical version for Shorts, without being asked. He asks whether you want to keep it. The launch is still Friday.</p>
     <p><strong>They say:</strong> "I also cut a fifteen-second vertical version for Shorts, in case you want it. Want me to keep it?"</p>
     <p><strong>Your turn:</strong> Answer him. Say whether to keep it, give him one specific change, and tell him where it will go out. Say it out loud first. (You can start with: <em>"Yes, let's keep it — and a quick heads-up:"</em>)</p>
-    <button class="reveal" id="show-answer">显示参考答案</button>
+    <button class="reveal" id="show-answer" data-show-answer type="button">显示参考答案</button>
     <div class="answer hidden" id="answer-block">
       <div class="line-head">
         <span class="speaker you">You</span>
-        <button class="play-line" data-line-id="answer">🔊</button>
+        <button class="play-line" data-line-id="answer" type="button" data-play-sentence="answer" aria-label="点读参考答案">🔊</button>
       </div>
       <p class="en-line" data-line-id="answer">Yes, let's keep it — and a quick heads-up: it would go out on Friday too, right after the long video. Two small things. Can you swap out the logo in the first second? That one is the old mark. And can you tighten up the first three seconds? Right now the hook lands at second five, and on Shorts people leave before that.</p>
       <p><em>思路：</em>先用 heads-up 把"周五也发"这件事单独讲出来，再用 swap out 和 tighten up 各给一条具体到"第几秒"的修改，最后附一句理由。三条意见全部落到可执行的动作上，对方不用再问一遍。</p>
@@ -179,310 +203,7 @@
 </section>
 
 <p class="footer-tip"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>
-
-<script>
-(function () {
-  'use strict';
-
-  const dialogue = [
-    { id: 'L1', speaker: 'Marco', en: "Hey, I just pushed the first cut. It runs about six minutes and twenty seconds. Send me everything you want changed at once — I would rather do one pass than five small ones.", cn: "嗨，我刚把第一版传上去了。大概六分二十秒。你想改的一次全发我——我宁愿一次改完，也不想分五小次改。" },
-    { id: 'L2', speaker: 'You', en: "Thanks, watching it now. Quick heads-up before the notes: the launch moved up to Friday, not next week. Is tonight still open for you?", cn: "谢谢，我正在看。说意见之前先提醒你一句：发布时间提前到周五了，不是下周。你今晚还有档期吗？" },
-    { id: 'L3', speaker: 'Marco', en: "Thanks for the heads-up. Tonight works — I have another job booked all day Friday, so tonight is my only window. Send me timecodes and I will send it back the same night.", cn: "谢谢提醒。今晚可以——我周五整整一天都排了另一个活，所以今晚是我唯一的窗口。把时间码发我，我当晚就传回给你。" },
-    { id: 'L4', speaker: 'You', en: "Good. Three things. First, can you tighten up the first forty seconds? It takes too long to get to the tool, and I think people will click away.", cn: "好。三件事。第一，能把前四十秒收紧一点吗？进到工具画面的时间太长了，我觉得人会划走。" },
-    { id: 'L5', speaker: 'Marco', en: "Sure. Do you want me to cut the intro, or just make it faster?", cn: "行。你是要我把开头剪掉，还是只加快一点？" },
-    { id: 'L6', speaker: 'You', en: "Faster. I still want the two lines about the problem — just tighten up the space between them.", cn: "加快就好。那两句讲问题的我还是想要——只要把它们中间的空档收紧就行。" },
-    { id: 'L7', speaker: 'Marco', en: "Got it. What is the second thing?", cn: "明白了。第二件是什么？" },
-    { id: 'L8', speaker: 'You', en: "The dashboard shots. We shipped a new version this morning, so those screens are already out of date. Can we swap out the four clips after the first demo? I will send you a fresh recording within the hour.", cn: "仪表盘的镜头。我们今天早上发了新版本，所以那些界面已经过时了。能不能把第一段演示之后的四个片段换掉？我一小时内给你发一段新的录屏。" },
-    { id: 'L9', speaker: 'Marco', en: "No problem. Anything else?", cn: "没问题。还有别的吗？" },
-    { id: 'L10', speaker: 'You', en: "Last one — let's hold off on the end animation. I am not sure the new logo is final yet, and I do not want you to do that part twice. The captions are already done on my end, so you can just drop them in.", cn: "最后一件事——结尾动画先别做。我不确定新 logo 定下来了没有，不想让你那部分做两遍。字幕我这边已经做好了，你直接放进去就行。" },
-    { id: 'L11', speaker: 'Marco', en: "That all makes sense. So: tighten up the intro, swap out the four clips, and hold off on the end. The audio sounds clean on my end, so I will leave it alone. I will send the new cut back tonight.", cn: "这些都说得通。那就是：收紧开头、换掉那四个片段、结尾先不做。音频我这边听着是干净的，那我就不动它。今晚我把新版传回给你。" },
-    { id: 'L12', speaker: 'You', en: "Perfect. I will send the new recording and the caption files within the hour. And if anything changes on my side, I will tell you before you start — I do not want you to do the same work twice.", cn: "太好了。我一小时内把新录屏和字幕文件发你。如果我这边有任何变化，我会在你动手之前告诉你——我不想让你把同一个活做两遍。" }
-  ];
-
-  const answerLine = { id: 'answer', en: "Yes, let's keep it — and a quick heads-up: it would go out on Friday too, right after the long video. Two small things. Can you swap out the logo in the first second? That one is the old mark. And can you tighten up the first three seconds? Right now the hook lands at second five, and on Shorts people leave before that." };
-
-  const list = document.getElementById('dialogue-list');
-
-  dialogue.forEach(function (item) {
-    const li = document.createElement('li');
-    li.className = 'line';
-    li.dataset.lineId = item.id;
-
-    const head = document.createElement('div');
-    head.className = 'line-head';
-
-    const sp = document.createElement('span');
-    sp.className = 'speaker ' + (item.speaker.toLowerCase() === 'you' ? 'you' : 'guest');
-    sp.textContent = item.speaker;
-    head.appendChild(sp);
-
-    const btns = document.createElement('div');
-    btns.className = 'line-btns';
-
-    const cnBtn = document.createElement('button');
-    cnBtn.className = 'cn-line-btn';
-    cnBtn.dataset.lineId = item.id;
-    cnBtn.textContent = '译';
-    cnBtn.title = '查看这一句中文';
-    btns.appendChild(cnBtn);
-
-    const playBtn = document.createElement('button');
-    playBtn.className = 'play-line';
-    playBtn.dataset.lineId = item.id;
-    playBtn.textContent = '🔊';
-    playBtn.title = '朗读这一句英文';
-    btns.appendChild(playBtn);
-
-    head.appendChild(btns);
-    li.appendChild(head);
-
-    const en = document.createElement('p');
-    en.className = 'en-line';
-    en.dataset.lineId = item.id;
-    en.textContent = item.en;
-    li.appendChild(en);
-
-    const cn = document.createElement('p');
-    cn.className = 'cn-line hidden';
-    cn.textContent = item.cn;
-    li.appendChild(cn);
-
-    list.appendChild(li);
-  });
-
-  // Setup CN toggle (independent)
-  const setupBtn = document.getElementById('toggle-setup-cn');
-  let setupCnVisible = false;
-  setupBtn.addEventListener('click', function () {
-    setupCnVisible = !setupCnVisible;
-    document.querySelectorAll('.setup .cn').forEach(function (el) {
-      el.classList.toggle('hidden', !setupCnVisible);
-    });
-    setupBtn.textContent = setupCnVisible ? '隐藏中文' : '显示中文';
-  });
-
-  // Dialogue CN global toggle
-  const dialogueBtn = document.getElementById('toggle-dialogue-cn');
-  let dialogueCnVisible = false;
-  dialogueBtn.addEventListener('click', function () {
-    dialogueCnVisible = !dialogueCnVisible;
-    document.querySelectorAll('.cn-line').forEach(function (el) {
-      el.classList.toggle('hidden', !dialogueCnVisible);
-    });
-    document.querySelectorAll('.cn-line-btn').forEach(function (b) {
-      b.classList.toggle('on', dialogueCnVisible);
-    });
-    dialogueBtn.textContent = dialogueCnVisible ? '隐藏中文' : '显示中文';
-  });
-
-  // Per-line CN toggle
-  document.body.addEventListener('click', function (e) {
-    const t = e.target;
-    if (t && t.classList && t.classList.contains('cn-line-btn')) {
-      const li = t.closest('.line');
-      if (!li) return;
-      const cn = li.querySelector('.cn-line');
-      if (!cn) return;
-      const willShow = cn.classList.contains('hidden');
-      cn.classList.toggle('hidden', !willShow);
-      t.classList.toggle('on', willShow);
-    }
-  });
-
-  // Answer reveal
-  const showAnswerBtn = document.getElementById('show-answer');
-  const answerBlock = document.getElementById('answer-block');
-  showAnswerBtn.addEventListener('click', function () {
-    answerBlock.classList.remove('hidden');
-    showAnswerBtn.classList.add('hidden');
-  });
-
-  // Voices
-  const voiceSel = document.getElementById('voice');
-  const speedSel = document.getElementById('speed');
-  const voiceWarn = document.getElementById('voice-warn');
-  let voices = [];
-
-  function loadVoices() {
-    if (!('speechSynthesis' in window)) {
-      voiceWarn.classList.remove('hidden');
-      voiceWarn.textContent = '提示：本设备不支持 speechSynthesis 语音合成，正文与按钮仍可正常查看。';
-      return;
-    }
-    const raw = window.speechSynthesis.getVoices() || [];
-    let en = raw.filter(function (v) { return /^en[-_]/i.test(v.lang) || /english/i.test(v.name); });
-    if (en.length === 0) en = raw.filter(function (v) { return /en/i.test(v.lang); });
-    voices = en;
-    voiceSel.innerHTML = '';
-    if (voices.length === 0) {
-      voiceWarn.classList.remove('hidden');
-      voiceWarn.textContent = '提示：本设备暂无可用英语音色（系统语音正在加载或未安装英语 TTS），正文与按钮仍可正常查看，可换设备或浏览器再试语音。';
-      const opt = document.createElement('option');
-      opt.textContent = '暂无可用音色';
-      voiceSel.appendChild(opt);
-      return;
-    }
-    voiceWarn.classList.add('hidden');
-    voices.forEach(function (v, idx) {
-      const opt = document.createElement('option');
-      opt.value = String(idx);
-      opt.textContent = v.name + ' (' + v.lang + ')';
-      voiceSel.appendChild(opt);
-    });
-    const usIdx = voices.findIndex(function (v) { return /en[-_]US/i.test(v.lang); });
-    if (usIdx >= 0) voiceSel.value = String(usIdx);
-  }
-  if ('speechSynthesis' in window) {
-    loadVoices();
-    window.speechSynthesis.onvoiceschanged = loadVoices;
-  } else {
-    loadVoices();
-  }
-
-  function pickVoice() {
-    const idx = parseInt(voiceSel.value, 10);
-    if (!isNaN(idx) && voices[idx]) return voices[idx];
-    return voices.length > 0 ? voices[0] : null;
-  }
-
-  function clearPlaying() {
-    document.querySelectorAll('.play-line.playing').forEach(function (b) { b.classList.remove('playing'); });
-  }
-
-  let playToken = 0;
-  function speak(text, btn) {
-    if (!('speechSynthesis' in window) || !text) return;
-    try { window.speechSynthesis.cancel(); } catch (e) {}
-    clearPlaying();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = parseFloat(speedSel.value) || 1;
-    const v = pickVoice();
-    if (v) u.voice = v;
-    u.lang = (v && v.lang) || 'en-US';
-    const myToken = ++playToken;
-    if (btn) {
-      u.onstart = function () { if (myToken === playToken) btn.classList.add('playing'); };
-      u.onend = function () { if (myToken === playToken) btn.classList.remove('playing'); };
-      u.onerror = function () { if (myToken === playToken) btn.classList.remove('playing'); };
-    }
-    window.speechSynthesis.speak(u);
-  }
-
-  function playLineById(id) {
-    let text, btn;
-    if (id === 'answer') {
-      text = answerLine.en;
-      btn = document.querySelector('#answer-block .play-line');
-    } else {
-      const item = dialogue.filter(function (d) { return d.id === id; })[0];
-      if (!item) return;
-      text = item.en;
-      btn = document.querySelector('.play-line[data-line-id="' + id + '"]');
-    }
-    speak(text, btn);
-  }
-
-  document.body.addEventListener('click', function (e) {
-    const t = e.target;
-    if (t && t.classList && t.classList.contains('play-line')) {
-      const id = t.dataset.lineId;
-      if (!id) return;
-      if (id === 'answer' && answerBlock.classList.contains('hidden')) return;
-      playLineById(id);
-    }
-  });
-
-  document.getElementById('play-all').addEventListener('click', function () {
-    if (!('speechSynthesis' in window)) {
-      voiceWarn.classList.remove('hidden');
-      voiceWarn.textContent = '提示：本设备不支持语音合成，无法播放，文字课程仍可使用。';
-      return;
-    }
-    try { window.speechSynthesis.cancel(); } catch (e) {}
-    clearPlaying();
-    const myToken = ++playToken;
-    const rate = parseFloat(speedSel.value) || 1;
-    const v = pickVoice();
-    let i = 0;
-    function nextOne() {
-      if (myToken !== playToken || i >= dialogue.length) return;
-      const u = new SpeechSynthesisUtterance(dialogue[i].en);
-      u.rate = rate;
-      if (v) u.voice = v;
-      u.lang = (v && v.lang) || 'en-US';
-      const btn = document.querySelector('.play-line[data-line-id="' + dialogue[i].id + '"]');
-      u.onstart = function () { if (myToken === playToken && btn) btn.classList.add('playing'); };
-      u.onend = function () {
-        if (myToken !== playToken) return;
-        if (btn) btn.classList.remove('playing');
-        i++;
-        nextOne();
-      };
-      u.onerror = function () {
-        if (myToken !== playToken) return;
-        if (btn) btn.classList.remove('playing');
-        i++;
-        nextOne();
-      };
-      window.speechSynthesis.speak(u);
-    }
-    nextOne();
-  });
-
-  document.getElementById('stop').addEventListener('click', function () {
-    playToken++;
-    try { window.speechSynthesis.cancel(); } catch (e) {}
-    clearPlaying();
-  });
-
-  // Blind listen mode
-  const blindBtn = document.getElementById('blind-listen');
-  const exitBlindBtn = document.getElementById('exit-blind');
-  let preBlindDialogueCn = false;
-  let preBlindSetupCn = false;
-
-  blindBtn.addEventListener('click', function () {
-    playToken++;
-    try { window.speechSynthesis.cancel(); } catch (e) {}
-    clearPlaying();
-    preBlindDialogueCn = dialogueCnVisible;
-    preBlindSetupCn = setupCnVisible;
-    if (dialogueCnVisible) {
-      dialogueCnVisible = false;
-      document.querySelectorAll('.cn-line').forEach(function (el) { el.classList.add('hidden'); });
-      document.querySelectorAll('.cn-line-btn').forEach(function (b) { b.classList.remove('on'); });
-      dialogueBtn.textContent = '显示中文';
-    }
-    if (setupCnVisible) {
-      setupCnVisible = false;
-      document.querySelectorAll('.setup .cn').forEach(function (el) { el.classList.add('hidden'); });
-      setupBtn.textContent = '显示中文';
-    }
-    document.body.classList.add('blind');
-    blindBtn.classList.add('hidden');
-    exitBlindBtn.classList.remove('hidden');
-  });
-
-  exitBlindBtn.addEventListener('click', function () {
-    document.body.classList.remove('blind');
-    blindBtn.classList.remove('hidden');
-    exitBlindBtn.classList.add('hidden');
-    if (preBlindDialogueCn) {
-      dialogueCnVisible = true;
-      document.querySelectorAll('.cn-line').forEach(function (el) { el.classList.remove('hidden'); });
-      document.querySelectorAll('.cn-line-btn').forEach(function (b) { b.classList.add('on'); });
-      dialogueBtn.textContent = '隐藏中文';
-    }
-    if (preBlindSetupCn) {
-      setupCnVisible = true;
-      document.querySelectorAll('.setup .cn').forEach(function (el) { el.classList.remove('hidden'); });
-      setupBtn.textContent = '隐藏中文';
-    }
-    // 参考答案保持独立隐藏，不随退出盲听显示
-  });
-
-})();
-</script>
+        <div class="lesson-progress-actions"><button type="button" data-mark-complete aria-pressed="false">标记本课完成</button></div>
       </div>
       <nav class="content-pagination" aria-label="课程导航"><a href="/english/turning-down-a-collaboration-offer/">← 更新课程</a><a href="/english/">全部课程</a><a href="/english/walking-an-overseas-client-through-your-tool/">较早课程 →</a></nav>
     </div>
@@ -498,5 +219,7 @@
     </ul>
   </div>
 </footer>
+  <script id="english-player-data" type="application/json">{"id":"english-2026-09-18","revision":"44dd91afd160d8f8","sentences":[{"id":"l1","speaker":"Marco","text":"Hey, I just pushed the first cut. It runs about six minutes and twenty seconds. Send me everything you want changed at once — I would rather do one pass than five small ones.","translation":"嗨，我刚把第一版传上去了。大概六分二十秒。你想改的一次全发我——我宁愿一次改完，也不想分五小次改。"},{"id":"l2","speaker":"You","text":"Thanks, watching it now. Quick heads-up before the notes: the launch moved up to Friday, not next week. Is tonight still open for you?","translation":"谢谢，我正在看。说意见之前先提醒你一句：发布时间提前到周五了，不是下周。你今晚还有档期吗？"},{"id":"l3","speaker":"Marco","text":"Thanks for the heads-up. Tonight works — I have another job booked all day Friday, so tonight is my only window. Send me timecodes and I will send it back the same night.","translation":"谢谢提醒。今晚可以——我周五整整一天都排了另一个活，所以今晚是我唯一的窗口。把时间码发我，我当晚就传回给你。"},{"id":"l4","speaker":"You","text":"Good. Three things. First, can you tighten up the first forty seconds? It takes too long to get to the tool, and I think people will click away.","translation":"好。三件事。第一，能把前四十秒收紧一点吗？进到工具画面的时间太长了，我觉得人会划走。"},{"id":"l5","speaker":"Marco","text":"Sure. Do you want me to cut the intro, or just make it faster?","translation":"行。你是要我把开头剪掉，还是只加快一点？"},{"id":"l6","speaker":"You","text":"Faster. I still want the two lines about the problem — just tighten up the space between them.","translation":"加快就好。那两句讲问题的我还是想要——只要把它们中间的空档收紧就行。"},{"id":"l7","speaker":"Marco","text":"Got it. What is the second thing?","translation":"明白了。第二件是什么？"},{"id":"l8","speaker":"You","text":"The dashboard shots. We shipped a new version this morning, so those screens are already out of date. Can we swap out the four clips after the first demo? I will send you a fresh recording within the hour.","translation":"仪表盘的镜头。我们今天早上发了新版本，所以那些界面已经过时了。能不能把第一段演示之后的四个片段换掉？我一小时内给你发一段新的录屏。"},{"id":"l9","speaker":"Marco","text":"No problem. Anything else?","translation":"没问题。还有别的吗？"},{"id":"l10","speaker":"You","text":"Last one — let's hold off on the end animation. I am not sure the new logo is final yet, and I do not want you to do that part twice. The captions are already done on my end, so you can just drop them in.","translation":"最后一件事——结尾动画先别做。我不确定新 logo 定下来了没有，不想让你那部分做两遍。字幕我这边已经做好了，你直接放进去就行。"},{"id":"l11","speaker":"Marco","text":"That all makes sense. So: tighten up the intro, swap out the four clips, and hold off on the end. The audio sounds clean on my end, so I will leave it alone. I will send the new cut back tonight.","translation":"这些都说得通。那就是：收紧开头、换掉那四个片段、结尾先不做。音频我这边听着是干净的，那我就不动它。今晚我把新版传回给你。"},{"id":"l12","speaker":"You","text":"Perfect. I will send the new recording and the caption files within the hour. And if anything changes on my side, I will tell you before you start — I do not want you to do the same work twice.","translation":"太好了。我一小时内把新录屏和字幕文件发你。如果我这边有任何变化，我会在你动手之前告诉你——我不想让你把同一个活做两遍。"}]}</script>
+  <script src="/site-assets/speech-player.js" defer></script>
 </body>
 </html>

@@ -2833,9 +2833,10 @@ body.page-home::before {
 }
 
 .page-home .bento-grid {
-  height: max(720px, calc(100svh - 48px));
+  height: auto;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: repeat(8, minmax(86px, 1fr));
+  /* Four content rows must expand with their cards instead of clipping them. */
+  grid-template-rows: repeat(4, auto);
   grid-auto-rows: auto;
   gap: 16px;
 }
@@ -3244,6 +3245,7 @@ body.page-home::before {
 .page-home .globe-canvas {
   width: 88px;
   height: 88px;
+  min-height: 0;
 }
 
 /* 地球文案区 */
@@ -3770,6 +3772,19 @@ body.page-home::before {
   font-size: 13px;
   margin-top: 8px;
 }
+
+.lesson-courseware button:not(.primary) {
+  color: inherit;
+  background: var(--surface-elevated, #222);
+  border: 1px solid var(--border, #444);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.lesson-progress-actions { margin-top: 20px; }
+.lesson-courseware [hidden] { display: none !important; }
 
 body.blind .lesson-courseware .expressions,
 body.blind .lesson-courseware .patterns,

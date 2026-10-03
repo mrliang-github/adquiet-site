@@ -310,7 +310,7 @@ test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", asyn
   assert.match(personalCss, /color-scheme:\s*light/u);
   assert.match(personalCss, /--paper:\s*#f3f0e8/u);
   assert.match(personalCss, /html\[data-theme="home"\]/u);
-  assert.match(personalCss, /grid-template-rows:\s*repeat\(8,/u);
+  assert.match(personalCss, /grid-template-rows:\s*repeat\(4, auto\)/u);
   assert.match(personalCss, /grid-column:\s*1\s*\/\s*span\s*3/u);
   assert.match(personalCss, /overflow-x:\s*hidden/u);
   assert.match(personalCss, /prefers-reduced-motion/u);

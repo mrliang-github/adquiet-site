@@ -1,8 +1,8 @@
 import { copyFile, cp, mkdir, readdir, readFile, realpath, rm, writeFile } from "node:fs/promises";
-import { existsSync, readFileSync } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
+import { sanitizeContentBody } from "./content-html.mjs";
 import { CONTENT_KINDS, validateCollection } from "./content-schema.mjs";
 import {
   defaultPublicContentDirectory,
@@ -632,72 +632,6 @@ function sourceList(report) {
   return `<ol class="source-list">${report.sources.map((source) => `<li><span>${escapeHtml(source.title)}</span>${source.url ? `<a href="${escapeAttribute(source.url)}" target="_blank" rel="noopener noreferrer">打开来源</a>` : '<em>没有公开链接</em>'}${source.publishedAt ? `<time datetime="${source.publishedAt}">${dateLabel(source.publishedAt)}</time>` : ""}</li>`).join("")}</ol>`;
 }
 
-// 同步读取并安全脱敏本地风向标日报的完整内容（含 AI 商业研判、主题分布大盘、脱敏后的实战线索清单）
-function readRawDailyElements(editionDate) {
-  // 本地风向标原始 HTML 文件的绝对路径
-  const sourcePath = `/Users/mrliang/Projects/项目/生财有术/风向标/风向标日报_${editionDate}.html`;
-  // 若本地不存在对应的源 HTML 文件，则返回 null 以便优雅回退
-  if (!existsSync(sourcePath)) return null;
-
-  try {
-    // 读取原始 HTML 文件文本内容
-    const raw = readFileSync(sourcePath, "utf8");
-
-    // 1. 提取 AI 深度商业研判与趋势透视（优先匹配 #ai-slot）
-    const aiSlotMatch = raw.match(/<div id="ai-slot"[^>]*>([\s\S]*?)<\/div>\s*<\/div>/);
-    // 初始化 AI 研判文本
-    let aiContent = "";
-    // 如果匹配到了 ai-slot 内容
-    if (aiSlotMatch) {
-      // 提取内部内容并去除首尾空白
-      aiContent = aiSlotMatch[1].trim();
-    } else {
-      // 备选兜底正则匹配 #ai-view
-      const aiViewMatch = raw.match(/<div id="ai-view">([\s\S]*?)<\/div>\s*(?:<table|<div class="iv-table|<div class="item")/);
-      // 如果匹配到了 ai-view
-      if (aiViewMatch) {
-        // 去除内部的标题标签，保留核心分析内容
-        aiContent = aiViewMatch[1].replace(/<h3[^>]*>AI 判断<\/h3>/, "").trim();
-      }
-    }
-
-    // 2. 提取主题分布大盘表格（包含赛道分类、条数与占比）
-    const tableMatch = raw.match(/<table class="iv-table">([\s\S]*?)<\/table>/);
-    // 组装完整的表格 HTML 标签
-    const tableHtml = tableMatch ? `<table class="iv-table">${tableMatch[1].trim()}</table>` : "";
-
-    // 3. 提取所有具体商业线索卡片节点
-    const rawItems = raw.match(/<div class="item">[\s\S]*?<\/div>(?=\s*<div class="item"|\s*<footer>|\s*<\/div>\s*<\/body>)/g) || [];
-
-    // 对每条商业线索进行安全脱敏与版权保护处理
-    const sanitizedItems = rawItems.map((itemHtml) => {
-      // 复制待清洗的 HTML 字符串
-      let clean = itemHtml;
-      // 彻底剥离原帖逐字稿 details，保护星球私域付费版权
-      clean = clean.replace(/<details class="orig">[\s\S]*?<\/details>/g, "");
-      // 剥离 wx.zsxq.com 外部链接，防止私域外跳并仅保留文本标题
-      clean = clean.replace(/<a class="srclink"[^>]*>([\s\S]*?)<\/a>/g, "$1");
-      // 剥离所有可能残留的知识星球域名链接
-      clean = clean.replace(/<a\s+[^>]*href="https:\/\/wx\.zsxq\.com[^"]*"[^>]*>([\s\S]*?)<\/a>/g, "$1");
-      // 脱敏圈友真实昵称，统一替换为中性化标签「实战线索」
-      clean = clean.replace(/<div class="meta"><span class="au">[^<]*<\/span>/g, `<div class="meta"><span class="au">实战线索</span>`);
-      // 返回清洗后的卡片字符串
-      return clean.trim();
-    });
-
-    // 返回结构化解析后的各版块内容
-    return {
-      aiContent,
-      tableHtml,
-      items: sanitizedItems,
-      totalCount: sanitizedItems.length
-    };
-  } catch {
-    // 读取或解析异常时返回 null 进行安全回退
-    return null;
-  }
-}
-
 function dailyDetailPage(report, reports) {
   // 查找当前报告在全部报告中的位置索引
   const index = reports.findIndex((item) => item.id === report.id);
@@ -713,14 +647,8 @@ function dailyDetailPage(report, reports) {
       ? `<section class="community-recommendation"><h2>信息源与社群探讨</h2><p>本期趋势观察与案例线索，主要整理并脱敏自「生财有术」社群内部的实战复盘与商业讨论。如果你也是正在探索商业变现、AI 工具或出海副业的独立创作者，欢迎通过我的 <a href="${escapeAttribute(site.shengcaiInviteUrl)}" target="_blank" rel="noopener noreferrer">专属邀请通道</a> 了解社群详情。</p></section>`
       : "";
 
-  // 尝试读取本地自动化生成的完整高价值风向标内容（含 AI 研判、主题分布表与脱敏后的具体商业线索）
-  const rawDaily = (!previewMode && !report.preview) ? readRawDailyElements(report.editionDate) : null;
-
-  // 渲染主体内容区域：优先使用高价值完整研报，无源文件时优雅回退为基础三段式
-  const contentBody = rawDaily
-    ? `<section class="daily-ai-view"><h2>AI 商业研判与趋势透视</h2><div class="daily-ai-content">${rawDaily.aiContent}</div></section>
-${rawDaily.tableHtml ? `<section class="daily-table-section"><h2>主题分布大盘</h2><div class="daily-table-wrapper">${rawDaily.tableHtml}</div></section>` : ""}
-${rawDaily.items.length ? `<section class="daily-items-section"><h2>本日商业线索清单（共 ${rawDaily.items.length} 条 · 已脱敏）</h2><div class="daily-items-list">${rawDaily.items.join("\n")}</div></section>` : ""}`
+  const contentBody = report.bodyHtml
+    ? sanitizeContentBody(report.bodyHtml, "daily")
     : `<section><h2>本期概览</h2><p>${escapeHtml(report.overview)}</p></section><section><h2>重点发现</h2><ol class="finding-list">${report.discoveries.map((discovery) => `<li><h3>${escapeHtml(discovery.title)}</h3><p><strong>发生了什么：</strong>${escapeHtml(discovery.fact)}</p><p><strong>我的判断：</strong>${escapeHtml(discovery.judgement)}</p><p class="source-references">来源：${discovery.sourceIds.map((id) => escapeHtml(sourcesById.get(id)?.title ?? id)).join("、")}</p></li>`).join("")}</ol></section><section><h2>下一步</h2><p>${escapeHtml(report.nextStep)}</p></section><section><h2>可公开的来源</h2>${sourceList(report)}</section>`;
 
   // 返回完整的 HTML 页面结构
@@ -750,31 +678,18 @@ function englishIndexPage(lessons) {
   });
 }
 
-// 同步读取本地自动化课件的完整 HTML 内容
-function readRawLessonBody(editionDate) {
-  const sourcePath = `/Users/mrliang/WorkBuddy/automation-2026-09-01-12-53-24/outputs/english-lesson-${editionDate}.html`;
-  if (!existsSync(sourcePath)) return null;
-  try {
-    const raw = readFileSync(sourcePath, "utf8");
-    const bodyMatch = raw.match(/<body>([\s\S]*?)<\/body>/u);
-    if (!bodyMatch) return null;
-    return bodyMatch[1].trim();
-  } catch {
-    return null;
-  }
-}
-
 function englishDetailPage(lesson, lessons) {
   const index = lessons.findIndex((item) => item.id === lesson.id);
   const newer = lessons[index - 1];
   const older = lessons[index + 1];
   const playerData = escapeJsonForHtml({ id: lesson.id, revision: lesson.revision ?? "preview", sentences: lesson.sentences });
 
-  // 尝试读取源自动化生成的完整课件内容（含 The Setup、5个表达深度用法、实用句型 Patterns、盲听复习与完整点读）
-  const rawCourseware = (!previewMode && !lesson.preview) ? readRawLessonBody(lesson.editionDate) : null;
-
-  // 如果存在原生完整课件，采用 100% 完整原味嵌入模式，并套上统一的科技暗黑容器与公共导航
-  if (rawCourseware) {
+  if (lesson.bodyHtml) {
+    const dialogue = lesson.sentences.map((sentence) => `<li class="line english-sentence" data-sentence-id="${escapeAttribute(sentence.id)}">
+      <div class="line-head"><span class="speaker">${escapeHtml(sentence.speaker)}</span><button type="button" class="play-line" data-play-sentence="${escapeAttribute(sentence.id)}" aria-label="点读第 ${escapeAttribute(sentence.id)} 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">${escapeHtml(sentence.text)}</p><p class="cn-line" data-translation>${escapeHtml(sentence.translation)}</p></li>`).join("");
+    const courseware = sanitizeContentBody(lesson.bodyHtml, "english")
+      .replace(/<ol\b(?=[^>]*id="dialogue-list")[^>]*>[\s\S]*?<\/ol>/u, `<ol class="dialogue" id="dialogue-list">${dialogue}</ol>`);
     const paginationNav = `<nav class="content-pagination" aria-label="课程导航">${newer ? `<a href="/english/${newer.slug}/">← 更新课程</a>` : "<span></span>"}<a href="/english/">全部课程</a>${older ? `<a href="/english/${older.slug}/">较早课程 →</a>` : "<span></span>"}</nav>`;
 
     return documentPage({
@@ -782,13 +697,16 @@ function englishDetailPage(lesson, lessons) {
       title: lesson.title,
       description: lesson.summary,
       currentPath: "/english/",
+      scripts: ["/site-assets/speech-player.js"],
+      scriptData: `<script id="english-player-data" type="application/json">${playerData}</script>`,
       robots: previewMode || lesson.preview ? "noindex, nofollow" : undefined,
       body: `<main id="content" class="site-main">
   <div class="reading-shell">
-    <div class="lesson-courseware-container">
+    <div class="lesson-courseware-container" data-english-player data-translations-default="hidden">
       <a class="article-back" href="/english/">← 返回英语全部课程</a>
       <div class="lesson-courseware">
-        ${rawCourseware}
+        ${courseware}
+        <div class="lesson-progress-actions"><button type="button" data-mark-complete aria-pressed="false">标记本课完成</button></div>
       </div>
       ${paginationNav}
     </div>
@@ -797,7 +715,7 @@ function englishDetailPage(lesson, lessons) {
     });
   }
 
-  // 兜底模式（用于 preview 测试或无源文件环境，确保 100% 满足自动化测试的所有硬性断言）
+  // Structured-only drafts and preview fixtures use the same player as full courseware.
   return documentPage({
     pathname: `/english/${lesson.slug}/`,
     title: lesson.title,
@@ -855,7 +773,7 @@ async function copyGlobeAssets() {
     ["node_modules/world-atlas/countries-110m.json", "site-assets/world-110m.json"]
   ];
   await Promise.all(assets.map(async ([source, destination]) => {
-    const output = resolve(destination);
+    const output = outputPath(destination);
     await mkdir(dirname(output), { recursive: true });
     await copyFile(resolve(source), output);
   }));

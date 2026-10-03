@@ -28,7 +28,7 @@
 </header>
   <main id="content" class="site-main">
   <div class="reading-shell">
-    <div class="lesson-courseware-container">
+    <div class="lesson-courseware-container" data-english-player data-translations-default="hidden">
       <a class="article-back" href="/english/">← 返回英语全部课程</a>
       <div class="lesson-courseware">
         <header>
@@ -61,7 +61,7 @@
       <p class="cn hidden">Priya 冷静直接。她说她在更新日志里看到过一句关于定价的说明，通话一开口就是提问，没有寒暄。那份新员工的文档已经开在她屏幕上。</p>
     </div>
   </div>
-  <button id="toggle-setup-cn" style="margin-top:12px;font-size:12.5px;padding:6px 10px;border:1px solid var(--line);border-radius:5px;background:#fff;cursor:pointer;color:var(--ink-soft);font-family:inherit;">显示中文</button>
+  <button id="toggle-setup-cn" data-toggle-setup type="button">显示中文</button>
 </section>
 
 <section class="hint">
@@ -72,10 +72,10 @@
 <section class="dialogue-section">
   <h2>Dialogue</h2>
   <div class="controls">
-    <button class="primary play-all" id="play-all">▶ 播放全部</button>
-    <button class="stop" id="stop">■ 停止</button>
+    <button class="primary play-all" id="play-all" data-play-all type="button">▶ 播放全部</button>
+    <button class="stop" id="stop" data-stop type="button">■ 停止</button>
     <label class="speed">Speed
-      <select id="speed">
+      <select id="speed" data-playback-rate>
         <option value="0.75">很慢 0.75x</option>
         <option value="0.85">慢 0.85x</option>
         <option value="1" selected>正常 1.0x</option>
@@ -83,15 +83,39 @@
       </select>
     </label>
     <label class="voice">Voice
-      <select id="voice"><option value="">(加载中…)</option></select>
+      <select id="voice" data-voice><option>(加载中…)</option></select>
     </label>
-    <button class="toggle-dialogue" id="toggle-dialogue-cn">显示中文</button>
-    <button id="blind-listen" style="background:#fff;color:var(--accent);border-color:var(--accent);">🎧 盲听复习</button>
-    <button id="exit-blind" class="hidden" style="background:#fff;color:var(--ink-soft);">退出盲听</button>
+    <button class="toggle-dialogue" id="toggle-dialogue-cn" data-toggle-translations type="button">显示中文</button>
+    <button id="blind-listen" data-blind-listen type="button">🎧 盲听复习</button>
+    <button id="exit-blind" class="hidden" data-exit-blind type="button">退出盲听</button>
   </div>
-  <p class="voice-warn hidden" id="voice-warn">提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>
-  <p style="font-size:12.5px;color:var(--ink-faint);margin:0 0 12px;">播放发闷或有电流感时：先在下拉里换一个带 ★ 的音色；如果用蓝牙耳机，让耳机回到音乐／立体声模式——通话模式会明显降低音质。</p>
-  <ol class="dialogue" id="dialogue-list"></ol>
+  <p class="voice-warn hidden" id="voice-warn" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>
+  <p>播放发闷或有电流感时：先在下拉里换一个带 ★ 的音色；如果用蓝牙耳机，让耳机回到音乐／立体声模式——通话模式会明显降低音质。</p>
+  <ol class="dialogue" id="dialogue-list"><li class="line english-sentence" data-sentence-id="l1">
+      <div class="line-head"><span class="speaker">Priya</span><button type="button" class="play-line" data-play-sentence="l1" aria-label="点读第 l1 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Thanks for setting this up. I saw a note about pricing in the changelog last week, so I guessed this call was about that.</p><p class="cn-line" data-translation>谢谢你约这个电话。我上周在更新日志里看到一句关于定价的说明，所以我猜这通电话是说这个。</p></li><li class="line english-sentence" data-sentence-id="l2">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l2" aria-label="点读第 l2 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">You guessed right. I wanted to run through it with you before the email goes out to everyone.</p><p class="cn-line" data-translation>你猜对了。我想在邮件发给所有人之前，先跟你把这件事过一遍。</p></li><li class="line english-sentence" data-sentence-id="l3">
+      <div class="line-head"><span class="speaker">Priya</span><button type="button" class="play-line" data-play-sentence="l3" aria-label="点读第 l3 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Okay. So how much is it going up, and when?</p><p class="cn-line" data-translation>好。那涨多少，什么时候开始？</p></li><li class="line english-sentence" data-sentence-id="l4">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l4" aria-label="点读第 l4 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">I wanted to tell you first, since you have been with us the longest: starting October first, we are going to bump up the monthly plan, from nineteen dollars to twenty-nine dollars. I know that is a big jump.</p><p class="cn-line" data-translation>我想最先告诉你，因为你用我们的时间最久：十月一日起，月付方案要往上调，从十九美元调到二十九美元。我知道这个跳得不少。</p></li><li class="line english-sentence" data-sentence-id="l5">
+      <div class="line-head"><span class="speaker">Priya</span><button type="button" class="play-line" data-play-sentence="l5" aria-label="点读第 l5 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">That is a big jump. Wait — does that mean my bill changes too? My team is five people now.</p><p class="cn-line" data-translation>确实跳得不少。等等——那我的账单也要变吗？我团队现在五个人。</p></li><li class="line english-sentence" data-sentence-id="l6">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l6" aria-label="点读第 l6 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">No, and here is what does not change: you are grandfathered in. Your five seats stay at nineteen dollars, for as long as you keep the plan.</p><p class="cn-line" data-translation>不变。不变的是这些：你属于老用户保留旧价。你那五个席位一直是十九美元，只要你不取消这个方案。</p></li><li class="line english-sentence" data-sentence-id="l7">
+      <div class="line-head"><span class="speaker">Priya</span><button type="button" class="play-line" data-play-sentence="l7" aria-label="点读第 l7 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Okay, that is a relief. But what about the two seats I wanted to add next month — for the new designer and the intern?</p><p class="cn-line" data-translation>好，那我放心了。但我下个月想加的那两个席位呢——给新来的设计师和那个实习生的？</p></li><li class="line english-sentence" data-sentence-id="l8">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l8" aria-label="点读第 l8 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">That is the part I really wanted to run through with you. The new price is specific to new seats. So your five stay the same, and any seat you add after October first is twenty-nine dollars.</p><p class="cn-line" data-translation>这正是我最想跟你过一遍的部分。新价格只针对新增的席位。所以你原来那五个不变，十月一日之后加的任何席位都是二十九美元。</p></li><li class="line english-sentence" data-sentence-id="l9">
+      <div class="line-head"><span class="speaker">Priya</span><button type="button" class="play-line" data-play-sentence="l9" aria-label="点读第 l9 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">So if I add them this week, it is still nineteen? That changes what I do — I would rather not rush two hires just to save twenty dollars a month.</p><p class="cn-line" data-translation>那我这周加的话，还是十九吗？这会改变我的做法——我不想为了每月省二十美元就把两个招聘赶着做完。</p></li><li class="line english-sentence" data-sentence-id="l10">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l10" aria-label="点读第 l10 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Yes. Anything you add before October first keeps the old price. You do not have to decide today, but if you want to lock in the old price for those two seats, you have about two weeks.</p><p class="cn-line" data-translation>是的。十月一日之前加的任何席位都按旧价。你今天不用决定，但如果你想为那两个席位锁定旧价，大概还有两周时间。</p></li><li class="line english-sentence" data-sentence-id="l11">
+      <div class="line-head"><span class="speaker">Priya</span><button type="button" class="play-line" data-play-sentence="l11" aria-label="点读第 l11 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Two weeks. That is tight, but at least it is clear. Can I ask why you are doing it now? The tool feels the same to me as it did in March.</p><p class="cn-line" data-translation>两周。是有点紧，但至少说得清楚。我能问一下为什么现在涨吗？对我来说，这个工具跟三月份没什么两样。</p></li><li class="line english-sentence" data-sentence-id="l12">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l12" aria-label="点读第 l12 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Fair question. The AI features cost me more every month now, and I cannot keep the same price and keep them running. I do not love the timing either, but I would rather say it to you straight than raise it quietly. I will send you the two dates in writing today. And keep me posted about the two new seats.</p><p class="cn-line" data-translation>问得合理。现在 AI 功能每个月的成本都在涨，我没法既保持原价又把这些功能继续跑下去。这个时间点我也不喜欢，但我宁愿当面跟你说明白，也不想悄悄涨价。我今天会把那两个日期写成文字发给你。那两个新席位的事，有进展告诉我。</p></li></ol>
 </section>
 
 <section class="expressions">
@@ -166,11 +190,11 @@
     <p><strong>Situation:</strong> The call is almost over. Priya thanks you for telling her directly, then asks one more thing. Her business partner is opening a small studio of her own next month, and Priya can tell her to sign up this week. Same tool, same plan — just a different studio.</p>
     <p><strong>They say:</strong> "One more thing — my partner is starting her own studio next month. If I tell her to sign up this week, can she get my old price too?"</p>
     <p><strong>Your turn:</strong> Answer her. Three things: say what the old price covers, say what stays the same for her, and offer one thing you can actually do for her partner. Say it out loud first. (You can start with: <em>"Thanks for asking — let me run through that part too:"</em>)</p>
-    <button class="reveal" id="show-answer">显示参考答案</button>
+    <button class="reveal" id="show-answer" data-show-answer type="button">显示参考答案</button>
     <div class="answer hidden" id="answer-block">
       <div class="line-head">
         <span class="speaker you">You</span>
-        <button class="play-line" data-line-id="answer">🔊</button>
+        <button class="play-line" data-line-id="answer" type="button" data-play-sentence="answer" aria-label="点读参考答案">🔊</button>
       </div>
       <p class="en-line" data-line-id="answer">Thanks for asking — let me run through that part too. The old price is specific to your five seats, so a new studio would be on the new price. What I can do is send you a trial link today, so your partner can start now and lock in the old price for her first month.</p>
       <p><em>思路：</em>先承接对方的善意（她是你最早的付费用户，直接说"不行"太硬），再用 specific to 把范围划清——保的是"她那五个席位"，不是"她认识的人"。最后用 lock in 给一条她今天就能动的路。关键是别因为对方是老用户就把 to 越扩越大，那才是后面真正的麻烦。</p>
@@ -180,327 +204,7 @@
 </section>
 
 <p class="footer-tip"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>
-
-<script>
-(function () {
-  'use strict';
-
-  const dialogue = [
-    { id: 'L1', speaker: 'Priya', en: "Thanks for setting this up. I saw a note about pricing in the changelog last week, so I guessed this call was about that.", cn: "谢谢你约这个电话。我上周在更新日志里看到一句关于定价的说明，所以我猜这通电话是说这个。" },
-    { id: 'L2', speaker: 'You', en: "You guessed right. I wanted to run through it with you before the email goes out to everyone.", cn: "你猜对了。我想在邮件发给所有人之前，先跟你把这件事过一遍。" },
-    { id: 'L3', speaker: 'Priya', en: "Okay. So how much is it going up, and when?", cn: "好。那涨多少，什么时候开始？" },
-    { id: 'L4', speaker: 'You', en: "I wanted to tell you first, since you have been with us the longest: starting October first, we are going to bump up the monthly plan, from nineteen dollars to twenty-nine dollars. I know that is a big jump.", cn: "我想最先告诉你，因为你用我们的时间最久：十月一日起，月付方案要往上调，从十九美元调到二十九美元。我知道这个跳得不少。" },
-    { id: 'L5', speaker: 'Priya', en: "That is a big jump. Wait — does that mean my bill changes too? My team is five people now.", cn: "确实跳得不少。等等——那我的账单也要变吗？我团队现在五个人。" },
-    { id: 'L6', speaker: 'You', en: "No, and here is what does not change: you are grandfathered in. Your five seats stay at nineteen dollars, for as long as you keep the plan.", cn: "不变。不变的是这些：你属于老用户保留旧价。你那五个席位一直是十九美元，只要你不取消这个方案。" },
-    { id: 'L7', speaker: 'Priya', en: "Okay, that is a relief. But what about the two seats I wanted to add next month — for the new designer and the intern?", cn: "好，那我放心了。但我下个月想加的那两个席位呢——给新来的设计师和那个实习生的？" },
-    { id: 'L8', speaker: 'You', en: "That is the part I really wanted to run through with you. The new price is specific to new seats. So your five stay the same, and any seat you add after October first is twenty-nine dollars.", cn: "这正是我最想跟你过一遍的部分。新价格只针对新增的席位。所以你原来那五个不变，十月一日之后加的任何席位都是二十九美元。" },
-    { id: 'L9', speaker: 'Priya', en: "So if I add them this week, it is still nineteen? That changes what I do — I would rather not rush two hires just to save twenty dollars a month.", cn: "那我这周加的话，还是十九吗？这会改变我的做法——我不想为了每月省二十美元就把两个招聘赶着做完。" },
-    { id: 'L10', speaker: 'You', en: "Yes. Anything you add before October first keeps the old price. You do not have to decide today, but if you want to lock in the old price for those two seats, you have about two weeks.", cn: "是的。十月一日之前加的任何席位都按旧价。你今天不用决定，但如果你想为那两个席位锁定旧价，大概还有两周时间。" },
-    { id: 'L11', speaker: 'Priya', en: "Two weeks. That is tight, but at least it is clear. Can I ask why you are doing it now? The tool feels the same to me as it did in March.", cn: "两周。是有点紧，但至少说得清楚。我能问一下为什么现在涨吗？对我来说，这个工具跟三月份没什么两样。" },
-    { id: 'L12', speaker: 'You', en: "Fair question. The AI features cost me more every month now, and I cannot keep the same price and keep them running. I do not love the timing either, but I would rather say it to you straight than raise it quietly. I will send you the two dates in writing today. And keep me posted about the two new seats.", cn: "问得合理。现在 AI 功能每个月的成本都在涨，我没法既保持原价又把这些功能继续跑下去。这个时间点我也不喜欢，但我宁愿当面跟你说明白，也不想悄悄涨价。我今天会把那两个日期写成文字发给你。那两个新席位的事，有进展告诉我。" }
-  ];
-
-  const answerLine = { id: 'answer', en: "Thanks for asking — let me run through that part too. The old price is specific to your five seats, so a new studio would be on the new price. What I can do is send you a trial link today, so your partner can start now and lock in the old price for her first month." };
-
-  const list = document.getElementById('dialogue-list');
-
-  dialogue.forEach(function (item) {
-    const li = document.createElement('li');
-    li.className = 'line';
-    li.dataset.lineId = item.id;
-
-    const head = document.createElement('div');
-    head.className = 'line-head';
-
-    const sp = document.createElement('span');
-    sp.className = 'speaker ' + (item.speaker.toLowerCase() === 'you' ? 'you' : 'guest');
-    sp.textContent = item.speaker;
-    head.appendChild(sp);
-
-    const btns = document.createElement('div');
-    btns.className = 'line-btns';
-
-    const cnBtn = document.createElement('button');
-    cnBtn.className = 'cn-line-btn';
-    cnBtn.dataset.lineId = item.id;
-    cnBtn.textContent = '译';
-    cnBtn.title = '查看这一句中文';
-    btns.appendChild(cnBtn);
-
-    const playBtn = document.createElement('button');
-    playBtn.className = 'play-line';
-    playBtn.dataset.lineId = item.id;
-    playBtn.textContent = '🔊';
-    playBtn.title = '朗读这一句英文';
-    btns.appendChild(playBtn);
-
-    head.appendChild(btns);
-    li.appendChild(head);
-
-    const en = document.createElement('p');
-    en.className = 'en-line';
-    en.dataset.lineId = item.id;
-    en.textContent = item.en;
-    li.appendChild(en);
-
-    const cn = document.createElement('p');
-    cn.className = 'cn-line hidden';
-    cn.textContent = item.cn;
-    li.appendChild(cn);
-
-    list.appendChild(li);
-  });
-
-  // Setup CN toggle (independent)
-  const setupBtn = document.getElementById('toggle-setup-cn');
-  let setupCnVisible = false;
-  setupBtn.addEventListener('click', function () {
-    setupCnVisible = !setupCnVisible;
-    document.querySelectorAll('.setup .cn').forEach(function (el) {
-      el.classList.toggle('hidden', !setupCnVisible);
-    });
-    setupBtn.textContent = setupCnVisible ? '隐藏中文' : '显示中文';
-  });
-
-  // Dialogue CN global toggle
-  const dialogueBtn = document.getElementById('toggle-dialogue-cn');
-  let dialogueCnVisible = false;
-  dialogueBtn.addEventListener('click', function () {
-    dialogueCnVisible = !dialogueCnVisible;
-    document.querySelectorAll('.cn-line').forEach(function (el) {
-      el.classList.toggle('hidden', !dialogueCnVisible);
-    });
-    document.querySelectorAll('.cn-line-btn').forEach(function (b) {
-      b.classList.toggle('on', dialogueCnVisible);
-    });
-    dialogueBtn.textContent = dialogueCnVisible ? '隐藏中文' : '显示中文';
-  });
-
-  // Per-line CN toggle
-  document.body.addEventListener('click', function (e) {
-    const t = e.target;
-    if (t && t.classList && t.classList.contains('cn-line-btn')) {
-      const li = t.closest('.line');
-      if (!li) return;
-      const cn = li.querySelector('.cn-line');
-      if (!cn) return;
-      const willShow = cn.classList.contains('hidden');
-      cn.classList.toggle('hidden', !willShow);
-      t.classList.toggle('on', willShow);
-    }
-  });
-
-  // Answer reveal
-  const showAnswerBtn = document.getElementById('show-answer');
-  const answerBlock = document.getElementById('answer-block');
-  showAnswerBtn.addEventListener('click', function () {
-    answerBlock.classList.remove('hidden');
-    showAnswerBtn.classList.add('hidden');
-  });
-
-  // Voices
-  const voiceSel = document.getElementById('voice');
-  const speedSel = document.getElementById('speed');
-  const voiceWarn = document.getElementById('voice-warn');
-  let voices = [];
-
-  function loadVoices() {
-    if (!('speechSynthesis' in window)) {
-      voiceWarn.classList.remove('hidden');
-      voiceWarn.textContent = '提示：本设备不支持 speechSynthesis 语音合成，正文与按钮仍可正常查看。';
-      return;
-    }
-    const raw = window.speechSynthesis.getVoices() || [];
-    let en = raw.filter(function (v) { return /^en[-_]/i.test(v.lang) || /english/i.test(v.name); });
-    if (en.length === 0) en = raw.filter(function (v) { return /en/i.test(v.lang); });
-    // 音色按质量排序：高质量音色（Enhanced / Premium / Neural / Siri）优先，压缩音色靠后。
-    // 发闷、有电流感通常来自低质量音色，或蓝牙耳机被切到通话模式（会降到低采样率），与页面无关。
-    function voiceScore(v) {
-      const n = (v.name || '').toLowerCase();
-      let s = 0;
-      if (/enhanced|premium|neural|natural/.test(n)) s += 6;
-      if (/siri/.test(n)) s += 5;
-      if (/samantha|allison|ava|tom|serena|alex|daniel|karen|moira|tessa|nicky|aaron|rishi|oliver|kathy|fred|ralph|junior|reed|rocko|sandy|shelley|flo|eddy/.test(n)) s += 2;
-      if (v.localService) s += 1;
-      if (/^en[-_]us/i.test(v.lang)) s += 3;
-      if (/^en[-_]gb/i.test(v.lang)) s += 2;
-      if (/compact|eloquence|espeak/.test(n)) s -= 4;
-      if (/novelty|whisper|bad news|good news|bells|bubbles|cellos|trinoids|zarvox|albert|bahh|boing|deranged|hysterical|jester|organ|pipe|superstar|wobble|bruce/.test(n)) s -= 10;
-      return s;
-    }
-    en.sort(function (a, b) { return voiceScore(b) - voiceScore(a); });
-    voices = en;
-    voiceSel.innerHTML = '';
-    if (voices.length === 0) {
-      voiceWarn.classList.remove('hidden');
-      voiceWarn.textContent = '提示：本设备暂无可用英语音色（系统语音正在加载或未安装英语 TTS），正文与按钮仍可正常查看，可换设备或浏览器再试语音。';
-      const opt = document.createElement('option');
-      opt.textContent = '暂无可用音色';
-      voiceSel.appendChild(opt);
-      return;
-    }
-    voiceWarn.classList.add('hidden');
-    voices.forEach(function (v, idx) {
-      const opt = document.createElement('option');
-      opt.value = String(idx);
-      const n = (v.name || '').toLowerCase();
-      const tag = (/enhanced|premium|neural|natural|siri/.test(n)) ? ' ★' : '';
-      opt.textContent = v.name + ' (' + v.lang + ')' + tag;
-      voiceSel.appendChild(opt);
-    });
-    voiceSel.value = '0';
-  }
-  if ('speechSynthesis' in window) {
-    loadVoices();
-    window.speechSynthesis.onvoiceschanged = loadVoices;
-  } else {
-    loadVoices();
-  }
-
-  function pickVoice() {
-    const idx = parseInt(voiceSel.value, 10);
-    if (!isNaN(idx) && voices[idx]) return voices[idx];
-    return voices.length > 0 ? voices[0] : null;
-  }
-
-  function clearPlaying() {
-    document.querySelectorAll('.play-line.playing').forEach(function (b) { b.classList.remove('playing'); });
-  }
-
-  let playToken = 0;
-  function speak(text, btn) {
-    if (!('speechSynthesis' in window) || !text) return;
-    try { window.speechSynthesis.cancel(); } catch (e) {}
-    clearPlaying();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = parseFloat(speedSel.value) || 1;
-    const v = pickVoice();
-    if (v) u.voice = v;
-    u.lang = (v && v.lang) || 'en-US';
-    const myToken = ++playToken;
-    if (btn) {
-      u.onstart = function () { if (myToken === playToken) btn.classList.add('playing'); };
-      u.onend = function () { if (myToken === playToken) btn.classList.remove('playing'); };
-      u.onerror = function () { if (myToken === playToken) btn.classList.remove('playing'); };
-    }
-    window.speechSynthesis.speak(u);
-  }
-
-  function playLineById(id) {
-    let text, btn;
-    if (id === 'answer') {
-      text = answerLine.en;
-      btn = document.querySelector('#answer-block .play-line');
-    } else {
-      const item = dialogue.filter(function (d) { return d.id === id; })[0];
-      if (!item) return;
-      text = item.en;
-      btn = document.querySelector('.play-line[data-line-id="' + id + '"]');
-    }
-    speak(text, btn);
-  }
-
-  document.body.addEventListener('click', function (e) {
-    const t = e.target;
-    if (t && t.classList && t.classList.contains('play-line')) {
-      const id = t.dataset.lineId;
-      if (!id) return;
-      if (id === 'answer' && answerBlock.classList.contains('hidden')) return;
-      playLineById(id);
-    }
-  });
-
-  document.getElementById('play-all').addEventListener('click', function () {
-    if (!('speechSynthesis' in window)) {
-      voiceWarn.classList.remove('hidden');
-      voiceWarn.textContent = '提示：本设备不支持语音合成，无法播放，文字课程仍可使用。';
-      return;
-    }
-    try { window.speechSynthesis.cancel(); } catch (e) {}
-    clearPlaying();
-    const myToken = ++playToken;
-    const rate = parseFloat(speedSel.value) || 1;
-    const v = pickVoice();
-    let i = 0;
-    function nextOne() {
-      if (myToken !== playToken || i >= dialogue.length) return;
-      const u = new SpeechSynthesisUtterance(dialogue[i].en);
-      u.rate = rate;
-      if (v) u.voice = v;
-      u.lang = (v && v.lang) || 'en-US';
-      const btn = document.querySelector('.play-line[data-line-id="' + dialogue[i].id + '"]');
-      u.onstart = function () { if (myToken === playToken && btn) btn.classList.add('playing'); };
-      u.onend = function () {
-        if (myToken !== playToken) return;
-        if (btn) btn.classList.remove('playing');
-        i++;
-        nextOne();
-      };
-      u.onerror = function () {
-        if (myToken !== playToken) return;
-        if (btn) btn.classList.remove('playing');
-        i++;
-        nextOne();
-      };
-      window.speechSynthesis.speak(u);
-    }
-    nextOne();
-  });
-
-  document.getElementById('stop').addEventListener('click', function () {
-    playToken++;
-    try { window.speechSynthesis.cancel(); } catch (e) {}
-    clearPlaying();
-  });
-
-  // Blind listen mode
-  const blindBtn = document.getElementById('blind-listen');
-  const exitBlindBtn = document.getElementById('exit-blind');
-  let preBlindDialogueCn = false;
-  let preBlindSetupCn = false;
-
-  blindBtn.addEventListener('click', function () {
-    playToken++;
-    try { window.speechSynthesis.cancel(); } catch (e) {}
-    clearPlaying();
-    preBlindDialogueCn = dialogueCnVisible;
-    preBlindSetupCn = setupCnVisible;
-    if (dialogueCnVisible) {
-      dialogueCnVisible = false;
-      document.querySelectorAll('.cn-line').forEach(function (el) { el.classList.add('hidden'); });
-      document.querySelectorAll('.cn-line-btn').forEach(function (b) { b.classList.remove('on'); });
-      dialogueBtn.textContent = '显示中文';
-    }
-    if (setupCnVisible) {
-      setupCnVisible = false;
-      document.querySelectorAll('.setup .cn').forEach(function (el) { el.classList.add('hidden'); });
-      setupBtn.textContent = '显示中文';
-    }
-    document.body.classList.add('blind');
-    blindBtn.classList.add('hidden');
-    exitBlindBtn.classList.remove('hidden');
-  });
-
-  exitBlindBtn.addEventListener('click', function () {
-    document.body.classList.remove('blind');
-    blindBtn.classList.remove('hidden');
-    exitBlindBtn.classList.add('hidden');
-    if (preBlindDialogueCn) {
-      dialogueCnVisible = true;
-      document.querySelectorAll('.cn-line').forEach(function (el) { el.classList.remove('hidden'); });
-      document.querySelectorAll('.cn-line-btn').forEach(function (b) { b.classList.add('on'); });
-      dialogueBtn.textContent = '隐藏中文';
-    }
-    if (preBlindSetupCn) {
-      setupCnVisible = true;
-      document.querySelectorAll('.setup .cn').forEach(function (el) { el.classList.remove('hidden'); });
-      setupBtn.textContent = '隐藏中文';
-    }
-    // 参考答案保持独立隐藏，不随退出盲听显示
-  });
-
-})();
-</script>
+        <div class="lesson-progress-actions"><button type="button" data-mark-complete aria-pressed="false">标记本课完成</button></div>
       </div>
       <nav class="content-pagination" aria-label="课程导航"><a href="/english/following-up-on-overdue-invoice/">← 更新课程</a><a href="/english/">全部课程</a><a href="/english/turning-down-a-collaboration-offer/">较早课程 →</a></nav>
     </div>
@@ -516,5 +220,7 @@
     </ul>
   </div>
 </footer>
+  <script id="english-player-data" type="application/json">{"id":"english-2026-09-20","revision":"c949772f4b3b148a","sentences":[{"id":"l1","speaker":"Priya","text":"Thanks for setting this up. I saw a note about pricing in the changelog last week, so I guessed this call was about that.","translation":"谢谢你约这个电话。我上周在更新日志里看到一句关于定价的说明，所以我猜这通电话是说这个。"},{"id":"l2","speaker":"You","text":"You guessed right. I wanted to run through it with you before the email goes out to everyone.","translation":"你猜对了。我想在邮件发给所有人之前，先跟你把这件事过一遍。"},{"id":"l3","speaker":"Priya","text":"Okay. So how much is it going up, and when?","translation":"好。那涨多少，什么时候开始？"},{"id":"l4","speaker":"You","text":"I wanted to tell you first, since you have been with us the longest: starting October first, we are going to bump up the monthly plan, from nineteen dollars to twenty-nine dollars. I know that is a big jump.","translation":"我想最先告诉你，因为你用我们的时间最久：十月一日起，月付方案要往上调，从十九美元调到二十九美元。我知道这个跳得不少。"},{"id":"l5","speaker":"Priya","text":"That is a big jump. Wait — does that mean my bill changes too? My team is five people now.","translation":"确实跳得不少。等等——那我的账单也要变吗？我团队现在五个人。"},{"id":"l6","speaker":"You","text":"No, and here is what does not change: you are grandfathered in. Your five seats stay at nineteen dollars, for as long as you keep the plan.","translation":"不变。不变的是这些：你属于老用户保留旧价。你那五个席位一直是十九美元，只要你不取消这个方案。"},{"id":"l7","speaker":"Priya","text":"Okay, that is a relief. But what about the two seats I wanted to add next month — for the new designer and the intern?","translation":"好，那我放心了。但我下个月想加的那两个席位呢——给新来的设计师和那个实习生的？"},{"id":"l8","speaker":"You","text":"That is the part I really wanted to run through with you. The new price is specific to new seats. So your five stay the same, and any seat you add after October first is twenty-nine dollars.","translation":"这正是我最想跟你过一遍的部分。新价格只针对新增的席位。所以你原来那五个不变，十月一日之后加的任何席位都是二十九美元。"},{"id":"l9","speaker":"Priya","text":"So if I add them this week, it is still nineteen? That changes what I do — I would rather not rush two hires just to save twenty dollars a month.","translation":"那我这周加的话，还是十九吗？这会改变我的做法——我不想为了每月省二十美元就把两个招聘赶着做完。"},{"id":"l10","speaker":"You","text":"Yes. Anything you add before October first keeps the old price. You do not have to decide today, but if you want to lock in the old price for those two seats, you have about two weeks.","translation":"是的。十月一日之前加的任何席位都按旧价。你今天不用决定，但如果你想为那两个席位锁定旧价，大概还有两周时间。"},{"id":"l11","speaker":"Priya","text":"Two weeks. That is tight, but at least it is clear. Can I ask why you are doing it now? The tool feels the same to me as it did in March.","translation":"两周。是有点紧，但至少说得清楚。我能问一下为什么现在涨吗？对我来说，这个工具跟三月份没什么两样。"},{"id":"l12","speaker":"You","text":"Fair question. The AI features cost me more every month now, and I cannot keep the same price and keep them running. I do not love the timing either, but I would rather say it to you straight than raise it quietly. I will send you the two dates in writing today. And keep me posted about the two new seats.","translation":"问得合理。现在 AI 功能每个月的成本都在涨，我没法既保持原价又把这些功能继续跑下去。这个时间点我也不喜欢，但我宁愿当面跟你说明白，也不想悄悄涨价。我今天会把那两个日期写成文字发给你。那两个新席位的事，有进展告诉我。"}]}</script>
+  <script src="/site-assets/speech-player.js" defer></script>
 </body>
 </html>

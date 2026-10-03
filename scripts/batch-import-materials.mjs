@@ -1,4 +1,5 @@
 // 引入 Node.js 原生模块：文件读写与路径处理
+import { parseDialogueLiteral } from "./dialogue-literal.mjs";
 import { readFile, readdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
 // 引入内容模式校验器与哈希计算函数
@@ -72,8 +73,7 @@ async function parseEnglishLesson(filePath, date) {
   if (!dialogueMatch) {
     throw new Error(`在文件 ${filePath} 中未能找到对白 dialogue 数据`);
   }
-  // 使用 Function 安全求值获得对白对象数组
-  const dialogueRaw = new Function(`return ${dialogueMatch[1]}`)();
+  const dialogueRaw = parseDialogueLiteral(dialogueMatch[1]);
 
   // 映射为 Schema 标准的 sentences 数组，统一使用小写 id (l1, l2, ...)
   const sentences = dialogueRaw.map((dialogueItem, index) => ({
@@ -189,6 +189,7 @@ async function parseEnglishLesson(filePath, date) {
     scenario,
     goal,
     durationMinutes: 12,
+    bodyHtml: html.match(/<body[^>]*>([\s\S]*?)<\/body>/u)?.[1],
     expressions,
     sentences,
     practice
@@ -610,8 +611,12 @@ async function main() {
 
   // 2. 规范化并计算风向标日报
   console.log("\n[2/4] 规范化脱敏风向标日报...");
+  const existingDaily = JSON.parse(await readFile(collectionPath(defaultPublicContentDirectory, "daily"), "utf8"));
+  const bodiesByDate = new Map(existingDaily.items.map((item) => [item.editionDate, item.bodyHtml]));
   const dailyReports = [];
   for (const report of dailyReportsData) {
+    const bodyHtml = bodiesByDate.get(report.editionDate);
+    if (bodyHtml) report.bodyHtml = bodyHtml;
     // 经由 Schema 校验
     const normalized = validateContent(report, { expectedKind: "daily" });
     // 计算 revision
