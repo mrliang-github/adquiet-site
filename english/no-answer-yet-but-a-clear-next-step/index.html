@@ -1,0 +1,228 @@
+<!-- liangxiao-bento-managed-route -->
+<!doctype html>
+<html lang="zh-Hans" data-theme="paper">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="练习在「服务中断，但你还没有答案」场景下，用清晰、地道、专业的英语展开有效沟通。">
+  <meta name="theme-color" content="#111111">
+  <title>服务中断，但你还没有答案 · No Answer Yet, But a Clear Next Step · 良逍</title>
+  <link rel="canonical" href="https://liangxiaoaitool.top/english/no-answer-yet-but-a-clear-next-step/">
+  <link rel="alternate" type="application/rss+xml" title="良逍 的 RSS" href="https://liangxiaoaitool.top/rss.xml">
+  <link rel="stylesheet" href="/site-assets/personal.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+<header class="site-header">
+  <nav class="site-nav" aria-label="主导航">
+    <a class="site-brand" href="/" aria-label="良逍，返回首页">良逍 <span>AI</span></a>
+    <ul class="site-nav-links">
+      <li><a href="/">首页</a></li>
+      <li><a href="/writing/">文章</a></li>
+      <li><a href="/tools/">工具</a></li>
+      <li><a href="/daily/">风向标日报</a></li>
+      <li><a href="/english/" aria-current="page">英语学习</a></li>
+      <li><a href="/about/">关于</a></li>
+    </ul>
+  </nav>
+</header>
+  <main id="content" class="site-main">
+  <div class="reading-shell">
+    <div class="lesson-courseware-container" data-english-player data-translations-default="hidden">
+      <a class="article-back" href="/english/">← 返回英语全部课程</a>
+      <div class="lesson-courseware">
+        <header>
+  <h1>服务中断，但你还没有答案<span class="en">No Answer Yet, But a Clear Next Step</span></h1>
+  <div class="meta">职业：独立开发者 / AI 内容创作者（AI 工具方向） · 难度：基础 · 主要沟通动作：Give an honest status update 在没有结论时如实通报并给出下一步 · 人物与数据均为虚构练习</div>
+  <p class="task">Today's task: Tell Rosa what is broken, what you do not know yet, and what she should do in the next few hours — without inventing a cause or a time.</p>
+</header>
+
+<section class="setup">
+  <h2>The Setup</h2>
+  <div class="setup-grid">
+    <div class="setup-item">
+      <h3>Where</h3>
+      <p class="en">A phone call on a Tuesday evening. You are at your desk with two screens: the status page on one, the logs on the other. Rosa is in her office in Amsterdam with Monday's issue already laid out.</p>
+      <p class="cn hidden">周二晚上的一通电话。你在自己桌前，面前两块屏：一块开着状态页，一块是日志。Rosa 在阿姆斯特丹的办公室，周一那期简报已经排好版。</p>
+    </div>
+    <div class="setup-item">
+      <h3>Who</h3>
+      <p class="en">You are the only developer of Draftbox, a writing tool. Rosa runs a paid newsletter. Every Sunday night she pushes forty drafts through your tool: it exports them in one batch and she sends them at seven on Monday morning.</p>
+      <p class="cn hidden">你是一个人开发 Draftbox 的人，这是一个写作工具。Rosa 运营一份付费简报：每周日晚上，她把四十篇草稿推到你的工具里批量导出，周一早上七点发出。</p>
+    </div>
+    <div class="setup-item">
+      <h3>At stake</h3>
+      <p class="en">The export queue stopped moving forty minutes ago and nothing is coming out. You do not know the cause yet. If Rosa waits and nothing changes, she rebuilds forty drafts by hand overnight.</p>
+      <p class="cn hidden">导出队列四十分钟前停住了，什么都没有出来，而你还不知道原因。如果 Rosa 一直等下去、队列又不动，她今晚就得手动重做四十篇草稿。</p>
+    </div>
+    <div class="setup-item">
+      <h3>Mood</h3>
+      <p class="en">Calm and practical. Her keyboard is loud the whole time. She asks what she should do next more than she asks what went wrong, and she says the word tomorrow in almost every sentence.</p>
+      <p class="cn hidden">平静、务实。她那边键盘声一直很响。她问"我现在该做什么"比问"哪里出了问题"多，几乎每句话里都出现"明天"。</p>
+    </div>
+  </div>
+  <button id="toggle-setup-cn" data-toggle-setup type="button">显示中文</button>
+</section>
+
+<section class="hint">
+  <h2>Scene Hint</h2>
+  <p>耳机里她那边键盘一直在响。屏幕右边是她已经排好版的周一那期简报，左上角的草稿列表停在第四十篇，一动不动。你桌上第二块屏是状态页，上面只写了一行 investigating；日志翻到最后一页，也只有一行 export queue，没有原因。她现在等你回答的不是"什么时候修好"，而是"我现在该做什么"。你要在这通电话里，把已知的和不知道的分开讲清，给她一个现在就能执行的动作，再给她一个可以等的回音时间。</p>
+</section>
+
+<section class="dialogue-section">
+  <h2>Dialogue</h2>
+  <div class="controls">
+    <button class="primary play-all" id="play-all" data-play-all type="button">▶ 播放全部</button>
+    <button class="stop" id="stop" data-stop type="button">■ 停止</button>
+    <label class="speed">Speed
+      <select id="speed" data-playback-rate>
+        <option value="0.75">很慢 0.75x</option>
+        <option value="0.85">慢 0.85x</option>
+        <option value="1" selected>正常 1.0x</option>
+        <option value="1.15">快 1.15x</option>
+      </select>
+    </label>
+    <label class="voice">Voice
+      <select id="voice" data-voice><option>(加载中…)</option></select>
+    </label>
+    <button class="toggle-dialogue" id="toggle-dialogue-cn" data-toggle-translations type="button">显示中文</button>
+    <button id="blind-listen" data-blind-listen type="button">🎧 盲听复习</button>
+    <button id="exit-blind" class="hidden" data-exit-blind type="button">退出盲听</button>
+  </div>
+  <p class="voice-warn hidden" id="voice-warn" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>
+  <p>播放发闷或有电流感时：先在下拉里换一个带 ★ 的音色；如果用蓝牙耳机，让耳机回到音乐／立体声模式——通话模式会明显降低音质。</p>
+  <ol class="dialogue" id="dialogue-list"><li class="line english-sentence" data-sentence-id="l1">
+      <div class="line-head"><span class="speaker">Rosa</span><button type="button" class="play-line" data-play-sentence="l1" aria-label="点读第 l1 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Thanks for calling me back so fast. I saw the red banner on your status page. My Monday issue goes out at seven in the morning, and all of it runs through your tool. So — where are we?</p><p class="cn-line" data-translation>谢谢你这么快回我电话。我看到你状态页上那条红色的横条了。我周一那期简报早上七点发出，整期都是靠你的工具做的。所以——现在到哪一步了？</p></li><li class="line english-sentence" data-sentence-id="l2">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l2" aria-label="点读第 l2 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Thanks for picking up. Here is what I know right now. The export stopped moving about forty minutes ago. As far as I know, this is specific to the export queue — your account and your notes are fine.</p><p class="cn-line" data-translation>谢谢你接电话。我现在知道的情况是这样的：导出大概四十分钟前停住了。就我所知，问题只出在导出队列——你的账号和笔记都没问题。</p></li><li class="line english-sentence" data-sentence-id="l3">
+      <div class="line-head"><span class="speaker">Rosa</span><button type="button" class="play-line" data-play-sentence="l3" aria-label="点读第 l3 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Good. So the queue is stuck, not everything. Do you know why it stopped?</p><p class="cn-line" data-translation>好。那就是队列卡住了，不是全都坏了。你知道它为什么停吗？</p></li><li class="line english-sentence" data-sentence-id="l4">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l4" aria-label="点读第 l4 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">No. And I am not going to guess at it either. I do not want to leave you in the dark, so I will tell you what I can see: your forty drafts are still in the queue, and nothing you made is gone.</p><p class="cn-line" data-translation>不知道，而且我也不打算猜。我不想让你蒙在鼓里，所以我把我能看到的都告诉你：你那四十篇草稿还在队列里，你做的东西一样都没丢。</p></li><li class="line english-sentence" data-sentence-id="l5">
+      <div class="line-head"><span class="speaker">Rosa</span><button type="button" class="play-line" data-play-sentence="l5" aria-label="点读第 l5 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Okay. That is already more than the status page says. Here is my problem. My slot is seven tomorrow morning. If I wait for you and nothing moves, I lose the morning. Do I rebuild all forty drafts by hand now, or not?</p><p class="cn-line" data-translation>好。这已经比状态页上写的多多了。我的麻烦在这儿：我的发布时段是明早七点。要是我一直等你、队列又不动，这个早上就废了。我现在到底要不要手动把四十篇全部重做一遍？</p></li><li class="line english-sentence" data-sentence-id="l6">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l6" aria-label="点读第 l6 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Please sit tight for now. Do not rebuild them by hand yet. If the queue starts moving in the next hour, that work is wasted, and you will be up all night for nothing.</p><p class="cn-line" data-translation>现在请先别动。先别手动重做。如果队列在这一小时内动起来，这些活就白干了，你还会白熬一整夜。</p></li><li class="line english-sentence" data-sentence-id="l7">
+      <div class="line-head"><span class="speaker">Rosa</span><button type="button" class="play-line" data-play-sentence="l7" aria-label="点读第 l7 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">And if it is still stuck at midnight? I need a number, not a feeling.</p><p class="cn-line" data-translation>那要是到半夜还是卡着？我要的是一个数字，不是一个感觉。</p></li><li class="line english-sentence" data-sentence-id="l8">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l8" aria-label="点读第 l8 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Then you rebuild, and I help. My rule for tonight is this: if the queue is not moving by ten, I call you, and we do the first ten drafts together. Then midnight is not a surprise for either of us.</p><p class="cn-line" data-translation>那你就重做，我跟你一起做。今晚我的规则是这样：如果到十点队列还没动，我打给你，我们两个一起做前十篇。这样半夜对谁都不是个意外。</p></li><li class="line english-sentence" data-sentence-id="l9">
+      <div class="line-head"><span class="speaker">Rosa</span><button type="button" class="play-line" data-play-sentence="l9" aria-label="点读第 l9 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">All right. What about my readers? Do I send them a note saying the issue may be late?</p><p class="cn-line" data-translation>行。那我的读者呢？我要不要发个通知，说这期可能会晚？</p></li><li class="line english-sentence" data-sentence-id="l10">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l10" aria-label="点读第 l10 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Not yet. Your issue is not late, and a note about a problem you do not have will only worry them. If we push the send to Tuesday, then you write to them, and I will help you word it.</p><p class="cn-line" data-translation>先不用。你这期还没晚，为一个你其实没有的问题发通知，只会让大家白白担心。如果真要把发送推到周二，那时候你再发，措辞我帮你一起想。</p></li><li class="line english-sentence" data-sentence-id="l11">
+      <div class="line-head"><span class="speaker">Rosa</span><button type="button" class="play-line" data-play-sentence="l11" aria-label="点读第 l11 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Fine. I will wait, then. One last thing: when will you have news for me? I do not want to call you every hour, but I also do not want to sit here with no news at all.</p><p class="cn-line" data-translation>好，那我等着。最后一件事：你什么时候会有消息给我？我不想每小时打你一次电话，但我也不想在这儿什么消息都没有地干坐着。</p></li><li class="line english-sentence" data-sentence-id="l12">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l12" aria-label="点读第 l12 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Then you do not have to call me — I call you. I will call you at six at the latest, and sooner if there is news. Six is not a promise about the fix: it is not there yet. But by six I will know if we are close, and the moment the queue comes back up, your forty drafts go out on their own.</p><p class="cn-line" data-translation>那就不是你来打我，是我打给你。我最晚六点给你电话，有消息就提前。六点不是关于修复的承诺——修复还没到位。但到六点我会知道我们离修好还有多远；而队列一旦恢复运行，你那四十篇草稿会自己发出去。</p></li></ol>
+</section>
+
+<section class="expressions">
+  <h2>5 个重点表达</h2>
+
+  <div class="expr">
+    <h3>as far as I know <span class="ipa">/əz fɑːr əz aɪ ˈnoʊ/</span></h3>
+    <p class="def"><strong>核心含义：</strong>就我所知——我只把话说到我确定的范围里，围栏以外的事我不替它担保。</p>
+    <p class="def"><strong>本课作用：</strong>L2 用它开场。她第一句问的是"现在什么情况"，你要先把已经查实的说完（导出停了四十分钟），同时不给整件事打保票。它比 I think 更窄，也比 I am sure 更诚实：后面接的正是你亲眼看到的那一部分。</p>
+    <p class="def"><strong>记忆提示：</strong>（联想，不是词源）像在地图上画一条围栏：围栏里是你看到的，围栏外的事先不说，看到了再说。它自己就带着"可能变"的意思，所以后面常接 but I will tell you the moment that changes。别把它当客套话用——这句一出口，对方就会把你说的当成事实。</p>
+    <p class="def"><strong>换情境例句：</strong>"As far as I know, the package left the warehouse this morning, but I cannot see the tracking from my desk."（就我所知，包裹今天早上已经出仓，但我这边看不到物流信息。）</p>
+  </div>
+
+  <div class="expr">
+    <h3>sit tight <span class="ipa">/sɪt taɪt/</span></h3>
+    <p class="def"><strong>核心含义：</strong>先别动手、原地等消息——不是"坐紧一点"，说的也不是"什么都不做"，而是"这件事现在先别做"。</p>
+    <p class="def"><strong>本课作用：</strong>L6。她问的是"我现在要不要手动重做四十篇"。这句给的是最省事的那个答案：先别做。但理由必须紧跟在后面（一小时里队列可能就动了，那一晚的活会白干），否则听起来像敷衍。它救下来的不是你的时间，是她的一整夜。</p>
+    <p class="def"><strong>记忆提示：</strong>（联想）坐在椅子上，手不动——等的是一个信号，不是等一整天。它单独用会显得冷，所以后面常跟 for now / until I call you。对客户说这句的时候，永远配一句"等什么、为什么值得等"。</p>
+    <p class="def"><strong>换情境例句：</strong>"Please sit tight until the client confirms the dates — the hotel is on hold anyway."（客户确认日期之前你先别动，酒店本来就是保留状态。）</p>
+  </div>
+
+  <div class="expr">
+    <h3>come back up <span class="ipa">/kʌm bæk ʌp/</span></h3>
+    <p class="def"><strong>核心含义：</strong>（网站、服务、机器停了之后）恢复运行。</p>
+    <p class="def"><strong>本课作用：</strong>L12。她要的是"一个数字"，但真正有用的是"好了之后会怎样"。这句把"修好"变成一个她能等的状态，同时说清恢复后不需要她做任何事（四十篇草稿会自己发出去）。在说不出恢复时间的时候，说清恢复后的样子，比硬报一个时间更可信。</p>
+    <p class="def"><strong>记忆提示：</strong>（联想）down 是掉下去，up 是回来了——同一台机器，两个方向，正好一对：be down / come back up。注意别用 come up，那更像"出现"或"被提出来"；也别用它说"恢复健康"。</p>
+    <p class="def"><strong>换情境例句：</strong>"The card reader was down all morning. It came back up after lunch, so we could take payments again."（刷卡机一上午都用不了，午饭后恢复了，我们才能继续收款。）</p>
+  </div>
+
+  <div class="expr">
+    <h3>specific to <span class="rev">复习</span> <span class="ipa">/spəˈsɪfɪk tuː/</span></h3>
+    <p class="def"><strong>复习说明：</strong>2026-09-13 那课首次出现（当时在用户支持里收窄问题范围），2026-09-20 复习过一次（当时指新价格只针对新增席位）。这一课换到"故障的影响范围"，例句也换了场景。</p>
+    <p class="def"><strong>核心含义：</strong>只针对某一部分、不影响其他部分。</p>
+    <p class="def"><strong>本课作用：</strong>L2。故障通报里最该先给的不是原因，是范围：坏的只有导出，账号、笔记、草稿都还在。这一句能立刻决定对方要不要慌，也替你把后面"为什么"的问题挡一下——范围说清了，她才听得进"原因还不知道"。</p>
+    <p class="def"><strong>记忆提示：</strong>（联想）像一张只贴在一件东西上的标签。说这句时最好把"不涉及什么"也讲出来（not to your account），只说 specific to，对方下一个问题一定是"那我的东西呢"。</p>
+    <p class="def"><strong>换情境例句：</strong>"The delay is specific to weekend pickups, so weekday orders are still on time."（延误只涉及周末取件，平日的订单还是准时的。）</p>
+  </div>
+
+  <div class="expr">
+    <h3>not there yet <span class="rev">复习</span> <span class="ipa">/nɑːt ðer jet/</span></h3>
+    <p class="def"><strong>复习说明：</strong>2026-09-25 那课首次出现（当时指片子还没修到能交的程度），这一课换到"修复还没到位"，例句也换到另一个场景。</p>
+    <p class="def"><strong>核心含义：</strong>还没到那一步——事情在往前走，但没到能说"好了"的程度。</p>
+    <p class="def"><strong>本课作用：</strong>L12。它替你挡掉一个假的承诺：六点我会打电话，不是因为六点能修好，而是因为六点我能知道进展。把"我什么时候联络你"和"问题什么时候结束"拆成两件事讲，是这通电话最关键的一处——她拼命想要的是一个日期，而这句给的是诚实的进度。</p>
+    <p class="def"><strong>记忆提示：</strong>（联想）像导航上还差一段路：你能说出还剩多远，但不能说"到了"。常见搭配是 the fix is not there yet / we are not there yet。想表达"快到了"口语里说 we are almost there，那是另一句话，别混着用。</p>
+    <p class="def"><strong>换情境例句：</strong>"The design is not there yet, so I do not want to show it to the client on Friday."（这版设计还没到位，周五我不想拿给客户看。）</p>
+  </div>
+</section>
+
+<section class="patterns">
+  <h2>实用句型（来自本课对话）</h2>
+
+  <div class="pat">
+    <strong>As far as I know, ___ , but I will tell you the moment that changes.</strong>
+    就我所知，___，但一有变化我马上告诉你。
+    <span class="use">—— 通报现状的第一对句子。前半句限定你说的范围，后半句承诺变化就通报。少了后半句，对方会以为"就我所知"是你在推责任；补上它，这句话就从模糊变成了负责。用在故障、物流、排期这类你还没结论但要先说明现状的场合。</span>
+  </div>
+
+  <div class="pat">
+    <strong>I will get back to you by ___ at the latest, and sooner if there is news.</strong>
+    我最晚 ___ 之前给你回音，有消息会提前。
+    <span class="use">—— 对方催进度、你又没有结论时的标准答法。它不给假日期，给的是一个真实的回音钟点，把"等"变成有刻度的事；后半句很重要，说明这个时间只是下限。用在故障通报、报价等待、物流跟进。</span>
+  </div>
+
+  <div class="pat">
+    <strong>Please sit tight until I ___ , and if nothing changes by ___ , we do it another way.</strong>
+    ___ 之前请你先别动，如果到 ___ 还是没有变化，我们就换一条路。
+    <span class="use">—— 让对方停手，同时给出停手的期限和退路。只说 sit tight 像命令；加上"到几点还没变化就换方案"，对方才知道自己不是在干等。用在对方想立刻自行处理、而等待反而更省事的任何场合。</span>
+  </div>
+</section>
+
+<section class="my-turn">
+  <h2>My Turn</h2>
+  <div class="my-turn-body">
+    <p><strong>Situation:</strong> Same call, one hour later, still tonight. One thing is different: Rosa did not wait. She has already rebuilt twelve of the forty drafts by hand, and she is on the thirteenth.</p>
+    <p><strong>They say:</strong> "I did not wait for you — I have been rebuilding since we hung up. Twelve done, twenty-eight to go. Tell me why I should stop now."</p>
+    <p><strong>Your turn:</strong> Give her one clear answer — stop or keep going — with one reason she can check herself, and tell her when you will call. 提示：先给判断，再给依据，最后给回音时间；不要说 you can do whatever you want 这种把决定推回去的话。先自己开口，再看参考。</p>
+    <button class="reveal" id="show-answer" data-show-answer type="button">显示参考答案</button>
+    <div class="answer hidden" id="answer-block">
+      <div class="line-head">
+        <span class="speaker you">You</span>
+        <button class="play-line" data-line-id="answer" type="button" data-play-sentence="answer" aria-label="点读参考答案">🔊</button>
+      </div>
+      <p class="en-line" data-line-id="answer">Stop there. As far as I know, the queue will start moving again within the hour, and every draft you rebuild now is one we delete. Sit tight until I call you at six at the latest — if it is still stuck by then, I do the other twenty-eight with you tonight.</p>
+      <p><em>思路：</em>条件只改了一处——她没等，已经动手了。动作没变，还是"给判断 + 给依据 + 给回音时间"，但多了一层分寸：她已经埋头做了一个小时，你不能把决定推回给她（you can decide 听起来像不想负责），要先给一个明确的判断。依据必须是她自己能核对的（队列可能在一小时内恢复，重做的每一篇都要删），而不是"你相信我"。最后那半句是这句里最要紧的：她说"告诉我为什么停"，其实在说"我的时间算不算数"——把剩下的部分明确接到自己身上（twenty-eight with you tonight），停手就不是让她白等。</p>
+      <p class="note">参考答案不是唯一正确答案。你也可以判断让她继续重做，但那样必须给她一个停下来的条件——比如"你先继续做，到九点队列还没动就停下，剩下的我来"，绝不能只说"你看着办"。只要做到三件事就行：给一个明确的判断、依据是她能自己核对的、并且说清你什么时候回音。</p>
+    </div>
+  </div>
+</section>
+
+<p class="footer-tip"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>
+        <div class="lesson-progress-actions"><button type="button" data-mark-complete aria-pressed="false">标记本课完成</button></div>
+      </div>
+      <nav class="content-pagination" aria-label="课程导航"><a href="/english/asking-before-you-quote-her-in-public/">← 更新课程</a><a href="/english/">全部课程</a><a href="/english/her-first-result-in-ten-minutes/">较早课程 →</a></nav>
+    </div>
+  </div>
+</main>
+  <footer class="site-footer">
+  <div class="footer-grid">
+    <p class="footer-copy">© 2026 良逍 · 把产品、过程和每天的学习留在这里。</p>
+    <ul class="footer-links">
+      <li><a href="https://github.com/mrliang-github" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href="https://x.com/lingxio71220285" target="_blank" rel="noopener noreferrer">X</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>
+  <script id="english-player-data" type="application/json">{"id":"english-2026-09-29","revision":"42a410a37e0b1eb7","sentences":[{"id":"l1","speaker":"Rosa","text":"Thanks for calling me back so fast. I saw the red banner on your status page. My Monday issue goes out at seven in the morning, and all of it runs through your tool. So — where are we?","translation":"谢谢你这么快回我电话。我看到你状态页上那条红色的横条了。我周一那期简报早上七点发出，整期都是靠你的工具做的。所以——现在到哪一步了？"},{"id":"l2","speaker":"You","text":"Thanks for picking up. Here is what I know right now. The export stopped moving about forty minutes ago. As far as I know, this is specific to the export queue — your account and your notes are fine.","translation":"谢谢你接电话。我现在知道的情况是这样的：导出大概四十分钟前停住了。就我所知，问题只出在导出队列——你的账号和笔记都没问题。"},{"id":"l3","speaker":"Rosa","text":"Good. So the queue is stuck, not everything. Do you know why it stopped?","translation":"好。那就是队列卡住了，不是全都坏了。你知道它为什么停吗？"},{"id":"l4","speaker":"You","text":"No. And I am not going to guess at it either. I do not want to leave you in the dark, so I will tell you what I can see: your forty drafts are still in the queue, and nothing you made is gone.","translation":"不知道，而且我也不打算猜。我不想让你蒙在鼓里，所以我把我能看到的都告诉你：你那四十篇草稿还在队列里，你做的东西一样都没丢。"},{"id":"l5","speaker":"Rosa","text":"Okay. That is already more than the status page says. Here is my problem. My slot is seven tomorrow morning. If I wait for you and nothing moves, I lose the morning. Do I rebuild all forty drafts by hand now, or not?","translation":"好。这已经比状态页上写的多多了。我的麻烦在这儿：我的发布时段是明早七点。要是我一直等你、队列又不动，这个早上就废了。我现在到底要不要手动把四十篇全部重做一遍？"},{"id":"l6","speaker":"You","text":"Please sit tight for now. Do not rebuild them by hand yet. If the queue starts moving in the next hour, that work is wasted, and you will be up all night for nothing.","translation":"现在请先别动。先别手动重做。如果队列在这一小时内动起来，这些活就白干了，你还会白熬一整夜。"},{"id":"l7","speaker":"Rosa","text":"And if it is still stuck at midnight? I need a number, not a feeling.","translation":"那要是到半夜还是卡着？我要的是一个数字，不是一个感觉。"},{"id":"l8","speaker":"You","text":"Then you rebuild, and I help. My rule for tonight is this: if the queue is not moving by ten, I call you, and we do the first ten drafts together. Then midnight is not a surprise for either of us.","translation":"那你就重做，我跟你一起做。今晚我的规则是这样：如果到十点队列还没动，我打给你，我们两个一起做前十篇。这样半夜对谁都不是个意外。"},{"id":"l9","speaker":"Rosa","text":"All right. What about my readers? Do I send them a note saying the issue may be late?","translation":"行。那我的读者呢？我要不要发个通知，说这期可能会晚？"},{"id":"l10","speaker":"You","text":"Not yet. Your issue is not late, and a note about a problem you do not have will only worry them. If we push the send to Tuesday, then you write to them, and I will help you word it.","translation":"先不用。你这期还没晚，为一个你其实没有的问题发通知，只会让大家白白担心。如果真要把发送推到周二，那时候你再发，措辞我帮你一起想。"},{"id":"l11","speaker":"Rosa","text":"Fine. I will wait, then. One last thing: when will you have news for me? I do not want to call you every hour, but I also do not want to sit here with no news at all.","translation":"好，那我等着。最后一件事：你什么时候会有消息给我？我不想每小时打你一次电话，但我也不想在这儿什么消息都没有地干坐着。"},{"id":"l12","speaker":"You","text":"Then you do not have to call me — I call you. I will call you at six at the latest, and sooner if there is news. Six is not a promise about the fix: it is not there yet. But by six I will know if we are close, and the moment the queue comes back up, your forty drafts go out on their own.","translation":"那就不是你来打我，是我打给你。我最晚六点给你电话，有消息就提前。六点不是关于修复的承诺——修复还没到位。但到六点我会知道我们离修好还有多远；而队列一旦恢复运行，你那四十篇草稿会自己发出去。"}]}</script>
+  <script src="/site-assets/speech-player.js" defer></script>
+</body>
+</html>

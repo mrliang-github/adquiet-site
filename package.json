@@ -10,7 +10,9 @@
     "content:help": "node scripts/content-admin.mjs help",
     "serve": "python3 -m http.server 8080",
     "test": "npm run build && node --test tests/*.test.mjs",
-    "verify": "npm run sync:content && npm test"
+    "verify": "npm run sync:content && npm test",
+    "sync:materials": "node scripts/batch-import-materials.mjs",
+    "preview": "npm run sync:materials && npm run build && npm run serve -- --bind 127.0.0.1"
   },
   "devDependencies": {
     "d3-array": "^3.2.4",

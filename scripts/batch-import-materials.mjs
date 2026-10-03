@@ -1,11 +1,13 @@
 // 引入 Node.js 原生模块：文件读写与路径处理
+import sanitizeHtml from "sanitize-html";
+import { fileURLToPath } from "node:url";
 import { parseDialogueLiteral } from "./dialogue-literal.mjs";
 import { readFile, readdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
 // 引入内容模式校验器与哈希计算函数
 import { contentRevision, validateCollection, validateContent } from "./content-schema.mjs";
 // 引入原子化写入与集合路径工具
-import { collectionPath, defaultPublicContentDirectory, writeJsonAtomic } from "./content-store.mjs";
+import { collectionPath, defaultPublicContentDirectory, readContentCollection, writeJsonAtomic } from "./content-store.mjs";
 
 // 定义英语课程源目录
 const englishSourceDirectory = "/Users/mrliang/WorkBuddy/automation-2026-09-01-12-53-24/outputs";
@@ -31,7 +33,7 @@ function slugify(text) {
  * @param {string} date - 期次日期 (YYYY-MM-DD)
  * @returns {Promise<object>} 结构化英语课程对象
  */
-async function parseEnglishLesson(filePath, date) {
+export async function parseEnglishLesson(filePath, date) {
   // 读取 HTML 文件全部内容
   const html = await readFile(filePath, "utf8");
 
@@ -93,7 +95,7 @@ async function parseEnglishLesson(filePath, date) {
   let exprMatch;
   while ((exprMatch = exprRegex.exec(html)) !== null) {
     // 提取短语名称
-    const rawPhrase = exprMatch[1].replace(/<[^>]+>/gu, "").trim();
+    const rawPhrase = plainText(exprMatch[1].replace(/<span\b[^>]*>[\s\S]*?<\/span>/giu, ""));
     const exprBody = exprMatch[2];
     // 提取核心含义
     const defMatch = exprBody.match(/<p class="def"><strong>核心含义：<\/strong>(.*?)<\/p>/su);
@@ -183,7 +185,7 @@ async function parseEnglishLesson(filePath, date) {
     publicationTimeZone: "Asia/Shanghai",
     status: "published",
     preview: false,
-    publishedAt: `${date}T10:00:00+08:00`,
+    publishedAt: new Date().toISOString(),
     level: "foundation",
     profession,
     scenario,
@@ -202,453 +204,170 @@ async function parseEnglishLesson(filePath, date) {
   return { ...normalized, revision };
 }
 
-/**
- * 完整脱敏的 8 期风向标日报脱敏数据定义（2026-09-14 至 2026-09-21）
- * 严格红线：去中心化、无圈友姓名、无原帖、无外部私密圈子链接，仅保留商业趋势、硬线索与批判性判断
- */
-const dailyReportsData = [
-  {
-    schemaVersion: 1,
-    kind: "daily",
-    id: "daily-2026-09-14",
-    slug: "ai-monetization-infrastructure-and-virtual-goods",
-    title: "轻量收款基建降低交付门槛，小红书低粉小额虚拟品跑通闭环",
-    summary: "小额支付与自动化交付工具密集上线；低粉账号借助互动单词游戏（周销600+单）与相亲心理测评验证了「高频刚需+低试错门槛」的小额变现模具。",
-    editionDate: "2026-09-14",
-    publicationTimeZone: "Asia/Shanghai",
-    status: "published",
-    preview: false,
-    publishedAt: "2026-09-14T10:00:00+08:00",
-    overview: "变现主题占当日样本过半。核心增量在于小额变现基础设施（如轻量计费与自动交付工具）开始成型，使得独立开发者作品从「写完代码」到「能收小钱」的链条极大缩短。同时，低粉账号在小红书通过小额刚需数字品跑出可观销量，验证了轻量级闭环。",
-    discoveries: [
-      {
-        id: "infrastructure-lowers-threshold",
-        title: "小额支付与即时交付基建成熟，个人变现门槛骤降",
-        fact: "轻量化收款与计费工具陆续上线，支持对小工具、Agent Skill 或虚拟资料进行即时扣费与自动发货，无需搭建复杂的重型商户系统。",
-        judgement: "即时小额结算基建的普及，会直接推高独立开发者轻量工具和微型数字资产的供给密度，竞争将从“能不能收钱”迅速转向“谁的引流钩子更精准”。",
-        sourceIds: ["daily-insight-20260914"]
-      },
-      {
-        id: "low-follower-virtual-goods",
-        title: "低粉账号验证：英语单词互动游戏与相亲测试跑出数千单",
-        fact: "英语单词网页互动小游戏录得周销 600+ 单（累计 4,700+ 单）；同时千粉左右的个人账号通过相亲定位与心理测评跑出数千单量级。",
-        judgement: "这是典型的低门槛走量模具：备考与情感属于高频刚需，配合几块钱的极低决策成本，低权重账号无需依赖高额投流即可借自然搜索跑通正向现金流。",
-        sourceIds: ["daily-insight-20260914"]
-      },
-      {
-        id: "workflow-template-noise",
-        title: "同质化开发模板帖增多，需区分概念原型与实际闭环",
-        fact: "当天出现大量“刷到需求即开发落地”的模板化分享帖，但核实后绝大多数仅为代码Demo，缺乏真实的留存、订单或客户交易数据。",
-        judgement: "必须建立降噪防线：做开发不能被高频出现的技术概念误导，没有真实支付验证的“需求”大多是开发者的自嗨伪需求。",
-        sourceIds: ["daily-insight-20260914"]
-      }
-    ],
-    nextStep: "跟进轻量小额支付工具的实际合规与封控风险；测试高频刚需互动页面的自然搜索转化率。",
-    tags: ["变现基建", "低粉虚拟品", "小红书", "商业洞察"],
-    sources: [
-      {
-        id: "daily-insight-20260914",
-        title: "每日商业与 AI 趋势观察记录（2026-09-14）",
-        url: null,
-        publishedAt: "2026-09-14"
-      }
-    ]
-  },
-  {
-    schemaVersion: 1,
-    kind: "daily",
-    id: "daily-2026-09-15",
-    slug: "node-driven-virtual-products-and-distillation",
-    title: "节点驱动低价虚拟品集中爆发，99元高客单AI知识蒸馏成新范式",
-    summary: "秋招与开学节点催化低价测评（天赋测试出单过万），99元AI蒸馏专业书籍跑通高客单样本；地方网信办通报未备案中转敲响合规警钟。",
-    editionDate: "2026-09-15",
-    publicationTimeZone: "Asia/Shanghai",
-    status: "published",
-    preview: false,
-    publishedAt: "2026-09-15T10:00:00+08:00",
-    overview: "秋招与备考节点驱动低价虚拟品大面积涌现：职业测评与颜值测试单款销量达万单级。与此同时，AI蒸馏专业长内容以 99 元高单价取得近 5 万元销售，展现出交付“浓缩经验”的溢价空间。监管层面，地方网信部门对未做安全评估的中转通报，警示独立产品合规底线。",
-    discoveries: [
-      {
-        id: "node-driven-testing-products",
-        title: "时间节点驱动：天赋职业测试 862 粉卖出 2.4 万单",
-        fact: "有创作者利用秋招求职焦虑，以 862 粉账号挂售职业天赋测评，前台录得 2.4 万+单；另有 1.99 元颜值测评走量 3.5 万单。",
-        judgement: "极低单价虽能借助节点情绪瞬时跑量，但 1~2 元客单价意味着利润完全依赖庞大基数，需警惕佣金抽成与潜在的售后投诉率。",
-        sourceIds: ["daily-insight-20260915"]
-      },
-      {
-        id: "knowledge-distillation-model",
-        title: "小红书 AI 蒸馏书籍 99 元卖近 5 万：浓缩经验的高溢价",
-        fact: "创作者将垂直领域专业书籍与经验语料，用 AI 深度提炼为高密度结构化指南，以 99 元单价售出近 5 万元 GMV。",
-        judgement: "这是极具参考价值的高客单样本：用户买的不是海量文字，而是被 AI 过滤后的确定性结论。高客单蒸馏指南的投入产出比远优于低价走量。",
-        sourceIds: ["daily-insight-20260915"]
-      },
-      {
-        id: "security-compliance-redline",
-        title: "地方通报未评估 API 中转站，敲响立项合规警钟",
-        fact: "地方网信部门依法通报了未按规定履行安全评估程序的 API 中转服务。",
-        judgement: "技术套壳与轻量应用必须将合规前置。面向国内分发的产品必须使用正规已备案接口，避免把精力押在随时面临关停的灰色基建上。",
-        sourceIds: ["daily-insight-20260915"]
-      }
-    ],
-    nextStep: "小成本验证垂直领域高客单（50~99元）蒸馏手册的付费转化率；核查手头产品的接口合规清单。",
-    tags: ["知识蒸馏", "节点虚拟品", "合规红线", "商业洞察"],
-    sources: [
-      {
-        id: "daily-insight-20260915",
-        title: "每日商业与 AI 趋势观察记录（2026-09-15）",
-        url: null,
-        publishedAt: "2026-09-15"
-      }
-    ]
-  },
-  {
-    schemaVersion: 1,
-    kind: "daily",
-    id: "daily-2026-09-16",
-    slug: "cross-platform-digital-goods-and-template-replication",
-    title: "小红书与低价数字品多源交汇，相亲定位测试三源印证确立主线",
-    summary: "相亲定位测试（4.9元）连续三日获不同创作者交叉验证，录得数万元销售；AI记账与背单词等轻交互工具快速模板化复制。",
-    editionDate: "2026-09-16",
-    publicationTimeZone: "Asia/Shanghai",
-    status: "published",
-    preview: false,
-    publishedAt: "2026-09-16T10:00:00+08:00",
-    overview: "真正的强信号出现在小红书与低价数字品的交叉区：AI头像（1.99元）、相亲定位测试（4.9元）、AI记账小工具（26.9元）、漫画记单词（40元）批量上线。其中相亲定位测试已是连续三日、来自三位互不相关的创作者独立验证，确立为本周确定性最高的方向。",
-    discoveries: [
-      {
-        id: "triple-source-matchmaking",
-        title: "相亲定位测试三源互证，婚恋情绪成高确定性赛道",
-        fact: "相亲定位测试（4.9元）在 9-13、9-14、9-16 连续三天被三位不同作者独立抓取到出单数据，单日两链接合计录得 5.3 万元销售额。",
-        judgement: "跨日期的三源互证彻底排除了单点噪声。它证明了年轻人婚恋择偶与自我定位具有极强的付费冲动，且模板复制速度极快。",
-        sourceIds: ["daily-insight-20260916"]
-      },
-      {
-        id: "template-replication-cluster",
-        title: "供给端极速模板化：从死资料转向轻量交互小工具",
-        fact: "记账小工具（26.9元）、单词漫画（40元）、Agent速通包同日出现，呈现标准化模板快速向不同品类泛化的趋势。",
-        judgement: "静态 PDF 资料正被轻量级网页或小程序交互工具取代。单纯搬运文字将很快丧失竞争力，带交互反馈的轻工具才能维持溢价。",
-        sourceIds: ["daily-insight-20260916"]
-      },
-      {
-        id: "noise-identification",
-        title: "高频连发无数据案例需主动降噪",
-        fact: "个别作者短时间内高频分享多个“AI神器”，但均未附带真实留存或出单截图。",
-        judgement: "对于纯概念分享或自述性内容打折处理，只跟踪有真实下单记录的交付链路，避免被虚假繁荣干扰精力。",
-        sourceIds: ["daily-insight-20260916"]
-      }
-    ],
-    nextStep: "拆解相亲测试与轻交互工具的前端引流钩子与履约路径；分析交付环节的自动化改造成本。",
-    tags: ["数字品", "小红书", "模式验证", "商业洞察"],
-    sources: [
-      {
-        id: "daily-insight-20260916",
-        title: "每日商业与 AI 趋势观察记录（2026-09-16）",
-        url: null,
-        publishedAt: "2026-09-16"
-      }
-    ]
-  },
-  {
-    schemaVersion: 1,
-    kind: "daily",
-    id: "daily-2026-09-17",
-    slug: "monetization-segmentation-and-service-arbitrage",
-    title: "变现品类结构分化，精准流量转包服务差价与轻量模板展现韧性",
-    summary: "变现主题分化为服务差价、实物代发、虚拟品与内容矩阵；精准同城维修流量转包师傅赚差价，Obsidian模板稳定出单。",
-    editionDate: "2026-09-17",
-    publicationTimeZone: "Asia/Shanghai",
-    status: "published",
-    preview: false,
-    publishedAt: "2026-09-17T10:00:00+08:00",
-    overview: "变现选品占比 56.2%，但内部形态高度分化：涵盖了本地服务差价、实物搬货、垂直虚拟品与内容矩阵。创作者分布健康，无单人刷屏。硬线索表明，避开泛流量大盘、利用精准垂直流量做轻量服务转包或生产力模板具有更高的确定性。",
-    discoveries: [
-      {
-        id: "service-arbitrage-closing",
-        title: "精准小流量对接成熟履约：同城维修转包赚取差价",
-        fact: "数百粉丝账号聚焦淋浴房精准维修需求，将获客线索直接转包给京东或同城专业师傅上门履约，赚取服务差价。",
-        judgement: "证明流量价值在于精准度而非粉丝基数。无重资产履约能力的轻团队，完全可以通过“垂直引流+成熟供应链履约”做轻资产套利。",
-        sourceIds: ["daily-insight-20260917"]
-      },
-      {
-        id: "productivity-templates-validation",
-        title: "垂直生产力模板稳定出单：Obsidian 知识管理配置",
-        fact: "针对特定工具（如 Obsidian 个人知识库、儿童专注力训练表）的结构化模板与工作流配置包稳定获得付费。",
-        judgement: "绑定高粘性生产力工具的模板交付确定性极高，用户买的是省下折腾配置的时间，是独立开发者极佳的低运维产品形态。",
-        sourceIds: ["daily-insight-20260917"]
-      },
-      {
-        id: "theme-homogeneity-risk",
-        title: "警惕粗放分类掩盖的不同商业底层",
-        fact: "数据统计中将重履约线下服务、实物电商与零边际成本的纯数字品均粗暴归为“变现”。",
-        judgement: "独立开发必须看清底层资产属性：重履约服务边际成本递增，而数字资产具备零边际成本无限扩展性，两者不可同日而语。",
-        sourceIds: ["daily-insight-20260917"]
-      }
-    ],
-    nextStep: "梳理自身开发流中可封装为即用模板的沉淀资产；测试精准痛点长尾词的转化率。",
-    tags: ["服务差价", "生产力模板", "轻资产", "商业洞察"],
-    sources: [
-      {
-        id: "daily-insight-20260917",
-        title: "每日商业与 AI 趋势观察记录（2026-09-17）",
-        url: null,
-        publishedAt: "2026-09-17"
-      }
-    ]
-  },
-  {
-    schemaVersion: 1,
-    kind: "daily",
-    id: "daily-2026-09-18",
-    slug: "tool-aggregation-and-developer-workflows",
-    title: "变现热度单日回落，开发者工具与专业场景信息聚合成为焦点",
-    summary: "变现主题占比降至 25%，工具与研发场景占半壁江山；代码仓库导航、科研论文速读与长视频结构化提取工具凸显长期效率价值。",
-    editionDate: "2026-09-18",
-    publicationTimeZone: "Asia/Shanghai",
-    status: "published",
-    preview: false,
-    publishedAt: "2026-09-18T10:00:00+08:00",
-    overview: "变现选品类内容降至阶段性低位（25%），工具与效率类（50%）主导趋势。增量信号集中在 AI 工具与专业研发/科研场景的结合（代码解析、上下文增强、科研速读）。市场从快速套现的短期噱头向沉淀效率生产力工具转移。",
-    discoveries: [
-      {
-        id: "specialized-developer-tools",
-        title: "面向专业场景的研发辅助工具深化：代码解析与科研学习",
-        fact: "多款针对 GitHub 复杂代码解析、科研论文精读与专业学习场景的辅助工具成为讨论焦点。",
-        judgement: "通用聊天机器人已成红海，但在具有严格技术上下文的开发工作流中，垂类 Agent 拥有更高的单客价值和更高的留存壁垒。",
-        sourceIds: ["daily-insight-20260918"]
-      },
-      {
-        id: "information-aggregation-need",
-        title: "高密度信息降噪与结构化输出依然是高频刚需",
-        fact: "长视频一键提炼核心要点、长文档结构化转录工具持续获得高关注。",
-        judgement: "信息过载环境下，用户买单的核心是“省时间”。工具的关键不在于模型翻译有多快，而在于提炼出的摘要格式是否真正能指导行动。",
-        sourceIds: ["daily-insight-20260918"]
-      },
-      {
-        id: "monetization-noise-retreat",
-        title: "变现口号周期性回落，正是打磨产品的窗口期",
-        fact: "单日缺乏大额低价爆款数字品，整体讨论更偏向技术落地与工具打磨。",
-        judgement: "商业热度天然存在周期波动。空窗期正是独立开发者远离流量浮躁、扎实提升产品可用性与技术壁垒的最佳时机。",
-        sourceIds: ["daily-insight-20260918"]
-      }
-    ],
-    nextStep: "优化自身工作流中的自动提炼与知识整理脚本；打磨手头产品的核心交互与性能指标。",
-    tags: ["研发工具", "Agent工作流", "信息聚合", "商业洞察"],
-    sources: [
-      {
-        id: "daily-insight-20260918",
-        title: "每日商业与 AI 趋势观察记录（2026-09-18）",
-        url: null,
-        publishedAt: "2026-09-18"
-      }
-    ]
-  },
-  {
-    schemaVersion: 1,
-    kind: "daily",
-    id: "daily-2026-09-19",
-    slug: "platform-policy-shifts-and-blue-ocean-observations",
-    title: "主题分布趋于均势，二手平台下架AI词与公众号推荐机制实测",
-    summary: "四大主题平分秋色；二手平台下架“AI”关键词增加分发摩擦，公众号公域推荐机制验证了争议与评论互动权重。",
-    editionDate: "2026-09-19",
-    publicationTimeZone: "Asia/Shanghai",
-    status: "published",
-    preview: false,
-    publishedAt: "2026-09-19T10:00:00+08:00",
-    overview: "变现、AI编程、小红书各占两到三成，处于均势过渡阶段。讨论焦点转向平台风向：闲鱼对直接带有“AI”关键词的条目下架管控，微信公众号公域推荐机制的实操复盘。赛道讨论增多而实操出单减少，预示早期粗暴红利衰竭。",
-    discoveries: [
-      {
-        id: "platform-policy-friction",
-        title: "二手电商平台对“AI”关键词下架管控，分发需去AI标签",
-        fact: "多位创作者反馈闲鱼等平台对带有“AI写文/AI绘画”等关键词的数字商品进行搜索降权或直接下架。",
-        judgement: "包装产品时必须剥离“AI技术噱头”，转向直陈“解决什么业务问题/交付什么成品”，既能规避平台合规拦截，又更符合真实用户痛点。",
-        sourceIds: ["daily-insight-20260919"]
-      },
-      {
-        id: "recommendation-traffic-mechanisms",
-        title: "公众号推荐机制实测：评论互动与争鸣点是破圈杠杆",
-        fact: "实操案例显示，采用“疑问式互动”只抛问题不给唯一答案的内容，引发大量评论争鸣，成功撬动公域推荐流量池。",
-        judgement: "内容创作不能单向灌输。在内容中前置设计“轻度争议点”或“读者站队话题”，是触发算法推荐的最有效杠杆。",
-        sourceIds: ["daily-insight-20260919"]
-      },
-      {
-        id: "meta-discussion-saturation",
-        title: "“教你怎么找赛道”内容增多，预示红利窗口步入成熟期",
-        fact: "同日出现多起“赛道方法论”的宏观分析，但带真实订单截图的一手实操显著减少。",
-        judgement: "当某种玩法被大规模封装为找赛道课程时，往往说明首波粗放红利已被吃尽，后进者必须具备差异化交付能力。",
-        sourceIds: ["daily-insight-20260919"]
-      }
-    ],
-    nextStep: "检查并优化自身产品与推广文案，去除生硬的 AI 营销标签；在公众号排版中测试互动式文末设问。",
-    tags: ["平台规则", "公域推荐", "风险预警", "商业洞察"],
-    sources: [
-      {
-        id: "daily-insight-20260919",
-        title: "每日商业与 AI 趋势观察记录（2026-09-19）",
-        url: null,
-        publishedAt: "2026-09-19"
-      }
-    ]
-  },
-  {
-    schemaVersion: 1,
-    kind: "daily",
-    id: "daily-2026-09-20",
-    slug: "virtual-goods-and-skill-products",
-    title: "小红书10元卖考公Skill验证模具，教育可视化漫画成独立共识",
-    summary: "把名师语料封装为开箱即用Skill低价售出千份；初中漫画手绘与小学语文导图被两位独立创作者同时印证，跑通拆细SKU矩阵打法。",
-    editionDate: "2026-09-20",
-    publicationTimeZone: "Asia/Shanghai",
-    status: "published",
-    preview: false,
-    publishedAt: "2026-09-21T10:43:00+08:00",
-    overview: "变现主题强势回升，硬线索高度集中：一方面，把名师专业语料封装为开箱即用 Agent Skill 在小红书低价分发，验证了全新的交付模具；另一方面，初中知识点漫画与小学语文导图被两位互不相关的创作者同时验证，验证了按教材单元拆细矩阵的打法。",
-    discoveries: [
-      {
-        id: "xiaohongshu-skill-product",
-        title: "小红书卖定制考公 Skill，10 元单价售出 1,000+ 份",
-        fact: "创作者将公考名师视频沉淀为私有语料投喂 AI 封装成 Skill，在小红书以 10 元单价卖出 1000+ 份，并向四六级和高中知识点拓展。",
-        judgement: "10 元单价对应的核心价值是“模具”而非收入：把垂直经验封装为开箱即用的 Agent 工具直接交付，具有极高的跨赛道复用潜力。",
-        sourceIds: ["daily-insight-20260920"]
-      },
-      {
-        id: "edu-visual-products",
-        title: "初中数理化漫画与小学语文导图：双源验证拆品矩阵",
-        fact: "初中知识点漫画图解（销量 5000+）与小学语文导图（销量 2500~3000+）同日被不同作者独立观察到，均采用低粉+自动发货+按课本拆品。",
-        judgement: "两位作者互不认识却同一天验证同类品，说明非单点偶然。其“把一套内容按年级课本拆细为 100 个细分 SKU”的逻辑值得全行业借鉴。",
-        sourceIds: ["daily-insight-20260920"]
-      },
-      {
-        id: "platform-native-agents",
-        title: "官方开发工具内置 Agent，通用工具受挤压需建私有护城河",
-        fact: "微信开发者工具官方上线自动化工作流辅助能力，直接内置到平台中。",
-        judgement: "平台官方持续将通用 Agent 工具原生收编，单一搬运或简单套壳工具生存空间被极度压缩，开发者必须尽早沉淀垂直业务与私有语料。",
-        sourceIds: ["daily-insight-20260920"]
-      }
-    ],
-    nextStep: "关注教育类拆品矩阵是否被他人快速复现；评估将专业垂直语料封装为开箱即用小工具的可行性。",
-    tags: ["AgentSkill", "低粉虚拟品", "拆品矩阵", "商业洞察"],
-    sources: [
-      {
-        id: "daily-insight-20260920",
-        title: "每日商业与 AI 趋势观察记录（2026-09-20）",
-        url: null,
-        publishedAt: "2026-09-20"
-      }
-    ]
-  },
-  {
-    schemaVersion: 1,
-    kind: "daily",
-    id: "daily-2026-09-21",
-    slug: "ai-video-pipeline-servitization",
-    title: "AI视频从自营做号走向接单服务化，小红书测评迎9.9元“卖铲人”形态",
-    summary: "爆款视频代码化、AI穿搭流水线与电商广告剪辑师招聘同时出现，AI视频走向接单产能；测评资料出现打包转售的“卖铲子”上游分化。",
-    editionDate: "2026-09-21",
-    publicationTimeZone: "Asia/Shanghai",
-    status: "published",
-    preview: false,
-    publishedAt: "2026-09-21T10:00:00+08:00",
-    overview: "变现主题维持高位，但真正收敛的暗线是 AI 视频产线的服务化：爆款转工作流、穿搭视频流水线、海外电商剪辑师招聘等多方互不相关的信号同时涌现，标志着 AI 视频正从碰运气的自媒体博弈演进为稳定供给的交付产能。同时，小红书测评资料出现打包向创作者供货的“卖铲”新形态。",
-    discoveries: [
-      {
-        id: "video-pipeline-servitization",
-        title: "AI 视频生产线向接单外包收敛：爆款代码化与广告剪辑岗位",
-        fact: "爆款视频转代码工作流工具、海外 AI 电商广告剪辑师招聘（1000~3000美元/月）与穿搭流水线同日出现，多方信号指向同一趋势。",
-        judgement: "行业正从单纯发视频赌流量，转变为标准流水线产能供给。拥有稳定自动化工作流的独立开发者更容易通过面向 B 端提供服务获得确定性现金流。",
-        sourceIds: ["daily-insight-20260921"]
-      },
-      {
-        id: "seller-of-shovels-model",
-        title: "测评资料形态上移：打包 9.9 元大礼包直接向创作者供货",
-        fact: "小红书测评资料出现打包为 9.9 元大礼包直接向做测评的创作者供货的案例，单帖获高关注（阅读量超 1600）。",
-        judgement: "当下游创作者密集入局时，上游提供原料包与工具模具的商业确定性显著提高，是经典的“卖铲”模式演进。",
-        sourceIds: ["daily-insight-20260921"]
-      },
-      {
-        id: "reused-case-distinction",
-        title: "存量案例二次流转需去重，避免将圈内传播误判为行业爆发",
-        fact: "某小红书测试小店在 9-15 出现后再次被其他作者提及，相关销售额为作者粗算而非独立新增。",
-        judgement: "需建立跨期次去重意识，避免同一存量样本在不同作者间二次流转时被误判为行业爆发新信号。",
-        sourceIds: ["daily-insight-20260921"]
-      }
-    ],
-    nextStep: "评估自身开发的工作流向标准服务化接单产线封装的可能性；关注小红书测评供货“卖铲”形态的后续成交数据。",
-    tags: ["视频产线", "服务化", "卖铲模式", "商业洞察"],
-    sources: [
-      {
-        id: "daily-insight-20260921",
-        title: "每日商业与 AI 趋势观察记录（2026-09-21）",
-        url: null,
-        publishedAt: "2026-09-21"
-      }
-    ]
-  }
-];
 
-/**
- * 主执行函数：批量解析、验证、更新内容集合并写入磁盘
- */
-async function main() {
-  console.log("=== 开始批量导入历史英语课程与风向标日报 ===");
+const dailySourceDirectory = "/Users/mrliang/Projects/项目/生财有术/风向标";
 
-  // 1. 读取并解析所有英语课程
-  console.log("\n[1/4] 解析英语课程源文件...");
-  const englishFiles = (await readdir(englishSourceDirectory))
-    .filter((fileName) => fileName.startsWith("english-lesson-") && fileName.endsWith(".html"))
-    .sort();
-
-  const englishLessons = [];
-  for (const fileName of englishFiles) {
-    // 匹配日期字符串
-    const dateMatch = fileName.match(/\d{4}-\d{2}-\d{2}/u);
-    if (!dateMatch) continue;
-    const date = dateMatch[0];
-    const fullPath = join(englishSourceDirectory, fileName);
-    const parsedLesson = await parseEnglishLesson(fullPath, date);
-    englishLessons.push(parsedLesson);
-    console.log(`  ✓ 已解析英语课 [${date}]: ${parsedLesson.title} (rev: ${parsedLesson.revision})`);
-  }
-
-  // 2. 规范化并计算风向标日报
-  console.log("\n[2/4] 规范化脱敏风向标日报...");
-  const existingDaily = JSON.parse(await readFile(collectionPath(defaultPublicContentDirectory, "daily"), "utf8"));
-  const bodiesByDate = new Map(existingDaily.items.map((item) => [item.editionDate, item.bodyHtml]));
-  const dailyReports = [];
-  for (const report of dailyReportsData) {
-    const bodyHtml = bodiesByDate.get(report.editionDate);
-    if (bodyHtml) report.bodyHtml = bodyHtml;
-    // 经由 Schema 校验
-    const normalized = validateContent(report, { expectedKind: "daily" });
-    // 计算 revision
-    const revision = contentRevision(normalized);
-    dailyReports.push({ ...normalized, revision });
-    console.log(`  ✓ 已规范日报 [${report.editionDate}]: ${report.title} (rev: ${revision})`);
-  }
-
-  // 3. 校验集合完整性并写入 public 内容目录
-  console.log("\n[3/4] 写入内容数据库...");
-  const englishCollection = validateCollection(
-    { schemaVersion: 1, kind: "english", items: englishLessons },
-    { expectedKind: "english", requirePublished: true }
-  );
-  const dailyCollection = validateCollection(
-    { schemaVersion: 1, kind: "daily", items: dailyReports },
-    { expectedKind: "daily", requirePublished: true }
-  );
-
-  const englishPath = collectionPath(defaultPublicContentDirectory, "english");
-  const dailyPath = collectionPath(defaultPublicContentDirectory, "daily");
-
-  await writeJsonAtomic(englishPath, englishCollection);
-  console.log(`  ✓ 已成功更新: ${englishPath} (共 ${englishLessons.length} 篇课程)`);
-
-  await writeJsonAtomic(dailyPath, dailyCollection);
-  console.log(`  ✓ 已成功更新: ${dailyPath} (共 ${dailyReports.length} 篇日报)`);
-
-  console.log("\n[4/4] 批量导入完成！请运行静态构建构建新页面。");
+function plainText(html) {
+  const text = sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} });
+  const entities = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
+  return text.replace(/&(#x[0-9a-f]+|#[0-9]+|amp|lt|gt|quot|apos|nbsp);/giu, (entity, name) => {
+    if (!name.startsWith("#")) return entities[name.toLowerCase()];
+    const point = name[1].toLowerCase() === "x" ? parseInt(name.slice(2), 16) : Number(name.slice(1));
+    return point <= 0x10ffff ? String.fromCodePoint(point) : entity;
+  }).replace(/\s+/gu, " ").trim();
 }
 
-main().catch((error) => {
-  console.error(`导入失败：${error.stack || error.message}`);
-  process.exitCode = 1;
-});
+// Source templates nest divs; a non-greedy match would truncate analyses or cards.
+function templateDivs(html, marker) {
+  const opening = new RegExp('<div\\b[^>]*\\b(?:id|class)=["\\x27]' + marker + '["\\x27][^>]*>', "giu");
+  const result = [];
+  for (let match; (match = opening.exec(html));) {
+    const tags = /<\/?div\b[^>]*>/giu;
+    tags.lastIndex = opening.lastIndex;
+    let depth = 1;
+    let closing;
+    for (let tag; (tag = tags.exec(html));) {
+      depth += /^<\/div/iu.test(tag[0]) ? -1 : 1;
+      if (depth === 0) { closing = tag; break; }
+    }
+    if (!closing) throw new Error(`日报模板 ${marker} 未闭合`);
+    result.push({ html: html.slice(match.index, tags.lastIndex), inner: html.slice(opening.lastIndex, closing.index) });
+    opening.lastIndex = tags.lastIndex;
+  }
+  return result;
+}
+
+function sourceAuthorNames(html) {
+  return [...html.matchAll(/<span\b[^>]*class="au"[^>]*>([\s\S]*?)<\/span>/giu)]
+    .map(match => plainText(match[1])).filter(Boolean);
+}
+
+export function parseDailyReport(html, date, { knownAuthors = [] } = {}) {
+  const authors = [...new Set([...sourceAuthorNames(html), ...knownAuthors])];
+  let source = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/giu, "");
+  const aliases = authors.map((name, index) => [name, `实战作者 ${index + 1}`]).sort((a, b) => b[0].length - a[0].length);
+  // Mask text nodes, preserving HTML attributes and ordinary words that contain a nickname.
+  source = source.replace(/>([^<]+)</gu, (fragment, text) => {
+    for (const [name, alias] of aliases) {
+      if (name.length < 2 || /^\d+$/u.test(name)) continue;
+      const escaped = name.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+      const suffix = /^[a-z]/iu.test(name) ? '(?![A-Za-z0-9_])' : '';
+      text = text.replace(new RegExp('(?<![\\p{L}_])' + escaped + suffix, "gu"), alias);
+      text = text.replace(new RegExp('(出自|来自|作者|剔除|只有|被|叠加|加上|注意|表扬|是|为|由|与|和|里|但|且|归|加|把|而|若|的|了)\\s*' + escaped + suffix, "gu"), '$1' + alias);
+    }
+    return '>' + text + '<';
+  });
+  const ai = templateDivs(source, "ai-slot")[0]?.inner
+    ?? templateDivs(source, "ai-body")[0]?.inner
+    ?? templateDivs(source, "ai-view")[0]?.inner;
+  const items = templateDivs(source, "item");
+  if (!ai || !items.length) throw new Error(`日报 ${date} 缺少完整研判或案例卡片`);
+  const table = source.match(/<table\b[^>]*class="iv-table"[^>]*>[\s\S]*?<\/table>/iu)?.[0] ?? "";
+  const overview = plainText(ai.match(/<p\b[^>]*>([\s\S]*?)<\/p>/iu)?.[1] ?? ai);
+  const sourceId = `daily-insight-${date.replaceAll("-", "")}`;
+  const report = validateContent({
+    schemaVersion: 1, kind: "daily", id: `daily-${date}`, slug: `daily-${date}`,
+    title: `风向标日报 · ${date}`, summary: overview.slice(0, 320), editionDate: date,
+    publicationTimeZone: "Asia/Shanghai", status: "published", preview: false,
+    publishedAt: new Date().toISOString(), overview: overview.slice(0, 900),
+    bodyHtml: `<section class="daily-ai-section"><h2>AI 商业研判与趋势透视</h2><div class="daily-ai-content">${ai}</div></section>
+      ${table ? `<section><h2>主题分布</h2><div class="daily-table-wrapper">${table}</div></section>` : ""}
+      <section class="daily-items-section"><h2>全部 ${items.length} 条商业线索</h2><div class="daily-items-list">${items.map(item => item.html).join("")}</div></section>`,
+    discoveries: items.slice(0, 3).map((item, index) => ({
+      id: `case-${index + 1}`,
+      title: plainText(item.inner.match(/<h3\b[^>]*>([\s\S]*?)<\/h3>/iu)?.[1] ?? "").slice(0, 180),
+      fact: (plainText(templateDivs(item.html, "body")[0]?.inner ?? "") || "源日报未提供正文摘要；仅保留标题线索。").slice(0, 700),
+      judgement: "案例数据来自素材中的作者自述，未经本站独立审计；先核对同口径证据，再判断可复制性。",
+      sourceIds: [sourceId]
+    })),
+    nextStep: "结合本期研判核对案例证据、投入成本与自身能力，再选择小规模验证动作。",
+    tags: [...new Set([...source.matchAll(/<span\b[^>]*class="tag"[^>]*>([\s\S]*?)<\/span>/giu)]
+      .map(match => plainText(match[1]).slice(0, 32)).filter(Boolean))].slice(0, 5),
+    sources: [{ id: sourceId, title: `每日商业与 AI 趋势观察记录（${date}）`, url: null, publishedAt: date }]
+  }, { expectedKind: "daily" });
+  return { ...report, revision: contentRevision(report) };
+}
+
+export async function syncMaterials({
+  englishDirectory = englishSourceDirectory,
+  dailyDirectory = dailySourceDirectory,
+  publicDirectory = defaultPublicContentDirectory,
+  dryRun = false,
+  since,
+  today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Shanghai", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date())
+} = {}) {
+  const candidates = [];
+  const reports = [];
+  for (const [kind, directory, pattern, parse] of [
+    ["english", englishDirectory, /^english-lesson-(\d{4}-\d{2}-\d{2})\.html$/u, (html, date, file) => parseEnglishLesson(file, date)],
+    ["daily", dailyDirectory, /^风向标日报_(\d{4}-\d{2}-\d{2})\.html$/u, (html, date, file, knownAuthors) => parseDailyReport(html, date, { knownAuthors })]
+  ]) {
+    const existing = await readContentCollection(publicDirectory, kind, { requirePublished: true });
+    const knownDates = new Set(existing.items.map(item => item.editionDate));
+    const floor = since ?? [...knownDates].sort()[0] ?? today;
+    const files = (await readdir(directory)).flatMap(file => {
+      const match = file.match(pattern);
+      return match ? [{ file, date: match[1] }] : [];
+    }).sort((a, b) => a.date.localeCompare(b.date));
+    const eligible = files.filter(item => item.date <= today);
+    const rawDaily = new Map();
+    const knownAuthors = new Set();
+    if (kind === "daily") for (const { file, date } of eligible.filter(item => item.date >= floor)) {
+      const html = await readFile(join(directory, file), "utf8");
+      rawDaily.set(date, html);
+      for (const name of sourceAuthorNames(html)) knownAuthors.add(name);
+    }
+    const added = [];
+    for (const { file, date } of eligible) {
+      if (date < floor || knownDates.has(date)) continue;
+      const fullPath = join(directory, file);
+      try {
+        added.push(await parse(kind === "daily" ? rawDaily.get(date) : null, date, fullPath, [...knownAuthors]));
+      } catch (error) {
+        throw new Error(`${kind} ${date}：${error.message}`);
+      }
+    }
+    const collection = validateCollection({ ...existing, items: [...existing.items, ...added] }, { expectedKind: kind, requirePublished: true });
+    candidates.push({ kind, collection, added });
+    reports.push({
+      kind, sourceLatest: eligible.at(-1)?.date ?? null,
+      siteLatest: collection.items.map(item => item.editionDate).sort().at(-1) ?? null,
+      added: added.map(item => item.editionDate), total: collection.items.length,
+      futureSourcesSkipped: files.length - eligible.length, dryRun
+    });
+  }
+  // Parse and validate both columns before writing either published snapshot.
+  if (!dryRun) for (const { kind, collection, added } of candidates) {
+    if (added.length) await writeJsonAtomic(collectionPath(publicDirectory, kind), collection);
+  }
+  return reports;
+}
+
+async function main() {
+  const options = {};
+  const optionNames = new Map([
+    ["--english-dir", "englishDirectory"], ["--daily-dir", "dailyDirectory"],
+    ["--public-dir", "publicDirectory"], ["--since", "since"]
+  ]);
+  const args = process.argv.slice(2);
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+    if (arg === "--dry-run") { options.dryRun = true; continue; }
+    const name = optionNames.get(arg);
+    const value = args[++index];
+    if (!name || !value || value.startsWith("--")) throw new Error(`无法识别参数或缺少值：${arg}`);
+    options[name] = name === "since" ? value : resolve(value);
+  }
+  if (options.since && (!/^\d{4}-\d{2}-\d{2}$/u.test(options.since)
+    || new Date(`${options.since}T00:00:00Z`).toISOString().slice(0, 10) !== options.since)) {
+    throw new Error("--since 必须是有效的 YYYY-MM-DD 日期");
+  }
+  console.log(JSON.stringify(await syncMaterials(options), null, 2));
+}
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
+  main().catch(error => {
+    console.error(`素材同步失败：${error.message}`);
+    process.exitCode = 1;
+  });
+}

@@ -259,7 +259,7 @@ function normalizeEnglish(raw, expectedKind) {
       return {
         id: asIdentifier(item.id, `sentences[${index}].id`),
         speaker: asText(item.speaker, `sentences[${index}].speaker`, { max: 40 }),
-        text: asText(item.text, `sentences[${index}].text`, { max: 360 }),
+        text: asText(item.text, `sentences[${index}].text`, { max: 600 }),
         translation: asText(item.translation, `sentences[${index}].translation`, { max: 360 })
       };
     }

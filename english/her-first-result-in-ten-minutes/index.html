@@ -1,0 +1,228 @@
+<!-- liangxiao-bento-managed-route -->
+<!doctype html>
+<html lang="zh-Hans" data-theme="paper">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="练习在「十分钟带她做出第一个结果」场景下，用清晰、地道、专业的英语展开有效沟通。">
+  <meta name="theme-color" content="#111111">
+  <title>十分钟带她做出第一个结果 · Her First Result in Ten Minutes · 良逍</title>
+  <link rel="canonical" href="https://liangxiaoaitool.top/english/her-first-result-in-ten-minutes/">
+  <link rel="alternate" type="application/rss+xml" title="良逍 的 RSS" href="https://liangxiaoaitool.top/rss.xml">
+  <link rel="stylesheet" href="/site-assets/personal.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+<header class="site-header">
+  <nav class="site-nav" aria-label="主导航">
+    <a class="site-brand" href="/" aria-label="良逍，返回首页">良逍 <span>AI</span></a>
+    <ul class="site-nav-links">
+      <li><a href="/">首页</a></li>
+      <li><a href="/writing/">文章</a></li>
+      <li><a href="/tools/">工具</a></li>
+      <li><a href="/daily/">风向标日报</a></li>
+      <li><a href="/english/" aria-current="page">英语学习</a></li>
+      <li><a href="/about/">关于</a></li>
+    </ul>
+  </nav>
+</header>
+  <main id="content" class="site-main">
+  <div class="reading-shell">
+    <div class="lesson-courseware-container" data-english-player data-translations-default="hidden">
+      <a class="article-back" href="/english/">← 返回英语全部课程</a>
+      <div class="lesson-courseware">
+        <header>
+  <h1>十分钟带她做出第一个结果<span class="en">Her First Result in Ten Minutes</span></h1>
+  <div class="meta">职业：独立开发者 / AI 内容创作者（AI 工具方向） · 难度：基础 · 主要沟通动作：Guide someone through it 一步步带对方自己做出结果 · 人物与数据均为虚构练习</div>
+  <p class="task">Today's task: In ten minutes, get Mira to click through her first run on her own — and walk away knowing she can do it without you.</p>
+</header>
+
+<section class="setup">
+  <h2>The Setup</h2>
+  <div class="setup-grid">
+    <div class="setup-item">
+      <h3>Where</h3>
+      <p class="en">A ten-minute video call on a Tuesday morning. She is sharing her screen and you are watching her cursor move across it. The radio in her kitchen is still on, and she turns it down with one hand while she talks.</p>
+      <p class="cn hidden">周二上午的一次十分钟视频通话。她在共享自己的屏幕，你看着她的鼠标在画面上移动。她厨房里的收音机还开着，她一边说话一边用一只手把音量拧小。</p>
+    </div>
+    <div class="setup-item">
+      <h3>Who</h3>
+      <p class="en">You are the only developer of Sumly, a small tool that turns a long recording into a short list of key points. Mira is a podcast producer in Portland with no technical background — she runs the show and edits it herself.</p>
+      <p class="cn hidden">你是 Sumly 唯一的开发者。这个工具把一段很长的录音整理成一份简短的要点清单。Mira 是波特兰的一位播客制作人，没有技术背景——节目是她一个人做、一个人剪的。</p>
+    </div>
+    <div class="setup-item">
+      <h3>At stake</h3>
+      <p class="en">Her free trial ends in five days. Last week she tried it alone, got a red warning, and closed the window. If today ends the same way, she goes back to writing her show notes by hand and never opens it again.</p>
+      <p class="cn hidden">她的免费用期只剩五天。上周她一个人试着用，碰到一个红色警告，就把窗口关了。如果今天还是同样的结局，她会回去手写节目要点，不会再打开第二次。</p>
+    </div>
+    <div class="setup-item">
+      <h3>Mood</h3>
+      <p class="en">Quick and careful. She laughs before every click, says sorry before every question, and keeps checking the clock in the corner of her screen.</p>
+      <p class="cn hidden">语速快，但很小心。每次点鼠标前先笑一下，每问一句之前先道歉，还一直看屏幕角落里的那个时钟。</p>
+    </div>
+  </div>
+  <button id="toggle-setup-cn" data-toggle-setup type="button">显示中文</button>
+</section>
+
+<section class="hint">
+  <h2>Scene Hint</h2>
+  <p>通话计时已经走到第三分钟，她的鼠标在屏幕上慢慢移动，停在一个灰色按钮上，又缩了回去。她那边的收音机在报天气，她伸手把音量拧小，说了一句等一下。屏幕上那个光标停着没动，你能听见她在翻纸。她说，我先确认一下我没有弄坏什么，然后才继续。你的任务是：在剩下的七分钟里，让她自己点完、看到第一个结果，并且知道下一次不用你在旁边也能做出来。</p>
+</section>
+
+<section class="dialogue-section">
+  <h2>Dialogue</h2>
+  <div class="controls">
+    <button class="primary play-all" id="play-all" data-play-all type="button">▶ 播放全部</button>
+    <button class="stop" id="stop" data-stop type="button">■ 停止</button>
+    <label class="speed">Speed
+      <select id="speed" data-playback-rate>
+        <option value="0.75">很慢 0.75x</option>
+        <option value="0.85">慢 0.85x</option>
+        <option value="1" selected>正常 1.0x</option>
+        <option value="1.15">快 1.15x</option>
+      </select>
+    </label>
+    <label class="voice">Voice
+      <select id="voice" data-voice><option>(加载中…)</option></select>
+    </label>
+    <button class="toggle-dialogue" id="toggle-dialogue-cn" data-toggle-translations type="button">显示中文</button>
+    <button id="blind-listen" data-blind-listen type="button">🎧 盲听复习</button>
+    <button id="exit-blind" class="hidden" data-exit-blind type="button">退出盲听</button>
+  </div>
+  <p class="voice-warn hidden" id="voice-warn" data-player-status>提示：本设备暂无可用英语音色，正文与按钮仍可正常查看，可换设备或浏览器再试语音。</p>
+  <p>播放发闷或有电流感时：先在下拉里换一个带 ★ 的音色；如果用蓝牙耳机，让耳机回到音乐／立体声模式——通话模式会明显降低音质。</p>
+  <ol class="dialogue" id="dialogue-list"><li class="line english-sentence" data-sentence-id="l1">
+      <div class="line-head"><span class="speaker">Mira</span><button type="button" class="play-line" data-play-sentence="l1" aria-label="点读第 l1 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Okay, my screen is shared. Before we start — I am really bad with computers, so please talk slowly. Last week I got a red box and I closed the window.</p><p class="cn-line" data-translation>好，我屏幕共享了。开始之前先说一句——我真的很不会用电脑，麻烦你讲慢点。上周弹出来一个红框，我就把窗口关了。</p></li><li class="line english-sentence" data-sentence-id="l2">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l2" aria-label="点读第 l2 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Thanks for giving it another go. Let me walk you through the whole thing. It is four clicks, and I will stay with you until you see the list on your screen.</p><p class="cn-line" data-translation>谢谢你愿意再试一次。我带你把它整个走一遍，一共四次点击，我会一直陪到你在屏幕上看到那份清单为止。</p></li><li class="line english-sentence" data-sentence-id="l3">
+      <div class="line-head"><span class="speaker">Mira</span><button type="button" class="play-line" data-play-sentence="l3" aria-label="点读第 l3 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Four clicks. Okay. Where do I start? Please, not settings. Settings is where I got lost.</p><p class="cn-line" data-translation>四次点击。好。我从哪儿开始？拜托别说设置，我就是在那儿迷路的。</p></li><li class="line english-sentence" data-sentence-id="l4">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l4" aria-label="点读第 l4 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">No settings today. Start with the blue button in the middle of the page. You cannot break anything in here, so click it and see what happens.</p><p class="cn-line" data-translation>今天不碰设置。从页面中间那个蓝色按钮开始。这里面你弄不坏任何东西，点下去看看会发生什么。</p></li><li class="line english-sentence" data-sentence-id="l5">
+      <div class="line-head"><span class="speaker">Mira</span><button type="button" class="play-line" data-play-sentence="l5" aria-label="点读第 l5 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Okay. I clicked it. Now it says choose a file. Oh no. I need to find last week&#39;s recording. Give me a second, it is somewhere in my phone.</p><p class="cn-line" data-translation>好，我点了。现在它说要选一个文件。糟了，我得找上周那段录音。等我一下，它应该在我手机里。</p></li><li class="line english-sentence" data-sentence-id="l6">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l6" aria-label="点读第 l6 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Take your time. Put the file in the grey box. Then you should see a small clock next to the file name — that means it is working.</p><p class="cn-line" data-translation>你慢慢来。把文件放进那个灰框里。然后你应该会看到文件名旁边出现一个小钟——那就说明它开始工作了。</p></li><li class="line english-sentence" data-sentence-id="l7">
+      <div class="line-head"><span class="speaker">Mira</span><button type="button" class="play-line" data-play-sentence="l7" aria-label="点读第 l7 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">There is a clock. Okay, it is turning around. Is it supposed to take this long? There are also tabs on the left side. What are those?</p><p class="cn-line" data-translation>有个钟。好，它转起来了。它本来就要转这么久吗？左边还有几个标签，那些是什么？</p></li><li class="line english-sentence" data-sentence-id="l8">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l8" aria-label="点读第 l8 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Two minutes, sometimes three. Do not worry about the tabs on the left — those are for later. Right now, just watch the clock.</p><p class="cn-line" data-translation>两分钟，有时候三分钟。左边那些标签你现在不用管，那是后面才用的。现在只要盯着那个钟就行。</p></li><li class="line english-sentence" data-sentence-id="l9">
+      <div class="line-head"><span class="speaker">Mira</span><button type="button" class="play-line" data-play-sentence="l9" aria-label="点读第 l9 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">Okay. Oh — it just finished. There are five points. Wait, that is my interview, and the names are spelled right. How did it do that?</p><p class="cn-line" data-translation>好。哦——它刚做完了。出来五条要点。等等，这是我的访谈内容，人名的拼写还是对的。它怎么做到的？</p></li><li class="line english-sentence" data-sentence-id="l10">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l10" aria-label="点读第 l10 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">That is your first one. Now, last week you ran into a red box. Do you remember what you clicked right before that?</p><p class="cn-line" data-translation>这就是你的第一个结果了。对了，上周你碰到过那个红框。你还记得在它出现之前你点了什么吗？</p></li><li class="line english-sentence" data-sentence-id="l11">
+      <div class="line-head"><span class="speaker">Mira</span><button type="button" class="play-line" data-play-sentence="l11" aria-label="点读第 l11 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">I think I clicked team two times. I do not have a team. It asked for email addresses and I did not know what to put there.</p><p class="cn-line" data-translation>我好像是点了两次团队。我没有团队。它让我填邮箱地址，我不知道该填什么。</p></li><li class="line english-sentence" data-sentence-id="l12">
+      <div class="line-head"><span class="speaker">You</span><button type="button" class="play-line" data-play-sentence="l12" aria-label="点读第 l12 句" aria-pressed="false">🔊</button></div>
+      <p class="en-line">That is my mistake, not yours. That page should not be there for one person. I will take it out tonight and email you when it is gone. You know your four clicks now, so try one more episode this week without me.</p><p class="cn-line" data-translation>那是我的问题，不是你的。那一页本来不该出现在单人账号里。我今晚就把它去掉，去掉了给你发邮件。你现在已经会你那四次点击了，这周自己再拿一期节目试一次，不用我在旁边。</p></li></ol>
+</section>
+
+<section class="expressions">
+  <h2>5 个重点表达</h2>
+
+  <div class="expr">
+    <h3>walk you through <span class="rev">复习</span> <span class="ipa">/wɔːk jə ˈθruː/</span></h3>
+    <p class="def"><strong>复习说明：</strong>2026-09-17 那课首次出现（当时是给海外客户做产品演示，由你操作、对方看），这一课换到"实时指导对方自己动手"，操作的人是对方，你只出声带路，例句也换了场景。</p>
+    <p class="def"><strong>核心含义：</strong>带着你一步步走一遍——我在旁边解说，你跟着做（或跟着看）。</p>
+    <p class="def"><strong>本课作用：</strong>L2 用它开场。她的第一句问题是"我从哪儿开始"，这句把"没有起点"直接变成"有路线"：一共四次点击，而且我会陪着。先给路线再给规则，她才不会在页面上自己乱点。跟本课的关系要说清——上次是你在操作、她在看；这次是她操作、你只出声，这句话的用法一样，但你的手必须离开鼠标。</p>
+    <p class="def"><strong>记忆提示：</strong>（联想）walk 是走路，through 是穿过——你陪她走完全程，不是站在出口等她。后面常直接跟名词：walk you through it / walk you through the steps。别和 walk in on（推门撞见）弄混。</p>
+    <p class="def"><strong>换情境例句：</strong>"On your first day, I will walk you through the morning routine, so you are not guessing."（你第一天上班，我带你走一遍早上的流程，你就不会靠猜。）</p>
+  </div>
+
+  <div class="expr">
+    <h3>you cannot break anything <span class="ipa">/juː kænt breɪk ˈeniˌθɪŋ/</span></h3>
+    <p class="def"><strong>核心含义：</strong>在这里你弄不坏任何东西——放心点，没有会让你赔的开关。说的是"这里没有东西可弄坏"，不是夸对方厉害。</p>
+    <p class="def"><strong>本课作用：</strong>L4。她每次点之前先道歉，光标停在按钮上又缩回来。这句不是在鼓励她勇敢，是把"点错了要负责"这个前提先拿掉。不敢点的人多半不是不会，是怕弄坏东西；拆掉这个刹车，比再解释一遍按钮干什么更有用。注意分寸：只在你确定她真的弄不坏的时候说。</p>
+    <p class="def"><strong>记忆提示：</strong>（联想）break 是弄坏东西——机器、屏幕、杯子。这句话等于告诉她"这个房间里没有会碎的杯子"。反过来，说自己在别人那儿要格外小心时不说这句，要说 I have to be careful with this one。</p>
+    <p class="def"><strong>换情境例句：</strong>"Try the mixer at any speed you like. You cannot break it — it stops by itself."（搅拌机想用哪档都行。它弄不坏——会自己停。）</p>
+  </div>
+
+  <div class="expr">
+    <h3>you should see <span class="ipa">/juː ʃʊd ˈsiː/</span></h3>
+    <p class="def"><strong>核心含义：</strong>你现在应该能看到……——报出"我预期你屏幕上出现什么"，然后等对方确认。</p>
+    <p class="def"><strong>本课作用：</strong>L6。这是远程指导里最省时间的一句：她不用描述整个屏幕，只要回答"有"或"没有"。画面在对面，你看不全也来不及细看，用这句话把两个人的画面拉到同一个点上，出问题也能立刻发现，而不是等她点错三步之后才回头查。</p>
+    <p class="def"><strong>记忆提示：</strong>（联想）should 在这里是"按道理应该是"，不是"必须"。语气是等一个确认，所以后面常跟着 If you do not see it, tell me。别用它来说道德上的"你应该"——那是另一件事。</p>
+    <p class="def"><strong>换情境例句：</strong>"When the bread is done, you should see it pull away from the sides of the pan."（面包烤好的时候，你应该能看到它从烤盘边上松开。）</p>
+  </div>
+
+  <div class="expr">
+    <h3>do not worry about <span class="ipa">/doʊnt ˈwɜːri əˈbaʊt/</span></h3>
+    <p class="def"><strong>核心含义：</strong>那件事现在不用管、不用操心——把它从对方的清单上划掉。</p>
+    <p class="def"><strong>本课作用：</strong>L8。她一看见左边那一排标签就开始分神。这句替你删掉三样东西：不是"别担心我"，是"那几样不在今天的单子上"。第一次上手的人，注意力一次只够放一件事，减少选项比增加解释有用得多。</p>
+    <p class="def"><strong>记忆提示：</strong>（联想）worry about 后面直接接名词或动名词：about the tabs / about paying。关键在于"现在"——这句话只是把它推到后面，没有说它不重要，所以后面常补一句 that is for later。少了这句补充，对方会以为你嫌她问得多。</p>
+    <p class="def"><strong>换情境例句：</strong>"Do not worry about the old furniture. The movers will take it out for you."（旧家具你不用操心，搬家师傅会帮你抬出去。）</p>
+  </div>
+
+  <div class="expr">
+    <h3>run into <span class="rev">复习</span> <span class="ipa">/rʌn ˈɪntuː/</span></h3>
+    <p class="def"><strong>复习说明：</strong>2026-09-22 那课首次出现（当时你在产品访谈里用轻一点的词让用户肯承认问题），这一课换到"把对方上周的故障定位到具体那一下"，例句也换了场景。</p>
+    <p class="def"><strong>核心含义：</strong>碰上（麻烦、故障、某个人）——路上撞上的意思，不是"跑进去"。</p>
+    <p class="def"><strong>本课作用：</strong>L10。问她上次卡在哪，如果说 What went wrong，多半换来一句"就是不好用"；换成 run into，问题落在一个具体的块上（红色的框），她才答得出来，你再往下问一步，就能拿到真正的动作（点了两次"团队"）。找原因靠的是把模糊的抱怨换成能指认的东西。</p>
+    <p class="def"><strong>记忆提示：</strong>（联想）走路时撞上一个人或一堵墙——不请自来、不在计划里。所以它后面能接 problem、trouble、delay，也能接 an old friend。它跟 meet 不同：meet 多半是你安排的。</p>
+    <p class="def"><strong>换情境例句：</strong>"We ran into a delay at the airport, so we missed the first meeting."（我们在机场碰上了延误，所以错过了第一场会。）</p>
+  </div>
+</section>
+
+<section class="patterns">
+  <h2>实用句型（来自本课对话）</h2>
+
+  <div class="pat">
+    <strong>Let me walk you through it. It is ___ clicks, and I will stay with you until ___.</strong>
+    我带你把它走一遍，一共 ___ 次点击，我会一直陪到 ___。
+    <span class="use">—— 远程教人做事的第一句。它一次给三样东西：路线、长度（几次点击）、陪伴承诺。对方怕的不是难，是"不知道有多长"，所以把次数报出来，比说 It is easy 更让人安心。用在带新同事上手、电话里教长辈用 App、远程给客户做设置。</span>
+  </div>
+
+  <div class="pat">
+    <strong>You should see ___. If you do not, tell me.</strong>
+    你现在应该能看到 ___。如果没看到，告诉我。
+    <span class="use">—— 看不见对方屏幕时最实用的一对句子：前半句报预期，后半句留一个反馈口。少了后半句，对方多半会沉默，你在电话这头还以为一切正常。用在远程指导、电话排查、教操作。</span>
+  </div>
+
+  <div class="pat">
+    <strong>Do not worry about ___ — that is for later.</strong>
+    ___ 你现在不用管，那是后面的事。
+    <span class="use">—— 主动替对方删掉无关的东西。说这句时要把被删掉的东西点明（the tabs on the left），否则对方不知道你指的是哪一块。补上 that is for later 很要紧：它说明这件事没有被取消，只是不在今天。用在教新人、面对选择很多的人、安抚着急的用户。</span>
+  </div>
+</section>
+
+<section class="my-turn">
+  <h2>My Turn</h2>
+  <div class="my-turn-body">
+    <p><strong>Situation:</strong> Mira's second call, three days later. One thing is different: her screen share will not start today, so you can only hear her. She has the page open and she is clicking.</p>
+    <p><strong>They say:</strong> "I clicked the blue button and I think a clock appeared, but I am not sure. What am I supposed to see now?"</p>
+    <p><strong>Your turn:</strong> Say what she should see on her screen, then tell her what to do if she does not see it. 提示：只用两句，第一句报预期，第二句留一个反馈口 —— 不要说"点得对"或"再试一次"这种没有信息的话。先自己开口，再看参考。</p>
+    <button class="reveal" id="show-answer" data-show-answer type="button">显示参考答案</button>
+    <div class="answer hidden" id="answer-block">
+      <div class="line-head">
+        <span class="speaker you">You</span>
+        <button class="play-line" data-line-id="answer" type="button" data-play-sentence="answer" aria-label="点读参考答案">🔊</button>
+      </div>
+      <p class="en-line" data-line-id="answer">You should see a small clock next to the file name, and it should be turning. If you do not see it, read me the words on your screen — and please do not close the window.</p>
+      <p><em>思路：</em>条件只改了一处——今天看不到她的屏幕，只剩声音。动作没变，还是"报预期 + 留反馈口"，只是眼睛没了，说话要更具体：不能只说"应该有个钟"，要点出它在哪儿（next to the file name）和它该是什么状态（turning）。第二步比第一步更要紧：看不见画面的时候，对方没看到往往不会主动说，你要先说清"没看到就告诉我"，再给她一个说得出口的动作——把屏幕上的字念给你听。最后那半句很实在：让她别关窗口，因为关了以后那段等待就白等了。</p>
+      <p class="note">参考答案不是唯一正确答案。你也可以说"你该看到一个钟在转，转完会有五条要点；要是两分钟还没动，你就告诉我，我这边看一下"，或者干脆先问"屏幕上现在有几个按钮"，再决定报什么预期。只要做到两件事就行：把预期说得具体到位置和状态、并且明确给出"没看到怎么办"的那一步。</p>
+    </div>
+  </div>
+</section>
+
+<p class="footer-tip"><b>使用顺序：</b>先读 Setup 建画面 → 看英文理解对话 → 点读和跟读 → 中文按需查看 → 到 My Turn 自己先说，再看参考 → 有余力再用盲听复习。</p>
+        <div class="lesson-progress-actions"><button type="button" data-mark-complete aria-pressed="false">标记本课完成</button></div>
+      </div>
+      <nav class="content-pagination" aria-label="课程导航"><a href="/english/no-answer-yet-but-a-clear-next-step/">← 更新课程</a><a href="/english/">全部课程</a><a href="/english/handing-off-for-a-week/">较早课程 →</a></nav>
+    </div>
+  </div>
+</main>
+  <footer class="site-footer">
+  <div class="footer-grid">
+    <p class="footer-copy">© 2026 良逍 · 把产品、过程和每天的学习留在这里。</p>
+    <ul class="footer-links">
+      <li><a href="https://github.com/mrliang-github" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href="https://x.com/lingxio71220285" target="_blank" rel="noopener noreferrer">X</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>
+  <script id="english-player-data" type="application/json">{"id":"english-2026-09-28","revision":"c35382e3e29386c9","sentences":[{"id":"l1","speaker":"Mira","text":"Okay, my screen is shared. Before we start — I am really bad with computers, so please talk slowly. Last week I got a red box and I closed the window.","translation":"好，我屏幕共享了。开始之前先说一句——我真的很不会用电脑，麻烦你讲慢点。上周弹出来一个红框，我就把窗口关了。"},{"id":"l2","speaker":"You","text":"Thanks for giving it another go. Let me walk you through the whole thing. It is four clicks, and I will stay with you until you see the list on your screen.","translation":"谢谢你愿意再试一次。我带你把它整个走一遍，一共四次点击，我会一直陪到你在屏幕上看到那份清单为止。"},{"id":"l3","speaker":"Mira","text":"Four clicks. Okay. Where do I start? Please, not settings. Settings is where I got lost.","translation":"四次点击。好。我从哪儿开始？拜托别说设置，我就是在那儿迷路的。"},{"id":"l4","speaker":"You","text":"No settings today. Start with the blue button in the middle of the page. You cannot break anything in here, so click it and see what happens.","translation":"今天不碰设置。从页面中间那个蓝色按钮开始。这里面你弄不坏任何东西，点下去看看会发生什么。"},{"id":"l5","speaker":"Mira","text":"Okay. I clicked it. Now it says choose a file. Oh no. I need to find last week's recording. Give me a second, it is somewhere in my phone.","translation":"好，我点了。现在它说要选一个文件。糟了，我得找上周那段录音。等我一下，它应该在我手机里。"},{"id":"l6","speaker":"You","text":"Take your time. Put the file in the grey box. Then you should see a small clock next to the file name — that means it is working.","translation":"你慢慢来。把文件放进那个灰框里。然后你应该会看到文件名旁边出现一个小钟——那就说明它开始工作了。"},{"id":"l7","speaker":"Mira","text":"There is a clock. Okay, it is turning around. Is it supposed to take this long? There are also tabs on the left side. What are those?","translation":"有个钟。好，它转起来了。它本来就要转这么久吗？左边还有几个标签，那些是什么？"},{"id":"l8","speaker":"You","text":"Two minutes, sometimes three. Do not worry about the tabs on the left — those are for later. Right now, just watch the clock.","translation":"两分钟，有时候三分钟。左边那些标签你现在不用管，那是后面才用的。现在只要盯着那个钟就行。"},{"id":"l9","speaker":"Mira","text":"Okay. Oh — it just finished. There are five points. Wait, that is my interview, and the names are spelled right. How did it do that?","translation":"好。哦——它刚做完了。出来五条要点。等等，这是我的访谈内容，人名的拼写还是对的。它怎么做到的？"},{"id":"l10","speaker":"You","text":"That is your first one. Now, last week you ran into a red box. Do you remember what you clicked right before that?","translation":"这就是你的第一个结果了。对了，上周你碰到过那个红框。你还记得在它出现之前你点了什么吗？"},{"id":"l11","speaker":"Mira","text":"I think I clicked team two times. I do not have a team. It asked for email addresses and I did not know what to put there.","translation":"我好像是点了两次团队。我没有团队。它让我填邮箱地址，我不知道该填什么。"},{"id":"l12","speaker":"You","text":"That is my mistake, not yours. That page should not be there for one person. I will take it out tonight and email you when it is gone. You know your four clicks now, so try one more episode this week without me.","translation":"那是我的问题，不是你的。那一页本来不该出现在单人账号里。我今晚就把它去掉，去掉了给你发邮件。你现在已经会你那四次点击了，这周自己再拿一期节目试一次，不用我在旁边。"}]}</script>
+  <script src="/site-assets/speech-player.js" defer></script>
+</body>
+</html>
