@@ -6,6 +6,7 @@
   "scripts": {
     "sync:content": "node scripts/sync-published-content.mjs",
     "build": "node scripts/build-bento-site.mjs",
+    "build:pages": "node scripts/build-bento-site.mjs --output-dir dist",
     "build:preview": "node scripts/build-bento-site.mjs --preview --output-dir ../adquiet-site-preview",
     "content:help": "node scripts/content-admin.mjs help",
     "serve": "python3 -m http.server 8080",

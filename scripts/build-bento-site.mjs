@@ -779,13 +779,14 @@ async function copyGlobeAssets() {
   }));
 }
 
-async function copyStaticAssetsForPreview() {
+async function copyStaticAssets() {
   if (outputDirectory === repositoryDirectory) return;
   await mkdir(outputDirectory, { recursive: true });
   const staticDirectories = previewMode
     ? ["site-assets", "assets", "adquiet", "heatsleuth", "pdf-snap", "privacy", "support", "zh"]
-    : ["site-assets", "assets"];
-  const staticFiles = previewMode ? ["_headers", "_redirects", ".nojekyll"] : [];
+    : ["site-assets", "assets", "adquiet", "heatsleuth", "pdf-snap"];
+  // A separate production output must retain product pages, downloads and Pages rules.
+  const staticFiles = ["_headers", "_redirects", ".nojekyll", "THIRD_PARTY_NOTICES.md"];
   await Promise.all([
     ...staticDirectories.map((directory) =>
       cp(resolve(directory), join(outputDirectory, directory), { recursive: true, force: true })
@@ -841,7 +842,7 @@ async function main() {
   await assertPreviewOutputIsIsolated();
   const [articles, content] = await Promise.all([loadArticles(), loadSiteContent()]);
   await copyGlobeAssets();
-  await copyStaticAssetsForPreview();
+  await copyStaticAssets();
   const { dailyReports, englishLessons } = content;
   const robots = previewMode
     ? "User-agent: *\nDisallow: /\n"
