@@ -78,8 +78,8 @@ const heatSleuthDownloadFilename = "HeatSleuth-1.0.2-build-5.dmg";
 const heatSleuthDownloadHash =
   "d59ed4d246fd7f1cfe817b4e81e1f482cd8395342f45d8aeb1bddd024de045b8";
 const heatSleuthDownloadSize = 1397131;
-const heatSleuthEnglishUrl = "https://liangxiaoaitool.top/heatsleuth/";
-const heatSleuthChineseUrl = "https://liangxiaoaitool.top/heatsleuth/zh/";
+const heatSleuthEnglishUrl = "https://liangxiaoai.dev/heatsleuth/";
+const heatSleuthChineseUrl = "https://liangxiaoai.dev/heatsleuth/zh/";
 const pdfSnap = {
   support: "pdf-snap/support/index.html",
   privacy: "pdf-snap/privacy/index.html"
@@ -317,20 +317,20 @@ test("publishes RSS, sitemap, legacy redirects, and responsive safeguards", asyn
   assert.match(personalCss, /touch-action:\s*pan-y\s+pinch-zoom/u);
   assert.match(rss, /<rss version="2\.0">/u);
   assert.match(rss, /codex-app-production-line/u);
-  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/writing\//u);
-  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/daily\//u);
-  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/english\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoai\.dev\/writing\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoai\.dev\/daily\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoai\.dev\/english\//u);
   assert.doesNotMatch(sitemap, /preview-content-boundaries/u);
-  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/heatsleuth\//u);
-  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/pdf-snap\/support\//u);
-  assert.match(sitemap, /https:\/\/liangxiaoaitool\.top\/pdf-snap\/privacy\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoai\.dev\/heatsleuth\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoai\.dev\/pdf-snap\/support\//u);
+  assert.match(sitemap, /https:\/\/liangxiaoai\.dev\/pdf-snap\/privacy\//u);
   assert.match(
     sitemap,
-    /<loc>https:\/\/liangxiaoaitool\.top\/heatsleuth\/<\/loc><lastmod>2026-08-30<\/lastmod>/u
+    /<loc>https:\/\/liangxiaoai\.dev\/heatsleuth\/<\/loc><lastmod>2026-08-30<\/lastmod>/u
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/liangxiaoaitool\.top\/heatsleuth\/zh\/<\/loc><lastmod>2026-08-30<\/lastmod>/u
+    /<loc>https:\/\/liangxiaoai\.dev\/heatsleuth\/zh\/<\/loc><lastmod>2026-08-30<\/lastmod>/u
   );
   assert.match(redirects, /^\/privacy\/ \/adquiet\/privacy\/ 301/mu);
   assert.match(redirects, /^\/support\/ \/adquiet\/support\/ 301/mu);
