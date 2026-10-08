@@ -1,0 +1,151 @@
+---
+import PageLayout from '@/layouts/CommonPage.astro'
+import ToolSection from '@/components/about/ToolSection.astro'
+
+export const prerender = true
+
+const headings = [
+  { depth: 2, slug: 'intro', text: '你好，我是良逍' },
+  { depth: 2, slug: 'what-i-do', text: '我在做什么' },
+  { depth: 2, slug: 'stack', text: '工具箱与技术栈' },
+  { depth: 2, slug: 'principles', text: '实践原则与思考' },
+  { depth: 2, slug: 'contact', text: '联系与交流' }
+]
+---
+
+<PageLayout title='关于我' {headings} view>
+  <p class='text-base font-medium text-foreground'>
+    产品经理 / 独立开发者 / 个人创作者
+  </p>
+
+  <blockquote class='my-4 border-l-2 border-primary pl-4 text-sm italic text-muted-foreground'>
+    “先做，再慢慢把自己的方法长出来。把想法做成东西，再把过程写下来。”
+  </blockquote>
+
+  <h2 id='intro'>你好，我是良逍</h2>
+  <p>
+    设计出身的产品经理，主业负责跨境电商 CMS/ERP 系统的产品设计与业务架构。
+  </p>
+  <p>
+    业余时间，我用 AI 探索 iOS / macOS 应用、Chrome 扩展与出海 Web 工具。我更愿意把做出来的工具、真实的限制和当时的判断放在一起，后面再看哪些经得起时间。
+  </p>
+
+  <h2 id='what-i-do'>我在做什么</h2>
+  <ul>
+    <li>
+      <strong>主业深耕</strong>：跨境电商 CMS/ERP 产品架构、复杂业务流梳理、设计系统与后台体验交付。
+    </li>
+    <li>
+      <strong>独立开发</strong>：
+      <ul>
+        <li><a href='/heatsleuth/'>HeatSleuth</a>：macOS 发热诊断应用，看清系统功耗与资源占用。</li>
+        <li><a href='/adquiet/'>AdQuiet</a>：Chrome 扩展，专注于 YouTube 桌面端纯净观看体验。</li>
+        <li><a href='https://md.liangxiaoaitool.top/' target='_blank'>MD 排版</a>：现代公众号 Markdown 一键排版工具。</li>
+        <li><a href='https://github.com/mrliang-github/cn-vat-invoice-ocr' target='_blank'>Mac 发票 OCR</a>：基于 macOS 原生 Vision 框架离线发票识别转 Excel。</li>
+      </ul>
+    </li>
+    <li>
+      <strong>内容与情报</strong>：
+      <ul>
+        <li><a href='/blog'>深度博客</a>：记录 AI 原型设计、Codex 全流程自动化送审、飞书多维表情报流等一线实录。</li>
+        <li><a href='/daily'>风向标日报</a>：持续追踪出海机会、变现模具与一线商业实践。</li>
+        <li><a href='/english'>出海工作英语</a>：整理出海开发者高频沟通场景（Bug 回复、催款、协商）。</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2 id='stack'>工具箱与技术栈</h2>
+  <p>目前日常使用与高频验证的工具组合：</p>
+
+  <ToolSection
+    class='mb-5'
+    title='AI 编程与工作流'
+    tools={[
+      {
+        name: 'Codex / Claude Code',
+        description: '终端与工作流智能体',
+        href: 'https://github.com/features/copilot',
+        icon: import('@/assets/tools/chatgpt.svg?raw')
+      },
+      {
+        name: 'VS Code',
+        description: '日常代码编辑',
+        href: 'https://code.visualstudio.com/',
+        icon: import('@/assets/tools/vscode.svg?raw')
+      },
+      {
+        name: 'Typora',
+        description: 'Markdown 写作排版',
+        href: 'https://typora.io/',
+        icon: import('@/assets/tools/typora.svg?raw')
+      },
+      {
+        name: 'Notion / 飞书',
+        description: '多维表情报与知识库',
+        href: 'https://www.notion.so/',
+        icon: import('@/assets/tools/notion.svg?raw')
+      }
+    ]}
+  />
+
+  <ToolSection
+    class='mb-5'
+    title='设计与系统环境'
+    tools={[
+      {
+        name: 'Apple macOS',
+        description: '核心工作站系统',
+        href: 'https://www.apple.com/macos/',
+        icon: import('@/assets/tools/apple.svg?raw')
+      },
+      {
+        name: 'Chrome',
+        description: '日常浏览与扩展调试',
+        href: 'https://www.google.com/chrome/',
+        icon: import('@/assets/tools/chrome.svg?raw')
+      },
+      {
+        name: 'Photoshop',
+        description: '视觉与素材设计',
+        href: 'https://www.adobe.com/products/photoshop',
+        icon: import('@/assets/tools/photoshop.svg?raw')
+      },
+      {
+        name: 'Illustrator',
+        description: '矢量图形与图标',
+        href: 'https://www.adobe.com/products/illustrator',
+        icon: import('@/assets/tools/illustrator.svg?raw')
+      }
+    ]}
+  />
+
+  <h2 id='principles'>实践原则与思考</h2>
+  <div class='not-prose my-4 space-y-3'>
+    <div class='rounded-xl border border-border/70 p-4'>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>1. 真实优先</h3>
+      <p class='text-xs text-muted-foreground leading-relaxed'>
+        不仅记录成功的瞬间，更忠实记录工具额度用尽时的阻塞、模型幻觉、上线被拒与边界妥协。真实的限制往往比“概念展示”更值钱。
+      </p>
+    </div>
+    <div class='rounded-xl border border-border/70 p-4'>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>2. 依靠确定性结构，不迷信纯提示词</h3>
+      <p class='text-xs text-muted-foreground leading-relaxed'>
+        好结果很少来自于一句神奇的 Prompt，而是来自标准化表格（如 Google Sheets、飞书多维表）、明确的字段规范、脚本驱动的确定性流程和人的最终校验。
+      </p>
+    </div>
+    <div class='rounded-xl border border-border/70 p-4'>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>3. 跑通完整闭环（End-to-End）</h3>
+      <p class='text-xs text-muted-foreground leading-relaxed'>
+        做 Demo 很容易，但产品必须面对打包、签名、商店素材、隐私协议、App Store 审核与真实用户体验。打通端到端，才能形成真正的手感。
+      </p>
+    </div>
+  </div>
+
+  <h2 id='contact'>联系与交流</h2>
+  <p>如果你也在折腾 AI 产品、独立开发、出海工具或业务系统设计，欢迎常来交流：</p>
+  <ul>
+    <li>GitHub：<a href='https://github.com/mrliang-github' target='_blank'>@mrliang-github</a>（开源工具与代码）</li>
+    <li>X (Twitter)：<a href='https://x.com/lingxio71220285' target='_blank'>@lingxio71220285</a>（日常碎片思考与最新动态）</li>
+    <li>RSS 订阅：<a href='/rss.xml'>/rss.xml</a></li>
+  </ul>
+</PageLayout>

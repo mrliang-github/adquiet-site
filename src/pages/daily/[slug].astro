@@ -1,0 +1,162 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { Button } from 'astro-pure/user'
+import { getDailyReports, type DailyReportItem, type DailyDiscovery } from '@/data/content-helpers'
+
+export const prerender = true
+
+export async function getStaticPaths() {
+  const reports = getDailyReports()
+  return reports.map((report: DailyReportItem, index: number) => ({
+    params: { slug: report.slug },
+    props: {
+      report,
+      prev: index < reports.length - 1 ? reports[index + 1] : null,
+      next: index > 0 ? reports[index - 1] : null
+    }
+  }))
+}
+
+interface Props {
+  report: DailyReportItem
+  prev: DailyReportItem | null
+  next: DailyReportItem | null
+}
+
+const { report, prev, next } = Astro.props
+
+const meta = {
+  title: `${report.title} · 风向标日报`,
+  description: report.summary
+}
+---
+
+<PageLayout {meta}>
+  <Button title='返回日报列表' href='/daily' variant='back' />
+
+  <article class='mt-6 lg:mt-10 animate'>
+    <!-- Header -->
+    <header class='border-b border-border/60 pb-6'>
+      <div class='flex flex-wrap items-center gap-3 text-sm text-muted-foreground'>
+        <time class='font-mono font-medium text-primary'>{report.editionDate}</time>
+        <span>•</span>
+        <span>风向标日报</span>
+      </div>
+      <h1 class='mt-3 text-2xl font-medium sm:text-3xl leading-snug'>
+        {report.title}
+      </h1>
+      {report.tags && report.tags.length > 0 && (
+        <div class='mt-4 flex flex-wrap gap-2'>
+          {report.tags.map((tag: string) => (
+            <span class='rounded-md bg-muted px-2.5 py-1 text-xs text-muted-foreground'>
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Overview Callout -->
+    {report.overview && (
+      <section class='my-6 rounded-2xl bg-muted/40 border border-border/80 p-5'>
+        <h2 class='text-sm font-semibold text-foreground/90 flex items-center gap-2 mb-2'>
+          <span>💡 核心综述</span>
+        </h2>
+        <p class='text-sm text-muted-foreground leading-relaxed'>
+          {report.overview}
+        </p>
+      </section>
+    )}
+
+    <!-- Discoveries Section -->
+    {report.discoveries && report.discoveries.length > 0 && (
+      <section class='my-8'>
+        <h2 class='text-lg font-medium text-foreground mb-4'>
+          <span>核心情报与发现</span>
+        </h2>
+        <div class='space-y-4'>
+          {report.discoveries.map((item: DailyDiscovery, idx: number) => (
+            <div class='rounded-xl border border-border/60 p-4 transition-colors hover:border-border'>
+              <div class='flex items-start gap-3'>
+                <span class='flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-mono font-medium text-primary'>
+                  {idx + 1}
+                </span>
+                <div class='space-y-1.5'>
+                  <h3 class='text-base font-medium text-foreground'>{item.title}</h3>
+                  <p class='text-sm text-muted-foreground leading-relaxed'>{item.fact || item.detail}</p>
+                  {(item.judgement || item.keyPoint) && (
+                    <div class='mt-2 inline-block rounded bg-muted/60 px-2 py-0.5 text-xs text-primary font-medium'>
+                      💡 关键判断：{item.judgement || item.keyPoint}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Main HTML Body if available -->
+    {report.bodyHtml && (
+      <section class='prose prose-neutral dark:prose-invert max-w-none my-8 pt-4 border-t border-border/40'>
+        <Fragment set:html={report.bodyHtml} />
+      </section>
+    )}
+
+    <!-- Next Step Callout -->
+    {report.nextStep && (
+      <section class='my-6 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm'>
+        <span class='font-medium text-primary block mb-1'>🎯 下一步验证与行动：</span>
+        <p class='text-muted-foreground leading-relaxed'>{report.nextStep}</p>
+      </section>
+    )}
+
+    <!-- Sources & Recommendation -->
+    <footer class='mt-10 border-t border-border/60 pt-6 space-y-4'>
+      <div class='flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground'>
+        <div class='flex items-center gap-2'>
+          <span>信息源：生财有术精华社群 & 海外出海实战观察</span>
+        </div>
+        <a
+          href='https://t.zsxq.com/FBJDh'
+          target='_blank'
+          rel='noopener noreferrer'
+          class='inline-flex items-center gap-1 text-primary hover:underline'
+        >
+          <span>加入生财有术专属通道 ↗</span>
+        </a>
+      </div>
+
+      <!-- Navigation -->
+      <div class='grid grid-cols-2 gap-4 pt-4 border-t border-border/40 text-sm'>
+        <div>
+          {prev && (
+            <a
+              href={`/daily/${prev.slug}/`}
+              class='group flex flex-col gap-1 rounded-lg p-2 transition-colors hover:bg-muted'
+            >
+              <span class='text-xs text-muted-foreground'>← 较早一期</span>
+              <span class='truncate font-medium text-foreground group-hover:text-primary'>
+                {prev.title}
+              </span>
+            </a>
+          )}
+        </div>
+        <div class='text-right'>
+          {next && (
+            <a
+              href={`/daily/${next.slug}/`}
+              class='group flex flex-col gap-1 rounded-lg p-2 transition-colors hover:bg-muted'
+            >
+              <span class='text-xs text-muted-foreground'>较新一期 →</span>
+              <span class='truncate font-medium text-foreground group-hover:text-primary'>
+                {next.title}
+              </span>
+            </a>
+          )}
+        </div>
+      </div>
+    </footer>
+  </article>
+</PageLayout>

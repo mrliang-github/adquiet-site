@@ -1,0 +1,219 @@
+---
+import { Image } from 'astro:assets'
+
+import { PostPreview } from 'astro-pure/components/pages'
+import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
+import { Button, Icon, Label } from 'astro-pure/user'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import Section from '@/components/home/Section.astro'
+import SkillLayout from '@/components/home/SkillLayout.astro'
+import { projects, type ProjectItem } from '@/data/projects'
+import { getDailyReports, getEnglishLessons, type DailyReportItem, type EnglishLessonItem } from '@/data/content-helpers'
+import config from '@/site-config'
+
+export const prerender = true
+
+const MAX_POSTS = 5
+const allPosts = await getBlogCollection()
+const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
+
+const dailyReports = getDailyReports().slice(0, 3)
+const englishLessons = getEnglishLessons().slice(0, 3)
+
+const productSkills = ['跨境电商 CMS/ERP', '需求拆解', '流程设计', '原型系统']
+const aiWorkflowSkills = ['Codex', 'Claude Code', '飞书多维表情报流', 'Google Sheets 自动化']
+const devSkills = ['SwiftUI', 'macOS 原生开发', 'Astro / Next.js', 'Chrome 扩展 (MV3)']
+
+const imagePath = config.logo.src
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/*.{jpeg,jpg,png,gif,avif,webp}'
+)
+if (!images[imagePath]) {
+  throw new Error(
+    `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif,avif,webp}"`
+  )
+}
+---
+
+<PageLayout meta={{ title: '首页 · 良逍' }} highlightColor='#659EB9'>
+  <main class='flex w-full flex-col items-center'>
+    {/* 1. Header Profile Hero */}
+    <section class='animate mb-10 flex flex-col items-center gap-y-6 text-center' id='content-header'>
+      <Image
+        src={images[imagePath]()}
+        alt={config.author}
+        class='h-28 w-auto rounded-full border border-border p-1 shadow-sm'
+        loading='eager'
+        fetchpriority='high'
+      />
+
+      <div class='flex flex-col items-center gap-y-3'>
+        <h1 class='text-3xl font-medium tracking-tight sm:text-4xl'>你好，我是良逍</h1>
+        <p class='text-sm text-muted-foreground'>
+          设计出身的产品经理 · 独立开发者 · AI 工作流探索者
+        </p>
+
+        <div class='flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs'>
+          <Label title='跨境电商 CMS/ERP'>
+            <Icon name='link' class='size-4' slot='icon' />
+          </Label>
+          <Label
+            title='GitHub'
+            as='a'
+            href='https://github.com/mrliang-github'
+            target='_blank'
+          >
+            <Icon name='github' class='size-4' slot='icon' />
+          </Label>
+          <Label
+            title='X (Twitter)'
+            as='a'
+            href='https://x.com/lingxio71220285'
+            target='_blank'
+          >
+            <Icon name='x' class='size-4' slot='icon' />
+          </Label>
+        </div>
+      </div>
+
+      {/* Slogan Pill */}
+      <div class='flex flex-row items-center gap-x-2.5 rounded-full border border-border/80 bg-muted/40 px-4 py-1.5 text-xs text-muted-foreground shadow-sm'>
+        <span class='relative flex items-center justify-center'>
+          <span class='absolute size-2 animate-ping rounded-full bg-emerald-400 opacity-75'></span>
+          <span class='size-2 rounded-full bg-emerald-500'></span>
+        </span>
+        <p class='font-medium'>把想法做成东西，再把过程写下来</p>
+      </div>
+    </section>
+
+    <div id='content' class='animate flex flex-col gap-y-12 md:w-4/5 lg:w-5/6'>
+      {/* 2. About Intro */}
+      <Section title='关于我'>
+        <div class='space-y-3 text-muted-foreground text-sm leading-relaxed'>
+          <p>
+            设计出身的产品经理，主业负责跨境电商 CMS/ERP 系统。
+          </p>
+          <p>
+            业余探索 AI 产品、独立开发与出海工具，把做出来的工具、真实的限制和当时的判断记录在这里。
+          </p>
+        </div>
+        <Button title='了解更多背景 →' class='w-fit self-end text-xs' href='/about' variant='ahead' />
+      </Section>
+
+      {/* 3. Featured Tools & Projects */}
+      <Section title='产品与工具'>
+        <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+          {
+            projects.slice(0, 4).map((p: ProjectItem) => (
+              <a
+                href={p.href}
+                target={p.external ? '_blank' : undefined}
+                rel={p.external ? 'noopener noreferrer' : undefined}
+                class='group flex flex-col justify-between rounded-xl border border-border/70 p-4 transition-all hover:border-primary/50 hover:bg-muted/30'
+              >
+                <div>
+                  <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+                    <span class='font-mono text-primary font-medium'>{p.category}</span>
+                    <span class='text-[11px] rounded bg-muted px-1.5 py-0.5'>{p.status}</span>
+                  </div>
+                  <h3 class='text-base font-medium text-foreground group-hover:text-primary transition-colors'>
+                    {p.name}
+                  </h3>
+                  <p class='mt-1 text-xs text-muted-foreground line-clamp-2 leading-relaxed'>
+                    {p.description}
+                  </p>
+                </div>
+                <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary'>
+                  <span>详情查看 →</span>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+        <Button title='查看全部项目与工具 →' class='w-fit self-end text-xs' href='/projects' variant='ahead' />
+      </Section>
+
+      {/* 4. Latest Posts */}
+      {
+        allPostsByDate.length > 0 && (
+          <Section title='技术探索与博客'>
+            <ul class='flex flex-col gap-y-2 sm:gap-y-2.5'>
+              {allPostsByDate.map((p) => (
+                <li class='flex flex-col gap-x-2 sm:flex-row'>
+                  <PostPreview post={p} />
+                </li>
+              ))}
+            </ul>
+            <Button title='浏览全部文章 →' class='w-fit self-end text-xs' href='/blog' variant='ahead' />
+          </Section>
+        )
+      }
+
+      {/* 5. Daily Insights Preview */}
+      <Section title='风向标日报'>
+        <div class='flex flex-col gap-3'>
+          {
+            dailyReports.map((report: DailyReportItem) => (
+              <a
+                href={`/daily/${report.slug}/`}
+                class='group rounded-xl border border-border/70 p-4 transition-all hover:border-primary/50 hover:bg-muted/30'
+              >
+                <div class='flex items-center justify-between text-xs text-muted-foreground mb-1'>
+                  <span class='font-mono font-medium text-primary'>{report.editionDate}</span>
+                  <span class='text-[11px] text-muted-foreground'>情报速递</span>
+                </div>
+                <h3 class='text-sm font-medium text-foreground group-hover:text-primary transition-colors'>
+                  {report.title}
+                </h3>
+                <p class='mt-1 text-xs text-muted-foreground line-clamp-2 leading-relaxed'>
+                  {report.summary}
+                </p>
+              </a>
+            ))
+          }
+        </div>
+        <Button title='查看全部日报 (共 18 期) →' class='w-fit self-end text-xs' href='/daily' variant='ahead' />
+      </Section>
+
+      {/* 6. English Lessons Preview */}
+      <Section title='出海独立开发英语'>
+        <div class='grid gap-3 sm:grid-cols-3'>
+          {
+            englishLessons.map((lesson: EnglishLessonItem, idx: number) => (
+              <a
+                href={`/english/${lesson.slug}/`}
+                class='group flex flex-col justify-between rounded-xl border border-border/70 p-3.5 transition-all hover:border-primary/50 hover:bg-muted/30'
+              >
+                <div>
+                  <span class='text-[11px] font-mono font-medium text-primary'>
+                    Lesson {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <h3 class='mt-1 text-xs font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2'>
+                    {lesson.title}
+                  </h3>
+                  <p class='mt-1 text-[11px] text-muted-foreground line-clamp-2'>
+                    {lesson.scenario || lesson.goal}
+                  </p>
+                </div>
+                <span class='mt-3 text-[11px] font-medium text-primary'>进入学习 →</span>
+              </a>
+            ))
+          }
+        </div>
+        <Button title='查看全部场景课程 (共 20 节) →' class='w-fit self-end text-xs' href='/english' variant='ahead' />
+      </Section>
+
+      {/* 7. Skills & Tech Stack */}
+      <Section title='技能体系与工作流'>
+        <SkillLayout title='产品与业务' skills={productSkills} />
+        <SkillLayout title='AI 工作流' skills={aiWorkflowSkills} />
+        <SkillLayout title='开发实现' skills={devSkills} />
+      </Section>
+    </div>
+
+    <div class='mt-14 mb-6 flex flex-col items-center text-center text-xs text-muted-foreground'>
+      <p class='italic font-serif text-sm text-foreground/80'>“先做，再慢慢把自己的方法长出来。把想法做成东西，再把过程写下来。”</p>
+      <span class='mt-1.5 font-mono text-[11px] text-muted-foreground'>—— 良逍</span>
+    </div>
+  </main>
+</PageLayout>

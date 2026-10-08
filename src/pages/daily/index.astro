@@ -1,0 +1,94 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { Button } from 'astro-pure/user'
+import { getDailyReports, type DailyReportItem, type DailyDiscovery } from '@/data/content-helpers'
+
+export const prerender = true
+
+const reports = getDailyReports()
+
+const meta = {
+  title: '风向标日报',
+  description: '海外出海机会、AI 产品动态、独立开发变现模式与高价值商业情报记录'
+}
+---
+
+<PageLayout {meta}>
+  <Button title='返回' href='/' variant='back' />
+  <main class='mt-6 lg:mt-10'>
+    <div id='content-header' class='animate'>
+      <div class='flex flex-wrap items-center justify-between gap-4 mb-6 mt-6 sm:mt-10'>
+        <div>
+          <h1 class='text-3xl font-medium'>风向标日报</h1>
+          <p class='mt-2 text-muted-foreground text-sm'>
+            海外出海机会、AI 变现模式与一线独立开发情报 · 共 {reports.length} 期
+          </p>
+        </div>
+        <a
+          href='https://t.zsxq.com/FBJDh'
+          target='_blank'
+          rel='noopener noreferrer'
+          class='inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors'
+        >
+          <span>生财有术专属通道 ↗</span>
+        </a>
+      </div>
+    </div>
+
+    <section aria-label='日报列表' class='animate mt-8'>
+      <div class='flex flex-col gap-y-5'>
+        {
+          reports.map((report: DailyReportItem) => (
+            <article class='group relative flex flex-col gap-2 rounded-2xl border border-border/70 p-5 transition-all hover:border-primary/50 hover:bg-muted/30'>
+              <div class='flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground'>
+                <span class='font-mono font-medium text-primary'>
+                  {report.editionDate}
+                </span>
+                {report.tags && report.tags.length > 0 && (
+                  <div class='flex flex-wrap gap-1.5'>
+                    {report.tags.map((tag: string) => (
+                      <span class='rounded bg-muted px-2 py-0.5 text-[11px]'>{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <h2 class='text-lg font-medium tracking-tight text-foreground group-hover:text-primary transition-colors'>
+                <a href={`/daily/${report.slug}/`} class='focus:outline-none'>
+                  {report.title}
+                </a>
+              </h2>
+
+              <p class='text-sm text-muted-foreground leading-relaxed line-clamp-2'>
+                {report.summary}
+              </p>
+
+              {report.discoveries && report.discoveries.length > 0 && (
+                <div class='mt-2 flex flex-col gap-1.5 border-t border-border/40 pt-3 text-xs'>
+                  <span class='font-medium text-foreground/80'>核心看点：</span>
+                  <ul class='list-disc list-inside space-y-1 text-muted-foreground'>
+                    {report.discoveries.slice(0, 2).map((d: DailyDiscovery) => (
+                      <li class='line-clamp-1'>
+                        <span class='text-foreground/90'>{d.title}</span>
+                        {(d.keyPoint || d.judgement) && ` — ${d.keyPoint || d.judgement}`}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div class='mt-2 flex items-center justify-between pt-1 text-xs'>
+                <a
+                  href={`/daily/${report.slug}/`}
+                  class='inline-flex items-center gap-1 font-medium text-primary hover:underline'
+                >
+                  阅读全文 →
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+</PageLayout>

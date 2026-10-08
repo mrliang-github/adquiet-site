@@ -1,0 +1,61 @@
+---
+import { Button, CardList } from 'astro-pure/user'
+import { cn } from 'astro-pure/utils'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { integ } from '@/site-config'
+
+export const prerender = true
+
+const meta = {
+  title: '站点政策与产品合规',
+  description: '良逍个人空间及各应用产品的隐私政策、服务条款与技术支持文档'
+}
+
+const appPolicies = {
+  title: '应用与扩展专属合规文档',
+  list: [
+    {
+      title: 'AdQuiet (Chrome 扩展) 隐私政策',
+      link: '/adquiet/privacy/'
+    },
+    {
+      title: 'AdQuiet (Chrome 扩展) 技术支持',
+      link: '/adquiet/support/'
+    },
+    {
+      title: 'PDF SNAP (iOS 应用) 隐私政策',
+      link: '/pdf-snap/privacy/'
+    },
+    {
+      title: 'PDF SNAP (iOS 应用) 技术支持',
+      link: '/pdf-snap/support/'
+    },
+    {
+      title: 'HeatSleuth (macOS) 应用介绍与下载',
+      link: '/heatsleuth/'
+    }
+  ]
+}
+---
+
+<PageLayout {meta}>
+  <Button title='返回' href='/' variant='back' />
+  <main class='mt-6 lg:mt-10'>
+    <div id='content-header' class='animate'>
+      <h1 class='mb-6 text-3xl font-medium'>站点政策与产品合规</h1>
+      <p class='text-sm text-muted-foreground'>
+        本站所有独立应用均严格遵循各应用商店审核与数据最小化原则。
+      </p>
+    </div>
+
+    <div id='content' class={cn('animate mt-8 max-w-none md:min-w-[45ch]', integ.typography.class)}>
+      <h2 class='text-xl font-medium'>应用合规与技术支持</h2>
+      <CardList {...appPolicies} />
+
+      <h2 class='text-xl font-medium mt-8'>联系站长</h2>
+      <p>
+        若您对上述任何政策有疑问，或在使用过程中遇到问题，欢迎通过 GitHub Issue 或发信与我沟通交流。
+      </p>
+    </div>
+  </main>
+</PageLayout>
