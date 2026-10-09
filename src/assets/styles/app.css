@@ -150,3 +150,65 @@ blockquote {
   padding: 0.25rem 0.625rem !important;
   border-radius: 0.375rem !important;
 }
+
+/* ==========================================================================
+   5. 返回按钮 (Back Navigation Link) 纯净无框化规范
+   彻底去除生硬突兀的灰色边框与底色，还原为优雅轻盈的“动效箭头 + 文本”形态
+   ========================================================================== */
+a.group:has(> svg polyline[points='12 19 5 12 12 5']),
+button.group:has(> svg polyline[points='12 19 5 12 12 5']),
+a[variant='back'],
+button[variant='back'],
+.btn-back {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  border-width: 0 !important;
+  box-shadow: none !important;
+  padding: 0.375rem 0.75rem 0.375rem 0 !important;
+  color: hsl(var(--muted-foreground)) !important;
+  font-weight: 500 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+a.group:has(> svg polyline[points='12 19 5 12 12 5']):hover,
+button.group:has(> svg polyline[points='12 19 5 12 12 5']):hover,
+a[variant='back']:hover,
+button[variant='back']:hover,
+.btn-back:hover {
+  background-color: transparent !important;
+  color: hsl(var(--foreground)) !important;
+  transform: translateX(-4px) !important;
+}
+
+/* 箭头在 hover 时的轻柔色彩与反馈 */
+a.group:has(> svg polyline[points='12 19 5 12 12 5']):hover svg,
+button.group:has(> svg polyline[points='12 19 5 12 12 5']):hover svg {
+  stroke: hsl(var(--primary)) !important;
+}
+
+/* 6. 前进指引按钮 (Ahead Navigation Link) 同样去除厚重框框，回归轻盈纯净文字指引 */
+a.group:has(> svg polyline[points='12 5 19 12 12 19']),
+button.group:has(> svg polyline[points='12 5 19 12 12 19']),
+a[variant='ahead'],
+button[variant='ahead'],
+.btn-ahead {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  border-width: 0 !important;
+  box-shadow: none !important;
+  padding: 0.375rem 0 !important;
+  color: hsl(var(--primary)) !important;
+  font-weight: 500 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+a.group:has(> svg polyline[points='12 5 19 12 12 19']):hover,
+button.group:has(> svg polyline[points='12 5 19 12 12 19']):hover,
+a[variant='ahead']:hover,
+button[variant='ahead']:hover,
+.btn-ahead:hover {
+  background-color: transparent !important;
+  color: hsl(var(--primary)) !important;
+  transform: translateX(4px) !important;
+}
+
