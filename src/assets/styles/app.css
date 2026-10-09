@@ -1,45 +1,69 @@
-/* Theme */
+/* Theme Design System & Tokens */
 :root {
-  /* Primary 主题强调色：提取自湖水与晴空天际线的青碧蓝 (Hex: #4E8397) */
+  /* Primary 主题强调色：提取自湖水与晴空天际线的青碧蓝 (Hex: #54889C) */
   --primary: 198 32% 46%;
-  /* Foreground */
+  /* Foreground 前景文字色 */
   --foreground: 240 10% 3.9%;
+  /* Muted Foreground 次级辅助文字色 */
   --muted-foreground: 240 3.8% 28.1%;
-  /* Background */
+  /* Background 浅色模式纯净背景色 */
   --background: 210 33% 99%;
+  /* Muted 弱化底色与卡片次级背景 */
   --muted: 240 4.8% 96%;
+  /* Card 卡片默认底色 */
   --card: 0 0% 90%;
 
-  /* Basic */
+  /* 基础边框与圆角规范 */
   --border: 240 5.9% 88%;
   --input: 240 5.9% 90%;
   --ring: 198 32% 46%;
-  --radius: 0.5rem;
+  --radius: 0.75rem;
+
+  /* 8pt 栅格间距系统规范映射 (Spacing Tokens) */
+  --space-unit: 0.5rem; /* 8px 基础步长 */
 }
+
 .dark {
   /* Primary 深色模式主题色：提取自天际微光的烟青色 */
   --primary: 198 52% 76%;
-  /* Foreground */
+  /* Foreground 深色模式高亮前景文字 */
   --foreground: 0 0% 98%;
+  /* Muted Foreground 深色模式次级文字 */
   --muted-foreground: 240 5% 74.9%;
-  /* Background */
+  /* Background 深色背景色 */
   --background: 240 20.54% 5.2%;
+  /* Muted 深色次级背景 */
   --muted: 240 5.9% 13%;
+  /* Card 深色卡片底色 */
   --card: 240 3.7% 24.9%;
 
-  /* Basic */
+  /* 深色边框与聚焦外框 */
   --border: 240 3.7% 22.9%;
   --input: 240 3.7% 17.9%;
   --ring: 240 4.9% 83.9%;
 }
+
 :root {
   --un-default-border-color: hsl(var(--border) / 1);
 }
+
 html.dark {
   color-scheme: dark;
 }
 
-/* Global */
+/* 全局文字平滑与选区高光样式 */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: hsl(var(--primary) / 0.25);
+  color: hsl(var(--foreground));
+}
+
+/* 全局链接交互 */
 a {
   transition: color 0.2s ease;
   &:hover {
@@ -47,18 +71,26 @@ a {
   }
 }
 
-/* 微动效交互增强：卡片平滑悬浮浮起与环境光晕 */
+/* 设计规范微动效：卡片平滑悬浮升起与环境光晕 */
 .hover-card-lift {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .hover-card-lift:hover {
   transform: translateY(-2px);
   border-color: hsl(var(--primary) / 0.45);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.05),
+    0 8px 10px -6px rgba(0, 0, 0, 0.03);
 }
 
 .dark .hover-card-lift:hover {
   border-color: hsl(var(--primary) / 0.55);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 20px -3px rgba(84, 136, 156, 0.18);
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.5),
+    0 0 20px -3px rgba(84, 136, 156, 0.18);
 }

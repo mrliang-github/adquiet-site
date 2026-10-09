@@ -40,9 +40,12 @@ export interface EnglishExpression {
 }
 
 export interface EnglishSentence {
+  id?: string
   speaker?: string
-  english: string
-  chinese: string
+  text?: string
+  translation?: string
+  english?: string
+  chinese?: string
 }
 
 export interface EnglishLessonItem {
@@ -50,6 +53,7 @@ export interface EnglishLessonItem {
   slug: string
   title: string
   summary: string
+  revision?: string
   editionDate?: string
   level?: string
   profession?: string
@@ -60,6 +64,17 @@ export interface EnglishLessonItem {
   sentences?: EnglishSentence[]
   practice?: string
   bodyHtml?: string
+  coursewareHtml?: string
+  playerData?: {
+    id: string
+    revision: string
+    sentences: Array<{
+      id: string
+      speaker: string
+      text: string
+      translation: string
+    }>
+  }
 }
 
 export function getDailyReports(): DailyReportItem[] {

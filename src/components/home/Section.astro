@@ -11,12 +11,14 @@ interface Props {
 const { class: className, title, desc } = Astro.props
 ---
 
-<section class={cn('flex flex-col gap-y-5 md:flex-row md:gap-y-0', className)}>
-  <div class='md:min-w-40 flex flex-col gap-y-1'>
-    <h2 class='text-xl font-medium text-foreground'>{title}</h2>
-    {desc && <p class='text-xs text-muted-foreground leading-normal'>{desc}</p>}
+<section class={cn('flex flex-col gap-y-4 md:flex-row md:gap-x-8 md:gap-y-0', className)}>
+  {/* 左侧标题与辅助说明栏：固定宽度与统一留白 */}
+  <div class='flex flex-col gap-y-1.5 md:w-44 md:shrink-0'>
+    <h2 class='text-lg sm:text-xl font-medium tracking-tight text-foreground'>{title}</h2>
+    {desc && <p class='text-xs text-muted-foreground leading-relaxed'>{desc}</p>}
   </div>
-  <div class='flex flex-1 flex-col gap-y-3'>
+  {/* 右侧核心内容区：标准垂直间距阶梯 */}
+  <div class='flex flex-1 flex-col gap-y-4'>
     <slot />
   </div>
 </section>

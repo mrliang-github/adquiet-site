@@ -1,68 +1,175 @@
 ---
+// 引入通用文章内容布局组件（自动生成侧边栏 TOC 目录与排版支持）
 import PageLayout from '@/layouts/CommonPage.astro'
+// 引入关于页工具分类组件
 import ToolSection from '@/components/about/ToolSection.astro'
 
 export const prerender = true
 
+// 页面大纲导航数据：根据自媒体真实背景与经历重塑 7 大关键章节
 const headings = [
   { depth: 2, slug: 'intro', text: '你好，我是良逍' },
-  { depth: 2, slug: 'what-i-do', text: '我在做什么' },
-  { depth: 2, slug: 'stack', text: '工具箱与技术栈' },
-  { depth: 2, slug: 'principles', text: '实践原则与思考' },
-  { depth: 2, slug: 'contact', text: '联系与交流' }
+  { depth: 2, slug: 'evolution', text: '从会做产品，到借助 AI 自己做出来' },
+  { depth: 2, slug: 'what-i-do', text: '主业业务与 10+ 款产品矩阵' },
+  { depth: 2, slug: 'community', text: '生财有术与实战实验' },
+  { depth: 2, slug: 'stack', text: '工具箱与日常技术栈' },
+  { depth: 2, slug: 'principles', text: '做事态度与写作原则' },
+  { depth: 2, slug: 'contact', text: '商务合作与交流' }
 ]
 ---
 
 <PageLayout title='关于我' {headings} view>
-  {/* 个人身份定位：突出产品经理、业务流程优化与独立开发 */}
-  <p class='text-base font-medium text-foreground'>
-    产品经理 / 业务流程优化 / 独立开发者
-  </p>
+  {/* 身份核心标签：设计出身产品经理、AI 开发者、出海探索者 */}
+  <div class='flex flex-wrap items-center gap-2 font-medium text-foreground text-sm sm:text-base'>
+    <span>产品经理</span>
+    <span class='text-muted-foreground'>/</span>
+    <span>AI Builder</span>
+    <span class='text-muted-foreground'>/</span>
+    <span>跨境电商 CMS·ERP</span>
+    <span class='text-muted-foreground'>/</span>
+    <span>出海独立开发</span>
+  </div>
 
+  {/* 核心金句引用框 */}
   <blockquote class='my-4 border-l-2 border-primary pl-4 text-sm italic text-muted-foreground'>
-    “先把业务流摸透，把断点优化掉；再用确定性工具和代码把流程跑通闭环。”
+    “我是一个设计出身的产品经理，主业做跨境电商 CMS / ERP 系统，业余持续用 AI 做 iOS 和 Web 产品，正在从产品经理走向 AI 开发，并探索出海和个人产品的长期可能性。”
   </blockquote>
 
+  {/* 第一章：自我介绍 */}
   <h2 id='intro'>你好，我是良逍</h2>
   <p>
-    我是<strong>设计专业毕业</strong>，但毕业后我并没有做专职设计，而是一直<strong>扎根在产品经理岗位</strong>。
+    我叫<strong>良逍</strong>，在很多自媒体平台上我都叫<strong>良逍Ai出海 / 良逍Ai出海笔记</strong>。微信号是 <code class='rounded bg-muted px-1.5 py-0.5 text-xs font-mono text-primary font-semibold'>liangxiao-20</code>。
   </p>
   <p>
-    我的主业长期负责<strong>跨境电商 CMS/ERP 业务系统</strong>的产品架构。这类后台系统业务链路极长、多角色协作复杂、状态机严密，所以我真正积累下来的看家本领，其实是<strong>复杂业务拆解、流程优化与消除低效冗余</strong>。
+    我是<strong>设计专业毕业</strong>的，但毕业后我没有专职干设计，而是一直<strong>扎根在产品经理岗位</strong>。
   </p>
   <p>
-    设计专业的背景，让我对交互美学、设计规范（Design System）和直觉体验有天然的底线要求；而多年 B 端系统的实战经历，则赋予了我深挖系统瓶颈、理顺业务流转与把控异常分支的工程思维。
+    我目前本职是一名产品经理，主要负责<strong>跨境电商相关的 CMS、ERP 这类后台业务系统产品</strong>。这类企业级产品涉及的业务链路极长、规则严谨，从后台页面管理、内容配置、商品管理、库存管理，到业务流程、系统逻辑、信息架构，我都会参与得比较深。
   </p>
   <p>
-    业余时间，我把这种“流程优化”的本能延展到了 AI 与独立开发领域：我不迷信单点魔法提示词，而是更喜欢结合飞书多维表、Google Sheets、自动化脚本和大模型，搭建从需求初筛、自动上架到 App Store 送审的端到端生产流水线。
+    多年的设计专业功底，让我对用户体验、界面审美与交互直觉天然保有一份敬畏；而多年 B 端系统的实战锤炼，则沉淀了我对复杂业务拆解、状态机流转与流程优化的敏锐感知。
   </p>
 
-  <h2 id='what-i-do'>我在做什么</h2>
-  <ul>
-    <li>
-      <strong>主业深耕（业务架构与流程优化）</strong>：跨境电商 CMS/ERP 业务架构设计。长期面对多组织权限、跨国履约链路与海量数据流转，核心聚焦在<strong>把业务堵点拆明白、把手工流转自动化、消除上下游摩擦损耗</strong>。
-    </li>
-    <li>
-      <strong>独立开发（小切口解决真实痛点）</strong>：
-      <ul>
-        <li><a href='/heatsleuth/'>HeatSleuth</a>：macOS 发热诊断应用，底层采集系统功耗与异常占用，解决 Mac 发热掉电困扰。</li>
-        <li><a href='/adquiet/'>AdQuiet</a>：Chrome 扩展，专注于 YouTube 桌面端纯净观看体验，轻量 MV3 架构，零隐私索取。</li>
-        <li><a href='https://md.liangxiaoaitool.top/' target='_blank'>MD 排版</a>：现代公众号 Markdown 一键排版工具，为创作者提供开箱即用的优雅版式。</li>
-        <li><a href='https://github.com/mrliang-github/cn-vat-invoice-ocr' target='_blank'>Mac 发票 OCR</a>：基于 macOS 原生 Vision 框架离线发票识别转 Excel，纯本地处理，保护财务隐私。</li>
-      </ul>
-    </li>
-    <li>
-      <strong>内容沉淀与自动化流水线</strong>：
-      <ul>
-        <li><a href='/blog'>深度博客</a>：记录真实的流程优化实录与踩坑代价（如《Codex 一周重置 4 次额度，我推进 2 个 App，把送审自动化了》、《每天 5 分钟自动收集小红书评论，我用工具 + 飞书多维表搭了个产品需求情报系统》）。</li>
-        <li><a href='/daily'>风向标日报</a>：持续追踪海外出海机会、变现切片与一线商业模式（已沉淀 18 期）。</li>
-        <li><a href='/english'>出海工作英语</a>：整理出海开发者高频实战场景（Bug 回复、催款、合作协商、产品边界澄清，已整理 20 课）。</li>
-      </ul>
-    </li>
-  </ul>
+  {/* 第二章：核心转变 */}
+  <h2 id='evolution'>从会做产品，到借助 AI 自己做出来</h2>
+  <p>
+    过去一年，我把越来越多精力放在一件事上：<strong>用 AI 做产品</strong>。
+  </p>
+  <p>
+    相比单纯讨论概念或追逐抽象热点，我更关注<strong>怎么把一个想法真正做出来、上线、验证、再迭代</strong>。
+  </p>
+  <p>
+    我现在处在一个非常明确的过渡阶段：
+  </p>
+  <div class='rounded-xl border border-primary/40 bg-primary/5 p-4 my-3 text-sm'>
+    <strong class='text-foreground'>从“会做产品的人”，走向“能借助 AI 把产品自己做出来的人”（PM → AI Builder）。</strong>
+  </div>
+  <p>
+    因为我做产品很多年，所以会天然更关注体验、结构、用户怎么用、产品到底能不能跑通。过去这些经验更多用在企业系统和产品方案里；而这两年，我开始把 AI 和编程结合起来，补齐从产品想法到实际落地这段能力。
+  </p>
+  <p>
+    到现在，算是已经持续做 AI 开发一年左右，也越来越确定自己想长期走的是 <strong>AI + 产品 + 出海</strong> 这条路。
+  </p>
 
-  <h2 id='stack'>工具箱与技术栈</h2>
-  <p>目前日常使用与高频验证的工具组合：</p>
+  {/* 第三章：主业与产品矩阵 */}
+  <h2 id='what-i-do'>主业业务与 10+ 款产品矩阵</h2>
+  <p>
+    目前我主要在做两类个人产品：一类是 <strong>iOS 原生工具产品</strong>，另一类是 <strong>Web 方向的出海项目</strong>。在过去一年里，我已经陆续用 AI 落地了差不多 10 个产品：
+  </p>
+
+  <div class='not-prose my-4 grid grid-cols-1 gap-3 sm:grid-cols-2'>
+    {/* iOS 工具代表作 */}
+    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1'>
+        <span class='font-mono font-medium text-primary'>iOS 工具</span>
+        <span class='text-[11px] rounded bg-muted px-1.5 py-0.5'>已上线 App Store</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground'>PDF Snap</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed'>
+        移动端轻量离线 PDF 扫描与管理工具，极简纯净，专注提升单据与文档处理效率。
+      </p>
+    </div>
+
+    {/* PhotoSpace */}
+    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1'>
+        <span class='font-mono font-medium text-primary'>iOS 工具</span>
+        <span class='text-[11px] rounded bg-muted px-1.5 py-0.5'>持续迭代</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground'>PhotoSpace</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed'>
+        轻量相册空间分析与照片整理工具，本地运行，专注隐私与存储空间释放。
+      </p>
+    </div>
+
+    {/* LIT */}
+    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1'>
+        <span class='font-mono font-medium text-primary'>iOS 工具</span>
+        <span class='text-[11px] rounded bg-muted px-1.5 py-0.5'>持续迭代</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground'>LIT</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed'>
+        个人日常习惯与生活微记录工具，低摩擦录入，注重微交互动效与正向反馈。
+      </p>
+    </div>
+
+    {/* HeatSleuth */}
+    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1'>
+        <span class='font-mono font-medium text-primary'>macOS 应用</span>
+        <span class='text-[11px] rounded bg-muted px-1.5 py-0.5'>公开测试</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground'>HeatSleuth</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed'>
+        Mac 发热与功耗重载诊断工具，底层采集指标，看清是谁在占用 CPU/GPU/功耗。
+      </p>
+    </div>
+
+    {/* AdQuiet */}
+    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1'>
+        <span class='font-mono font-medium text-primary'>Chrome 扩展</span>
+        <span class='text-[11px] rounded bg-muted px-1.5 py-0.5'>Web Store</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground'>AdQuiet</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed'>
+        YouTube 桌面端纯净观看扩展，极轻量 MV3 架构，零隐私索取，专注内容观看。
+      </p>
+    </div>
+
+    {/* Mac 发票 OCR */}
+    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1'>
+        <span class='font-mono font-medium text-primary'>开源工具</span>
+        <span class='text-[11px] rounded bg-muted px-1.5 py-0.5'>GitHub 开源</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground'>Mac 发票 OCR</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed'>
+        基于 macOS 原生 Vision 离线发票识别转 Excel，纯本地处理，保护财务隐私。
+      </p>
+    </div>
+  </div>
+
+  <p>
+    除了这些公开作品，我也还在持续尝试一些暂时不方便完全公开的出海独立站项目与快站型实验产品，快速验证流量与转化模型。
+  </p>
+
+  {/* 第四章：生财有术与实战实验 */}
+  <h2 id='community'>生财有术与实战实验</h2>
+  <p>
+    除了本职工作和个人产品，这些年我一直长期活跃在 <strong>生财有术</strong> 这个圈子里。
+  </p>
+  <p>
+    对我来说，它不只是一个社群，更像是我<strong>持续观察机会、研究副业方向、接触真实项目案例的地方</strong>。
+  </p>
+  <p>
+    我在生财圈子里待了很多年，也参与过一些志愿者相关的事情。相比只看趋势、聊风口，我更习惯把看到的机会拿来<strong>做实验、自己下场跑一轮</strong>，再从真实结果里总结认知。做过的事、跑过的闭环、踩过的代价，才是最真实的护城河。
+  </p>
+
+  {/* 第五章：工具箱与技术栈 */}
+  <h2 id='stack'>工具箱与日常技术栈</h2>
+  <p>目前日常高频用于产品设计、AI 研发与流程编排的工具组合：</p>
 
   <ToolSection
     class='mb-5'
@@ -70,27 +177,27 @@ const headings = [
     tools={[
       {
         name: 'Codex / Claude Code',
-        description: '终端与工作流智能体',
+        description: '终端与全流程 Agent 协同',
         href: 'https://github.com/features/copilot',
         icon: import('@/assets/tools/chatgpt.svg?raw')
       },
       {
         name: 'VS Code',
-        description: '日常代码编辑',
+        description: '核心代码编辑与工程开发',
         href: 'https://code.visualstudio.com/',
         icon: import('@/assets/tools/vscode.svg?raw')
       },
       {
-        name: 'Typora',
-        description: 'Markdown 写作排版',
-        href: 'https://typora.io/',
-        icon: import('@/assets/tools/typora.svg?raw')
+        name: '飞书多维表 / Google Sheets',
+        description: '自动化情报流与需求模具',
+        href: 'https://www.feishu.cn/',
+        icon: import('@/assets/tools/notion.svg?raw')
       },
       {
-        name: 'Notion / 飞书',
-        description: '多维表情报与知识库',
-        href: 'https://www.notion.so/',
-        icon: import('@/assets/tools/notion.svg?raw')
+        name: 'Typora',
+        description: 'Markdown 写作与思考归档',
+        href: 'https://typora.io/',
+        icon: import('@/assets/tools/typora.svg?raw')
       }
     ]}
   />
@@ -101,7 +208,7 @@ const headings = [
     tools={[
       {
         name: 'Apple macOS',
-        description: '核心工作站系统',
+        description: '生产力工作站环境',
         href: 'https://www.apple.com/macos/',
         icon: import('@/assets/tools/apple.svg?raw')
       },
@@ -119,40 +226,53 @@ const headings = [
       },
       {
         name: 'Illustrator',
-        description: '矢量图形与图标',
+        description: '矢量图形与图标绘制',
         href: 'https://www.adobe.com/products/illustrator',
         icon: import('@/assets/tools/illustrator.svg?raw')
       }
     ]}
   />
 
-  <h2 id='principles'>实践原则与思考</h2>
+  {/* 第六章：做事原则与写作备忘 */}
+  <h2 id='principles'>做事态度与写作原则</h2>
   <div class='not-prose my-4 space-y-3'>
     <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>1. 业务为本，流程优先</h3>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>1. 不立虚浮人设，踩过坑的才是真东西</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
-        界面的本质是业务流的投影。优先理顺上下游链路、明确字段契约与状态机流转，再谈页面渲染；找出流程断点并消除人工搬砖，是系统最大的商业价值所在。
+        避免“全栈神仙”、“大牛”等过度包装词汇。我的内容涉猎可能比较杂（从产品设计、写代码到 SEO 和投放），但我直接承认——因为这些全都是我自己下场亲自跑过的，真诚比硬凹人设好得多。
       </p>
     </div>
     <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>2. 依靠确定性结构，不迷信纯提示词</h3>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>2. 业务为本，流程优先</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
-        好结果很少来自于一句神奇的 Prompt，而是来自标准化表格（如 Google Sheets、飞书多维表）、明确的字段规范、脚本驱动的确定性流程和人的最终校验。
+        做产品先摸透业务链路与状态机，找出流程断点并消除人工搬砖，是系统最大的价值所在。界面的本质是业务流的投影，把逻辑理顺比无谓的交互堆砌重要十倍。
       </p>
     </div>
     <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>3. 真实优先，跑通闭环（End-to-End）</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
-        做 Demo 很容易，但产品必须面对打包、签名、商店素材、隐私协议、App Store 审核与真实用户体验。打通端到端，忠实记录踩坑代价，才能形成真正的手感。
+        做一个玩具 Demo 很容易，但产品必须面对打包、签名、商店素材、隐私协议、App Store 审核与真实用户体验。打通从 0 到 1 的交付闭环，才能形成真正的手感。
       </p>
     </div>
   </div>
 
-  <h2 id='contact'>联系与交流</h2>
-  <p>如果你也在折腾 AI 产品、独立开发、出海工具或业务系统设计，欢迎常来交流：</p>
+  {/* 第七章：联系与商务交流 */}
+  <h2 id='contact'>商务合作与交流</h2>
+  <p>
+    如果你也在探索 <strong>AI 开发、独立产品、出海实战、业务系统架构</strong>，或者有商业合作需求，欢迎随时联系交流：
+  </p>
   <ul>
-    <li>GitHub：<a href='https://github.com/mrliang-github' target='_blank'>@mrliang-github</a>（开源工具与代码）</li>
-    <li>X (Twitter)：<a href='https://x.com/lingxio71220285' target='_blank'>@lingxio71220285</a>（日常碎片思考与最新动态）</li>
-    <li>RSS 订阅：<a href='/rss.xml'>/rss.xml</a></li>
+    <li>
+      <strong>微信联系</strong>：<code class='rounded bg-muted px-1.5 py-0.5 text-xs font-mono text-primary font-semibold'>liangxiao-20</code>（添加时请备注来源与来意）
+    </li>
+    <li>
+      <strong>GitHub</strong>：<a href='https://github.com/mrliang-github' target='_blank'>@mrliang-github</a>（开源项目与代码仓库）
+    </li>
+    <li>
+      <strong>X (Twitter)</strong>：<a href='https://x.com/lingxio71220285' target='_blank'>@lingxio71220285</a>（日常一手碎片思考与更新）
+    </li>
+    <li>
+      <strong>RSS 订阅</strong>：<a href='/rss.xml'>/rss.xml</a>（通过阅读器订阅文章与日报更新）
+    </li>
   </ul>
 </PageLayout>

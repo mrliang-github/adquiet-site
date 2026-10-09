@@ -68,12 +68,30 @@ export const projects: ProjectItem[] = [
     github: 'https://github.com/mrliang-github/liangxiao-travel'
   },
   {
-    name: 'PDF SNAP',
-    category: '移动应用',
-    status: '已上线',
-    description: '移动端离线 PDF 快速扫描、转换与管理工具，极简轻便。',
+    name: 'PDF Snap',
+    category: 'iOS 工具',
+    status: 'App Store 已上线',
+    description: '移动端离线 PDF 快速扫描、转换与管理工具，极简轻便，专注文件处理效率。',
     href: '/pdf-snap/privacy/',
     external: false,
-    tags: ['iOS', 'PDF', '工具']
+    tags: ['iOS', 'SwiftUI', 'PDF 工具']
+  },
+  {
+    name: 'PhotoSpace',
+    category: 'iOS 工具',
+    status: '持续迭代',
+    description: '轻量相册空间清理与多维照片整理工具，本地运行，专注隐私与存储释放。',
+    href: '/projects',
+    external: false,
+    tags: ['iOS', '相册管理', '效率工具']
+  },
+  {
+    name: 'LIT',
+    category: 'iOS 工具',
+    status: '持续迭代',
+    description: '个人生活与习惯记录小工具，低摩擦录入，注重交互微动效与正向反馈。',
+    href: '/projects',
+    external: false,
+    tags: ['iOS', '习惯追踪', '生活方式']
   }
 ]

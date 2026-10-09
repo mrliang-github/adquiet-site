@@ -1,34 +1,43 @@
 ---
+// 引入 Astro 图像组件
 import { Image } from 'astro:assets'
 
+// 引入 Pure 主题文章卡片与文章工具函数
 import { PostPreview } from 'astro-pure/components/pages'
 import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
+// 引入基础 UI 组件（按钮、图标、标签）
 import { Button, Icon, Label } from 'astro-pure/user'
+// 引入通用页面布局
 import PageLayout from '@/layouts/BaseLayout.astro'
+// 引入首页区块组件与能力栏布局组件
 import Section from '@/components/home/Section.astro'
 import SkillLayout from '@/components/home/SkillLayout.astro'
+// 引入产品矩阵数据与内容辅助函数
 import { projects, type ProjectItem } from '@/data/projects'
 import { getDailyReports, getEnglishLessons, type DailyReportItem, type EnglishLessonItem } from '@/data/content-helpers'
+// 引入全站配置
 import config from '@/site-config'
 
+// 引入湖山天际线横幅素材
 import heroBanner from '@/assets/hero-banner.jpg'
 
 export const prerender = true
 
+// 首页文章数量限制：展示前 5 篇
 const MAX_POSTS = 5
 const allPosts = await getBlogCollection()
 const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 
+// 获取风向标日报与出海英语前 3 篇作为首页切片
 const dailyReports = getDailyReports().slice(0, 3)
 const englishLessons = getEnglishLessons().slice(0, 3)
 
-// 产品与业务架构技能：体现 ERP/CMS 经验与流程优化看家本领
-const productSkills = ['跨境电商 CMS/ERP', '业务流程优化', '需求拆解与状态机', '交互原型与设计规范']
-// AI 工作流技能：体现自动化实战能力
-const aiWorkflowSkills = ['Codex / Claude Code', '飞书多维表情报流', 'Google Sheets 自动化编排', 'App Store 自动化流水线']
-// 独立开发技能：体现端到端交付能力
-const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', 'Astro / 现代 Web', '本地离线 OCR']
+// 技能与工具栈：真实对应主业 ERP/CMS、AI 实操与端到端独立开发
+const productSkills = ['跨境电商 CMS/ERP', '业务流程优化', '后台页面与配置', '信息架构与状态机']
+const aiWorkflowSkills = ['AI 辅助全流程交付', '飞书多维表情报流', 'Claude Code / Codex', 'App Store 自动化流水线']
+const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web / 独立站', '本地离线 OCR']
 
+// 动态载入头像资产
 const imagePath = config.logo.src
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/assets/*.{jpeg,jpg,png,gif,avif,webp}'
@@ -40,204 +49,237 @@ if (!images[imagePath]) {
 }
 ---
 
-{/* 提取自湖山天际线的主题色 #54889C，营造深邃、宁静、高级的视觉氛围 */}
+{/* 页面主布局：设定湖山青碧蓝 (#54889C) 为主题高光色 */}
 <PageLayout meta={{ title: '首页 · 良逍' }} highlightColor='#54889C'>
   <main class='flex w-full flex-col items-center'>
-    {/* 1. Header Profile Hero with Atmospheric Banner & Interactive Hover */}
-    <div class='group/hero animate mb-12 w-full overflow-hidden rounded-2xl border border-border/70 bg-muted/20 shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md'>
-      {/* 顶部湖山天际线全景横幅：带平滑微缩放景深交互 */}
-      <div class='relative h-44 sm:h-60 w-full overflow-hidden'>
-        <Image
-          src={heroBanner}
-          alt='湖山与城市天际线'
-          class='h-full w-full object-cover object-center filter brightness-[0.96] contrast-[1.02] dark:brightness-[0.72] transition-transform duration-700 ease-out group-hover/hero:scale-[1.03]'
-          loading='eager'
-          fetchpriority='high'
-        />
-        {/* 底部与主体背景无缝融合的平滑渐变遮罩 */}
-        <div class='absolute inset-0 bg-gradient-to-b from-transparent via-background/15 to-background'></div>
-      </div>
-
-      {/* 头像与个人信息（头像向上负 margin 叠在横幅边界，形成远眺全景的前后景别呼应） */}
-      <section class='relative -mt-16 sm:-mt-20 flex flex-col items-center gap-y-4 px-6 pb-8 text-center' id='content-header'>
-        <div class='relative'>
+    {/* 统一规范容器：最大宽度限制为 max-w-4xl，严格统一左右基线对齐 */}
+    <div class='flex w-full max-w-4xl flex-col items-center'>
+      
+      {/* 1. Header Profile Hero：去除了生硬的外层闭合卡片边框，打造通透开阔的全景画卷与自然景深过渡 */}
+      <div class='group/hero animate mb-8 w-full sm:mb-12'>
+        {/* 顶部湖山天际线全景横幅：微圆角视窗，底部平滑过渡融入页面背景 */}
+        <div class='relative h-48 w-full overflow-hidden rounded-2xl sm:rounded-3xl sm:h-60 md:h-72 ring-1 ring-border/50'>
           <Image
-            src={images[imagePath]()}
-            alt={config.author}
-            class='size-28 sm:size-32 rounded-full border-4 border-background bg-background object-cover shadow-lg ring-1 ring-border/80 transition-all duration-300 hover:scale-105 hover:ring-primary/60 hover:shadow-primary/20'
+            src={heroBanner}
+            alt='湖山与城市天际线全景'
+            class='h-full w-full object-cover object-center filter brightness-[0.98] contrast-[1.02] transition-transform duration-700 ease-out group-hover/hero:scale-[1.02] dark:brightness-[0.76]'
             loading='eager'
             fetchpriority='high'
           />
+          {/* 底部渐变透明遮罩：与页面主底色无缝融为一体 */}
+          <div class='absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background pointer-events-none'></div>
         </div>
 
-        <div class='flex flex-col items-center gap-y-2'>
-          <h1 class='text-2xl font-medium tracking-tight sm:text-3xl'>你好，我是良逍</h1>
-          <p class='text-sm text-muted-foreground'>
-            设计专业毕业的产品经理 · 业务流程优化 · AI 独立开发
-          </p>
-        </div>
+        {/* 头像与身份定位区：自然悬浮于横幅地平线交界，无拘束通透排布 */}
+        <section class='relative -mt-16 flex flex-col items-center gap-y-3.5 px-4 text-center sm:-mt-20 sm:gap-y-4' id='content-header'>
+          {/* 圆形头像：环境光晕厚边框与微悬浮动效 */}
+          <div class='relative'>
+            <Image
+              src={images[imagePath]()}
+              alt={config.author}
+              class='size-28 rounded-full border-4 border-background bg-background object-cover shadow-xl ring-2 ring-border/70 transition-all duration-300 hover:scale-105 hover:ring-primary/60 hover:shadow-primary/20 sm:size-32'
+              loading='eager'
+              fetchpriority='high'
+            />
+          </div>
 
-        <div class='flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs'>
-          <Label title='跨境电商 CMS/ERP'>
-            <Icon name='link' class='size-4' slot='icon' />
-          </Label>
-          <Label
-            title='GitHub'
-            as='a'
-            href='https://github.com/mrliang-github'
-            target='_blank'
-          >
-            <Icon name='github' class='size-4' slot='icon' />
-          </Label>
-          <Label
-            title='X (Twitter)'
-            as='a'
-            href='https://x.com/lingxio71220285'
-            target='_blank'
-          >
-            <Icon name='x' class='size-4' slot='icon' />
-          </Label>
-        </div>
+          {/* 名字与真实定位 */}
+          <div class='flex flex-col items-center gap-y-1.5'>
+            <h1 class='text-2xl font-bold tracking-tight text-foreground sm:text-3xl'>你好，我是良逍</h1>
+            <p class='text-sm text-muted-foreground'>
+              设计出身的产品经理 · 跨境电商 CMS/ERP · AI 独立开发
+            </p>
+          </div>
 
-        {/* Slogan Pill */}
-        <div class='flex flex-row items-center gap-x-2.5 rounded-full border border-border/80 bg-background/80 backdrop-blur-sm px-4 py-1.5 text-xs text-muted-foreground shadow-sm transition-all duration-200 hover:border-primary/50 hover:bg-muted/60'>
-          <span class='relative flex items-center justify-center'>
-            <span class='absolute size-2 animate-ping rounded-full bg-emerald-400 opacity-75'></span>
-            <span class='size-2 rounded-full bg-emerald-500'></span>
-          </span>
-          <p class='font-medium'>把想法做成东西，再把过程写下来</p>
-        </div>
-      </section>
-    </div>
+          {/* 核心社交与实战合作标签 */}
+          <div class='flex flex-wrap items-center justify-center gap-2 text-xs'>
+            {/* 商务交流与微信号标签 */}
+            <div
+              class='flex items-center gap-x-1.5 rounded-full border border-border/80 bg-background/80 px-3 py-1 font-mono text-muted-foreground shadow-xs transition-colors hover:border-primary/50 hover:text-foreground'
+              title='微信合作交流联系方式'
+            >
+              <span class='font-sans font-medium text-primary'>微信</span>
+              <span>liangxiao-20</span>
+            </div>
 
-    <div id='content' class='animate flex flex-col gap-y-12 md:w-4/5 lg:w-5/6'>
-      {/* 2. About Intro */}
-      <Section title='关于我' desc='背景定位与工程态度'>
-        <div class='space-y-3 text-muted-foreground text-sm leading-relaxed'>
-          <p>
-            设计专业科班毕业，毕业后却一直扎根在产品一线。主业负责跨境电商 CMS/ERP 系统的产品架构与复杂业务流程优化。
-          </p>
-          <p>
-            设计背景赋予了我对界面美感与交互直觉的敬畏，长年深耕复杂 B 端业务的经历，则磨练了我对业务拆解、状态机流转与消除人工损耗的工程思维。业余时间，我用 AI 跑通端到端的自动化流水线与独立工具开发，把真正跑通的闭环、遇到的限制和业务判断记录在这里。
-          </p>
-        </div>
-        <Button title='了解更多背景 →' class='w-fit self-end text-xs' href='/about' variant='ahead' />
-      </Section>
+            {/* 生财有术社群标签 */}
+            <div
+              class='flex items-center gap-x-1 rounded-full border border-border/80 bg-background/80 px-3 py-1 text-muted-foreground shadow-xs'
+              title='多年生财有术社群观察者与志愿者实践'
+            >
+              <Icon name='sun' class='size-3.5 text-amber-500' />
+              <span>生财有术实战者</span>
+            </div>
 
-      {/* 3. Featured Tools & Projects */}
-      <Section title='产品与工具' desc='从实际小痛点出发，跑通闭环交付'>
-        <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
-          {
-            projects.slice(0, 4).map((p: ProjectItem) => (
-              <a
-                href={p.href}
-                target={p.external ? '_blank' : undefined}
-                rel={p.external ? 'noopener noreferrer' : undefined}
-                class='group hover-card-lift flex flex-col justify-between rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30'
-              >
-                <div>
-                  <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-                    <span class='font-mono text-primary font-medium'>{p.category}</span>
-                    <span class='text-[11px] rounded bg-muted px-1.5 py-0.5'>{p.status}</span>
+            {/* GitHub 链接 */}
+            <Label
+              title='GitHub'
+              as='a'
+              href='https://github.com/mrliang-github'
+              target='_blank'
+            >
+              <Icon name='github' class='size-3.5' slot='icon' />
+            </Label>
+
+            {/* X (Twitter) 链接 */}
+            <Label
+              title='X (Twitter)'
+              as='a'
+              href='https://x.com/lingxio71220285'
+              target='_blank'
+            >
+              <Icon name='x' class='size-3.5' slot='icon' />
+            </Label>
+          </div>
+
+          {/* 动态核心金句胶囊 Pill */}
+          <div class='mt-1 flex flex-row items-center gap-x-2.5 rounded-full border border-border/80 bg-background/90 px-4 py-1.5 text-xs text-muted-foreground shadow-xs backdrop-blur-sm transition-all duration-200 hover:border-primary/50 hover:bg-muted/60'>
+            <span class='relative flex items-center justify-center'>
+              <span class='absolute size-2 animate-ping rounded-full bg-emerald-400 opacity-75'></span>
+              <span class='size-2 rounded-full bg-emerald-500'></span>
+            </span>
+            <p class='font-medium text-foreground/90'>
+              从“会做产品的人”，走向“能借助 AI 把产品自己做出来的人”
+            </p>
+          </div>
+        </section>
+      </div>
+
+      {/* 2. 主体内容区块组：严格与 Hero 容器同宽（max-w-4xl 100%），统一垂直间距节奏 gap-y-12 sm:gap-y-16 */}
+      <div id='content' class='animate flex w-full flex-col gap-y-12 sm:gap-y-16'>
+        
+        {/* Section 1: 关于我（忠实还原 Obsidian 真实自媒体自述） */}
+        <Section title='关于我' desc='背景定位与实战路径'>
+          <div class='space-y-3.5 text-sm leading-relaxed text-muted-foreground'>
+            <p>
+              设计专业出身，毕业后一直扎根在产品经理岗位。主业深度参与<strong>跨境电商 CMS、ERP 业务系统</strong>的产品架构，从后台页面管理、内容配置、商品/库存管理到复杂的业务流程与信息架构，都参与得比较深。
+            </p>
+            <p>
+              过去一年，我把越来越多精力放在<strong>用 AI 做产品</strong>上。相比单纯讨论概念，我更关注怎么把一个想法真正做出来、上线、验证、再迭代。目前已陆续落地了 10+ 个产品（包括 <a href='/pdf-snap/privacy/' class='text-foreground underline underline-offset-4 decoration-border hover:decoration-primary font-medium'>PDF Snap</a>、<a href='/projects' class='text-foreground underline underline-offset-4 decoration-border hover:decoration-primary font-medium'>PhotoSpace</a>、<a href='/projects' class='text-foreground underline underline-offset-4 decoration-border hover:decoration-primary font-medium'>LIT</a>、<a href='/heatsleuth/' class='text-foreground underline underline-offset-4 decoration-border hover:decoration-primary font-medium'>HeatSleuth</a> 等）。
+            </p>
+            <p>
+              做产品多年让我天然更敬畏体验与跑通闭环；而持续做 AI 开发一年左右，让我补齐了从想法到落地交付的能力，也越来越确定自己想长期走的是 <strong>AI + 产品 + 出海</strong> 这条路。
+            </p>
+          </div>
+          <Button title='了解完整背景与做事原则 →' class='w-fit self-end text-xs' href='/about' variant='ahead' />
+        </Section>
+
+        {/* Section 2: 产品与工具矩阵 */}
+        <Section title='产品与工具' desc='解决小痛点，10+ 款落地闭环'>
+          <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+            {
+              projects.slice(0, 4).map((p: ProjectItem) => (
+                <a
+                  href={p.href}
+                  target={p.external ? '_blank' : undefined}
+                  rel={p.external ? 'noopener noreferrer' : undefined}
+                  class='group hover-card-lift flex flex-col justify-between rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
+                >
+                  <div>
+                    <div class='mb-2 flex items-center justify-between text-xs text-muted-foreground'>
+                      <span class='font-mono font-medium text-primary'>{p.category}</span>
+                      <span class='rounded bg-muted px-1.5 py-0.5 text-[11px]'>{p.status}</span>
+                    </div>
+                    <h3 class='text-base font-medium text-foreground transition-colors group-hover:text-primary'>
+                      {p.name}
+                    </h3>
+                    <p class='mt-1.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground'>
+                      {p.description}
+                    </p>
                   </div>
-                  <h3 class='text-base font-medium text-foreground group-hover:text-primary transition-colors'>
-                    {p.name}
+                  <div class='mt-3.5 flex items-center justify-end text-xs font-medium text-primary'>
+                    <span>详情查看 →</span>
+                  </div>
+                </a>
+              ))
+            }
+          </div>
+          <Button title='查看全部 10+ 款产品与工具矩阵 →' class='w-fit self-end text-xs' href='/projects' variant='ahead' />
+        </Section>
+
+        {/* Section 3: 最新博客文章 */}
+        {
+          allPostsByDate.length > 0 && (
+            <Section title='技术探索与博客' desc='踩坑复盘、工具边界与架构思考'>
+              <ul class='flex flex-col gap-y-2.5'>
+                {allPostsByDate.map((p) => (
+                  <li class='flex flex-col gap-x-2 sm:flex-row'>
+                    <PostPreview post={p} />
+                  </li>
+                ))}
+              </ul>
+              <Button title='浏览全部博客文章 →' class='w-fit self-end text-xs' href='/blog' variant='ahead' />
+            </Section>
+          )
+        }
+
+        {/* Section 4: 风向标日报精选 */}
+        <Section title='风向标日报' desc='出海机会、变现切片与商业模式'>
+          <div class='flex flex-col gap-3.5'>
+            {
+              dailyReports.map((report: DailyReportItem) => (
+                <a
+                  href={`/daily/${report.slug}/`}
+                  class='group hover-card-lift rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
+                >
+                  <div class='mb-1 flex items-center justify-between text-xs text-muted-foreground'>
+                    <span class='font-mono font-medium text-primary'>{report.editionDate}</span>
+                    <span class='text-[11px] text-muted-foreground'>实战情报切片</span>
+                  </div>
+                  <h3 class='text-sm font-medium text-foreground transition-colors group-hover:text-primary sm:text-base'>
+                    {report.title}
                   </h3>
-                  <p class='mt-1 text-xs text-muted-foreground line-clamp-2 leading-relaxed'>
-                    {p.description}
+                  <p class='mt-1.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground'>
+                    {report.summary}
                   </p>
-                </div>
-                <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary'>
-                  <span>详情查看 →</span>
-                </div>
-              </a>
-            ))
-          }
-        </div>
-        <Button title='查看全部项目与工具 →' class='w-fit self-end text-xs' href='/projects' variant='ahead' />
-      </Section>
+                </a>
+              ))
+            }
+          </div>
+          <Button title='查看全部风向标日报 (共 18 期) →' class='w-fit self-end text-xs' href='/daily' variant='ahead' />
+        </Section>
 
-      {/* 4. Latest Posts */}
-      {
-        allPostsByDate.length > 0 && (
-          <Section title='技术探索与博客' desc='踩坑复盘、工具边界与架构思考'>
-            <ul class='flex flex-col gap-y-2 sm:gap-y-2.5'>
-              {allPostsByDate.map((p) => (
-                <li class='flex flex-col gap-x-2 sm:flex-row'>
-                  <PostPreview post={p} />
-                </li>
-              ))}
-            </ul>
-            <Button title='浏览全部文章 →' class='w-fit self-end text-xs' href='/blog' variant='ahead' />
-          </Section>
-        )
-      }
+        {/* Section 5: 出海工作英语课程 */}
+        <Section title='出海工作英语' desc='不背冷门单词，只练真实沟通场景'>
+          <div class='grid gap-3.5 sm:grid-cols-3'>
+            {
+              englishLessons.map((lesson: EnglishLessonItem, idx: number) => (
+                <a
+                  href={`/english/${lesson.slug}/`}
+                  class='group hover-card-lift flex flex-col justify-between rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30'
+                >
+                  <div>
+                    <span class='font-mono text-xs font-medium text-primary'>
+                      Lesson {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <h3 class='mt-1.5 line-clamp-2 text-xs font-medium text-foreground transition-colors group-hover:text-primary'>
+                      {lesson.title}
+                    </h3>
+                    <p class='mt-1.5 line-clamp-2 text-[11px] leading-relaxed text-muted-foreground'>
+                      {lesson.scenario || lesson.goal}
+                    </p>
+                  </div>
+                  <span class='mt-3.5 text-xs font-medium text-primary'>进入学习 →</span>
+                </a>
+              ))
+            }
+          </div>
+          <Button title='查看全部场景课程 (共 20 节) →' class='w-fit self-end text-xs' href='/english' variant='ahead' />
+        </Section>
 
-      {/* 5. Daily Insights Preview */}
-      <Section title='风向标日报' desc='出海机会、变现切片与商业模式'>
-        <div class='flex flex-col gap-3'>
-          {
-            dailyReports.map((report: DailyReportItem) => (
-              <a
-                href={`/daily/${report.slug}/`}
-                class='group hover-card-lift rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30'
-              >
-                <div class='flex items-center justify-between text-xs text-muted-foreground mb-1'>
-                  <span class='font-mono font-medium text-primary'>{report.editionDate}</span>
-                  <span class='text-[11px] text-muted-foreground'>情报速递</span>
-                </div>
-                <h3 class='text-sm font-medium text-foreground group-hover:text-primary transition-colors'>
-                  {report.title}
-                </h3>
-                <p class='mt-1 text-xs text-muted-foreground line-clamp-2 leading-relaxed'>
-                  {report.summary}
-                </p>
-              </a>
-            ))
-          }
-        </div>
-        <Button title='查看全部日报 (共 18 期) →' class='w-fit self-end text-xs' href='/daily' variant='ahead' />
-      </Section>
+        {/* Section 6: 能力与工具栈 */}
+        <Section title='能力与工具栈' desc='业务架构、AI 自动化与端到端交付'>
+          <SkillLayout title='产品与业务' skills={productSkills} />
+          <SkillLayout title='AI 工作流' skills={aiWorkflowSkills} />
+          <SkillLayout title='独立开发' skills={devSkills} />
+        </Section>
+      </div>
 
-      {/* 6. English Lessons Preview */}
-      <Section title='出海工作英语' desc='不背冷门单词，只练真实沟通场景'>
-        <div class='grid gap-3 sm:grid-cols-3'>
-          {
-            englishLessons.map((lesson: EnglishLessonItem, idx: number) => (
-              <a
-                href={`/english/${lesson.slug}/`}
-                class='group hover-card-lift flex flex-col justify-between rounded-xl border border-border/70 p-3.5 transition-all hover:bg-muted/30'
-              >
-                <div>
-                  <span class='text-[11px] font-mono font-medium text-primary'>
-                    Lesson {String(idx + 1).padStart(2, '0')}
-                  </span>
-                  <h3 class='mt-1 text-xs font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2'>
-                    {lesson.title}
-                  </h3>
-                  <p class='mt-1 text-[11px] text-muted-foreground line-clamp-2'>
-                    {lesson.scenario || lesson.goal}
-                  </p>
-                </div>
-                <span class='mt-3 text-[11px] font-medium text-primary'>进入学习 →</span>
-              </a>
-            ))
-          }
-        </div>
-        <Button title='查看全部场景课程 (共 20 节) →' class='w-fit self-end text-xs' href='/english' variant='ahead' />
-      </Section>
-
-      {/* 7. Skills & Tech Stack */}
-      <Section title='能力与工具栈' desc='业务架构、AI 自动化与端到端开发'>
-        <SkillLayout title='产品与业务' skills={productSkills} />
-        <SkillLayout title='AI 工作流' skills={aiWorkflowSkills} />
-        <SkillLayout title='开发实现' skills={devSkills} />
-      </Section>
-    </div>
-
-    <div class='mt-14 mb-6 flex flex-col items-center text-center text-xs text-muted-foreground'>
-      <p class='italic font-serif text-sm text-foreground/80'>“先做，再慢慢把自己的方法长出来。把想法做成东西，再把过程写下来。”</p>
-      <span class='mt-1.5 font-mono text-[11px] text-muted-foreground'>—— 良逍</span>
+      {/* 底部个性化总结金句 */}
+      <div class='mt-16 mb-8 flex flex-col items-center text-center text-xs text-muted-foreground'>
+        <p class='font-serif text-sm italic text-foreground/85'>“先做，再慢慢把自己的方法长出来。把想法做成东西，再把过程写下来。”</p>
+        <span class='mt-2 font-mono text-[11px] text-muted-foreground'>—— 良逍（微信：liangxiao-20）</span>
+      </div>
     </div>
   </main>
 </PageLayout>
