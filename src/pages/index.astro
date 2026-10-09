@@ -11,6 +11,8 @@ import { projects, type ProjectItem } from '@/data/projects'
 import { getDailyReports, getEnglishLessons, type DailyReportItem, type EnglishLessonItem } from '@/data/content-helpers'
 import config from '@/site-config'
 
+import heroBanner from '@/assets/hero-banner.jpg'
+
 export const prerender = true
 
 const MAX_POSTS = 5
@@ -20,9 +22,12 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 const dailyReports = getDailyReports().slice(0, 3)
 const englishLessons = getEnglishLessons().slice(0, 3)
 
-const productSkills = ['跨境电商 CMS/ERP', '需求拆解', '流程设计', '原型系统']
-const aiWorkflowSkills = ['Codex', 'Claude Code', '飞书多维表情报流', 'Google Sheets 自动化']
-const devSkills = ['SwiftUI', 'macOS 原生开发', 'Astro / Next.js', 'Chrome 扩展 (MV3)']
+// 产品与业务架构技能：体现 ERP/CMS 经验与流程优化看家本领
+const productSkills = ['跨境电商 CMS/ERP', '业务流程优化', '需求拆解与状态机', '交互原型与设计规范']
+// AI 工作流技能：体现自动化实战能力
+const aiWorkflowSkills = ['Codex / Claude Code', '飞书多维表情报流', 'Google Sheets 自动化编排', 'App Store 自动化流水线']
+// 独立开发技能：体现端到端交付能力
+const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', 'Astro / 现代 Web', '本地离线 OCR']
 
 const imagePath = config.logo.src
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -35,23 +40,42 @@ if (!images[imagePath]) {
 }
 ---
 
-<PageLayout meta={{ title: '首页 · 良逍' }} highlightColor='#659EB9'>
+{/* 提取自湖山天际线的主题色 #54889C，营造深邃、宁静、高级的视觉氛围 */}
+<PageLayout meta={{ title: '首页 · 良逍' }} highlightColor='#54889C'>
   <main class='flex w-full flex-col items-center'>
-    {/* 1. Header Profile Hero */}
-    <section class='animate mb-10 flex flex-col items-center gap-y-6 text-center' id='content-header'>
-      <Image
-        src={images[imagePath]()}
-        alt={config.author}
-        class='h-28 w-auto rounded-full border border-border p-1 shadow-sm'
-        loading='eager'
-        fetchpriority='high'
-      />
+    {/* 1. Header Profile Hero with Atmospheric Banner */}
+    <div class='animate mb-12 w-full overflow-hidden rounded-2xl border border-border/70 bg-muted/20 shadow-sm'>
+      {/* 顶部湖山天际线全景横幅 */}
+      <div class='relative h-44 sm:h-60 w-full overflow-hidden'>
+        <Image
+          src={heroBanner}
+          alt='湖山与城市天际线'
+          class='h-full w-full object-cover object-center filter brightness-[0.96] contrast-[1.02] dark:brightness-[0.72] transition-all duration-500'
+          loading='eager'
+          fetchpriority='high'
+        />
+        {/* 底部与主体背景无缝融合的平滑渐变遮罩 */}
+        <div class='absolute inset-0 bg-gradient-to-b from-transparent via-background/15 to-background'></div>
+      </div>
 
-      <div class='flex flex-col items-center gap-y-3'>
-        <h1 class='text-3xl font-medium tracking-tight sm:text-4xl'>你好，我是良逍</h1>
-        <p class='text-sm text-muted-foreground'>
-          设计出身的产品经理 · 独立开发者 · AI 工作流探索者
-        </p>
+      {/* 头像与个人信息（头像向上负 margin 叠在横幅边界，形成远眺全景的前后景别呼应） */}
+      <section class='relative -mt-16 sm:-mt-20 flex flex-col items-center gap-y-4 px-6 pb-8 text-center' id='content-header'>
+        <div class='relative'>
+          <Image
+            src={images[imagePath]()}
+            alt={config.author}
+            class='size-28 sm:size-32 rounded-full border-4 border-background bg-background object-cover shadow-lg ring-1 ring-border/80'
+            loading='eager'
+            fetchpriority='high'
+          />
+        </div>
+
+        <div class='flex flex-col items-center gap-y-2'>
+          <h1 class='text-2xl font-medium tracking-tight sm:text-3xl'>你好，我是良逍</h1>
+          <p class='text-sm text-muted-foreground'>
+            设计专业毕业的产品经理 · 业务流程优化 · AI 独立开发
+          </p>
+        </div>
 
         <div class='flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs'>
           <Label title='跨境电商 CMS/ERP'>
@@ -74,27 +98,27 @@ if (!images[imagePath]) {
             <Icon name='x' class='size-4' slot='icon' />
           </Label>
         </div>
-      </div>
 
-      {/* Slogan Pill */}
-      <div class='flex flex-row items-center gap-x-2.5 rounded-full border border-border/80 bg-muted/40 px-4 py-1.5 text-xs text-muted-foreground shadow-sm'>
-        <span class='relative flex items-center justify-center'>
-          <span class='absolute size-2 animate-ping rounded-full bg-emerald-400 opacity-75'></span>
-          <span class='size-2 rounded-full bg-emerald-500'></span>
-        </span>
-        <p class='font-medium'>把想法做成东西，再把过程写下来</p>
-      </div>
-    </section>
+        {/* Slogan Pill */}
+        <div class='flex flex-row items-center gap-x-2.5 rounded-full border border-border/80 bg-background/80 backdrop-blur-sm px-4 py-1.5 text-xs text-muted-foreground shadow-sm'>
+          <span class='relative flex items-center justify-center'>
+            <span class='absolute size-2 animate-ping rounded-full bg-emerald-400 opacity-75'></span>
+            <span class='size-2 rounded-full bg-emerald-500'></span>
+          </span>
+          <p class='font-medium'>把想法做成东西，再把过程写下来</p>
+        </div>
+      </section>
+    </div>
 
     <div id='content' class='animate flex flex-col gap-y-12 md:w-4/5 lg:w-5/6'>
       {/* 2. About Intro */}
       <Section title='关于我'>
         <div class='space-y-3 text-muted-foreground text-sm leading-relaxed'>
           <p>
-            设计出身的产品经理，主业负责跨境电商 CMS/ERP 系统。
+            设计专业毕业，但毕业后直接扎根在产品一线。主业负责跨境电商 CMS/ERP 系统的产品架构与复杂业务流程优化。
           </p>
           <p>
-            业余探索 AI 产品、独立开发与出海工具，把做出来的工具、真实的限制和当时的判断记录在这里。
+            设计背景赋予了我对交互美学与用户体验的直觉敏感，而多年 B 端复杂业务的经历，让我磨练出业务逻辑拆解与消除流程冗余的工程思维。业余时间，我用 AI 跑通端到端的自动化流水线与独立工具开发，把真正跑通的闭环、遇到的限制和业务判断记录在这里。
           </p>
         </div>
         <Button title='了解更多背景 →' class='w-fit self-end text-xs' href='/about' variant='ahead' />

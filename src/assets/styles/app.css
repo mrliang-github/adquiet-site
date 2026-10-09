@@ -1,7 +1,7 @@
 /* Theme */
 :root {
-  /* Primary */
-  --primary: 200 29% 45%;
+  /* Primary 主题强调色：提取自湖水与晴空天际线的青碧蓝 (Hex: #4E8397) */
+  --primary: 198 32% 46%;
   /* Foreground */
   --foreground: 240 10% 3.9%;
   --muted-foreground: 240 3.8% 28.1%;
@@ -13,12 +13,12 @@
   /* Basic */
   --border: 240 5.9% 88%;
   --input: 240 5.9% 90%;
-  --ring: 240 5.9% 10%;
+  --ring: 198 32% 46%;
   --radius: 0.5rem;
 }
 .dark {
-  /* Primary */
-  --primary: 195 95% 85%;
+  /* Primary 深色模式主题色：提取自天际微光的烟青色 */
+  --primary: 198 52% 76%;
   /* Foreground */
   --foreground: 0 0% 98%;
   --muted-foreground: 240 5% 74.9%;

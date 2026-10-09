@@ -6,8 +6,8 @@ export const theme: ThemeUserConfig = {
   title: '良逍 · 个人产品与学习空间',
   /** Will be used in index page & copyright declaration */
   author: '良逍',
-  /** Description metadata for your website. Can be used in page metadata. */
-  description: '设计出身的产品经理，主业负责跨境电商 CMS/ERP。业余探索 AI 产品、独立开发与出海工具，把做出来的工具、真实的限制和当时的判断记录在这里。',
+  // 网站描述元数据：体现设计专业背景、专注产品与流程优化、以及独立开发定位
+  description: '设计专业毕业的产品经理，长期深耕跨境电商 CMS/ERP 与业务流程优化。业余探索 AI 工作流、独立开发与出海工具，把跑通的闭环、真实的限制和当时的判断记录在这里。',
   /** The default favicon for your site which should be a path to an image in the `public/` directory. */
   favicon: '/favicon/favicon.ico',
   /** The default social card image for your site which should be a path to an image in the `public/` directory. */
@@ -104,8 +104,8 @@ export const integ: IntegrationUserConfig = {
     applyTip: [
       { name: 'Name', val: theme.title },
       { name: 'Desc', val: theme.description || 'Null' },
-      { name: 'Link', val: 'https://astro-pure.js.org/' },
-      { name: 'Avatar', val: 'https://astro-pure.js.org/favicon/favicon.ico' }
+      { name: 'Link', val: 'https://liangxiaoai.dev' },
+      { name: 'Avatar', val: 'https://liangxiaoai.dev/favicon/favicon.ico' }
     ],
     // Cache avatars in `public/avatars/` to improve user experience.
     cacheAvatar: false

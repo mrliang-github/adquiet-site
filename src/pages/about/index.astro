@@ -14,29 +14,36 @@ const headings = [
 ---
 
 <PageLayout title='关于我' {headings} view>
+  {/* 个人身份定位：突出产品经理、业务流程优化与独立开发 */}
   <p class='text-base font-medium text-foreground'>
-    产品经理 / 独立开发者 / 个人创作者
+    产品经理 / 业务流程优化 / 独立开发者
   </p>
 
   <blockquote class='my-4 border-l-2 border-primary pl-4 text-sm italic text-muted-foreground'>
-    “先做，再慢慢把自己的方法长出来。把想法做成东西，再把过程写下来。”
+    “先把业务流摸透，把断点优化掉；再用确定性工具和代码把流程跑通闭环。”
   </blockquote>
 
   <h2 id='intro'>你好，我是良逍</h2>
   <p>
-    设计出身的产品经理，主业负责跨境电商 CMS/ERP 系统的产品设计与业务架构。
+    我是<strong>设计专业毕业</strong>，但毕业后我并没有做专职设计，而是一直<strong>扎根在产品经理岗位</strong>。
   </p>
   <p>
-    业余时间，我用 AI 探索 iOS / macOS 应用、Chrome 扩展与出海 Web 工具。我更愿意把做出来的工具、真实的限制和当时的判断放在一起，后面再看哪些经得起时间。
+    我的主业长期负责<strong>跨境电商 CMS/ERP 业务系统</strong>的产品架构。这类后台系统业务链路极长、多角色协作复杂、状态机严密，所以我真正积累下来的看家本领，其实是<strong>复杂业务拆解、流程优化与消除低效冗余</strong>。
+  </p>
+  <p>
+    设计专业的背景，让我对交互美学、设计规范（Design System）和直觉体验有天然的底线要求；而多年 B 端系统的实战经历，则赋予了我深挖系统瓶颈、理顺业务流转与把控异常分支的工程思维。
+  </p>
+  <p>
+    业余时间，我把这种“流程优化”的本能延展到了 AI 与独立开发领域：我不迷信单点魔法提示词，而是更喜欢结合飞书多维表、Google Sheets、自动化脚本和大模型，搭建从需求初筛、自动上架到 App Store 送审的端到端生产流水线。
   </p>
 
   <h2 id='what-i-do'>我在做什么</h2>
   <ul>
     <li>
-      <strong>主业深耕</strong>：跨境电商 CMS/ERP 产品架构、复杂业务流梳理、设计系统与后台体验交付。
+      <strong>主业深耕（业务架构与流程优化）</strong>：跨境电商 CMS/ERP 产品架构、复杂跨组织业务流梳理、履约流转提效、表单状态机设计与后台体验交付。
     </li>
     <li>
-      <strong>独立开发</strong>：
+      <strong>独立开发（真实工具与端到端交付）</strong>：
       <ul>
         <li><a href='/heatsleuth/'>HeatSleuth</a>：macOS 发热诊断应用，看清系统功耗与资源占用。</li>
         <li><a href='/adquiet/'>AdQuiet</a>：Chrome 扩展，专注于 YouTube 桌面端纯净观看体验。</li>
@@ -45,9 +52,9 @@ const headings = [
       </ul>
     </li>
     <li>
-      <strong>内容与情报</strong>：
+      <strong>内容与自动化流水线</strong>：
       <ul>
-        <li><a href='/blog'>深度博客</a>：记录 AI 原型设计、Codex 全流程自动化送审、飞书多维表情报流等一线实录。</li>
+        <li><a href='/blog'>深度博客</a>：记录真实的流程优化实录（如《Codex 一周重置 4 次额度，我推进 2 个 App，把送审自动化了》、《每天 5 分钟自动收集小红书评论，我用工具 + 飞书多维表搭了个产品需求情报系统》）。</li>
         <li><a href='/daily'>风向标日报</a>：持续追踪出海机会、变现模具与一线商业实践。</li>
         <li><a href='/english'>出海工作英语</a>：整理出海开发者高频沟通场景（Bug 回复、催款、协商）。</li>
       </ul>
@@ -122,9 +129,9 @@ const headings = [
   <h2 id='principles'>实践原则与思考</h2>
   <div class='not-prose my-4 space-y-3'>
     <div class='rounded-xl border border-border/70 p-4'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>1. 真实优先</h3>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>1. 业务为本，流程优先</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
-        不仅记录成功的瞬间，更忠实记录工具额度用尽时的阻塞、模型幻觉、上线被拒与边界妥协。真实的限制往往比“概念展示”更值钱。
+        界面的本质是业务流的投影。优先理顺上下游链路、明确字段契约与状态机流转，再谈页面渲染；找出流程断点并消除人工搬砖，是系统最大的商业价值所在。
       </p>
     </div>
     <div class='rounded-xl border border-border/70 p-4'>
@@ -134,9 +141,9 @@ const headings = [
       </p>
     </div>
     <div class='rounded-xl border border-border/70 p-4'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>3. 跑通完整闭环（End-to-End）</h3>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>3. 真实优先，跑通闭环（End-to-End）</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
-        做 Demo 很容易，但产品必须面对打包、签名、商店素材、隐私协议、App Store 审核与真实用户体验。打通端到端，才能形成真正的手感。
+        做 Demo 很容易，但产品必须面对打包、签名、商店素材、隐私协议、App Store 审核与真实用户体验。打通端到端，忠实记录踩坑代价，才能形成真正的手感。
       </p>
     </div>
   </div>
