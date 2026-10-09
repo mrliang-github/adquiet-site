@@ -1,5 +1,9 @@
 ---
 import release from '../../data/otterbar-release.json'
+import overviewImage from '../../assets/otterbar/otterbar-overview.png'
+import searchImage from '../../assets/otterbar/otterbar-search.png'
+import settingsImage from '../../assets/otterbar/otterbar-settings.png'
+import '../../styles/otterbar.css'
 
 const releaseUrl = `https://github.com/mrliang-github/OtterBar/releases/tag/v${release.version}`
 const downloadBase = `https://github.com/mrliang-github/OtterBar/releases/download/v${release.version}`
@@ -36,14 +40,11 @@ const applicationSchema = {
   <meta property="og:title" content="OtterBar — 快速搜索 Mac 菜单栏工具">
   <meta property="og:description" content="通过快捷键或水獭图标唤起 OtterBar，输入应用名称，就能快速找到正在运行的菜单栏工具。">
   <meta property="og:url" content="https://liangxiaoai.dev/otterbar/">
-  <meta property="og:image" content="https://liangxiaoai.dev/otterbar/assets/otterbar-overview.png">
+  <meta property="og:image" content={new URL(overviewImage.src, 'https://liangxiaoai.dev').href}>
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- 网站与应用图标 -->
   <link rel="icon" type="image/png" href="/otterbar/assets/icon-256.png">
-
-  <!-- 专属产品样式表 -->
-  <link rel="stylesheet" href="/otterbar/assets/styles.css">
 
   <!-- Schema.org 结构化数据：软件应用与常见问题 -->
   <script type="application/ld+json" set:html={JSON.stringify(applicationSchema)} />
@@ -151,7 +152,7 @@ const applicationSchema = {
               <span class="mac-dot min"></span>
               <span class="mac-dot max"></span>
             </div>
-            <img class="preview-image" src="/otterbar/assets/otterbar-overview.png" alt="OtterBar 真实面板界面，展示搜索输入框与正在运行的菜单栏工具列表">
+            <img class="preview-image" src={overviewImage.src} width={overviewImage.width} height={overviewImage.height} alt="OtterBar 真实面板界面，展示搜索输入框与正在运行的菜单栏工具列表">
           </div>
         </div>
       </div>
@@ -194,7 +195,7 @@ const applicationSchema = {
           </div>
 
           <div class="demo-media">
-            <img class="preview-image" src="/otterbar/assets/otterbar-search.png" alt="OtterBar 实时搜索状态界面，展示输入名称即时过滤工具列表">
+            <img class="preview-image" src={searchImage.src} width={searchImage.width} height={searchImage.height} alt="OtterBar 实时搜索状态界面，展示输入名称即时过滤工具列表">
           </div>
         </div>
       </div>
@@ -225,7 +226,7 @@ const applicationSchema = {
             </div>
             <p>在设置面板中直接录入自己的专属快捷键组合，不限定使用空格；也可以随时点击菜单栏水獭图标唤起。</p>
             <div class="feature-media">
-              <img src="/otterbar/assets/otterbar-settings.png" alt="OtterBar 设置界面局部，展示自定义全局快捷键与开机自启动设置项">
+              <img src={settingsImage.src} width={settingsImage.width} height={settingsImage.height} alt="OtterBar 设置界面局部，展示自定义全局快捷键与开机自启动设置项">
             </div>
           </article>
 
