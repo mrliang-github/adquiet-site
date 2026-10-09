@@ -18,8 +18,9 @@ import { getDailyReports, getEnglishLessons, type DailyReportItem, type EnglishL
 // 引入全站配置
 import config from '@/site-config'
 
-// 引入湖山天际线横幅素材
+// 引入湖山天际线横幅与头像素材
 import heroBanner from '@/assets/hero-banner.jpg'
+import avatarImg from '@/assets/avatar.png'
 
 export const prerender = true
 
@@ -36,17 +37,6 @@ const englishLessons = getEnglishLessons().slice(0, 3)
 const productSkills = ['跨境电商 CMS/ERP', '业务流程优化', '后台页面与配置', '信息架构与状态机']
 const aiWorkflowSkills = ['AI 辅助全流程交付', '飞书多维表情报流', 'Claude Code / Codex', 'App Store 自动化流水线']
 const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web / 独立站', '本地离线 OCR']
-
-// 动态载入头像资产
-const imagePath = config.logo.src
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/*.{jpeg,jpg,png,gif,avif,webp}'
-)
-if (!images[imagePath]) {
-  throw new Error(
-    `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif,avif,webp}"`
-  )
-}
 ---
 
 {/* 页面主布局：设定湖山青碧蓝 (#54889C) 为主题高光色 */}
@@ -75,7 +65,7 @@ if (!images[imagePath]) {
           {/* 圆形头像：环境光晕厚边框与微悬浮动效 */}
           <div class='relative'>
             <Image
-              src={images[imagePath]()}
+              src={avatarImg}
               alt={config.author}
               class='size-28 rounded-full border-4 border-background bg-background object-cover shadow-xl ring-2 ring-border/70 transition-all duration-300 hover:scale-105 hover:ring-primary/60 hover:shadow-primary/20 sm:size-32'
               loading='eager'
@@ -87,15 +77,15 @@ if (!images[imagePath]) {
           <div class='flex flex-col items-center gap-y-1.5'>
             <h1 class='text-2xl font-bold tracking-tight text-foreground sm:text-3xl'>你好，我是良逍</h1>
             <p class='text-sm text-muted-foreground'>
-              产品经理 × AI 开发者 · 跨境电商 CMS/ERP · 业务流程优化
+              学的是设计，做的是产品 · 跨境电商 CMS/ERP · 业务流程优化 · AI 独立开发
             </p>
           </div>
 
-          {/* 核心社交与实战合作标签 */}
-          <div class='flex flex-wrap items-center justify-center gap-2 text-xs'>
+          {/* 核心社交与实战合作标签：增加充裕的内边距，告别贴边局促感 */}
+          <div class='flex flex-wrap items-center justify-center gap-2.5 text-xs'>
             {/* 商务交流与微信号标签 */}
             <div
-              class='flex items-center gap-x-1.5 rounded-full border border-border/80 bg-background/80 px-3 py-1 font-mono text-muted-foreground shadow-xs transition-colors hover:border-primary/50 hover:text-foreground'
+              class='flex items-center gap-x-2 rounded-full border border-border/80 bg-background/90 px-3.5 py-1.5 font-mono text-muted-foreground shadow-xs transition-colors hover:border-primary/50 hover:text-foreground'
               title='微信合作交流联系方式'
             >
               <span class='font-sans font-medium text-primary'>微信</span>
@@ -104,7 +94,7 @@ if (!images[imagePath]) {
 
             {/* 生财有术社群标签 */}
             <div
-              class='flex items-center gap-x-1 rounded-full border border-border/80 bg-background/80 px-3 py-1 text-muted-foreground shadow-xs'
+              class='flex items-center gap-x-1.5 rounded-full border border-border/80 bg-background/90 px-3.5 py-1.5 text-muted-foreground shadow-xs'
               title='多年生财有术社群观察者与志愿者实践'
             >
               <Icon name='sun' class='size-3.5 text-amber-500' />
@@ -132,8 +122,8 @@ if (!images[imagePath]) {
             </Label>
           </div>
 
-          {/* 动态核心金句胶囊 Pill */}
-          <div class='mt-1 flex flex-row items-center gap-x-2.5 rounded-full border border-border/80 bg-background/90 px-4 py-1.5 text-xs text-muted-foreground shadow-xs backdrop-blur-sm transition-all duration-200 hover:border-primary/50 hover:bg-muted/60'>
+          {/* 动态核心金句胶囊 Pill：增加内边距与舒适呼吸感 */}
+          <div class='mt-1.5 flex flex-row items-center gap-x-3 rounded-full border border-border/80 bg-background/90 px-4.5 py-2 text-xs text-muted-foreground shadow-xs backdrop-blur-sm transition-all duration-200 hover:border-primary/50 hover:bg-muted/60'>
             <span class='relative flex items-center justify-center'>
               <span class='absolute size-2 animate-ping rounded-full bg-emerald-400 opacity-75'></span>
               <span class='size-2 rounded-full bg-emerald-500'></span>
@@ -148,11 +138,11 @@ if (!images[imagePath]) {
       {/* 2. 主体内容区块组：严格与 Hero 容器同宽（max-w-4xl 100%），统一垂直间距节奏 gap-y-12 sm:gap-y-16 */}
       <div id='content' class='animate flex w-full flex-col gap-y-12 sm:gap-y-16'>
         
-        {/* Section 1: 关于我（忠实还原 Obsidian 真实自媒体自述） */}
+        {/* Section 1: 关于我（学的是设计，做的是产品） */}
         <Section title='关于我' desc='背景定位与实战路径'>
           <div class='space-y-3.5 text-sm leading-relaxed text-muted-foreground'>
             <p>
-              本职是一名深耕业务一线的<strong>产品经理</strong>。主业长期深度负责<strong>跨境电商 CMS、ERP 这类复杂企业级系统</strong>与<strong>业务流程优化</strong>，从后台页面配置、商品/库存管理到业务状态机与信息架构，都深度参与，最擅长的就是复杂业务拆解与消除流程断点。
+              学的是设计，做的是产品。主业长期深度负责<strong>跨境电商 CMS、ERP 这类企业级系统</strong>与<strong>业务流程优化</strong>，从后台页面配置、商品/库存流转到业务状态机与信息架构，都深度参与，最擅长的就是复杂业务拆解与消除流程断点。
             </p>
             <p>
               过去一年，我把越来越多精力放在<strong>用 AI 做产品</strong>上。相比单纯讨论概念，我更关注怎么把一个想法真正做出来、上线、验证、再迭代。目前已陆续落地了 10+ 个产品（包括 <a href='/pdf-snap/privacy/' class='text-foreground underline underline-offset-4 decoration-border hover:decoration-primary font-medium'>PDF Snap</a>、<a href='/projects' class='text-foreground underline underline-offset-4 decoration-border hover:decoration-primary font-medium'>PhotoSpace</a>、<a href='/projects' class='text-foreground underline underline-offset-4 decoration-border hover:decoration-primary font-medium'>LIT</a>、<a href='/heatsleuth/' class='text-foreground underline underline-offset-4 decoration-border hover:decoration-primary font-medium'>HeatSleuth</a> 等）。
@@ -178,7 +168,7 @@ if (!images[imagePath]) {
                   <div>
                     <div class='mb-2 flex items-center justify-between text-xs text-muted-foreground'>
                       <span class='font-mono font-medium text-primary'>{p.category}</span>
-                      <span class='rounded bg-muted px-1.5 py-0.5 text-[11px]'>{p.status}</span>
+                      <span class='rounded-md border border-border/60 bg-muted/70 px-2.5 py-1 text-xs font-normal text-muted-foreground'>{p.status}</span>
                     </div>
                     <h3 class='text-base font-medium text-foreground transition-colors group-hover:text-primary'>
                       {p.name}
@@ -222,9 +212,9 @@ if (!images[imagePath]) {
                   href={`/daily/${report.slug}/`}
                   class='group hover-card-lift rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
                 >
-                  <div class='mb-1 flex items-center justify-between text-xs text-muted-foreground'>
+                  <div class='mb-1.5 flex items-center justify-between text-xs text-muted-foreground'>
                     <span class='font-mono font-medium text-primary'>{report.editionDate}</span>
-                    <span class='text-[11px] text-muted-foreground'>实战情报切片</span>
+                    <span class='rounded-md border border-border/60 bg-muted/70 px-2.5 py-1 text-xs text-muted-foreground'>实战情报切片</span>
                   </div>
                   <h3 class='text-sm font-medium text-foreground transition-colors group-hover:text-primary sm:text-base'>
                     {report.title}

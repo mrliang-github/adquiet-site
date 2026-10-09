@@ -45,9 +45,9 @@ const meta = {
                   {report.editionDate}
                 </span>
                 {report.tags && report.tags.length > 0 && (
-                  <div class='flex flex-wrap gap-1.5'>
+                  <div class='flex flex-wrap gap-2'>
                     {report.tags.map((tag: string) => (
-                      <span class='rounded bg-muted px-2 py-0.5 text-[11px]'>{tag}</span>
+                      <span class='rounded-md border border-border/60 bg-muted/70 px-2.5 py-1 text-xs text-muted-foreground'>{tag}</span>
                     ))}
                   </div>
                 )}

@@ -1,5 +1,6 @@
 ---
-import { Footer, Header, ThemeProvider } from 'astro-pure/components/basic'
+import { Footer, ThemeProvider } from 'astro-pure/components/basic'
+import Header from '@/components/Header.astro'
 import type { SiteMeta } from 'astro-pure/types'
 import BaseHead from '@/components/BaseHead.astro'
 import config from '@/site-config'
@@ -39,7 +40,7 @@ const {
     }
     <div
       id='main-container'
-      class='w-full max-w-[70rem] min-h-[100dvh] flex flex-col justify-between'
+      class='w-full max-w-[70rem] min-h-[100dvh] flex flex-col justify-between px-4 sm:px-6 md:px-8'
     >
       <Header />
       <div class='flex-1 w-full'>

@@ -6,8 +6,8 @@ export const theme: ThemeUserConfig = {
   title: '良逍 · 个人产品与学习空间',
   /** Will be used in index page & copyright declaration */
   author: '良逍',
-  // 网站描述元数据：产品经理、主业跨境电商CMS/ERP与流程优化、用AI落地10+款产品、走向AI Builder
-  description: '主业负责跨境电商 CMS/ERP 系统的产品经理，专注业务流程优化；业余持续用 AI 做了 10+ 个 iOS 与 Web 产品。正在从产品经理走向 AI 开发，探索出海和个人产品的长期可能性。',
+  // 网站描述元数据：学的是设计，做的是产品；主业跨境电商CMS/ERP与流程优化，用AI落地10+款产品
+  description: '学的是设计，做的是产品。主业负责跨境电商 CMS/ERP 系统的产品架构与业务流程优化；业余持续用 AI 做了 10+ 款 iOS 与 Web 工具，探索出海和个人产品的长期可能性。',
   /** The default favicon for your site which should be a path to an image in the `public/` directory. */
   favicon: '/favicon/favicon.ico',
   /** The default social card image for your site which should be a path to an image in the `public/` directory. */

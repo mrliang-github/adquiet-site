@@ -1,0 +1,251 @@
+---
+// 引入站点配置（获取菜单数据与网站元信息）
+import config from '@/site-config'
+// 引入 Pure 主题的通用图标组件
+import { Icon } from 'astro-pure/user'
+
+// 获取当前访问的路径，用于精确高亮激活的导航栏项
+const currentPath = Astro.url.pathname
+// 获取菜单项，添加空数组保底以满足严格 TypeScript 检查
+const menuItems = config.header.menu ?? []
+---
+
+{/* 自定义毛玻璃悬浮导航组件 */}
+<header-component
+  class='site-header group sticky top-3 z-50 mb-8 sm:mb-12 flex items-center justify-between px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-2xl transition-all duration-300'
+>
+  {/* 品牌名称 Logo 区域：凸显“良逍Ai”独立品牌，字号与层级分明 */}
+  <a
+    class='z-30 flex items-center gap-x-1.5 text-foreground no-underline transition-all hover:opacity-85'
+    href='/'
+    aria-label='良逍Ai 首页'
+  >
+    {/* 品牌字样：“良逍”加粗稳重，“Ai”采用专属主色徽标胶囊，现代精致 */}
+    <span class='text-base sm:text-lg font-bold tracking-tight text-foreground font-heading'>
+      良逍
+    </span>
+    <span class='inline-flex items-center rounded-md border border-primary/30 bg-primary/10 px-1.5 py-0.5 font-mono text-[11px] sm:text-xs font-bold text-primary tracking-wide shadow-2xs'>
+      AI
+    </span>
+  </a>
+
+  {/* 桌面端导航链接与功能按钮区 */}
+  <div class='flex items-center gap-x-1.5 sm:gap-x-2'>
+    {/* 菜单链接组：字号更适中，轻盈柔和，拉开与 Logo 的层级 */}
+    <nav
+      id='headerExpandContent'
+      class='max-sm:hidden sm:flex sm:items-center sm:gap-x-1'
+      aria-label='站点主导航'
+    >
+      {
+        menuItems.map((item) => {
+          // 判断当前路径是否与该菜单项匹配（根路径与前缀匹配）
+          const isActive =
+            item.link === '/'
+              ? currentPath === '/'
+              : currentPath.startsWith(item.link)
+
+          return (
+            <a
+              href={item.link}
+              class:list={[
+                // 基础导航链接样式：13px 适中字号、轻盈字重、舒适呼吸感
+                'px-3 py-1.5 text-xs sm:text-[13px] rounded-lg transition-all no-underline',
+                isActive
+                  ? 'bg-muted/90 font-medium text-foreground shadow-2xs' // 激活态：轻底色、适度字重
+                  : 'font-normal text-muted-foreground/80 hover:bg-muted/50 hover:text-foreground' // 普通态：优雅柔和灰阶
+              ]}
+              aria-label={item.title}
+              data-astro-prefetch
+            >
+              {item.title}
+            </a>
+          )
+        })
+      }
+    </nav>
+
+    {/* 移动端菜单折叠抽屉（仅在移动端小屏幕展开） */}
+    <div
+      id='mobileMenuDrawer'
+      class='fixed inset-x-4 top-16 z-40 hidden flex-col gap-y-1.5 rounded-2xl border border-border/80 bg-background/95 p-4 shadow-xl backdrop-blur-xl sm:hidden'
+    >
+      {
+        menuItems.map((item) => {
+          const isActive =
+            item.link === '/'
+              ? currentPath === '/'
+              : currentPath.startsWith(item.link)
+
+          return (
+            <a
+              href={item.link}
+              class:list={[
+                'flex items-center justify-between px-3 py-2 text-sm rounded-xl transition-colors no-underline',
+                isActive
+                  ? 'bg-muted font-medium text-primary'
+                  : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+              ]}
+              data-astro-prefetch
+            >
+              <span>{item.title}</span>
+              {isActive && <span class='size-1.5 rounded-full bg-primary'></span>}
+            </a>
+          )
+        })
+      }
+    </div>
+
+    {/* 右侧功能操作按钮组：全局搜索 + 明暗主题切换 + 移动端折叠按钮 */}
+    <div class='z-30 flex items-center gap-x-1 sm:gap-x-1.5'>
+      {/* 全局站内搜索按钮 */}
+      <a
+        class='flex size-8 sm:size-8.5 items-center justify-center rounded-xl border border-transparent text-muted-foreground transition-colors hover:border-border/80 hover:bg-muted/70 hover:text-foreground'
+        href='/search'
+        title='搜索文章、日报与项目'
+        aria-label='站内搜索'
+      >
+        <Icon name='search' class='size-4' />
+      </a>
+
+      {/* 明暗模式切换按钮 */}
+      <button
+        id='toggleDarkMode'
+        class='group/dark flex size-8 sm:size-8.5 items-center justify-center rounded-xl border border-transparent text-muted-foreground transition-colors hover:border-border/80 hover:bg-muted/70 hover:text-foreground'
+        aria-label='切换界面明暗主题'
+        title='切换主题模式'
+      >
+        <Icon class='system size-4 group-hover/dark:text-primary' name='computer' />
+        <Icon class='light hidden size-4 group-hover/dark:text-primary' name='sun' />
+        <Icon class='dark hidden size-4 group-hover/dark:text-primary' name='moon' />
+      </button>
+
+      {/* 移动端汉堡折叠按钮（小屏幕显示） */}
+      <button
+        id='toggleMenu'
+        class='flex size-8 sm:size-8.5 items-center justify-center rounded-xl border border-transparent text-muted-foreground transition-colors hover:border-border/80 hover:bg-muted/70 hover:text-foreground sm:hidden'
+        aria-label='打开或收起导航菜单'
+      >
+        <Icon class='size-4' name='menu' />
+      </button>
+    </div>
+  </div>
+</header-component>
+
+{/* 内联极速读取主题缓存，防止页面加载时闪烁 */}
+<script is:inline>
+  const toggleDarkModeElement = document.getElementById('toggleDarkMode')
+  if (toggleDarkModeElement) {
+    toggleDarkModeElement.dataset.theme = localStorage.getItem('theme') || 'system'
+  }
+</script>
+
+{/* 核心交互逻辑驱动：平滑滚动毛玻璃、主题切换、移动端展开 */}
+<script>
+  import { setTheme, showToast } from 'astro-pure/utils'
+
+  class HeaderComponent extends HTMLElement {
+    connectedCallback() {
+      // 1. 滚动监听：进入滚动状态后追加更细腻的阴影与边框过渡
+      const handleScroll = () => {
+        const isScrolled = window.scrollY > 15
+        this.classList.toggle('is-scrolled', isScrolled)
+      }
+      handleScroll()
+      window.addEventListener('scroll', handleScroll, { passive: true })
+
+      // 2. 主题切换按钮交互
+      const darkModeBtn = this.querySelector('#toggleDarkMode') as HTMLElement | null
+      if (darkModeBtn) {
+        darkModeBtn.addEventListener('click', () => {
+          const newTheme = setTheme(undefined, true)
+          darkModeBtn.dataset.theme = newTheme
+          showToast({ message: `已切换为 ${newTheme === 'dark' ? '深色' : newTheme === 'light' ? '浅色' : '系统跟随'} 模式` })
+        })
+      }
+
+      // 3. 移动端折叠菜单展开与收起
+      const menuBtn = this.querySelector('#toggleMenu')
+      const drawer = this.querySelector('#mobileMenuDrawer')
+      if (menuBtn && drawer) {
+        menuBtn.addEventListener('click', () => {
+          const isHidden = drawer.classList.contains('hidden')
+          if (isHidden) {
+            drawer.classList.remove('hidden')
+            drawer.classList.add('flex')
+          } else {
+            drawer.classList.remove('flex')
+            drawer.classList.add('hidden')
+          }
+        })
+
+        // 点击页面其他区域时自动关闭移动端菜单
+        document.addEventListener('click', (e) => {
+          if (!this.contains(e.target as Node)) {
+            drawer.classList.remove('flex')
+            drawer.classList.add('hidden')
+          }
+        })
+      }
+    }
+  }
+
+  // 注册 Web Component 自定义元素
+  if (!customElements.get('header-component')) {
+    customElements.define('header-component', HeaderComponent)
+  }
+</script>
+
+<style>
+  /* ==========================================================================
+     毛玻璃核心样式 (Glassmorphism)
+     完美解决“毛玻璃效果没有出来”的根本原因：
+     确保使用半透明背景 + 强高斯模糊 + 饱和度提升 + 优雅半透明边框与微阴影
+     ========================================================================== */
+  .site-header {
+    /* 核心半透明透光背景：70% 优选透光度，让后方 Banner 和内容漫反射显现 */
+    background-color: hsl(var(--background) / 0.7) !important;
+    /* 原生毛玻璃滤镜标准与 Webkit 兼容 */
+    backdrop-filter: blur(20px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+    /* 精致的微边框与轻量阴影 */
+    border: 1px solid hsl(var(--border) / 0.6) !important;
+    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  /* 深色模式下的毛玻璃半透明透光感 */
+  :global(.dark) .site-header {
+    background-color: hsl(var(--background) / 0.68) !important;
+    border-color: hsl(var(--border) / 0.55) !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  /* 页面向下滚动之后的微状态：轻微加深质感 */
+  .site-header.is-scrolled {
+    background-color: hsl(var(--background) / 0.82) !important;
+    border-color: hsl(var(--border) / 0.75) !important;
+    box-shadow:
+      0 10px 25px -5px rgba(0, 0, 0, 0.06),
+      0 4px 6px -2px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  :global(.dark) .site-header.is-scrolled {
+    background-color: hsl(var(--background) / 0.78) !important;
+    border-color: hsl(var(--border) / 0.7) !important;
+    box-shadow:
+      0 10px 30px -5px rgba(0, 0, 0, 0.45),
+      0 4px 10px -2px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  /* 主题切换图标显隐控制 */
+  #toggleDarkMode[data-theme='dark'] .system,
+  #toggleDarkMode[data-theme='light'] .system {
+    display: none;
+  }
+  #toggleDarkMode[data-theme='dark'] .dark {
+    display: block;
+  }
+  #toggleDarkMode[data-theme='light'] .light {
+    display: block;
+  }
+</style>

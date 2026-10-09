@@ -53,9 +53,9 @@ const meta = {
                 </p>
 
                 {lesson.expressions && lesson.expressions.length > 0 && (
-                  <div class='mt-3 flex flex-wrap gap-1'>
+                  <div class='mt-3 flex flex-wrap gap-1.5'>
                     {lesson.expressions.slice(0, 3).map((exp: EnglishExpression) => (
-                      <span class='rounded bg-muted/80 px-2 py-0.5 text-[11px] font-mono text-foreground/80'>
+                      <span class='rounded-md border border-border/60 bg-muted/70 px-2.5 py-1 text-xs font-mono text-foreground/80'>
                         {exp.phrase}
                       </span>
                     ))}
