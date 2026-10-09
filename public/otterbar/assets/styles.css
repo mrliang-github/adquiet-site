@@ -27,9 +27,9 @@
 
   /* 容器与圆角 */
   --container-max: 1120px;       /* 计划指定最大内容宽度 */
-  --radius-panel: 20px;          /* 面板圆角 */
-  --radius-btn: 12px;            /* 按钮圆角 */
-  --radius-badge: 6px;           /* 标签胶囊圆角 */
+  --radius-panel: 20px;          /* 面板容器圆角：20px 稳健大圆角 */
+  --radius-btn: 9999px;          /* 按钮圆角：统一升级为 9999px 极致半圆胶囊规范 */
+  --radius-badge: 9999px;        /* 状态与标签圆角：统一为 9999px 极致半圆胶囊规范 */
 
   /* 字体栈：保持与原生 macOS 接近 */
   --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Segoe UI", Roboto, sans-serif;
@@ -254,7 +254,8 @@ summary:focus-visible {
   padding: 2px 7px;
   background-color: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 5px;
+  /* 快捷键胶囊：遵循全站 9999px 极致半圆规范 */
+  border-radius: 9999px;
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--text-muted);

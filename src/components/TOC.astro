@@ -1,0 +1,174 @@
+---
+// 引入 Astro 核心 MarkdownHeading 类型
+import type { MarkdownHeading } from 'astro'
+
+// 引入本地大纲树解析插件
+import { generateToc } from '@/plugins/toc'
+// 引入单个目录项组件
+import TOCHeading from './TOCHeading.astro'
+
+// 定义外部属性接口
+interface Props {
+  // 页面传入的标题列表
+  headings: MarkdownHeading[]
+  // 自定义类名
+  class?: string
+  // 组件唯一标识
+  id?: string
+}
+
+// 解构组件属性
+const { headings, class: className, ...props } = Astro.props
+
+// 生成树状目录结构
+const toc = generateToc(headings)
+---
+
+<!-- 侧边栏 TOC 根节点 -->
+<toc-heading class={className} {...props}>
+  <!-- 侧边栏小标题：统一字体排印 -->
+  <h2 class='text-xs font-semibold uppercase tracking-wider text-muted-foreground'>TABLE OF CONTENTS</h2>
+  <!-- 目录树容器：增加垂直间距与呼吸感 -->
+  <ul class='mt-3.5 space-y-1 p-0'>
+    {toc.map((heading) => <TOCHeading heading={heading} />)}
+  </ul>
+</toc-heading>
+
+<script>
+  // 目录单项链接数据接口
+  interface TOCLink {
+    // 目录超链接 DOM 元素
+    element: HTMLAnchorElement
+    // 左侧小指示条 DOM 元素
+    progressBar: HTMLElement
+    // 目标章节锚点 ID（去除 # 后的纯字符串）
+    slug: string
+  }
+
+  // 严格遵循“单选高亮”规范的现代 TOC 自定义元素
+  class SingleActiveTOC extends HTMLElement {
+    // 页面文章正文内所有真实标题元素列表
+    headings: HTMLElement[] = []
+    // 目录所有链接项列表
+    tocLinks: TOCLink[] = []
+
+    constructor() {
+      super()
+      // 获取当前文章正文中所有包含 id 的标题元素
+      this.headings = Array.from(
+        document.querySelectorAll(
+          'article h1[id], article h2[id], article h3[id], article h4[id], article h5[id], article h6[id]'
+        )
+      )
+      // 解析侧边栏目录中的超链接与指示条
+      this.tocLinks = Array.from(this.querySelectorAll('a[href^="#"]')).map((link) => ({
+        element: link as HTMLAnchorElement,
+        progressBar: link.previousElementSibling as HTMLElement,
+        slug: (link.getAttribute('href') || '').substring(1)
+      }))
+    }
+
+    // 核心算法：精准计算当前处于阅读视口中的唯一个活跃章节
+    updateActiveHeading = () => {
+      // 若页面无标题或目录链接，直接退出
+      if (!this.headings.length || !this.tocLinks.length) return
+
+      // 获取当前窗口滚动距离与高度
+      const scrollY = window.scrollY
+      const windowHeight = window.innerHeight
+      const docHeight = document.documentElement.scrollHeight
+
+      // 声明当前选中的唯一标题变量
+      let activeHeading: HTMLElement | null = null
+
+      // 边界情况 1：用户已滚动到接近页面最底部（距离底部 100px 以内）
+      // 此时无论最后一个章节是否越过阅读线，都强制激活最后一个目录项
+      if (windowHeight + scrollY >= docHeight - 100) {
+        activeHeading = this.headings[this.headings.length - 1]
+      } else {
+        // 常规阅读情况：设定距离视口顶部的触发阅读线（130px，适配顶部悬浮毛玻璃导航）
+        const readingLine = 130
+        
+        // 遍历所有标题，寻找最后一个顶部已越过阅读线的章节
+        for (let i = 0; i < this.headings.length; i++) {
+          const rect = this.headings[i].getBoundingClientRect()
+          // 只要标题顶部已到达或越过 130px 阅读线，该标题即为候选激活章节
+          if (rect.top <= readingLine) {
+            activeHeading = this.headings[i]
+          } else {
+            // 后续标题仍在视口下方，终止寻找
+            break
+          }
+        }
+
+        // 边界情况 2：用户在页面最顶部，尚未滑过第一个标题，默认激活第一个
+        if (!activeHeading && this.headings.length > 0) {
+          activeHeading = this.headings[0]
+        }
+      }
+
+      // 获取唯一定位的章节 ID
+      const activeSlug = activeHeading?.id
+
+      // 遍历目录所有链接：确保【有且仅有】匹配的一项被赋予高亮状态，彻底消除多选 BUG
+      this.tocLinks.forEach(({ element: el, progressBar: bar, slug }) => {
+        // 严格布尔匹配
+        const isActive = Boolean(activeSlug && slug === activeSlug)
+        // 切换文本高亮样式
+        el.classList.toggle('highlight', isActive)
+        // 切换背景半透明胶囊底色
+        el.classList.toggle('highlight-bg-translucent', isActive)
+        // 切换指示条颜色
+        bar?.classList.toggle('highlight-bg', isActive)
+        // 设置指示条高度展开动效
+        if (bar) {
+          bar.style.height = isActive ? '70%' : '0%'
+        }
+      })
+    }
+
+    connectedCallback() {
+      // 监听目录点击事件：平滑滚动并支持 offset 避开顶部固定导航栏
+      this.tocLinks.forEach((link) => {
+        link.element.addEventListener('click', (e) => {
+          e.preventDefault()
+          const targetHeading = this.headings.find((h) => h.id === link.slug)
+          if (targetHeading) {
+            // 计算滚动偏移量，避免被顶部导航遮挡
+            const headerOffset = 90
+            const elementPosition = targetHeading.getBoundingClientRect().top
+            const offsetPosition = elementPosition + window.scrollY - headerOffset
+
+            // 平滑滚动至目标位置
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            })
+
+            // 更新浏览器历史 URL hash
+            history.pushState(null, '', link.element.getAttribute('href'))
+            // 立即执行一次状态更新以呈现即时选中反馈
+            setTimeout(this.updateActiveHeading, 50)
+          }
+        })
+      })
+
+      // 绑定滚动与尺寸变动监听，以节流/高频更新状态
+      window.addEventListener('scroll', this.updateActiveHeading, { passive: true })
+      window.addEventListener('resize', this.updateActiveHeading, { passive: true })
+      // 首次加载立即执行定位
+      this.updateActiveHeading()
+    }
+  }
+
+  // 注册自定义 HTML 元素
+  customElements.define('toc-heading', SingleActiveTOC)
+</script>
+
+<style>
+  /* 确保目录链接排版流体自适应 */
+  toc-heading :global(.toc-item) {
+    display: flex;
+    align-items: center;
+  }
+</style>

@@ -6,7 +6,9 @@ import type { CollectionEntry } from 'astro:content'
 import 'katex/dist/katex.min.css'
 
 import { MediumZoom } from 'astro-pure/advanced'
-import { ArticleBottom, Copyright, Hero, TOC } from 'astro-pure/components/pages'
+import { ArticleBottom, Copyright, Hero } from 'astro-pure/components/pages'
+// 引入本地定制的单选高亮胶囊目录组件，确保博客长文导航单选跟随与极致圆角
+import TOC from '@/components/TOC.astro'
 import PageLayout from '@/layouts/ContentLayout.astro'
 import { Comment, PageInfo } from '@/components/waline'
 import config from 'virtual:config'

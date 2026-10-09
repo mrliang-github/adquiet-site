@@ -160,16 +160,19 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
           <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
             {
               projects.slice(0, 4).map((p: ProjectItem) => (
+                /* 产品卡片：容器统一为 rounded-2xl 现代圆角，内层徽标为 rounded-full 极致胶囊 */
                 <a
                   href={p.href}
                   target={p.external ? '_blank' : undefined}
                   rel={p.external ? 'noopener noreferrer' : undefined}
-                  class='group hover-card-lift flex flex-col justify-between rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
+                  class='group hover-card-lift flex flex-col justify-between rounded-2xl border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
                 >
                   <div>
-                    <div class='mb-2 flex items-center justify-between text-xs text-muted-foreground'>
-                      <span class='font-mono font-medium text-primary'>{p.category}</span>
-                      <span class='rounded-md border border-border/60 bg-muted/70 px-2.5 py-1 text-xs font-normal text-muted-foreground'>{p.status}</span>
+                    <div class='mb-2.5 flex items-center justify-between text-xs text-muted-foreground'>
+                      {/* 分类胶囊标签：rounded-full */}
+                      <span class='rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>{p.category}</span>
+                      {/* 状态胶囊徽标：rounded-full 规范 */}
+                      <span class='rounded-full border border-border/60 bg-muted/80 px-3 py-1 text-xs font-normal text-muted-foreground'>{p.status}</span>
                     </div>
                     <h3 class='text-base font-medium text-foreground transition-colors group-hover:text-primary'>
                       {p.name}

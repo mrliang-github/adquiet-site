@@ -1,0 +1,52 @@
+---
+// 引入本地目录层级接口类型
+import { type TocItem } from '@/plugins/toc'
+// 引入通用类名合并工具
+import { cn } from 'astro-pure/utils'
+
+// 定义组件接收的属性接口
+interface Props {
+  // 当前标题节点对象
+  heading: TocItem
+}
+
+// 解构传入的标题属性
+const {
+  heading: { depth, slug, subheadings, text: rawText }
+} = Astro.props
+
+// 兼容处理：移除末尾可能带有的 # 锚点符号
+const text = rawText.endsWith('#') ? rawText.slice(0, -1) : rawText
+---
+
+<!-- 目录项外层列表容器 -->
+<li class='my-0.5 list-none'>
+  <!-- 相对定位容器：放置左侧活跃指示条与目录跳转链接 -->
+  <div class='relative flex items-center'>
+    <!-- 垂直高亮指示条：默认隐藏，当前项激活时高亮变色 -->
+    <span
+      class='absolute left-0 top-[15%] h-0 w-[2.5px] rounded-full transition-all duration-300 [&.highlight-bg]:bg-primary'
+    ></span>
+    <!-- 目录链接：严格遵循全站胶囊规范，单项高亮时呈现 rounded-full 极致圆角小胶囊 -->
+    <a
+      aria-label={`跳转到章节: ${text}`}
+      class={cn(
+        'toc-item line-clamp-2 w-full px-3 py-1.5 ms-2 rounded-full text-xs sm:text-sm text-foreground/70 no-underline transition-all duration-200 hover:bg-muted/60 hover:text-foreground',
+        'border border-transparent',
+        '[&.highlight]:font-medium [&.highlight]:text-primary [&.highlight-bg-translucent]:bg-muted/90 [&.highlight-bg-translucent]:border-border/60 [&.highlight-bg-translucent]:shadow-xs',
+        depth > 2 && 'ps-6 text-xs text-muted-foreground'
+      )}
+      href={`#${slug}`}>{text}</a
+    >
+  </div>
+  <!-- 如果包含二级/三级子标题，递归渲染子目录列表 -->
+  {
+    !!subheadings.length && (
+      <ul class='ms-2 mt-0.5 border-s border-border/40 ps-1'>
+        {subheadings.map((subheading) => (
+          <Astro.self heading={subheading} />
+        ))}
+      </ul>
+    )
+  }
+</li>

@@ -1,7 +1,8 @@
 ---
 import type { MarkdownHeading } from 'astro'
 
-import { TOC } from 'astro-pure/components/pages'
+// 引入本地定制的单选高亮胶囊目录组件，解决多选重叠 BUG
+import TOC from '@/components/TOC.astro'
 import PageLayout from '@/layouts/ContentLayout.astro'
 import { Comment, PageInfo } from '@/components/waline'
 

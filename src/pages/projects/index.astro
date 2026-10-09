@@ -70,8 +70,9 @@ const openSourceProjects = projects
   <p class='text-sm text-muted-foreground leading-relaxed'>
     上线至 App Store 与 Chrome Web Store 的产品独立服务政策：
   </p>
-  <div class='grid gap-3 sm:grid-cols-2 not-prose my-4'>
-    <div class='rounded-xl border border-border/70 p-4'>
+  <div class='grid gap-3.5 sm:grid-cols-2 not-prose my-4'>
+    {/* 应用独立合规与落地卡片：遵循统一 rounded-2xl 容器规范 */}
+    <div class='rounded-2xl border border-border/70 p-4.5 bg-muted/20'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>AdQuiet (Chrome 扩展)</h3>
       <p class='text-xs text-muted-foreground mb-3'>纯净视频播放扩展</p>
       <div class='flex gap-2 text-xs'>
@@ -80,7 +81,7 @@ const openSourceProjects = projects
         <a href='/adquiet/support/' class='text-primary hover:underline'>技术支持</a>
       </div>
     </div>
-    <div class='rounded-xl border border-border/70 p-4'>
+    <div class='rounded-2xl border border-border/70 p-4.5 bg-muted/20'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>PDF SNAP (iOS 应用)</h3>
       <p class='text-xs text-muted-foreground mb-3'>离线 PDF 实用工具</p>
       <div class='flex gap-2 text-xs'>
@@ -89,7 +90,7 @@ const openSourceProjects = projects
         <a href='/pdf-snap/support/' class='text-primary hover:underline'>技术支持</a>
       </div>
     </div>
-    <div class='rounded-xl border border-border/70 p-4'>
+    <div class='rounded-2xl border border-border/70 p-4.5 bg-muted/20'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>HeatSleuth (macOS)</h3>
       <p class='text-xs text-muted-foreground mb-3'>发热功耗诊断工具</p>
       <div class='flex gap-2 text-xs'>
@@ -97,7 +98,7 @@ const openSourceProjects = projects
       </div>
     </div>
     {/* OtterBar 独立卡片：提供菜单栏搜索工具的快速介绍入口 */}
-    <div class='rounded-xl border border-border/70 p-4'>
+    <div class='rounded-2xl border border-border/70 p-4.5 bg-muted/20'>
       {/* 应用标题及平台标识 */}
       <h3 class='text-sm font-semibold text-foreground mb-1'>OtterBar (macOS)</h3>
       {/* 核心定位说明 */}

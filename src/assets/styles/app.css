@@ -283,3 +283,34 @@ button[variant='ahead']:hover,
     0 4px 12px -2px rgba(0, 0, 0, 0.5) !important;
 }
 
+/* ==========================================================================
+   全站圆角设计系统规范 (Universal Radius Design System)
+   解决“方不方圆不圆”的视觉别扭感，统一全站层级：
+   - 徽标/标签/按钮/小胶囊: 9999px (rounded-full)
+   - 目录 TOC 单项高亮: 9999px (rounded-full)
+   - 卡片与面板容器: 16px (rounded-2xl)
+   ========================================================================== */
+
+/* 1. 胶囊与标签：统一为 9999px 极致半圆胶囊 (True Pill Tokens) */
+.pill-badge,
+.tag-pill,
+.badge-pill,
+.capsule-badge,
+span[class*='rounded-md'][class*='px-2'],
+span[class*='rounded-md'][class*='px-3'] {
+  border-radius: 9999px !important;
+}
+
+/* 2. 行内代码与微信微胶囊 */
+code.rounded-md {
+  border-radius: 9999px !important;
+}
+
+/* 3. 统一全局按钮与跳转 CTA 为极致圆角胶囊 */
+a.group.rounded-lg,
+a.group.rounded-xl,
+.btn-pill {
+  border-radius: 9999px !important;
+}
+
+
