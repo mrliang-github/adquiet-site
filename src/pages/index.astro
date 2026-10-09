@@ -45,10 +45,10 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
     {/* 统一规范容器：最大宽度限制为 max-w-4xl，严格统一左右基线对齐 */}
     <div class='flex w-full max-w-4xl flex-col items-center'>
       
-      {/* 1. Header Profile Hero：去除了生硬的外层闭合卡片边框，打造通透开阔的全景画卷与自然景深过渡 */}
-      <div class='group/hero animate mb-8 w-full sm:mb-12'>
+      {/* 1. Header Profile Hero：去除了生硬的外层闭合卡片边框，向上自然探入悬浮 Header 背后，形成强烈毛玻璃折射 */}
+      <div class='group/hero animate -mt-5 sm:-mt-8 mb-8 w-full sm:mb-12'>
         {/* 顶部湖山天际线全景横幅：微圆角视窗，底部平滑过渡融入页面背景 */}
-        <div class='relative h-48 w-full overflow-hidden rounded-2xl sm:rounded-3xl sm:h-60 md:h-72 ring-1 ring-border/50'>
+        <div class='relative h-52 w-full overflow-hidden rounded-2xl sm:rounded-3xl sm:h-64 md:h-76 ring-1 ring-border/50'>
           <Image
             src={heroBanner}
             alt='湖山与城市天际线全景'

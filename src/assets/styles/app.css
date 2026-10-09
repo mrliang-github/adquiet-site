@@ -212,3 +212,74 @@ button[variant='ahead']:hover,
   transform: translateX(4px) !important;
 }
 
+/* ==========================================================================
+   7. 顶栏悬浮胶囊毛玻璃 (Glassmorphism Header) 全局物理级渲染规范
+   解决 Astro Scoped Style 在自定义 Web Component 上可能被丢弃的问题，
+   确保 100% 注入全局 bundle。
+   采用 Apple 原生 Liquid Glass 质感：高透光率 + 强高斯模糊 + 晶莹顶棱内高光
+   ========================================================================== */
+.site-header {
+  /* 确保自定义元素具备 flex 布局表现 */
+  display: flex !important;
+  /* 核心半透明渐变：40%~55% 极高透光率，让下方流光和滑过的图文清晰折射透出 */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(255, 255, 255, 0.40) 100%
+  ) !important;
+  /* 强物理模糊与饱和度提升：晶莹剔透感的核心来源 */
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  /* 半透明微晶高光白边 */
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  /* 顶部边缘 1px 物理高光 (Specular Highlight) + 柔和环境漫反射投影 */
+  box-shadow:
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 10px 28px -4px rgba(84, 136, 156, 0.16),
+    0 2px 6px -1px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* 深色模式下的 Liquid Glass 暗夜晶石质感 */
+.dark .site-header {
+  background: linear-gradient(
+    180deg,
+    rgba(28, 28, 34, 0.65) 0%,
+    rgba(16, 16, 20, 0.45) 100%
+  ) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+    0 12px 36px -4px rgba(0, 0, 0, 0.65),
+    0 2px 8px -2px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 页面向下滚动时：保持 48%~65% 通透度，增强投影层次感，绝不发实发闷 */
+.site-header.is-scrolled {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 255, 255, 0.48) 100%
+  ) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow:
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+    0 14px 40px -4px rgba(84, 136, 156, 0.22),
+    0 4px 12px -2px rgba(0, 0, 0, 0.06) !important;
+}
+
+.dark .site-header.is-scrolled {
+  background: linear-gradient(
+    180deg,
+    rgba(28, 28, 34, 0.75) 0%,
+    rgba(16, 16, 20, 0.55) 100%
+  ) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+    0 16px 44px -4px rgba(0, 0, 0, 0.75),
+    0 4px 12px -2px rgba(0, 0, 0, 0.5) !important;
+}
+

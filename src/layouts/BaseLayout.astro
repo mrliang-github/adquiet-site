@@ -28,7 +28,18 @@ const {
     <ThemeProvider />
   </head>
 
-  <body class='flex justify-center bg-background text-foreground' {...props}>
+  <body class='relative flex justify-center bg-background text-foreground' {...props}>
+    {/* 全站顶部环境漫反射流光层：为毛玻璃导航栏提供持续且优雅的底层折射源 */}
+    <div
+      class='pointer-events-none absolute inset-x-0 top-0 -z-10 h-72 sm:h-96 overflow-hidden'
+      aria-hidden='true'
+    >
+      <div
+        class='absolute -top-28 left-1/2 -translate-x-1/2 w-[38rem] sm:w-[56rem] h-72 rounded-full blur-3xl opacity-65 dark:opacity-40'
+        style='background: radial-gradient(ellipse at center, rgba(84, 136, 156, 0.5) 0%, rgba(99, 102, 241, 0.2) 40%, transparent 75%);'
+      ></div>
+    </div>
+
     {
       highlightColor && (
         <div

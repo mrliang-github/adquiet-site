@@ -193,46 +193,6 @@ const menuItems = config.header.menu ?? []
 </script>
 
 <style>
-  /* ==========================================================================
-     毛玻璃核心样式 (Glassmorphism)
-     完美解决“毛玻璃效果没有出来”的根本原因：
-     确保使用半透明背景 + 强高斯模糊 + 饱和度提升 + 优雅半透明边框与微阴影
-     ========================================================================== */
-  .site-header {
-    /* 核心半透明透光背景：70% 优选透光度，让后方 Banner 和内容漫反射显现 */
-    background-color: hsl(var(--background) / 0.7) !important;
-    /* 原生毛玻璃滤镜标准与 Webkit 兼容 */
-    backdrop-filter: blur(20px) saturate(190%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
-    /* 精致的微边框与轻量阴影 */
-    border: 1px solid hsl(var(--border) / 0.6) !important;
-    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04) !important;
-  }
-
-  /* 深色模式下的毛玻璃半透明透光感 */
-  :global(.dark) .site-header {
-    background-color: hsl(var(--background) / 0.68) !important;
-    border-color: hsl(var(--border) / 0.55) !important;
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35) !important;
-  }
-
-  /* 页面向下滚动之后的微状态：轻微加深质感 */
-  .site-header.is-scrolled {
-    background-color: hsl(var(--background) / 0.82) !important;
-    border-color: hsl(var(--border) / 0.75) !important;
-    box-shadow:
-      0 10px 25px -5px rgba(0, 0, 0, 0.06),
-      0 4px 6px -2px rgba(0, 0, 0, 0.04) !important;
-  }
-
-  :global(.dark) .site-header.is-scrolled {
-    background-color: hsl(var(--background) / 0.78) !important;
-    border-color: hsl(var(--border) / 0.7) !important;
-    box-shadow:
-      0 10px 30px -5px rgba(0, 0, 0, 0.45),
-      0 4px 10px -2px rgba(0, 0, 0, 0.25) !important;
-  }
-
   /* 主题切换图标显隐控制 */
   #toggleDarkMode[data-theme='dark'] .system,
   #toggleDarkMode[data-theme='light'] .system {
