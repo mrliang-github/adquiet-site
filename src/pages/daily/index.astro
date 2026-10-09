@@ -39,7 +39,7 @@ const meta = {
       <div class='flex flex-col gap-y-5'>
         {
           reports.map((report: DailyReportItem) => (
-            <article class='group relative flex flex-col gap-2 rounded-2xl border border-border/70 p-5 transition-all hover:border-primary/50 hover:bg-muted/30'>
+            <article class='group hover-card-lift relative flex flex-col gap-2 rounded-2xl border border-border/70 p-5 transition-all hover:bg-muted/30'>
               <div class='flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground'>
                 <span class='font-mono font-medium text-primary'>
                   {report.editionDate}

@@ -43,14 +43,14 @@ if (!images[imagePath]) {
 {/* 提取自湖山天际线的主题色 #54889C，营造深邃、宁静、高级的视觉氛围 */}
 <PageLayout meta={{ title: '首页 · 良逍' }} highlightColor='#54889C'>
   <main class='flex w-full flex-col items-center'>
-    {/* 1. Header Profile Hero with Atmospheric Banner */}
-    <div class='animate mb-12 w-full overflow-hidden rounded-2xl border border-border/70 bg-muted/20 shadow-sm'>
-      {/* 顶部湖山天际线全景横幅 */}
+    {/* 1. Header Profile Hero with Atmospheric Banner & Interactive Hover */}
+    <div class='group/hero animate mb-12 w-full overflow-hidden rounded-2xl border border-border/70 bg-muted/20 shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md'>
+      {/* 顶部湖山天际线全景横幅：带平滑微缩放景深交互 */}
       <div class='relative h-44 sm:h-60 w-full overflow-hidden'>
         <Image
           src={heroBanner}
           alt='湖山与城市天际线'
-          class='h-full w-full object-cover object-center filter brightness-[0.96] contrast-[1.02] dark:brightness-[0.72] transition-all duration-500'
+          class='h-full w-full object-cover object-center filter brightness-[0.96] contrast-[1.02] dark:brightness-[0.72] transition-transform duration-700 ease-out group-hover/hero:scale-[1.03]'
           loading='eager'
           fetchpriority='high'
         />
@@ -64,7 +64,7 @@ if (!images[imagePath]) {
           <Image
             src={images[imagePath]()}
             alt={config.author}
-            class='size-28 sm:size-32 rounded-full border-4 border-background bg-background object-cover shadow-lg ring-1 ring-border/80'
+            class='size-28 sm:size-32 rounded-full border-4 border-background bg-background object-cover shadow-lg ring-1 ring-border/80 transition-all duration-300 hover:scale-105 hover:ring-primary/60 hover:shadow-primary/20'
             loading='eager'
             fetchpriority='high'
           />
@@ -100,7 +100,7 @@ if (!images[imagePath]) {
         </div>
 
         {/* Slogan Pill */}
-        <div class='flex flex-row items-center gap-x-2.5 rounded-full border border-border/80 bg-background/80 backdrop-blur-sm px-4 py-1.5 text-xs text-muted-foreground shadow-sm'>
+        <div class='flex flex-row items-center gap-x-2.5 rounded-full border border-border/80 bg-background/80 backdrop-blur-sm px-4 py-1.5 text-xs text-muted-foreground shadow-sm transition-all duration-200 hover:border-primary/50 hover:bg-muted/60'>
           <span class='relative flex items-center justify-center'>
             <span class='absolute size-2 animate-ping rounded-full bg-emerald-400 opacity-75'></span>
             <span class='size-2 rounded-full bg-emerald-500'></span>
@@ -112,20 +112,20 @@ if (!images[imagePath]) {
 
     <div id='content' class='animate flex flex-col gap-y-12 md:w-4/5 lg:w-5/6'>
       {/* 2. About Intro */}
-      <Section title='关于我'>
+      <Section title='关于我' desc='背景定位与工程态度'>
         <div class='space-y-3 text-muted-foreground text-sm leading-relaxed'>
           <p>
-            设计专业毕业，但毕业后直接扎根在产品一线。主业负责跨境电商 CMS/ERP 系统的产品架构与复杂业务流程优化。
+            设计专业科班毕业，毕业后却一直扎根在产品一线。主业负责跨境电商 CMS/ERP 系统的产品架构与复杂业务流程优化。
           </p>
           <p>
-            设计背景赋予了我对交互美学与用户体验的直觉敏感，而多年 B 端复杂业务的经历，让我磨练出业务逻辑拆解与消除流程冗余的工程思维。业余时间，我用 AI 跑通端到端的自动化流水线与独立工具开发，把真正跑通的闭环、遇到的限制和业务判断记录在这里。
+            设计背景赋予了我对界面美感与交互直觉的敬畏，长年深耕复杂 B 端业务的经历，则磨练了我对业务拆解、状态机流转与消除人工损耗的工程思维。业余时间，我用 AI 跑通端到端的自动化流水线与独立工具开发，把真正跑通的闭环、遇到的限制和业务判断记录在这里。
           </p>
         </div>
         <Button title='了解更多背景 →' class='w-fit self-end text-xs' href='/about' variant='ahead' />
       </Section>
 
       {/* 3. Featured Tools & Projects */}
-      <Section title='产品与工具'>
+      <Section title='产品与工具' desc='从实际小痛点出发，跑通闭环交付'>
         <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
           {
             projects.slice(0, 4).map((p: ProjectItem) => (
@@ -133,7 +133,7 @@ if (!images[imagePath]) {
                 href={p.href}
                 target={p.external ? '_blank' : undefined}
                 rel={p.external ? 'noopener noreferrer' : undefined}
-                class='group flex flex-col justify-between rounded-xl border border-border/70 p-4 transition-all hover:border-primary/50 hover:bg-muted/30'
+                class='group hover-card-lift flex flex-col justify-between rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30'
               >
                 <div>
                   <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
@@ -160,7 +160,7 @@ if (!images[imagePath]) {
       {/* 4. Latest Posts */}
       {
         allPostsByDate.length > 0 && (
-          <Section title='技术探索与博客'>
+          <Section title='技术探索与博客' desc='踩坑复盘、工具边界与架构思考'>
             <ul class='flex flex-col gap-y-2 sm:gap-y-2.5'>
               {allPostsByDate.map((p) => (
                 <li class='flex flex-col gap-x-2 sm:flex-row'>
@@ -174,13 +174,13 @@ if (!images[imagePath]) {
       }
 
       {/* 5. Daily Insights Preview */}
-      <Section title='风向标日报'>
+      <Section title='风向标日报' desc='出海机会、变现切片与商业模式'>
         <div class='flex flex-col gap-3'>
           {
             dailyReports.map((report: DailyReportItem) => (
               <a
                 href={`/daily/${report.slug}/`}
-                class='group rounded-xl border border-border/70 p-4 transition-all hover:border-primary/50 hover:bg-muted/30'
+                class='group hover-card-lift rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30'
               >
                 <div class='flex items-center justify-between text-xs text-muted-foreground mb-1'>
                   <span class='font-mono font-medium text-primary'>{report.editionDate}</span>
@@ -200,13 +200,13 @@ if (!images[imagePath]) {
       </Section>
 
       {/* 6. English Lessons Preview */}
-      <Section title='出海独立开发英语'>
+      <Section title='出海工作英语' desc='不背冷门单词，只练真实沟通场景'>
         <div class='grid gap-3 sm:grid-cols-3'>
           {
             englishLessons.map((lesson: EnglishLessonItem, idx: number) => (
               <a
                 href={`/english/${lesson.slug}/`}
-                class='group flex flex-col justify-between rounded-xl border border-border/70 p-3.5 transition-all hover:border-primary/50 hover:bg-muted/30'
+                class='group hover-card-lift flex flex-col justify-between rounded-xl border border-border/70 p-3.5 transition-all hover:bg-muted/30'
               >
                 <div>
                   <span class='text-[11px] font-mono font-medium text-primary'>
@@ -228,7 +228,7 @@ if (!images[imagePath]) {
       </Section>
 
       {/* 7. Skills & Tech Stack */}
-      <Section title='技能体系与工作流'>
+      <Section title='能力与工具栈' desc='业务架构、AI 自动化与端到端开发'>
         <SkillLayout title='产品与业务' skills={productSkills} />
         <SkillLayout title='AI 工作流' skills={aiWorkflowSkills} />
         <SkillLayout title='开发实现' skills={devSkills} />

@@ -40,23 +40,23 @@ const headings = [
   <h2 id='what-i-do'>我在做什么</h2>
   <ul>
     <li>
-      <strong>主业深耕（业务架构与流程优化）</strong>：跨境电商 CMS/ERP 产品架构、复杂跨组织业务流梳理、履约流转提效、表单状态机设计与后台体验交付。
+      <strong>主业深耕（业务架构与流程优化）</strong>：跨境电商 CMS/ERP 业务架构设计。长期面对多组织权限、跨国履约链路与海量数据流转，核心聚焦在<strong>把业务堵点拆明白、把手工流转自动化、消除上下游摩擦损耗</strong>。
     </li>
     <li>
-      <strong>独立开发（真实工具与端到端交付）</strong>：
+      <strong>独立开发（小切口解决真实痛点）</strong>：
       <ul>
-        <li><a href='/heatsleuth/'>HeatSleuth</a>：macOS 发热诊断应用，看清系统功耗与资源占用。</li>
-        <li><a href='/adquiet/'>AdQuiet</a>：Chrome 扩展，专注于 YouTube 桌面端纯净观看体验。</li>
-        <li><a href='https://md.liangxiaoaitool.top/' target='_blank'>MD 排版</a>：现代公众号 Markdown 一键排版工具。</li>
-        <li><a href='https://github.com/mrliang-github/cn-vat-invoice-ocr' target='_blank'>Mac 发票 OCR</a>：基于 macOS 原生 Vision 框架离线发票识别转 Excel。</li>
+        <li><a href='/heatsleuth/'>HeatSleuth</a>：macOS 发热诊断应用，底层采集系统功耗与异常占用，解决 Mac 发热掉电困扰。</li>
+        <li><a href='/adquiet/'>AdQuiet</a>：Chrome 扩展，专注于 YouTube 桌面端纯净观看体验，轻量 MV3 架构，零隐私索取。</li>
+        <li><a href='https://md.liangxiaoaitool.top/' target='_blank'>MD 排版</a>：现代公众号 Markdown 一键排版工具，为创作者提供开箱即用的优雅版式。</li>
+        <li><a href='https://github.com/mrliang-github/cn-vat-invoice-ocr' target='_blank'>Mac 发票 OCR</a>：基于 macOS 原生 Vision 框架离线发票识别转 Excel，纯本地处理，保护财务隐私。</li>
       </ul>
     </li>
     <li>
-      <strong>内容与自动化流水线</strong>：
+      <strong>内容沉淀与自动化流水线</strong>：
       <ul>
-        <li><a href='/blog'>深度博客</a>：记录真实的流程优化实录（如《Codex 一周重置 4 次额度，我推进 2 个 App，把送审自动化了》、《每天 5 分钟自动收集小红书评论，我用工具 + 飞书多维表搭了个产品需求情报系统》）。</li>
-        <li><a href='/daily'>风向标日报</a>：持续追踪出海机会、变现模具与一线商业实践。</li>
-        <li><a href='/english'>出海工作英语</a>：整理出海开发者高频沟通场景（Bug 回复、催款、协商）。</li>
+        <li><a href='/blog'>深度博客</a>：记录真实的流程优化实录与踩坑代价（如《Codex 一周重置 4 次额度，我推进 2 个 App，把送审自动化了》、《每天 5 分钟自动收集小红书评论，我用工具 + 飞书多维表搭了个产品需求情报系统》）。</li>
+        <li><a href='/daily'>风向标日报</a>：持续追踪海外出海机会、变现切片与一线商业模式（已沉淀 18 期）。</li>
+        <li><a href='/english'>出海工作英语</a>：整理出海开发者高频实战场景（Bug 回复、催款、合作协商、产品边界澄清，已整理 20 课）。</li>
       </ul>
     </li>
   </ul>
@@ -128,19 +128,19 @@ const headings = [
 
   <h2 id='principles'>实践原则与思考</h2>
   <div class='not-prose my-4 space-y-3'>
-    <div class='rounded-xl border border-border/70 p-4'>
+    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>1. 业务为本，流程优先</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
         界面的本质是业务流的投影。优先理顺上下游链路、明确字段契约与状态机流转，再谈页面渲染；找出流程断点并消除人工搬砖，是系统最大的商业价值所在。
       </p>
     </div>
-    <div class='rounded-xl border border-border/70 p-4'>
+    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>2. 依靠确定性结构，不迷信纯提示词</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
         好结果很少来自于一句神奇的 Prompt，而是来自标准化表格（如 Google Sheets、飞书多维表）、明确的字段规范、脚本驱动的确定性流程和人的最终校验。
       </p>
     </div>
-    <div class='rounded-xl border border-border/70 p-4'>
+    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>3. 真实优先，跑通闭环（End-to-End）</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
         做 Demo 很容易，但产品必须面对打包、签名、商店素材、隐私协议、App Store 审核与真实用户体验。打通端到端，忠实记录踩坑代价，才能形成真正的手感。
