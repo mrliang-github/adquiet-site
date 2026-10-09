@@ -28,18 +28,19 @@ export const projects: ProjectItem[] = [
     name: 'OtterBar',
     // 所属类别：macOS 原生桌面应用
     category: 'macOS 应用',
-    // 当前开发阶段：正在内测打磨阶段，即将公开发布
-    status: '测试版 · 即将上线',
+    // 公开测试版安装包已发布到 GitHub Releases。
+    status: '测试版 · 直接下载',
     // 简明功能描述：直击菜单栏图标过多、被屏幕刘海遮挡的真实痛点
     description: '快速搜索并呼出 Mac 菜单栏工具。菜单栏太挤、被刘海挡住时，键盘一按随叫随到。',
     // 产品技术细节与特性亮点：基于原生辅助功能接口，纯本地离线扫描与快捷键定制
     details: '基于系统辅助功能，纯本地动态扫描正在运行的菜单栏应用，支持自定义全局快捷键与安全离线处理。',
-    // 产品主页路由：指向 public/otterbar/index.html 对应的静态介绍页
+    // 产品主页与发行元数据在构建时生成静态 HTML。
     href: '/otterbar/',
     // 是否为站外外部链接：false 表示为站内路由导航
     external: false,
     // 标签分类：用于搜索和分类过滤
-    tags: ['macOS', 'Swift', '效率工具', '水獭']
+    tags: ['macOS', 'Swift', '效率工具', '水獭'],
+    github: 'https://github.com/mrliang-github/OtterBar'
   },
   {
     name: 'AdQuiet',

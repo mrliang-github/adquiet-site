@@ -1,0 +1,10 @@
+{
+  "version": "0.1.0",
+  "build": 1,
+  "fileName": "OtterBar-0.1.0-build-1.dmg",
+  "fileSizeBytes": 2357386,
+  "sha256": "235f1e85607c3484e05165ba31ef11d8b0e84af193f2ee8f5f86b55179ca7abf",
+  "minimumMacOS": "13.0",
+  "verifiedMacOS": "26.6.2",
+  "publishedAt": "2026-10-10"
+}

@@ -1,3 +1,23 @@
+---
+import release from '../../data/otterbar-release.json'
+
+const releaseUrl = `https://github.com/mrliang-github/OtterBar/releases/tag/v${release.version}`
+const downloadBase = `https://github.com/mrliang-github/OtterBar/releases/download/v${release.version}`
+const downloadUrl = `${downloadBase}/${release.fileName}`
+const fileSize = `${(release.fileSizeBytes / 1_000_000).toFixed(1)} MB`
+const applicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'OtterBar',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: `macOS ${release.minimumMacOS} or later (Apple Silicon)`,
+  softwareVersion: release.version,
+  datePublished: release.publishedAt,
+  downloadUrl,
+  releaseNotes: releaseUrl,
+  description: '通过快捷键或水獭图标唤起 OtterBar，搜索支持的 Mac 菜单栏入口。支持自定义快捷键，在本机处理应用列表与菜单内容。'
+}
+---
 <!doctype html>
 <!--
   OtterBar 官方产品介绍页
@@ -26,16 +46,7 @@
   <link rel="stylesheet" href="/otterbar/assets/styles.css">
 
   <!-- Schema.org 结构化数据：软件应用与常见问题 -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "OtterBar",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "macOS 13.0 or later",
-    "description": "通过快捷键或水獭图标唤起 OtterBar，输入应用名称，就能快速找到正在运行的 Mac 菜单栏工具。支持自定义快捷键与本机安全处理。"
-  }
-  </script>
+  <script type="application/ld+json" set:html={JSON.stringify(applicationSchema)} />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,7 +65,7 @@
         "name": "只支持页面上展示的几个应用吗？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "不是。OtterBar 会在你的 Mac 本机动态扫描当前所有正在运行中且挂载了菜单栏图标的应用程序；页面上的截图仅作为演示。"
+          "text": "不是。OtterBar 会动态扫描正在运行、能通过系统辅助功能接口读取菜单栏入口的应用。应用已打开并不保证能被扫描到；页面上的截图仅作为演示。"
         }
       },
       {
@@ -78,7 +89,7 @@
         "name": "支持哪些 Mac？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "当前构建与测试目标为 Apple Silicon 架构芯片，最低支持 macOS 13.0 (Ventura) 及更高版本。Intel 架构的支持在后续发行阶段进一步验收。"
+          "text": "当前安装包支持 Apple Silicon（M 系列）Mac，最低系统要求为 macOS 13.0，当前不支持 Intel Mac。本机启动验证为 macOS 26.6.2，尚未完成所有系统版本的实机验证。"
         }
       },
       {
@@ -123,9 +134,8 @@
             菜单栏太挤，找不到要用的工具？通过快捷键或水獭图标唤起 OtterBar，输入应用名称，就能快速找到正在运行的菜单栏工具。
           </p>
           <div class="hero-actions">
-            <!-- 依据计划第 7 节：公开发行准备中，主动作引导观看真实演示，辅助跳到要求 -->
-            <a class="btn btn-primary" href="#demo">看看怎么用</a>
-            <a class="btn btn-secondary" href="#download">查看系统要求</a>
+            <a class="btn btn-primary" href="#download">下载 Mac 版</a>
+            <a class="btn btn-secondary" href="#demo">看看怎么用</a>
           </div>
           <div class="hero-tip">
             <span>默认快捷键</span>
@@ -153,7 +163,7 @@
         <div class="section-heading">
           <span class="eyebrow">真实操作流程</span>
           <h2>10 秒看懂 OtterBar 怎么工作</h2>
-          <p>不管你的菜单栏图标有多拥挤、是否被屏幕刘海挡住，键盘输入即刻定位并打开入口。</p>
+          <p>通过搜索定位已检测到的菜单栏工具，尝试打开支持系统点击接口的入口。</p>
         </div>
 
         <div class="demo-grid">
@@ -267,32 +277,51 @@
         <div class="download-card">
           <span class="download-status-badge">
             <span class="status-dot"></span>
-            公开版本准备中
+            公开测试版 · 已通过 Apple 公证
           </span>
           <h2 class="download-title">获取 OtterBar Mac 版</h2>
           <p class="download-desc">
-            目前已跑通端内完整扫描、直达呼出与快捷键录制流程。公开发布包正在准备中，上线时将提供已通过 Apple 官方公证签名的正式安装包。
+            {release.publishedAt} 发布。安装包已使用 Developer ID 签名并通过 Apple 公证，可从 GitHub Releases 下载。
           </p>
 
           <div class="download-specs">
             <div class="spec-item">
               <span class="spec-label">最低系统要求</span>
-              <span class="spec-value">macOS 13.0 (Ventura) 及更高版本</span>
+              <span class="spec-value">macOS {release.minimumMacOS} 及更高版本</span>
             </div>
             <div class="spec-item">
               <span class="spec-label">支持架构</span>
-              <span class="spec-value">Apple Silicon (M1/M2/M3/M4)</span>
+              <span class="spec-value">Apple Silicon（M 系列）</span>
             </div>
             <div class="spec-item">
               <span class="spec-label">权限需求</span>
               <span class="spec-value">系统辅助功能（无屏幕录制权限）</span>
             </div>
+            <div class="spec-item">
+              <span class="spec-label">当前版本</span>
+              <span class="spec-value">{release.version} · build {release.build}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">安装包</span>
+              <span class="spec-value">{fileSize} · DMG</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">本机实测</span>
+              <span class="spec-value">macOS {release.verifiedMacOS} · Apple Silicon</span>
+            </div>
           </div>
 
+          <p class="download-note">当前版本不支持 Intel Mac，尚未完成所有 macOS 版本的实机验证。扫描与打开效果取决于目标应用是否提供系统辅助功能入口。</p>
           <div class="download-actions">
-            <a class="btn btn-secondary" href="#demo">观看使用演示</a>
+            <a class="btn btn-primary" href={downloadUrl}>下载 Apple Silicon 版</a>
             <a class="btn btn-secondary" href="#setup">查看安装指引</a>
+            <a class="btn btn-secondary" href={releaseUrl}>GitHub 发行记录</a>
           </div>
+          <details class="download-verification">
+            <summary>安装包校验（SHA-256）</summary>
+            <code>{release.sha256}</code>
+            <a href={`${downloadBase}/SHA256SUMS.txt`}>下载校验文件</a>
+          </details>
         </div>
       </div>
     </section>
@@ -323,7 +352,7 @@
               <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="faq-content">
-              不是。OtterBar 会在你的 Mac 本机动态扫描当前所有正在运行中且挂载了菜单栏图标的应用程序；页面上的截图仅作为演示。
+              不是。OtterBar 会动态扫描正在运行、能通过系统辅助功能接口读取菜单栏入口的应用。应用已打开并不保证能被扫描到；页面上的截图仅作为演示。
             </div>
           </details>
 
@@ -353,7 +382,7 @@
               <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="faq-content">
-              当前构建与测试目标为 Apple Silicon 架构芯片，最低支持 macOS 13.0 (Ventura) 及更高版本。Intel 架构的支持在后续发行阶段进一步验收。
+              当前安装包支持 Apple Silicon（M 系列）Mac，最低系统要求为 macOS 13.0，当前不支持 Intel Mac。本机启动验证为 macOS 26.6.2，尚未完成所有系统版本的实机验证。
             </div>
           </details>
 
@@ -376,12 +405,24 @@
         <div class="privacy-banner">
           <h3>应用隐私与数据说明</h3>
           <p>
-            <strong>纯本机离线运行：</strong>OtterBar 原生运行于你的 Mac 辅助功能沙盒之上，不向任何远程服务器上传你的应用列表、进程名称或菜单内容。
+            <strong>纯本机处理：</strong>OtterBar 使用 macOS 辅助功能接口读取和触发菜单栏入口，不向远程服务器上传应用列表、进程名称或菜单内容。最近一次扫描结果保存在本机，方便诊断。
           </p>
           <p>
             <strong>关于当前网站：</strong>本网页为良逍个人工具站的纯静态页面，不内嵌任何第三方跨站追踪或用户行为记录脚本。
           </p>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="changelog">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow">更新记录</span>
+          <h2>{release.version} · 首个公开测试版</h2>
+          <p>{release.publishedAt} · build {release.build}</p>
+        </div>
+        <p>动态扫描并搜索支持的菜单栏入口，提供可自定义的全局快捷键、登录自启与本机扫描诊断。安装包已完成 Developer ID 签名和 Apple 公证。</p>
+        <p><a href={releaseUrl}>查看完整发行说明</a> · <a href="https://github.com/mrliang-github/OtterBar/issues">反馈问题</a></p>
       </div>
     </section>
   </main>
@@ -398,12 +439,14 @@
         <a href="#features">功能</a>
         <a href="#setup">使用方法</a>
         <a href="#faq">常见问题</a>
+        <a href="#changelog">更新记录</a>
+        <a href="https://github.com/mrliang-github/OtterBar/issues">问题反馈</a>
       </div>
     </div>
   </footer>
 
   <!-- 客户端交互脚本：支持 URL hash 直接展开对应 FAQ -->
-  <script>
+  <script is:inline>
     (function () {
       function expandFaqFromHash() {
         var hash = window.location.hash;

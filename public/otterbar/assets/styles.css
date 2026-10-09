@@ -554,6 +554,31 @@ summary:focus-visible {
   flex-wrap: wrap;
 }
 
+.download-note {
+  max-width: 720px;
+  margin: 0 auto 24px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.download-verification {
+  max-width: 720px;
+  margin: 24px auto 0;
+  text-align: left;
+  color: var(--text-muted);
+}
+
+.download-verification summary {
+  padding: 12px 0;
+  cursor: pointer;
+}
+
+.download-verification code {
+  display: block;
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+}
+
 /* 常见问题 FAQ (#faq) */
 .faq-list {
   max-width: 800px;
