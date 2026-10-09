@@ -1,0 +1,422 @@
+<!doctype html>
+<!--
+  OtterBar 官方产品介绍页
+  遵循产品设计计划规范：Mac 菜单栏工具定位、深炭灰与薄荷绿视觉规范、无障碍支持与 Schema 结构化数据
+-->
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OtterBar — 快速搜索 Mac 菜单栏工具</title>
+  <meta name="description" content="通过快捷键或菜单栏图标唤起 OtterBar，搜索正在运行的 Mac 菜单栏工具。支持自定义快捷键，在本机处理应用列表与菜单内容。">
+  <link rel="canonical" href="https://liangxiaoai.dev/otterbar/">
+
+  <!-- OpenGraph 社交卡片元数据 -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="OtterBar — 快速搜索 Mac 菜单栏工具">
+  <meta property="og:description" content="通过快捷键或水獭图标唤起 OtterBar，输入应用名称，就能快速找到正在运行的菜单栏工具。">
+  <meta property="og:url" content="https://liangxiaoai.dev/otterbar/">
+  <meta property="og:image" content="https://liangxiaoai.dev/otterbar/assets/otterbar-overview.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- 网站与应用图标 -->
+  <link rel="icon" type="image/png" href="/otterbar/assets/icon-256.png">
+
+  <!-- 专属产品样式表 -->
+  <link rel="stylesheet" href="/otterbar/assets/styles.css">
+
+  <!-- Schema.org 结构化数据：软件应用与常见问题 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "OtterBar",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "macOS 13.0 or later",
+    "description": "通过快捷键或水獭图标唤起 OtterBar，输入应用名称，就能快速找到正在运行的 Mac 菜单栏工具。支持自定义快捷键与本机安全处理。"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "为什么需要辅助功能权限？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "用于读取和触发其他应用的菜单栏入口。OtterBar 仅通过系统辅助功能接口在本地定位与呼出菜单栏项目，不需要屏幕录制权限，也不会记录你的个人敏感数据。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "只支持页面上展示的几个应用吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不是。OtterBar 会在你的 Mac 本机动态扫描当前所有正在运行中且挂载了菜单栏图标的应用程序；页面上的截图仅作为演示。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "为什么有些工具找不到或打不开？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "应用的运行状态、是否通过标准系统接口暴露入口、系统权限限制或特定应用的自定义界面实现都会影响打开效果。你可以在 OtterBar 设置中进入“高级 → 扫描诊断”查看具体扫描状态。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "快捷键和其他工具冲突怎么办？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "可以在 OtterBar 设置中自由录入新的快捷键组合。支持各种修饰键配合字符，不限定必须使用空格；如果与系统全局冲突，应用会给予明确提示并保留原快捷键。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "支持哪些 Mac？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "当前构建与测试目标为 Apple Silicon 架构芯片，最低支持 macOS 13.0 (Ventura) 及更高版本。Intel 架构的支持在后续发行阶段进一步验收。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "能重排或隐藏菜单栏图标吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不能。OtterBar 的核心定位是快速搜索和一键打开正在运行的菜单栏入口，解决寻找和呼出痛点，不提供菜单栏图标的物理隐藏、折叠或位置拖拽重排功能。"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- 顶部导航栏 -->
+  <header class="site-header">
+    <nav class="site-nav shell" aria-label="OtterBar 页面导航">
+      <a class="brand" href="/otterbar/">
+        <img class="brand-icon" src="/otterbar/assets/icon-256.png" alt="OtterBar 水獭图标">
+        <span>OtterBar</span>
+      </a>
+      <div class="nav-links">
+        <a class="nav-link back-link" href="/">← 良逍个人主页</a>
+        <a class="nav-link" href="#demo">演示</a>
+        <a class="nav-link" href="#features">功能</a>
+        <a class="nav-link" href="#setup">使用方法</a>
+        <a class="nav-link" href="#faq">常见问题</a>
+        <a class="btn btn-primary nav-btn" href="#download">获取 OtterBar</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 02 首屏 Hero 区块 -->
+    <section class="hero-section">
+      <div class="shell hero-grid">
+        <div class="hero-content">
+          <span class="eyebrow">Mac 菜单栏工具</span>
+          <h1 class="hero-title">好工具，<br>随叫随到。</h1>
+          <p class="hero-lede">
+            菜单栏太挤，找不到要用的工具？通过快捷键或水獭图标唤起 OtterBar，输入应用名称，就能快速找到正在运行的菜单栏工具。
+          </p>
+          <div class="hero-actions">
+            <!-- 依据计划第 7 节：公开发行准备中，主动作引导观看真实演示，辅助跳到要求 -->
+            <a class="btn btn-primary" href="#demo">看看怎么用</a>
+            <a class="btn btn-secondary" href="#download">查看系统要求</a>
+          </div>
+          <div class="hero-tip">
+            <span>默认快捷键</span>
+            <kbd class="kbd-badge">⌥ Space</kbd>
+            <span>· 快捷键可随时自定义</span>
+          </div>
+        </div>
+
+        <div class="hero-preview">
+          <div class="preview-window">
+            <div class="preview-window-top" aria-hidden="true">
+              <span class="mac-dot close"></span>
+              <span class="mac-dot min"></span>
+              <span class="mac-dot max"></span>
+            </div>
+            <img class="preview-image" src="/otterbar/assets/otterbar-overview.png" alt="OtterBar 真实面板界面，展示搜索输入框与正在运行的菜单栏工具列表">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 真实操作演示 (#demo) -->
+    <section class="section" id="demo">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow">真实操作流程</span>
+          <h2>10 秒看懂 OtterBar 怎么工作</h2>
+          <p>不管你的菜单栏图标有多拥挤、是否被屏幕刘海挡住，键盘输入即刻定位并打开入口。</p>
+        </div>
+
+        <div class="demo-grid">
+          <div class="demo-steps">
+            <div class="demo-step-item">
+              <span class="step-num">01</span>
+              <div class="step-body">
+                <h3>唤起面板</h3>
+                <p>按下快捷键（默认 ⌥ Space）或直接点击屏幕顶栏的水獭图标，在桌面中央唤起干净利落的搜索浮层。</p>
+              </div>
+            </div>
+
+            <div class="demo-step-item">
+              <span class="step-num">02</span>
+              <div class="step-body">
+                <h3>输入应用名称</h3>
+                <p>键盘键入应用名，OtterBar 实时筛选并高亮当前后台运行中的菜单栏应用，不浪费寻找时间。</p>
+              </div>
+            </div>
+
+            <div class="demo-step-item">
+              <span class="step-num">03</span>
+              <div class="step-body">
+                <h3>回车一键呼出</h3>
+                <p>按下回车或直接点击，自动触发对应应用的菜单栏原生入口，丝滑衔接你的日常工作流。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-media">
+            <img class="preview-image" src="/otterbar/assets/otterbar-search.png" alt="OtterBar 实时搜索状态界面，展示输入名称即时过滤工具列表">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 三大核心重点 (#features) -->
+    <section class="section" id="features">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow">设计原则</span>
+          <h2>专注做一件小事，并把它做好。</h2>
+          <p>不堆砌冗余配置，保持轻量与克制，让每一次呼出都毫无负担。</p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-card-header">
+              <span class="feature-badge">01 · 快速定位</span>
+              <h3>找到要用的工具</h3>
+            </div>
+            <p>菜单栏空间有限，图标常被遮挡。直接搜索应用名称，通过键盘上下键快速选择菜单栏入口。</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card-header">
+              <span class="feature-badge">02 · 自定义组合</span>
+              <h3>用顺手的快捷键</h3>
+            </div>
+            <p>在设置面板中直接录入自己的专属快捷键组合，不限定使用空格；也可以随时点击菜单栏水獭图标唤起。</p>
+            <div class="feature-media">
+              <img src="/otterbar/assets/otterbar-settings.png" alt="OtterBar 设置界面局部，展示自定义全局快捷键与开机自启动设置项">
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card-header">
+              <span class="feature-badge">03 · 纯本地运行</span>
+              <h3>在你的 Mac 上处理</h3>
+            </div>
+            <p>应用通过 macOS 辅助功能接口本地工作，不上传应用列表、不收集菜单内容、无云端依赖，安心使用。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 安装和使用指引 (#setup) -->
+    <section class="section" id="setup">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow">使用指引</span>
+          <h2>三步开始使用 OtterBar</h2>
+          <p>简单的安装与一次性系统权限配置，无需复杂的初始化流程。</p>
+        </div>
+
+        <div class="setup-list">
+          <div class="setup-card">
+            <div class="setup-index">01</div>
+            <h3>下载并放入应用目录</h3>
+            <p>获取安装包后，将 OtterBar.app 拖拽放入 Mac 的“应用程序”（Applications）文件夹中。</p>
+          </div>
+
+          <div class="setup-card">
+            <div class="setup-index">02</div>
+            <h3>授予辅助功能权限</h3>
+            <p>首次启动时，按照引导在“系统设置 → 隐私与安全性 → 辅助功能”中允许 OtterBar，随后返回应用重新检查。</p>
+          </div>
+
+          <div class="setup-card">
+            <div class="setup-index">03</div>
+            <h3>唤起并开始搜索</h3>
+            <p>点击菜单栏水獭图标或按下当前快捷键，即可搜索并尝试打开你的第一个菜单栏工具。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 下载与发行状态 (#download) -->
+    <section class="section" id="download">
+      <div class="shell">
+        <div class="download-card">
+          <span class="download-status-badge">
+            <span class="status-dot"></span>
+            公开版本准备中
+          </span>
+          <h2 class="download-title">获取 OtterBar Mac 版</h2>
+          <p class="download-desc">
+            目前已跑通端内完整扫描、直达呼出与快捷键录制流程。公开发布包正在准备中，上线时将提供已通过 Apple 官方公证签名的正式安装包。
+          </p>
+
+          <div class="download-specs">
+            <div class="spec-item">
+              <span class="spec-label">最低系统要求</span>
+              <span class="spec-value">macOS 13.0 (Ventura) 及更高版本</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">支持架构</span>
+              <span class="spec-value">Apple Silicon (M1/M2/M3/M4)</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">权限需求</span>
+              <span class="spec-value">系统辅助功能（无屏幕录制权限）</span>
+            </div>
+          </div>
+
+          <div class="download-actions">
+            <a class="btn btn-secondary" href="#demo">观看使用演示</a>
+            <a class="btn btn-secondary" href="#setup">查看安装指引</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 常见问题 FAQ (#faq) -->
+    <section class="section" id="faq">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow">FAQ</span>
+          <h2>常见问题解答</h2>
+          <p>关于权限、扫描范围与使用限制的真实解答。</p>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" id="faq-permission">
+            <summary class="faq-summary">
+              <span>为什么需要辅助功能权限？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="faq-content">
+              用于读取和触发其他应用的菜单栏入口。OtterBar 仅通过 macOS 辅助功能接口在本地定位与呼出菜单栏项目，不需要屏幕录制权限，也不会记录你的个人敏感数据。
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-scan">
+            <summary class="faq-summary">
+              <span>只支持页面上展示的几个应用吗？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="faq-content">
+              不是。OtterBar 会在你的 Mac 本机动态扫描当前所有正在运行中且挂载了菜单栏图标的应用程序；页面上的截图仅作为演示。
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-open">
+            <summary class="faq-summary">
+              <span>为什么有些工具找不到或打不开？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="faq-content">
+              应用的运行状态、是否通过标准系统接口暴露入口、系统权限限制或特定应用的自定义界面实现都会影响打开效果。你可以在 OtterBar 设置中进入“高级 → 扫描诊断”查看具体扫描状态。
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-shortcut">
+            <summary class="faq-summary">
+              <span>快捷键和其他工具冲突怎么办？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="faq-content">
+              可以在 OtterBar 设置中自由录入新的快捷键组合。支持各种修饰键配合字符，不限定必须使用空格；如果与系统全局冲突，应用会给予明确提示并保留原快捷键。
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-mac">
+            <summary class="faq-summary">
+              <span>支持哪些 Mac？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="faq-content">
+              当前构建与测试目标为 Apple Silicon 架构芯片，最低支持 macOS 13.0 (Ventura) 及更高版本。Intel 架构的支持在后续发行阶段进一步验收。
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-organize">
+            <summary class="faq-summary">
+              <span>能重排或隐藏菜单栏图标吗？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="faq-content">
+              不能。OtterBar 的核心定位是快速搜索和一键打开正在运行的菜单栏入口，解决寻找和呼出痛点，不提供菜单栏图标的物理隐藏、折叠或位置拖拽重排功能。
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 隐私与版本记录 (#privacy, #changelog) -->
+    <section class="section" id="privacy">
+      <div class="shell">
+        <div class="privacy-banner">
+          <h3>应用隐私与数据说明</h3>
+          <p>
+            <strong>纯本机离线运行：</strong>OtterBar 原生运行于你的 Mac 辅助功能沙盒之上，不向任何远程服务器上传你的应用列表、进程名称或菜单内容。
+          </p>
+          <p>
+            <strong>关于当前网站：</strong>本网页为良逍个人工具站的纯静态页面，不内嵌任何第三方跨站追踪或用户行为记录脚本。
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div>
+        <p>© 2026 OtterBar · 由良逍独立制作与维护</p>
+      </div>
+      <div class="footer-nav">
+        <a href="/">良逍主页</a>
+        <a href="/projects/">全部工具</a>
+        <a href="#features">功能</a>
+        <a href="#setup">使用方法</a>
+        <a href="#faq">常见问题</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 客户端交互脚本：支持 URL hash 直接展开对应 FAQ -->
+  <script>
+    (function () {
+      function expandFaqFromHash() {
+        var hash = window.location.hash;
+        if (!hash) return;
+        var target = document.querySelector(hash);
+        if (target && target.tagName.toLowerCase() === 'details') {
+          target.open = true;
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      window.addEventListener('DOMContentLoaded', expandFaqFromHash);
+      window.addEventListener('hashchange', expandFaqFromHash);
+    })();
+  </script>
+</body>
+</html>

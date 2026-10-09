@@ -46,7 +46,9 @@ export default defineConfig({
     '/writing/codex-google-sheets-store-upload': '/blog/codex-google-sheets-store-upload',
     '/writing/ai-enterprise-prototype-style': '/blog/ai-enterprise-prototype-style',
     '/writing/codex-figma-site-design': '/blog/codex-figma-site-design',
-    '/writing/mac-invoice-ocr': '/blog/mac-invoice-ocr'
+    '/writing/mac-invoice-ocr': '/blog/mac-invoice-ocr',
+    // 兼容旧主站工具聚合路由，统一重定向至 Astro 新版的项目列表页
+    '/tools': '/projects'
   },
 
   // [Assets]
