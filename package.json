@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "dev:check": "astro check --watch & astro dev",
     "build": "astro-pure check && astro check && astro build",
+    "build:pages": "astro-pure check && astro check && astro build",
+    "test": "astro check",
     "preview": "astro preview",
     "sync": "astro sync",
     "check": "astro check",
