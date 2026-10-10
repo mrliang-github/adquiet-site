@@ -291,26 +291,24 @@ button[variant='ahead']:hover,
    - 卡片与面板容器: 16px (rounded-2xl)
    ========================================================================== */
 
-/* 1. 胶囊与标签：统一为 9999px 极致半圆胶囊 (True Pill Tokens) */
+/* 1. 专属胶囊与标签 Token：仅针对明确带有语义类名的胶囊生效，严禁使用属性选择器或全局 a.group 影响卡片 */
 .pill-badge,
 .tag-pill,
 .badge-pill,
 .capsule-badge,
-span[class*='rounded-md'][class*='px-2'],
-span[class*='rounded-md'][class*='px-3'] {
-  border-radius: 9999px !important;
-}
-
-/* 2. 行内代码与微信微胶囊 */
-code.rounded-md {
-  border-radius: 9999px !important;
-}
-
-/* 3. 统一全局按钮与跳转 CTA 为极致圆角胶囊 */
-a.group.rounded-lg,
-a.group.rounded-xl,
 .btn-pill {
+  /* 仅针对显式声明为胶囊的微型徽标与按钮应用 9999px 半圆胶囊圆角 */
   border-radius: 9999px !important;
 }
+
+/* 2. 卡片与面板容器规范：强制锁定为 1rem (16px, rounded-2xl)，杜绝任何全局胶囊样式误伤 */
+.hover-card-lift,
+.card-container,
+article[class*='rounded-2xl'],
+a[class*='rounded-2xl'],
+div[class*='rounded-2xl'] {
+  border-radius: 1rem !important; /* 16px 优雅现代圆角，彻底消除被挤压成椭圆或药丸的视觉 BUG */
+}
+
 
 

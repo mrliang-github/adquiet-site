@@ -17,21 +17,64 @@ const meta = {
   <Button title='返回' href='/' variant='back' />
   <main class='mt-6 lg:mt-10'>
     <div id='content-header' class='animate'>
-      <div class='flex flex-wrap items-center justify-between gap-4 mb-6 mt-6 sm:mt-10'>
+      <div class='flex flex-wrap items-center justify-between gap-4 mb-4 mt-6 sm:mt-10'>
         <div>
-          <h1 class='text-3xl font-medium'>风向标日报</h1>
+          <h1 class='text-3xl font-medium'>生财有术 · 风向标日报</h1>
           <p class='mt-2 text-muted-foreground text-sm'>
             海外出海机会、AI 变现模式与一线独立开发情报 · 共 {reports.length} 期
           </p>
         </div>
-        <a
-          href='https://t.zsxq.com/FBJDh'
-          target='_blank'
-          rel='noopener noreferrer'
-          class='inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors'
-        >
-          <span>生财有术专属通道 ↗</span>
-        </a>
+        <div class='flex items-center gap-2'>
+          <a
+            href='https://work.weixin.qq.com/ct/wcde8c6272cb42775a69efd3c537aa631fb4'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 transition-colors'
+          >
+            <span>领 3 天免费体验卡 ↗</span>
+          </a>
+          <a
+            href='https://t.zsxq.com/FBJDh'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors'
+          >
+            <span>生财星球通道 ↗</span>
+          </a>
+        </div>
+      </div>
+
+      {/* 3 天免费体验卡领取福利横幅 */}
+      <div class='my-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl border border-emerald-500/25 bg-gradient-to-r from-emerald-500/10 via-background to-primary/5 p-4 sm:p-5 shadow-xs'>
+        <div class='flex flex-col gap-1'>
+          <div class='flex items-center gap-2'>
+            <span class='rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2.5 py-0.5 text-xs font-medium text-emerald-600 dark:text-emerald-400'>
+              限时福利
+            </span>
+            <span class='text-xs font-semibold text-foreground'>生财有术 3 天免费体验卡</span>
+          </div>
+          <p class='text-xs text-muted-foreground mt-0.5 leading-relaxed'>
+            “用好 AI 跟上时代，仅靠想法致富的时代来了”。我已经加入生财有术，邀你免费体验三天完整社群，畅读一线商业风向。
+          </p>
+        </div>
+        <div class='flex items-center gap-3 shrink-0 self-end sm:self-auto'>
+          <a
+            href='https://work.weixin.qq.com/ct/wcde8c6272cb42775a69efd3c537aa631fb4'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3.5 py-1.5 text-xs font-medium text-white shadow-xs hover:bg-emerald-700 transition-colors'
+          >
+            <span>立即领卡 ↗</span>
+          </a>
+          <a
+            href='/images/shengcai-trial-card.png'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='text-xs text-muted-foreground hover:text-foreground underline underline-offset-4'
+          >
+            查看海报
+          </a>
+        </div>
       </div>
     </div>
 

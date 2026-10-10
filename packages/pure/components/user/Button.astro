@@ -19,7 +19,8 @@ const { as: Tag = 'a', class: className, title, href, variant = 'button', ...pro
   class={cn(
     'group inline-flex items-center gap-x-1 rounded-lg bg-muted border px-2 py-1 text-sm text-muted-foreground transition-all hover:bg-card no-underline',
     !href && 'cursor-default',
-    variant === 'pill' && 'rounded-xl',
+    // 当按钮变体为 pill 胶囊风格时，应用 rounded-full 实现半圆胶囊视觉，并附带语义类名
+    variant === 'pill' && 'rounded-full btn-pill',
     className
   )}
   href={href}

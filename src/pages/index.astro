@@ -18,9 +18,11 @@ import { getDailyReports, getEnglishLessons, type DailyReportItem, type EnglishL
 // 引入全站配置
 import config from '@/site-config'
 
-// 引入湖山天际线横幅与头像素材
+// 引入湖山天际线横幅与头像素材，以及生财有术体验卡与二维码切图
 import heroBanner from '@/assets/hero-banner.jpg'
 import avatarImg from '@/assets/avatar.png'
+import shengcaiTrialCard from '@/assets/shengcai-trial-card.png'
+import shengcaiQrcode from '@/assets/shengcai-qrcode.png'
 
 export const prerender = true
 
@@ -207,18 +209,18 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
           )
         }
 
-        {/* Section 4: 风向标日报精选 */}
-        <Section title='风向标日报' desc='出海机会、变现切片与商业模式'>
+        {/* Section 4: 生财有术 · 风向标 */}
+        <Section title='生财有术 · 风向标' desc='出海机会、商业情报与实战变现切片'>
           <div class='flex flex-col gap-3.5'>
             {
               dailyReports.map((report: DailyReportItem) => (
                 <a
                   href={`/daily/${report.slug}/`}
-                  class='group hover-card-lift rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
+                  class='group hover-card-lift rounded-2xl border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
                 >
                   <div class='mb-1.5 flex items-center justify-between text-xs text-muted-foreground'>
                     <span class='font-mono font-medium text-primary'>{report.editionDate}</span>
-                    <span class='rounded-md border border-border/60 bg-muted/70 px-2.5 py-1 text-xs text-muted-foreground'>实战情报切片</span>
+                    <span class='rounded-full border border-border/60 bg-muted/70 px-2.5 py-0.5 text-xs text-muted-foreground'>情报切片</span>
                   </div>
                   <h3 class='text-sm font-medium text-foreground transition-colors group-hover:text-primary sm:text-base'>
                     {report.title}
@@ -230,17 +232,91 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
               ))
             }
           </div>
-          <Button title='查看全部风向标日报 (共 18 期) →' class='w-fit self-end text-xs' href='/daily' variant='ahead' />
+          <Button title='查看全部风向标情报 (共 18 期) →' class='w-fit self-end text-xs' href='/daily' variant='ahead' />
+
+          {/* 生财有术 3 天免费体验卡专属福利模块：低摩擦力转化神器 */}
+          <div class='mt-2 overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-background to-primary/5 p-4.5 sm:p-6 shadow-sm transition-all hover:border-emerald-500/50'>
+            <div class='flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between'>
+              {/* 左侧文案与行动按钮 */}
+              <div class='flex flex-1 flex-col gap-y-2.5'>
+                <div class='flex items-center gap-x-2'>
+                  <span class='rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2.5 py-0.5 text-xs font-medium text-emerald-600 dark:text-emerald-400'>
+                    生财有术 · 限时体验福利
+                  </span>
+                  <span class='text-xs text-muted-foreground'>第十年 · 80000+ 创业者同行</span>
+                </div>
+                <h3 class='text-base font-semibold text-foreground sm:text-lg'>
+                  用好 AI 跟上时代 · 免费领取 3 天体验卡
+                </h3>
+                <p class='text-xs leading-relaxed text-muted-foreground sm:text-sm'>
+                  仅靠想法致富的时代来了，前提是用好 AI。我已经加入生财有术，邀你免费体验 3 天完整社区，畅读一线商业风向、AI 实操切片与出海变现案例。
+                </p>
+                <div class='mt-1 flex flex-wrap items-center gap-3 pt-1'>
+                  <a
+                    href='https://work.weixin.qq.com/ct/wcde8c6272cb42775a69efd3c537aa631fb4'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    class='inline-flex items-center gap-x-1.5 rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-medium text-white shadow-xs transition-all hover:bg-emerald-700 hover:shadow-md'
+                  >
+                    <span>立即领取 3 天体验卡 ↗</span>
+                  </a>
+                  <a
+                    href='/images/shengcai-trial-card.png'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    class='text-xs text-muted-foreground hover:text-foreground underline underline-offset-4'
+                  >
+                    查看体验卡海报
+                  </a>
+                </div>
+              </div>
+
+              {/* 右侧体验卡缩略图与二维码 */}
+              <div class='flex items-center justify-around gap-4 border-t border-border/50 pt-4 sm:border-t-0 sm:border-l sm:pl-6 sm:pt-0 shrink-0'>
+                {/* 体验卡海报微缩卡片 */}
+                <a
+                  href='/images/shengcai-trial-card.png'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  title='点击查看生财有术 3 天体验卡高清大图'
+                  class='group/card relative hidden sm:block w-24 overflow-hidden rounded-xl border border-emerald-500/30 shadow-md transition-transform hover:scale-105'
+                >
+                  <Image
+                    src={shengcaiTrialCard}
+                    alt='生财有术 3 天体验卡海报'
+                    class='w-full object-cover'
+                    loading='lazy'
+                  />
+                  <div class='absolute inset-0 bg-black/0 group-hover/card:bg-black/10 transition-colors flex items-center justify-center'>
+                    <span class='opacity-0 group-hover/card:opacity-100 text-[10px] text-white bg-black/60 px-1.5 py-0.5 rounded-full transition-opacity'>放大</span>
+                  </div>
+                </a>
+
+                {/* 二维码 */}
+                <div class='flex flex-col items-center gap-y-1.5'>
+                  <div class='overflow-hidden rounded-xl border border-border/80 bg-white p-1.5 shadow-xs'>
+                    <Image
+                      src={shengcaiQrcode}
+                      alt='微信扫码领取生财有术 3 天体验卡'
+                      class='size-20 sm:size-22 object-contain'
+                      loading='lazy'
+                    />
+                  </div>
+                  <span class='text-[11px] text-muted-foreground'>微信扫码领取</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </Section>
 
-        {/* Section 5: 出海工作英语课程 */}
-        <Section title='出海工作英语' desc='不背冷门单词，只练真实沟通场景'>
+        {/* Section 5: 英语学习打卡资料 */}
+        <Section title='英语学习打卡资料' desc='不背冷门单词，只练真实出海沟通场景 · 每日打卡与实战手册'>
           <div class='grid gap-3.5 sm:grid-cols-3'>
             {
               englishLessons.map((lesson: EnglishLessonItem, idx: number) => (
                 <a
                   href={`/english/${lesson.slug}/`}
-                  class='group hover-card-lift flex flex-col justify-between rounded-xl border border-border/70 p-4 transition-all hover:bg-muted/30'
+                  class='group hover-card-lift flex flex-col justify-between rounded-2xl border border-border/70 p-4.5 transition-all hover:bg-muted/30'
                 >
                   <div>
                     <span class='font-mono text-xs font-medium text-primary'>
@@ -253,12 +329,12 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
                       {lesson.scenario || lesson.goal}
                     </p>
                   </div>
-                  <span class='mt-3.5 text-xs font-medium text-primary'>进入学习 →</span>
+                  <span class='mt-3.5 text-xs font-medium text-primary'>进入打卡学习 →</span>
                 </a>
               ))
             }
           </div>
-          <Button title='查看全部场景课程 (共 20 节) →' class='w-fit self-end text-xs' href='/english' variant='ahead' />
+          <Button title='查看全部打卡资料 (共 20 节) →' class='w-fit self-end text-xs' href='/english' variant='ahead' />
         </Section>
 
         {/* Section 6: 能力与工具栈 */}
