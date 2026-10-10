@@ -49,8 +49,8 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
       
       {/* 1. Header Profile Hero：去除了生硬的外层闭合卡片边框，向上自然探入悬浮 Header 背后，形成强烈毛玻璃折射 */}
       <div class='group/hero animate -mt-5 sm:-mt-8 mb-8 w-full sm:mb-12'>
-        {/* 顶部湖山天际线全景横幅：微圆角矩形视窗，底部平滑过渡融入页面背景 */}
-        <div class='relative h-52 w-full overflow-hidden rounded-xl sm:h-64 md:h-76 ring-1 ring-border/50'>
+        {/* 顶部湖山天际线全景横幅：微圆角矩形视窗 (rounded-md)，底部平滑过渡融入页面背景 */}
+        <div class='relative h-52 w-full overflow-hidden rounded-md sm:h-64 md:h-76 ring-1 ring-border/50'>
           <Image
             src={heroBanner}
             alt='湖山与城市天际线全景'
@@ -83,11 +83,11 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
             </p>
           </div>
 
-          {/* 核心社交与实战合作标签：微圆角矩形质感，告别胶囊药丸化 */}
+          {/* 核心社交与实战合作标签：严肃正式矩形微圆角质感 (rounded-md) */}
           <div class='flex flex-wrap items-center justify-center gap-2.5 text-xs'>
             {/* 商务交流与微信号标签 */}
             <div
-              class='flex items-center gap-x-2 rounded-lg border border-border/80 bg-background/90 px-3 py-1.5 font-mono text-muted-foreground shadow-xs transition-colors hover:border-primary/50 hover:text-foreground'
+              class='flex items-center gap-x-2 rounded-md border border-border/80 bg-background/90 px-3 py-1.5 font-mono text-muted-foreground shadow-xs transition-colors hover:border-primary/50 hover:text-foreground'
               title='微信合作交流联系方式'
             >
               <span class='font-sans font-medium text-primary'>微信</span>
@@ -96,7 +96,7 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
 
             {/* 生财有术社群标签 */}
             <div
-              class='flex items-center gap-x-1.5 rounded-lg border border-border/80 bg-background/90 px-3 py-1.5 text-muted-foreground shadow-xs'
+              class='flex items-center gap-x-1.5 rounded-md border border-border/80 bg-background/90 px-3 py-1.5 text-muted-foreground shadow-xs'
               title='多年生财有术社群观察者与志愿者实践'
             >
               <Icon name='sun' class='size-3.5 text-amber-500' />
@@ -109,7 +109,7 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
               as='a'
               href='https://github.com/mrliang-github'
               target='_blank'
-              class='rounded-lg'
+              class='rounded-md'
             >
               <Icon name='github' class='size-3.5' slot='icon' />
             </Label>
@@ -120,14 +120,14 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
               as='a'
               href='https://x.com/lingxio71220285'
               target='_blank'
-              class='rounded-lg'
+              class='rounded-md'
             >
               <Icon name='x' class='size-3.5' slot='icon' />
             </Label>
           </div>
 
-          {/* 动态核心金句：微圆角矩形卡片 */}
-          <div class='mt-1.5 flex flex-row items-center gap-x-3 rounded-lg border border-border/80 bg-background/90 px-4 py-2 text-xs text-muted-foreground shadow-xs backdrop-blur-sm transition-all duration-200 hover:border-primary/50 hover:bg-muted/60'>
+          {/* 动态核心金句：微圆角矩形卡片 (rounded-md) */}
+          <div class='mt-1.5 flex flex-row items-center gap-x-3 rounded-md border border-border/80 bg-background/90 px-4 py-2 text-xs text-muted-foreground shadow-xs backdrop-blur-sm transition-all duration-200 hover:border-primary/50 hover:bg-muted/60'>
             <span class='relative flex items-center justify-center'>
               <span class='absolute size-2 animate-ping rounded-full bg-emerald-400 opacity-75'></span>
               <span class='size-2 rounded-full bg-emerald-500'></span>
@@ -169,7 +169,7 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
                   href={p.href}
                   target={p.external ? '_blank' : undefined}
                   rel={p.external ? 'noopener noreferrer' : undefined}
-                  class='group hover-card-lift flex flex-col justify-between rounded-lg border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
+                  class='group hover-card-lift flex flex-col justify-between rounded-md border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
                 >
                   <div>
                     <div class='mb-2.5 flex items-center justify-between text-xs text-muted-foreground'>
@@ -218,7 +218,7 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
               dailyReports.map((report: DailyReportItem) => (
                 <a
                   href={`/daily/${report.slug}/`}
-                  class='group hover-card-lift rounded-lg border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
+                  class='group hover-card-lift rounded-md border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
                 >
                   <div class='mb-1.5 flex items-center justify-between text-xs text-muted-foreground'>
                     <span class='font-mono font-medium text-primary'>{report.editionDate}</span>
@@ -237,7 +237,7 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
           <Button title='查看全部风向标情报 (共 18 期) →' class='w-fit self-end text-xs' href='/daily' variant='ahead' />
 
           {/* 生财有术 3 天免费体验卡专属福利模块：微圆角矩形质感 */}
-          <div class='mt-2 overflow-hidden rounded-lg border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-background to-primary/5 p-4.5 sm:p-6 shadow-sm transition-all hover:border-emerald-500/50'>
+          <div class='mt-2 overflow-hidden rounded-md border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-background to-primary/5 p-4.5 sm:p-6 shadow-sm transition-all hover:border-emerald-500/50'>
             <div class='flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between'>
               {/* 左侧文案与行动按钮 */}
               <div class='flex flex-1 flex-col gap-y-2.5'>
@@ -258,7 +258,7 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
                     href='https://work.weixin.qq.com/ct/wcde8c6272cb42775a69efd3c537aa631fb4'
                     target='_blank'
                     rel='noopener noreferrer'
-                    class='inline-flex items-center gap-x-1.5 rounded-lg bg-emerald-600 px-4 py-1.5 text-xs font-medium text-white shadow-xs transition-all hover:bg-emerald-700 hover:shadow-md'
+                    class='inline-flex items-center gap-x-1.5 rounded-md bg-emerald-600 px-4 py-1.5 text-xs font-medium text-white shadow-xs transition-all hover:bg-emerald-700 hover:shadow-md'
                   >
                     <span>立即领取 3 天体验卡 ↗</span>
                   </a>
@@ -318,7 +318,7 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
               englishLessons.map((lesson: EnglishLessonItem, idx: number) => (
                 <a
                   href={`/english/${lesson.slug}/`}
-                  class='group hover-card-lift flex flex-col justify-between rounded-lg border border-border/70 p-4.5 transition-all hover:bg-muted/30'
+                  class='group hover-card-lift flex flex-col justify-between rounded-md border border-border/70 p-4.5 transition-all hover:bg-muted/30'
                 >
                   <div>
                     <span class='font-mono text-xs font-medium text-primary'>

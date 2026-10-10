@@ -125,7 +125,7 @@ pre.astro-code {
   margin-top: 1.25rem !important;
   margin-bottom: 1.25rem !important;
   border: 1px solid hsl(var(--border) / 0.85) !important;
-  border-radius: 0.75rem !important;
+  border-radius: 6px !important;
   box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.04) !important;
 }
 .astro-code pre,
@@ -140,7 +140,7 @@ blockquote {
   padding: 0.875rem 1.25rem !important;
   border-left-width: 3.5px !important;
   background-color: hsl(var(--muted) / 0.35) !important;
-  border-radius: 0 0.625rem 0.625rem 0 !important;
+  border-radius: 0 4px 4px 0 !important;
   line-height: 1.65 !important;
 }
 
@@ -284,38 +284,47 @@ button[variant='ahead']:hover,
 }
 
 /* ==========================================================================
-   全站克制几何微圆角规范 (Modern Subtle Rectangle Radius System)
-   拒绝臃肿大圆角与药丸胶囊，回归现代科技极简“矩形带一丢丢微圆角”质感：
-   - 卡片、容器、面板 (.hover-card-lift, article, cards): 0.5rem (8px / rounded-lg) 挺拔微圆角矩形
-   - 徽标、标签、分类、按钮、状态 (tags, badges, buttons): 0.375rem (6px / rounded-md) 精致微圆角矩形
-   - 目录 TOC 单项高亮: 0.375rem (6px / rounded-md)
+   全站严肃正式微圆角规范 (Strict Subtle Rectangle System)
+   彻底杜绝任何椭圆、跑道与药丸胶囊，回归最严肃专业的现代工程矩形质感：
+   - 所有内容卡片与容器 (.hover-card-lift, article, cards): 严格 6px (0.375rem) 矩形微圆角
+   - 所有徽标、标签与状态 (tags, badges, chips): 严格 4px (0.25rem) 干练小矩形
+   - 严禁任何内容元素使用 9999px 或呈现胶囊/椭圆形
    ========================================================================== */
 
-/* 1. 卡片与面板容器规范：统一锁定为 8px (0.5rem)，挺拔几何矩形，带一丢丢微圆角 */
+/* 1. 卡片与内容面板容器：锁定为 6px 严肃矩形微圆角 */
 .hover-card-lift,
 .card-container,
 article,
+article[class*='rounded-'],
+div[class*='hover-card-lift'],
+a[class*='hover-card-lift'],
 div[class*='rounded-2xl'],
 a[class*='rounded-2xl'],
 div[class*='rounded-xl'],
-a[class*='rounded-xl'] {
-  border-radius: 0.5rem !important; /* 8px 现代挺拔微圆角矩形，彻底告别药丸与膨胀大圆角 */
+a[class*='rounded-xl'],
+div[class*='rounded-lg'],
+a[class*='rounded-lg'] {
+  border-radius: 6px !important; /* 6px 纯正现代工程矩形，仅带一丢丢微圆角，绝对正式 */
 }
 
-/* 2. 徽标、标签与操作微按钮：统一为 6px (0.375rem)，杜绝任何胶囊药丸化 */
+/* 2. 徽标、标签、行内代码与小按钮：锁定为 4px 精致小矩形微圆角 */
 .pill-badge,
 .tag-pill,
 .badge-pill,
 .capsule-badge,
 .btn-pill,
 [data-lesson-badge],
-.tag-badge {
-  border-radius: 0.375rem !important; /* 6px 精致微圆角矩形标签 */
+.tag-badge,
+span[class*='rounded-full'],
+span[class*='rounded-md'],
+span[class*='rounded-lg'],
+span[class*='rounded'] {
+  border-radius: 4px !important; /* 4px 现代干练微圆角矩形，绝不搞成胶囊药丸 */
 }
 
-/* 3. 目录 TOC 选中高亮项：微圆角矩形 6px */
+/* 3. 目录 TOC 选中高亮项：锁定为 4px 矩形微圆角 */
 .toc-item {
-  border-radius: 0.375rem !important;
+  border-radius: 4px !important;
 }
 
 

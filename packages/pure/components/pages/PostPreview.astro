@@ -40,7 +40,7 @@ const previewData = data as typeof data & Partial<PreviewMetadata>
 >
   <a
     class={cn(
-      'block w-full relative group rounded-lg border bg-background transition-colors ease-in-out px-5 py-2.5 hover:bg-muted hover:text-primary',
+      'block w-full relative group rounded-md border bg-background transition-colors ease-in-out px-5 py-2.5 hover:bg-muted hover:text-primary',
       detailed && 'max-sm:px-4 sm:py-5',
       detailed && previewData.heroImage && 'max-md:pt-24'
     )}
@@ -51,7 +51,7 @@ const previewData = data as typeof data & Partial<PreviewMetadata>
       detailed && previewData.heroImage && (
         <Image
           alt={previewData.heroImage.alt || data.title}
-          class='cover-image absolute end-0 top-0 z-0 h-2/3 w-full rounded-lg object-cover opacity-50 transition-opacity duration-300 group-hover:opacity-70 md:h-full md:w-3/5'
+          class='cover-image absolute end-0 top-0 z-0 h-2/3 w-full rounded-md object-cover opacity-50 transition-opacity duration-300 group-hover:opacity-70 md:h-full md:w-3/5'
           loading='eager'
           {...previewData.heroImage}
         />
