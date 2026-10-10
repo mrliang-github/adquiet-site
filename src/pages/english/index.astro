@@ -27,7 +27,7 @@ const meta = {
       {/* 客户端打卡进度统计横幅：当用户有完成记录时自动展示 */}
       <div
         id='lesson-progress-banner'
-        class='hidden mb-6 flex items-center justify-between rounded-2xl border border-emerald-500/25 bg-emerald-500/10 px-4 py-3 text-xs sm:text-sm text-foreground shadow-2xs'
+        class='hidden mb-6 flex items-center justify-between rounded-lg border border-emerald-500/25 bg-emerald-500/10 px-4 py-3 text-xs sm:text-sm text-foreground shadow-2xs'
       >
         <div class='flex items-center gap-2.5'>
           <span class='size-2 rounded-full bg-emerald-500 animate-pulse'></span>
@@ -42,7 +42,7 @@ const meta = {
         {
           lessons.map((lesson: EnglishLessonItem, idx: number) => (
             <article
-              class='group hover-card-lift flex flex-col justify-between rounded-2xl border border-border/70 p-5 transition-all hover:bg-muted/30'
+              class='group hover-card-lift flex flex-col justify-between rounded-lg border border-border/70 p-5 transition-all hover:bg-muted/30'
               data-lesson-card
               data-lesson-id={lesson.id}
               data-lesson-revision={lesson.revision || 'v1'}
@@ -55,7 +55,7 @@ const meta = {
                     </span>
                     <span
                       data-lesson-badge
-                      class='hidden rounded-full border px-2 py-0.5 text-[10px] font-medium'
+                      class='hidden rounded-md border px-2 py-0.5 text-[10px] font-medium'
                     ></span>
                   </div>
                   {lesson.durationMinutes && (
@@ -126,13 +126,13 @@ const meta = {
               completedCount++;
               if (badge) {
                 badge.textContent = '✓ 已打卡';
-                badge.className = 'rounded-full border border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 text-[10px] font-medium';
+                badge.className = 'rounded-md border border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 text-[10px] font-medium';
               }
               if (cta) cta.textContent = '温习打卡 →';
             } else if (progress.lastSentenceId) {
               if (badge) {
                 badge.textContent = '练习中';
-                badge.className = 'rounded-full border border-primary/30 bg-primary/10 text-primary px-2 py-0.5 text-[10px] font-medium';
+                badge.className = 'rounded-md border border-primary/30 bg-primary/10 text-primary px-2 py-0.5 text-[10px] font-medium';
               }
               if (cta) cta.textContent = '继续打卡 →';
             }

@@ -19,10 +19,10 @@ const headings = [
 ---
 
 <PageLayout title='关于我' {headings} view>
-  {/* 身份核心标签：遵循全站胶囊规范统一为 rounded-full */}
+  {/* 身份核心标签：微圆角矩形质感，告别胶囊药丸化 */}
   <div class='flex flex-wrap items-center gap-2.5 font-medium text-foreground text-sm sm:text-base'>
-    {/* 核心主定位：极致圆角胶囊 */}
-    <span class='rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary'>学的是设计，做的是产品</span>
+    {/* 核心主定位：精致微圆角矩形标签 */}
+    <span class='rounded-md border border-primary/30 bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary'>学的是设计，做的是产品</span>
     <span class='text-muted-foreground/60'>/</span>
     <span class='text-xs sm:text-sm'>跨境电商 CMS·ERP</span>
     <span class='text-muted-foreground/60'>/</span>
@@ -33,15 +33,15 @@ const headings = [
     <span class='text-xs sm:text-sm'>出海实践</span>
   </div>
 
-  {/* 核心金句引用框：采用 rounded-2xl 现代大圆角卡片质感 */}
-  <blockquote class='my-5 rounded-2xl border-l-3 border-primary bg-muted/30 pl-4 py-2 pr-3 text-sm italic text-muted-foreground'>
+  {/* 核心金句引用框：采用 rounded-lg 现代微圆角矩形卡片质感 */}
+  <blockquote class='my-5 rounded-lg border-l-3 border-primary bg-muted/30 pl-4 py-2.5 pr-3 text-sm italic text-muted-foreground'>
     “学的是设计，做的是产品。主业深耕跨境电商 CMS / ERP 与业务流程优化，业余持续用 AI 做了 10+ 款 iOS、macOS 和 Web 产品。正在从产品经理走向 AI 开发者，探索出海和个人产品的长期可能性。”
   </blockquote>
 
   {/* 第一章：自我介绍 */}
   <h2 id='intro'>你好，我是良逍</h2>
   <p>
-    我叫<strong>良逍</strong>。学的是设计，做的是产品。在很多自媒体平台上我也叫<strong>良逍Ai出海 / 良逍Ai出海笔记</strong>。微信号是 <code class='rounded-full border border-border/80 bg-muted/80 px-3 py-1 text-xs font-mono font-medium text-primary'>liangxiao-20</code>。
+    我叫<strong>良逍</strong>。学的是设计，做的是产品。在很多自媒体平台上我也叫<strong>良逍Ai出海 / 良逍Ai出海笔记</strong>。微信号是 <code class='rounded-md border border-border/80 bg-muted/80 px-2.5 py-1 text-xs font-mono font-medium text-primary'>liangxiao-20</code>。
   </p>
   <p>
     我目前本职是一名深耕业务一线的<strong>产品经理</strong>，主要负责<strong>跨境电商相关的 CMS、ERP 这类企业级后台业务系统产品</strong>。这类产品涉及的业务链路极长、规则严谨，从后台页面管理、内容配置、商品管理、库存管理，到业务流程、系统逻辑、信息架构，我都会参与得比较深。
@@ -315,19 +315,19 @@ const headings = [
   {/* 第六章：做事原则与写作备忘 */}
   <h2 id='principles'>做事态度与写作原则</h2>
   <div class='not-prose my-4 space-y-3'>
-    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+    <div class='hover-card-lift rounded-lg border border-border/70 p-4'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>1. 不立虚浮人设，踩过坑的才是真东西</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
         避免“全栈神仙”、“大牛”等过度包装词汇。我的内容涉猎可能比较杂（从产品设计、写代码到 SEO 和投放），但我直接承认——因为这些全都是我自己下场亲自跑过的，真诚比硬凹人设好得多。
       </p>
     </div>
-    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+    <div class='hover-card-lift rounded-lg border border-border/70 p-4'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>2. 业务为本，流程优先</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
         做产品先摸透业务链路与状态机，找出流程断点并消除人工搬砖，是系统最大的价值所在。界面的本质是业务流的投影，把逻辑理顺比无谓的交互堆砌重要十倍。
       </p>
     </div>
-    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+    <div class='hover-card-lift rounded-lg border border-border/70 p-4'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>3. 真实优先，跑通闭环（End-to-End）</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
         做一个玩具 Demo 很容易，但产品必须面对打包、签名、商店素材、隐私协议、App Store 审核与真实用户体验。打通从 0 到 1 的交付闭环，才能形成真正的手感。

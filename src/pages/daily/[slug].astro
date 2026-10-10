@@ -58,7 +58,7 @@ const meta = {
 
     <!-- Overview Callout -->
     {report.overview && (
-      <section class='my-6 rounded-2xl bg-muted/40 border border-border/80 p-5'>
+      <section class='my-6 rounded-lg bg-muted/40 border border-border/80 p-5'>
         <h2 class='text-sm font-semibold text-foreground/90 flex items-center gap-2 mb-2'>
           <span>💡 核心综述</span>
         </h2>
@@ -76,7 +76,7 @@ const meta = {
         </h2>
         <div class='space-y-4'>
           {report.discoveries.map((item: DailyDiscovery, idx: number) => (
-            <div class='rounded-xl border border-border/60 p-4 transition-colors hover:border-border'>
+            <div class='rounded-lg border border-border/60 p-4 transition-colors hover:border-border'>
               <div class='flex items-start gap-3'>
                 <span class='flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-mono font-medium text-primary'>
                   {idx + 1}
@@ -85,7 +85,7 @@ const meta = {
                   <h3 class='text-base font-medium text-foreground'>{item.title}</h3>
                   <p class='text-sm text-muted-foreground leading-relaxed'>{item.fact || item.detail}</p>
                   {(item.judgement || item.keyPoint) && (
-                    <div class='mt-2.5 inline-block rounded-lg border border-primary/25 bg-primary/10 px-3 py-1.5 text-xs text-primary font-medium leading-relaxed'>
+                    <div class='mt-2.5 inline-block rounded-md border border-primary/25 bg-primary/10 px-3 py-1.5 text-xs text-primary font-medium leading-relaxed'>
                       💡 关键判断：{item.judgement || item.keyPoint}
                     </div>
                   )}
@@ -106,7 +106,7 @@ const meta = {
 
     <!-- Next Step Callout -->
     {report.nextStep && (
-      <section class='my-6 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm'>
+      <section class='my-6 rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm'>
         <span class='font-medium text-primary block mb-1'>🎯 下一步验证与行动：</span>
         <p class='text-muted-foreground leading-relaxed'>{report.nextStep}</p>
       </section>

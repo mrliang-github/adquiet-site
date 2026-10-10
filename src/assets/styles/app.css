@@ -284,30 +284,38 @@ button[variant='ahead']:hover,
 }
 
 /* ==========================================================================
-   全站圆角设计系统规范 (Universal Radius Design System)
-   解决“方不方圆不圆”的视觉别扭感，统一全站层级：
-   - 徽标/标签/按钮/小胶囊: 9999px (rounded-full)
-   - 目录 TOC 单项高亮: 9999px (rounded-full)
-   - 卡片与面板容器: 16px (rounded-2xl)
+   全站克制几何微圆角规范 (Modern Subtle Rectangle Radius System)
+   拒绝臃肿大圆角与药丸胶囊，回归现代科技极简“矩形带一丢丢微圆角”质感：
+   - 卡片、容器、面板 (.hover-card-lift, article, cards): 0.5rem (8px / rounded-lg) 挺拔微圆角矩形
+   - 徽标、标签、分类、按钮、状态 (tags, badges, buttons): 0.375rem (6px / rounded-md) 精致微圆角矩形
+   - 目录 TOC 单项高亮: 0.375rem (6px / rounded-md)
    ========================================================================== */
 
-/* 1. 专属胶囊与标签 Token：仅针对明确带有语义类名的胶囊生效，严禁使用属性选择器或全局 a.group 影响卡片 */
+/* 1. 卡片与面板容器规范：统一锁定为 8px (0.5rem)，挺拔几何矩形，带一丢丢微圆角 */
+.hover-card-lift,
+.card-container,
+article,
+div[class*='rounded-2xl'],
+a[class*='rounded-2xl'],
+div[class*='rounded-xl'],
+a[class*='rounded-xl'] {
+  border-radius: 0.5rem !important; /* 8px 现代挺拔微圆角矩形，彻底告别药丸与膨胀大圆角 */
+}
+
+/* 2. 徽标、标签与操作微按钮：统一为 6px (0.375rem)，杜绝任何胶囊药丸化 */
 .pill-badge,
 .tag-pill,
 .badge-pill,
 .capsule-badge,
-.btn-pill {
-  /* 仅针对显式声明为胶囊的微型徽标与按钮应用 9999px 半圆胶囊圆角 */
-  border-radius: 9999px !important;
+.btn-pill,
+[data-lesson-badge],
+.tag-badge {
+  border-radius: 0.375rem !important; /* 6px 精致微圆角矩形标签 */
 }
 
-/* 2. 卡片与面板容器规范：强制锁定为 1rem (16px, rounded-2xl)，杜绝任何全局胶囊样式误伤 */
-.hover-card-lift,
-.card-container,
-article[class*='rounded-2xl'],
-a[class*='rounded-2xl'],
-div[class*='rounded-2xl'] {
-  border-radius: 1rem !important; /* 16px 优雅现代圆角，彻底消除被挤压成椭圆或药丸的视觉 BUG */
+/* 3. 目录 TOC 选中高亮项：微圆角矩形 6px */
+.toc-item {
+  border-radius: 0.375rem !important;
 }
 
 
