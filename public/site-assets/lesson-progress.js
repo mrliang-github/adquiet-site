@@ -5,11 +5,14 @@
     if (!id || !revision) continue;
     try {
       const progress = JSON.parse(window.localStorage.getItem(`liangxiao-english:${id}:${revision}`) ?? "{}");
-      if (progress.lastSentenceId || progress.completed) {
-        link.textContent = "继续练习";
+      if (progress.completed) {
+        link.textContent = "温习打卡 →";
+      } else if (progress.lastSentenceId) {
+        link.textContent = "继续打卡 →";
       }
     } catch {
       // Local storage is an enhancement, not a dependency for navigation.
     }
   }
 })();
+

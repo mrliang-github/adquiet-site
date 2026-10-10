@@ -1,4 +1,4 @@
-import type { CardListData, Config, IntegrationUserConfig, ThemeUserConfig } from 'astro-pure/types'
+import type { Config, IntegrationUserConfig, ThemeUserConfig } from 'astro-pure/types'
 
 export const theme: ThemeUserConfig = {
   // [Basic]
@@ -42,8 +42,8 @@ export const theme: ThemeUserConfig = {
   header: {
     menu: [
       { title: '博客', link: '/blog' },
-      { title: '风向标日报', link: '/daily' },
-      { title: '出海英语', link: '/english' },
+      { title: '风向标', link: '/daily' },
+      { title: '英语打卡', link: '/english' },
       { title: '产品矩阵', link: '/projects' },
       { title: '关于我', link: '/about' }
     ]
@@ -94,11 +94,10 @@ export const integ: IntegrationUserConfig = {
   links: {
     // Friend logbook
     logbook: [
-      { date: '2025-03-16', content: 'Is there a leakage?' },
-      { date: '2025-03-16', content: 'A leakage of what?' },
-      { date: '2025-03-16', content: 'I have a full seat of water, like, full of water!' },
-      { date: '2025-03-16', content: 'Must be the water.' },
-      { date: '2025-03-16', content: "Let's add that to the words of wisdom." }
+      { date: '2026-03-20', content: '上线 HeatSleuth macOS 发热与功耗诊断工具' },
+      { date: '2026-04-10', content: '上线 OtterBar 菜单栏快速检索原生工具' },
+      { date: '2026-06-01', content: '上线 AdQuiet 视频纯净播放扩展与 PDF Snap' },
+      { date: '2026-10-09', content: '重构良逍个人产品空间、出海风向标与英语打卡' }
     ],
     // Yourself link info
     applyTip: [
@@ -152,28 +151,6 @@ export const integ: IntegrationUserConfig = {
       }
     }
   }
-}
-
-export const terms: CardListData = {
-  title: 'Terms content',
-  list: [
-    {
-      title: 'Privacy Policy',
-      link: '/terms/privacy-policy'
-    },
-    {
-      title: 'Terms and Conditions',
-      link: '/terms/terms-and-conditions'
-    },
-    {
-      title: 'Copyright',
-      link: '/terms/copyright'
-    },
-    {
-      title: 'Disclaimer',
-      link: '/terms/disclaimer'
-    }
-  ]
 }
 
 const config = { ...theme, integ } as Config

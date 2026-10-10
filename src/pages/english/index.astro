@@ -8,8 +8,8 @@ export const prerender = true
 const lessons = getEnglishLessons()
 
 const meta = {
-  title: '出海独立开发工作英语',
-  description: '面向出海开发者、产品经理的高频业务场景实战英文：从 Bug 回复、合同协商到催款与用户沟通'
+  title: '英语学习打卡资料 · 出海实战会话',
+  description: '面向出海开发者、产品经理的高频业务场景实战英文打卡资料：从 Bug 回复、合同协商到催款与用户沟通'
 }
 ---
 
@@ -18,10 +18,22 @@ const meta = {
   <main class='mt-6 lg:mt-10'>
     <div id='content-header' class='animate'>
       <div class='mb-6 mt-6 sm:mt-10'>
-        <h1 class='text-3xl font-medium'>出海独立开发工作英语</h1>
+        <h1 class='text-3xl font-medium'>英语学习打卡资料</h1>
         <p class='mt-2 text-muted-foreground text-sm max-w-2xl leading-relaxed'>
-          不背冷门单词，只练真实场景。整理自出海沟通中的真实场景：处理 Bug 反馈、协商赞助合作、催讨发票、澄清产品边界与用户访谈。共 {lessons.length} 个高频场景。
+          不背冷门单词，只练真实场景。整理自出海沟通中的真实高频场景：处理 Bug 反馈、协商赞助合作、催讨发票、澄清产品边界与用户访谈。共 {lessons.length} 节每日打卡资料。
         </p>
+      </div>
+
+      {/* 客户端打卡进度统计横幅：当用户有完成记录时自动展示 */}
+      <div
+        id='lesson-progress-banner'
+        class='hidden mb-6 flex items-center justify-between rounded-2xl border border-emerald-500/25 bg-emerald-500/10 px-4 py-3 text-xs sm:text-sm text-foreground shadow-2xs'
+      >
+        <div class='flex items-center gap-2.5'>
+          <span class='size-2 rounded-full bg-emerald-500 animate-pulse'></span>
+          <span>实战打卡进度：已打卡 <strong id='completed-count' class='font-mono font-semibold text-emerald-600 dark:text-emerald-400'>0</strong> / {lessons.length} 节</span>
+        </div>
+        <span class='text-[11px] text-muted-foreground hidden sm:inline'>记录已安全保存在本地</span>
       </div>
     </div>
 
@@ -29,12 +41,23 @@ const meta = {
       <div class='grid gap-4 sm:grid-cols-2'>
         {
           lessons.map((lesson: EnglishLessonItem, idx: number) => (
-            <article class='group hover-card-lift flex flex-col justify-between rounded-2xl border border-border/70 p-5 transition-all hover:bg-muted/30'>
+            <article
+              class='group hover-card-lift flex flex-col justify-between rounded-2xl border border-border/70 p-5 transition-all hover:bg-muted/30'
+              data-lesson-card
+              data-lesson-id={lesson.id}
+              data-lesson-revision={lesson.revision || 'v1'}
+            >
               <div>
                 <div class='flex items-center justify-between text-xs text-muted-foreground mb-2'>
-                  <span class='font-mono font-medium text-primary'>
-                    Lesson {String(idx + 1).padStart(2, '0')}
-                  </span>
+                  <div class='flex items-center gap-2'>
+                    <span class='font-mono font-medium text-primary'>
+                      Lesson {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <span
+                      data-lesson-badge
+                      class='hidden rounded-full border px-2 py-0.5 text-[10px] font-medium'
+                    ></span>
+                  </div>
                   {lesson.durationMinutes && (
                     <span class='flex items-center gap-1 text-[11px]'>
                       ⏱️ {lesson.durationMinutes} 分钟
@@ -70,8 +93,11 @@ const meta = {
                 <a
                   href={`/english/${lesson.slug}/`}
                   class='font-medium text-primary hover:underline shrink-0'
+                  data-lesson-cta
+                  data-lesson-id={lesson.id}
+                  data-lesson-revision={lesson.revision || 'v1'}
                 >
-                  开始学习 →
+                  进入打卡学习 →
                 </a>
               </div>
             </article>
@@ -79,5 +105,49 @@ const meta = {
         }
       </div>
     </section>
+
+    {/* 载入打卡状态同步脚本 */}
+    <script is:inline>
+      (() => {
+        let completedCount = 0;
+        const cards = document.querySelectorAll('[data-lesson-card]');
+        cards.forEach((card) => {
+          const id = card.getAttribute('data-lesson-id');
+          const revision = card.getAttribute('data-lesson-revision');
+          if (!id || !revision) return;
+          try {
+            const raw = localStorage.getItem(`liangxiao-english:${id}:${revision}`);
+            if (!raw) return;
+            const progress = JSON.parse(raw);
+            const cta = card.querySelector('[data-lesson-cta]');
+            const badge = card.querySelector('[data-lesson-badge]');
+
+            if (progress.completed) {
+              completedCount++;
+              if (badge) {
+                badge.textContent = '✓ 已打卡';
+                badge.className = 'rounded-full border border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 text-[10px] font-medium';
+              }
+              if (cta) cta.textContent = '温习打卡 →';
+            } else if (progress.lastSentenceId) {
+              if (badge) {
+                badge.textContent = '练习中';
+                badge.className = 'rounded-full border border-primary/30 bg-primary/10 text-primary px-2 py-0.5 text-[10px] font-medium';
+              }
+              if (cta) cta.textContent = '继续打卡 →';
+            }
+          } catch (e) {}
+        });
+
+        if (completedCount > 0) {
+          const banner = document.getElementById('lesson-progress-banner');
+          const countEl = document.getElementById('completed-count');
+          if (banner && countEl) {
+            countEl.textContent = String(completedCount);
+            banner.classList.remove('hidden');
+          }
+        }
+      })();
+    </script>
   </main>
 </PageLayout>
