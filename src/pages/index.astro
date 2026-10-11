@@ -31,9 +31,11 @@ const MAX_POSTS = 5
 const allPosts = await getBlogCollection()
 const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 
-// 获取风向标日报与出海英语前 3 篇作为首页切片
-const dailyReports = getDailyReports().slice(0, 3)
-const englishLessons = getEnglishLessons().slice(0, 3)
+// 获取风向标日报与出海英语数据（保留全量用于动态计数，切片前 3 篇作为首页展示）
+const allDailyReports = getDailyReports()
+const allEnglishLessons = getEnglishLessons()
+const dailyReports = allDailyReports.slice(0, 3)
+const englishLessons = allEnglishLessons.slice(0, 3)
 
 // 技能与工具栈：真实对应主业 ERP/CMS、AI 实操与端到端独立开发
 const productSkills = ['跨境电商 CMS/ERP', '业务流程优化', '后台页面与配置', '信息架构与状态机']
@@ -234,7 +236,7 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
               ))
             }
           </div>
-          <Button title='查看全部风向标情报 (共 18 期) →' class='w-fit self-end text-xs' href='/daily' variant='ahead' />
+          <Button title={`查看全部风向标情报 (共 ${allDailyReports.length} 期) →`} class='w-fit self-end text-xs' href='/daily' variant='ahead' />
 
           {/* 生财有术 3 天免费体验卡专属福利模块：微圆角矩形质感 */}
           <div class='mt-2 overflow-hidden rounded-md border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-background to-primary/5 p-4.5 sm:p-6 shadow-sm transition-all hover:border-emerald-500/50'>
@@ -336,7 +338,7 @@ const devSkills = ['SwiftUI / macOS 原生', 'Chrome 扩展 (MV3)', '现代 Web 
               ))
             }
           </div>
-          <Button title='查看全部打卡资料 (共 20 节) →' class='w-fit self-end text-xs' href='/english' variant='ahead' />
+          <Button title={`查看全部打卡资料 (共 ${allEnglishLessons.length} 节) →`} class='w-fit self-end text-xs' href='/english' variant='ahead' />
         </Section>
 
         {/* Section 6: 能力与工具栈 */}
