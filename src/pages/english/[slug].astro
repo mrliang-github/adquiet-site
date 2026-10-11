@@ -93,7 +93,7 @@ const meta = {
             prev && (
               <a
                 href={`/english/${prev.slug}/`}
-                class='group flex flex-col gap-1 rounded-lg border border-border/60 p-3 transition-all hover:border-primary/40 hover:bg-muted/30'
+                class='group flex flex-col gap-1 rounded-md border border-border/60 p-3 transition-all hover:border-primary/40 hover:bg-muted/30'
               >
                 <span class='text-xs text-muted-foreground'>← 上一课</span>
                 <span class='truncate font-medium text-foreground transition-colors group-hover:text-primary'>
@@ -108,7 +108,7 @@ const meta = {
             next && (
               <a
                 href={`/english/${next.slug}/`}
-                class='group flex flex-col gap-1 rounded-lg border border-border/60 p-3 transition-all hover:border-primary/40 hover:bg-muted/30'
+                class='group flex flex-col gap-1 rounded-md border border-border/60 p-3 transition-all hover:border-primary/40 hover:bg-muted/30'
               >
                 <span class='text-xs text-muted-foreground'>下一课 →</span>
                 <span class='truncate font-medium text-foreground transition-colors group-hover:text-primary'>
@@ -154,7 +154,8 @@ const meta = {
     font-size: 0.9rem;
     line-height: 1.6;
     padding: 0.75rem 1rem;
-    border-radius: 0.75rem;
+    /* 严格遵循 6px 微圆角矩形设计系统，告别 12px 膨胀大圆角 */
+    border-radius: 6px;
     background-color: hsl(var(--primary) / 0.08);
     border: 1px solid hsl(var(--primary) / 0.2);
     color: hsl(var(--foreground));
@@ -176,7 +177,8 @@ const meta = {
   .lesson-courseware .setup-item {
     background-color: hsl(var(--muted) / 0.5);
     border: 1px solid hsl(var(--border) / 0.8);
-    border-radius: 0.75rem;
+    /* 场景卡片容器统一为 6px 挺拔矩形微圆角，与首页和全站卡片完全对齐 */
+    border-radius: 6px;
     padding: 0.875rem 1rem;
   }
   .lesson-courseware .setup-item h3 {
@@ -205,7 +207,8 @@ const meta = {
     color: hsl(var(--foreground));
     background-color: hsl(var(--muted) / 0.8);
     border: 1px solid hsl(var(--border) / 0.85);
-    border-radius: 0.5rem;
+    /* 操作微按钮统一采用 4px 精致小矩形微圆角规范，杜绝胶囊化 */
+    border-radius: 4px;
     padding: 0.375rem 0.75rem;
     font-size: 0.8125rem;
     cursor: pointer;
@@ -228,7 +231,8 @@ const meta = {
     background-color: hsl(var(--primary));
     color: hsl(var(--background));
     border: 1px solid hsl(var(--primary));
-    border-radius: 0.5rem;
+    /* 主行动按钮统一为 4px 干练小矩形微圆角 */
+    border-radius: 4px;
     padding: 0.375rem 0.875rem;
     font-size: 0.8125rem;
     font-weight: 500;
@@ -264,7 +268,8 @@ const meta = {
   }
   .lesson-courseware .line.is-playing {
     background-color: hsl(var(--primary) / 0.08);
-    border-radius: 0.75rem;
+    /* 播放单句高亮底色：统一采用 6px 挺拔微圆角矩形 */
+    border-radius: 6px;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
@@ -279,7 +284,8 @@ const meta = {
     font-weight: 600;
     font-size: 0.75rem;
     padding: 0.25rem 0.625rem;
-    border-radius: 0.375rem;
+    /* 说话人角标：统一为 4px 现代干练微圆角矩形，绝不搞成胶囊药丸 */
+    border-radius: 4px;
     background-color: hsl(var(--muted));
     border: 1px solid hsl(var(--border) / 0.7);
     color: hsl(var(--muted-foreground));
@@ -287,7 +293,8 @@ const meta = {
   .lesson-courseware .play-line {
     font-size: 0.75rem;
     padding: 0.25rem 0.625rem;
-    border-radius: 0.375rem;
+    /* 单句点读按钮：统一为 4px 精致微圆角小矩形 */
+    border-radius: 4px;
     border: 1px solid hsl(var(--border) / 0.8);
     background-color: hsl(var(--background));
     cursor: pointer;
@@ -320,13 +327,14 @@ const meta = {
     display: none !important;
   }
 
-  /* 重点表达与实用句型卡片 */
+  /* 重点表达、实用句型与实战练习卡片容器 */
   .lesson-courseware .expr,
   .lesson-courseware .pat,
   .lesson-courseware .my-turn-body {
     background-color: hsl(var(--muted) / 0.35);
     border: 1px solid hsl(var(--border) / 0.8);
-    border-radius: 0.75rem;
+    /* 重点学习内容卡片：严格锁定为 6px 纯正现代工程矩形，微圆角克制挺拔，告别 12px 膨胀感 */
+    border-radius: 6px;
     padding: 0.875rem 1.125rem;
     margin: 0 0 0.875rem;
   }
@@ -370,7 +378,8 @@ const meta = {
     color: hsl(var(--background));
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
+    /* 展开按钮：统一为 4px 干练小矩形微圆角 */
+    border-radius: 4px;
     font-size: 0.8125rem;
     font-weight: 500;
     cursor: pointer;
@@ -385,7 +394,8 @@ const meta = {
     padding: 0.875rem;
     border-left: 3px solid hsl(var(--primary));
     background-color: hsl(var(--muted) / 0.6);
-    border-radius: 0.5rem;
+    /* 参考答案展示卡片：统一为 6px 矩形微圆角 */
+    border-radius: 6px;
   }
   .lesson-courseware .answer p {
     margin: 0.25rem 0;
@@ -414,7 +424,8 @@ const meta = {
   .lesson-courseware-container .mark-complete {
     background-color: hsl(var(--muted));
     border: 1px solid hsl(var(--border));
-    border-radius: 0.5rem;
+    /* 完成打卡核心按钮：统一为 4px 干练微圆角矩形，告别药丸 */
+    border-radius: 4px;
     padding: 0.625rem 1.5rem;
     font-size: 0.875rem;
     font-weight: 500;

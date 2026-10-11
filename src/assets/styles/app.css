@@ -303,7 +303,18 @@ a[class*='rounded-2xl'],
 div[class*='rounded-xl'],
 a[class*='rounded-xl'],
 div[class*='rounded-lg'],
-a[class*='rounded-lg'] {
+a[class*='rounded-lg'],
+/* 英语课件与学习内容展示卡片容器（从底层杜绝任何局部 12px 大圆角） */
+.lesson-courseware .expr,
+.lesson-courseware .pat,
+.lesson-courseware .setup-item,
+.lesson-courseware .my-turn-body,
+.lesson-courseware header .task,
+.lesson-courseware .answer,
+.lesson-courseware .line.is-playing,
+/* 打卡统计横幅与日报单项卡片 */
+#lesson-progress-banner,
+[data-lesson-card] {
   border-radius: 6px !important; /* 6px 纯正现代工程矩形，仅带一丢丢微圆角，绝对正式 */
 }
 
@@ -318,7 +329,14 @@ a[class*='rounded-lg'] {
 span[class*='rounded-full'],
 span[class*='rounded-md'],
 span[class*='rounded-lg'],
-span[class*='rounded'] {
+span[class*='rounded'],
+/* 英语课件与内容交互微按钮、选择框及说话人角标 */
+.lesson-courseware button,
+.lesson-courseware select,
+.lesson-courseware .speaker,
+.lesson-courseware .play-line,
+.lesson-courseware .reveal,
+.lesson-courseware-container .mark-complete {
   border-radius: 4px !important; /* 4px 现代干练微圆角矩形，绝不搞成胶囊药丸 */
 }
 
