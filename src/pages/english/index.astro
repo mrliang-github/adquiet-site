@@ -1,11 +1,13 @@
 ---
 import PageLayout from '@/layouts/BaseLayout.astro'
 import { Button } from 'astro-pure/user'
-import { getEnglishLessons, type EnglishLessonItem, type EnglishExpression } from '@/data/content-helpers'
+// 引入英语课程按最新日期倒序获取方法与数据模型
+import { getEnglishLessonsByDate, type EnglishLessonItem, type EnglishExpression } from '@/data/content-helpers'
 
 export const prerender = true
 
-const lessons = getEnglishLessons()
+// 获取按最新发布日期倒序排列的全部英语课程（最新一课排在首位）
+const lessons = getEnglishLessonsByDate()
 
 const meta = {
   title: '英语学习打卡资料 · 出海实战会话',
@@ -40,7 +42,7 @@ const meta = {
     <section aria-label='英语课程列表' class='animate mt-8'>
       <div class='grid gap-4 sm:grid-cols-2'>
         {
-          lessons.map((lesson: EnglishLessonItem, idx: number) => (
+          lessons.map((lesson: EnglishLessonItem) => (
             <article
               class='group hover-card-lift flex flex-col justify-between rounded-md border border-border/70 p-5 transition-all hover:bg-muted/30'
               data-lesson-card
@@ -48,21 +50,30 @@ const meta = {
               data-lesson-revision={lesson.revision || 'v1'}
             >
               <div>
+                {/* 卡片顶栏：显式展示最新期次日期与固定课号标签 */}
                 <div class='flex items-center justify-between text-xs text-muted-foreground mb-2'>
                   <div class='flex items-center gap-2'>
+                    {/* 左侧期次日期：与风向标情报统一的高亮日期展示 */}
                     <span class='font-mono font-medium text-primary'>
-                      Lesson {String(idx + 1).padStart(2, '0')}
+                      {lesson.editionDate}
                     </span>
+                    {/* 客户端完成标记徽章 */}
                     <span
                       data-lesson-badge
                       class='hidden rounded-md border px-2 py-0.5 text-[10px] font-medium'
                     ></span>
                   </div>
-                  {lesson.durationMinutes && (
-                    <span class='flex items-center gap-1 text-[11px]'>
-                      ⏱️ {lesson.durationMinutes} 分钟
+                  <div class='flex items-center gap-2'>
+                    {/* 右侧微圆角矩形课号标签 */}
+                    <span class='rounded-md border border-border/60 bg-muted/70 px-2 py-0.5 font-mono text-[11px] text-muted-foreground'>
+                      Lesson {String(lesson.lessonNumber).padStart(2, '0')}
                     </span>
-                  )}
+                    {lesson.durationMinutes && (
+                      <span class='hidden sm:inline-flex items-center gap-1 text-[11px] text-muted-foreground'>
+                        ⏱️ {lesson.durationMinutes}m
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <h2 class='text-base font-medium tracking-tight text-foreground group-hover:text-primary transition-colors'>

@@ -345,5 +345,53 @@ span[class*='rounded'],
   border-radius: 4px !important;
 }
 
+/* ==========================================================================
+   8. 首页湖山全景横幅动效系统 (Hero Banner Motion System)
+   从根本上解决非标原子类偶发失效问题，保障 100% 丝滑景深微动效
+   ========================================================================== */
+
+/* 横幅视窗容器：锁定溢出隐藏，设定手型光标与高光过渡 */
+.hero-banner-container {
+  /* 确保缩放时超出视窗的内容被优雅裁切 */
+  overflow: hidden !important;
+  /* 鼠标悬停显式手型，给予明确交互反馈 */
+  cursor: pointer !important;
+}
+
+/* 横幅图片基础状态：开启 GPU 硬件加速，防止边缘锯齿与缩放抖动 */
+.hero-banner-image {
+  /* 初始缩放比例：1.0 原始大小 */
+  transform: scale(1) translateZ(0) !important;
+  /* 缩放中心点：以画面正中心为锚点向外平滑展开 */
+  transform-origin: center center !important;
+  /* 贝塞尔曲线过渡：0.75s 极柔和展开与回弹 */
+  transition:
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.75s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  /* 硬件加速提示：通知浏览器提前分配合成图层 */
+  will-change: transform, filter !important;
+  /* 消除 WebKit 缩放时出现的微小抖动 */
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+}
+
+/* 鼠标悬停交互状态：支持横幅自身 hover 与 Hero 区域 hover 双重触发 */
+.hero-banner-container:hover .hero-banner-image,
+.group\/hero:hover .hero-banner-image {
+  /* 放大至 1.045：既不过度变形破坏排版，又能清晰感知湖山画卷徐徐展开的景深推进感 */
+  transform: scale(1.045) translateZ(0) !important;
+  /* 浅色模式微调高光：轻微提升亮度和对比度，呈现晴空通透感 */
+  filter: brightness(1.02) contrast(1.04) !important;
+}
+
+/* 深色模式下的悬停状态：降低过度曝光，增强暗夜景深 */
+.dark .hero-banner-container:hover .hero-banner-image,
+.dark .group\/hero:hover .hero-banner-image {
+  /* 保持与浅色一致的优雅缩放幅度 */
+  transform: scale(1.045) translateZ(0) !important;
+  /* 深色模式微光通透度微调 */
+  filter: brightness(0.82) contrast(1.06) !important;
+}
+
 
 
