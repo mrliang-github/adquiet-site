@@ -58,7 +58,7 @@ const meta = {
 
     <!-- Overview Callout -->
     {report.overview && (
-      <section class='my-6 rounded-2xl bg-muted/40 border border-border/80 p-5'>
+      <section class='my-6 rounded-md bg-muted/40 border border-border/80 p-5'>
         <h2 class='text-sm font-semibold text-foreground/90 flex items-center gap-2 mb-2'>
           <span>💡 核心综述</span>
         </h2>
@@ -76,16 +76,17 @@ const meta = {
         </h2>
         <div class='space-y-4'>
           {report.discoveries.map((item: DailyDiscovery, idx: number) => (
-            <div class='rounded-xl border border-border/60 p-4 transition-colors hover:border-border'>
+            <div class='rounded-md border border-border/60 p-4 transition-colors hover:border-border'>
               <div class='flex items-start gap-3'>
-                <span class='flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-mono font-medium text-primary'>
+                {/* 序号徽标：采用带微圆角的矩形 (rounded-md)，告别纯圆形与大药丸 */}
+                <span class='flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-mono font-medium text-primary'>
                   {idx + 1}
                 </span>
                 <div class='space-y-1.5'>
                   <h3 class='text-base font-medium text-foreground'>{item.title}</h3>
                   <p class='text-sm text-muted-foreground leading-relaxed'>{item.fact || item.detail}</p>
                   {(item.judgement || item.keyPoint) && (
-                    <div class='mt-2.5 inline-block rounded-lg border border-primary/25 bg-primary/10 px-3 py-1.5 text-xs text-primary font-medium leading-relaxed'>
+                    <div class='mt-2.5 inline-block rounded-md border border-primary/25 bg-primary/10 px-3 py-1.5 text-xs text-primary font-medium leading-relaxed'>
                       💡 关键判断：{item.judgement || item.keyPoint}
                     </div>
                   )}
@@ -106,7 +107,7 @@ const meta = {
 
     <!-- Next Step Callout -->
     {report.nextStep && (
-      <section class='my-6 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm'>
+      <section class='my-6 rounded-md border border-primary/20 bg-primary/5 p-4 text-sm'>
         <span class='font-medium text-primary block mb-1'>🎯 下一步验证与行动：</span>
         <p class='text-muted-foreground leading-relaxed'>{report.nextStep}</p>
       </section>
@@ -134,7 +135,7 @@ const meta = {
           {prev && (
             <a
               href={`/daily/${prev.slug}/`}
-              class='group flex flex-col gap-1 rounded-lg p-2 transition-colors hover:bg-muted'
+              class='group flex flex-col gap-1 rounded-md p-2 transition-colors hover:bg-muted'
             >
               <span class='text-xs text-muted-foreground'>← 较早一期</span>
               <span class='truncate font-medium text-foreground group-hover:text-primary'>
@@ -147,7 +148,7 @@ const meta = {
           {next && (
             <a
               href={`/daily/${next.slug}/`}
-              class='group flex flex-col gap-1 rounded-lg p-2 transition-colors hover:bg-muted'
+              class='group flex flex-col gap-1 rounded-md p-2 transition-colors hover:bg-muted'
             >
               <span class='text-xs text-muted-foreground'>较新一期 →</span>
               <span class='truncate font-medium text-foreground group-hover:text-primary'>

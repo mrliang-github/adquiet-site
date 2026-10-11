@@ -27,11 +27,11 @@ const text = rawText.endsWith('#') ? rawText.slice(0, -1) : rawText
     <span
       class='absolute left-0 top-[15%] h-0 w-[2.5px] rounded-full transition-all duration-300 [&.highlight-bg]:bg-primary'
     ></span>
-    <!-- 目录链接：严格遵循全站胶囊规范，单项高亮时呈现 rounded-full 极致圆角小胶囊 -->
+    <!-- 目录链接：遵循微圆角矩形规范，单项高亮时呈现 rounded-md 精致微圆角矩形 -->
     <a
       aria-label={`跳转到章节: ${text}`}
       class={cn(
-        'toc-item line-clamp-2 w-full px-3 py-1.5 ms-2 rounded-full text-xs sm:text-sm text-foreground/70 no-underline transition-all duration-200 hover:bg-muted/60 hover:text-foreground',
+        'toc-item line-clamp-2 w-full px-3 py-1.5 ms-2 rounded-md text-xs sm:text-sm text-foreground/70 no-underline transition-all duration-200 hover:bg-muted/60 hover:text-foreground',
         'border border-transparent',
         '[&.highlight]:font-medium [&.highlight]:text-primary [&.highlight-bg-translucent]:bg-muted/90 [&.highlight-bg-translucent]:border-border/60 [&.highlight-bg-translucent]:shadow-xs',
         depth > 2 && 'ps-6 text-xs text-muted-foreground'

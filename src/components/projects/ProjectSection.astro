@@ -46,7 +46,7 @@ const projectIconSet: Record<string, IconsType> = {
         }
 
         return (
-          <div class='hover-card-lift relative overflow-hidden rounded-xl border border-border/80 bg-muted/20'>
+          <div class='hover-card-lift relative overflow-hidden rounded-lg border border-border/80 bg-muted/20'>
             {imagePath && (
               <Image
                 class='absolute end-0 z-0 m-0 h-full w-1/2 object-cover opacity-40'
@@ -86,7 +86,7 @@ const projectIconSet: Record<string, IconsType> = {
                   return (
                     <a
                       href={link.href}
-                      class='rounded-full bg-muted/80 border border-border/60 p-1.5 text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground'
+                      class='rounded-md bg-muted/80 border border-border/60 p-1.5 text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground'
                       aria-label={link.type}
                       target='_blank'
                     >

@@ -19,10 +19,10 @@ const headings = [
 ---
 
 <PageLayout title='关于我' {headings} view>
-  {/* 身份核心标签：遵循全站胶囊规范统一为 rounded-full */}
+  {/* 身份核心标签：微圆角矩形质感，告别胶囊药丸化 */}
   <div class='flex flex-wrap items-center gap-2.5 font-medium text-foreground text-sm sm:text-base'>
-    {/* 核心主定位：极致圆角胶囊 */}
-    <span class='rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary'>学的是设计，做的是产品</span>
+    {/* 核心主定位：精致微圆角矩形标签 */}
+    <span class='rounded-md border border-primary/30 bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary'>学的是设计，做的是产品</span>
     <span class='text-muted-foreground/60'>/</span>
     <span class='text-xs sm:text-sm'>跨境电商 CMS·ERP</span>
     <span class='text-muted-foreground/60'>/</span>
@@ -33,15 +33,15 @@ const headings = [
     <span class='text-xs sm:text-sm'>出海实践</span>
   </div>
 
-  {/* 核心金句引用框：采用 rounded-2xl 现代大圆角卡片质感 */}
-  <blockquote class='my-5 rounded-2xl border-l-3 border-primary bg-muted/30 pl-4 py-2 pr-3 text-sm italic text-muted-foreground'>
+  {/* 核心金句引用框：采用 rounded-md 现代微圆角矩形卡片质感 */}
+  <blockquote class='my-5 rounded-md border-l-3 border-primary bg-muted/30 pl-4 py-2.5 pr-3 text-sm italic text-muted-foreground'>
     “学的是设计，做的是产品。主业深耕跨境电商 CMS / ERP 与业务流程优化，业余持续用 AI 做了 10+ 款 iOS、macOS 和 Web 产品。正在从产品经理走向 AI 开发者，探索出海和个人产品的长期可能性。”
   </blockquote>
 
   {/* 第一章：自我介绍 */}
   <h2 id='intro'>你好，我是良逍</h2>
   <p>
-    我叫<strong>良逍</strong>。学的是设计，做的是产品。在很多自媒体平台上我也叫<strong>良逍Ai出海 / 良逍Ai出海笔记</strong>。微信号是 <code class='rounded-full border border-border/80 bg-muted/80 px-3 py-1 text-xs font-mono font-medium text-primary'>liangxiao-20</code>。
+    我叫<strong>良逍</strong>。学的是设计，做的是产品。在很多自媒体平台上我也叫<strong>良逍Ai出海 / 良逍Ai出海笔记</strong>。微信号是 <code class='rounded-md border border-border/80 bg-muted/80 px-2.5 py-1 text-xs font-mono font-medium text-primary'>liangxiao-20</code>。
   </p>
   <p>
     我目前本职是一名深耕业务一线的<strong>产品经理</strong>，主要负责<strong>跨境电商相关的 CMS、ERP 这类企业级后台业务系统产品</strong>。这类产品涉及的业务链路极长、规则严谨，从后台页面管理、内容配置、商品管理、库存管理，到业务流程、系统逻辑、信息架构，我都会参与得比较深。
@@ -61,7 +61,7 @@ const headings = [
   <p>
     我现在处在一个非常明确的过渡阶段：
   </p>
-  <div class='rounded-xl border border-primary/40 bg-primary/5 p-4 my-3 text-sm'>
+  <div class='rounded-md border border-primary/40 bg-primary/5 p-4 my-3 text-sm'>
     <strong class='text-foreground'>从“会做产品的人”，走向“能借助 AI 把产品自己做出来的人”（PM → AI Builder）。</strong>
   </div>
   <p>
@@ -79,16 +79,16 @@ const headings = [
   </p>
 
   <div class='not-prose my-5 grid grid-cols-1 gap-3.5 sm:grid-cols-2'>
-    {/* 1. PDF Snap：可点击卡片，指向隐私与支持主页 */}
+    {/* 1. PDF Snap：可点击卡片，指向隐私与支持主页（遵循 6px 微圆角矩形） */}
     <a
       href='/pdf-snap/privacy/'
-      class='group hover-card-lift block rounded-2xl border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        {/* 分类标签：采用 rounded-full 胶囊 */}
-        <span class='rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
-        {/* 状态徽标：统一为 rounded-full 极致半圆胶囊规范 */}
-        <span class='rounded-full border border-border/60 bg-muted/80 px-3 py-1 text-xs font-normal text-muted-foreground'>已上线 App Store</span>
+        {/* 分类标签：采用 rounded-md 现代干练微圆角小矩形，告别胶囊 */}
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
+        {/* 状态徽标：统一为 rounded-md 微圆角小矩形规范 */}
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>已上线 App Store</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>PDF Snap</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
@@ -102,11 +102,11 @@ const headings = [
     {/* 2. PhotoSpace：链接至项目矩阵 */}
     <a
       href='/projects'
-      class='group hover-card-lift block rounded-2xl border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
-        <span class='rounded-full border border-border/60 bg-muted/80 px-3 py-1 text-xs font-normal text-muted-foreground'>持续迭代</span>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>持续迭代</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>PhotoSpace</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
@@ -120,11 +120,11 @@ const headings = [
     {/* 3. LIT：习惯记录工具 */}
     <a
       href='/projects'
-      class='group hover-card-lift block rounded-2xl border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
-        <span class='rounded-full border border-border/60 bg-muted/80 px-3 py-1 text-xs font-normal text-muted-foreground'>持续迭代</span>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>持续迭代</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>LIT</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
@@ -138,11 +138,11 @@ const headings = [
     {/* 4. HeatSleuth：macOS 诊断工具，链接到官方单页 */}
     <a
       href='/heatsleuth/'
-      class='group hover-card-lift block rounded-2xl border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
-        <span class='rounded-full border border-border/60 bg-muted/80 px-3 py-1 text-xs font-normal text-muted-foreground'>公开测试 · 可下载</span>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>公开测试 · 可下载</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>HeatSleuth</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
@@ -156,11 +156,11 @@ const headings = [
     {/* 5. OtterBar：macOS 菜单栏工具，链接到刚上线的官方产品单页 */}
     <a
       href='/otterbar/'
-      class='group hover-card-lift block rounded-2xl border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
-        <span class='rounded-full border border-border/60 bg-muted/80 px-3 py-1 text-xs font-normal text-muted-foreground'>测试版 · 即将上线</span>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>测试版 · 即将上线</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>OtterBar</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
@@ -174,11 +174,11 @@ const headings = [
     {/* 6. AdQuiet：YouTube 桌面端纯净扩展 */}
     <a
       href='/adquiet/'
-      class='group hover-card-lift block rounded-2xl border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>Chrome 扩展</span>
-        <span class='rounded-full border border-border/60 bg-muted/80 px-3 py-1 text-xs font-normal text-muted-foreground'>Chrome Web Store</span>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>Chrome 扩展</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>Chrome Web Store</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>AdQuiet</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
@@ -194,11 +194,11 @@ const headings = [
       href='https://github.com/mrliang-github/cn-vat-invoice-ocr'
       target='_blank'
       rel='noopener noreferrer'
-      class='group hover-card-lift block rounded-2xl border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>开源工具</span>
-        <span class='rounded-full border border-border/60 bg-muted/80 px-3 py-1 text-xs font-normal text-muted-foreground'>GitHub 开源</span>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>开源工具</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>GitHub 开源</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>Mac 发票 OCR</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
@@ -214,11 +214,11 @@ const headings = [
       href='https://md.liangxiaoaitool.top/'
       target='_blank'
       rel='noopener noreferrer'
-      class='group hover-card-lift block rounded-2xl border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>Web 在线工具</span>
-        <span class='rounded-full border border-border/60 bg-muted/80 px-3 py-1 text-xs font-normal text-muted-foreground'>公开可用</span>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>Web 在线工具</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>公开可用</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>MD 排版</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
@@ -315,19 +315,19 @@ const headings = [
   {/* 第六章：做事原则与写作备忘 */}
   <h2 id='principles'>做事态度与写作原则</h2>
   <div class='not-prose my-4 space-y-3'>
-    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+    <div class='hover-card-lift rounded-md border border-border/70 p-4'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>1. 不立虚浮人设，踩过坑的才是真东西</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
         避免“全栈神仙”、“大牛”等过度包装词汇。我的内容涉猎可能比较杂（从产品设计、写代码到 SEO 和投放），但我直接承认——因为这些全都是我自己下场亲自跑过的，真诚比硬凹人设好得多。
       </p>
     </div>
-    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+    <div class='hover-card-lift rounded-md border border-border/70 p-4'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>2. 业务为本，流程优先</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
         做产品先摸透业务链路与状态机，找出流程断点并消除人工搬砖，是系统最大的价值所在。界面的本质是业务流的投影，把逻辑理顺比无谓的交互堆砌重要十倍。
       </p>
     </div>
-    <div class='hover-card-lift rounded-xl border border-border/70 p-4'>
+    <div class='hover-card-lift rounded-md border border-border/70 p-4'>
       <h3 class='text-sm font-semibold text-foreground mb-1'>3. 真实优先，跑通闭环（End-to-End）</h3>
       <p class='text-xs text-muted-foreground leading-relaxed'>
         做一个玩具 Demo 很容易，但产品必须面对打包、签名、商店素材、隐私协议、App Store 审核与真实用户体验。打通从 0 到 1 的交付闭环，才能形成真正的手感。
