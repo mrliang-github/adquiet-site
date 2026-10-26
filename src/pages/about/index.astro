@@ -1,215 +1,118 @@
 ---
-// 引入通用文章内容布局组件（自动生成侧边栏 TOC 目录与排版支持）
 import PageLayout from '@/layouts/CommonPage.astro'
-// 引入关于页工具分类组件
-import ToolSection from '@/components/about/ToolSection.astro'
 
 export const prerender = true
 
-// 页面大纲导航数据：根据自媒体真实背景与经历重塑 7 大关键章节
 const headings = [
   { depth: 2, slug: 'intro', text: '你好，我是良逍' },
-  { depth: 2, slug: 'evolution', text: '从会做产品，到借助 AI 自己做出来' },
-  { depth: 2, slug: 'what-i-do', text: '主业业务与 10+ 款产品矩阵' },
-  { depth: 2, slug: 'community', text: '生财有术与实战实验' },
-  { depth: 2, slug: 'stack', text: '工具箱与日常技术栈' },
-  { depth: 2, slug: 'principles', text: '做事态度与写作原则' },
-  { depth: 2, slug: 'contact', text: '商务合作与交流' }
+  { depth: 2, slug: 'what-i-do', text: '做过的一些产品' },
+  { depth: 2, slug: 'writing', text: '写作和学习' },
+  { depth: 2, slug: 'stack', text: '平时用的工具' },
+  { depth: 2, slug: 'contact', text: '联系我' }
 ]
 ---
 
 <PageLayout title='关于我' {headings} view>
-  {/* 身份核心标签：微圆角矩形质感，告别胶囊药丸化 */}
-  <div class='flex flex-wrap items-center gap-2.5 font-medium text-foreground text-sm sm:text-base'>
-    {/* 核心主定位：精致微圆角矩形标签 */}
-    <span class='rounded-md border border-primary/30 bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary'>学的是设计，做的是产品</span>
-    <span class='text-muted-foreground/60'>/</span>
-    <span class='text-xs sm:text-sm'>跨境电商 CMS·ERP</span>
-    <span class='text-muted-foreground/60'>/</span>
-    <span class='text-xs sm:text-sm'>业务流程优化</span>
-    <span class='text-muted-foreground/60'>/</span>
-    <span class='text-xs sm:text-sm'>AI 独立开发</span>
-    <span class='text-muted-foreground/60'>/</span>
-    <span class='text-xs sm:text-sm'>出海实践</span>
-  </div>
-
-  {/* 核心金句引用框：采用 rounded-md 现代微圆角矩形卡片质感 */}
-  <blockquote class='my-5 rounded-md border-l-3 border-primary bg-muted/30 pl-4 py-2.5 pr-3 text-sm italic text-muted-foreground'>
-    “学的是设计，做的是产品。主业深耕跨境电商 CMS / ERP 与业务流程优化，业余持续用 AI 做了 10+ 款 iOS、macOS 和 Web 产品。正在从产品经理走向 AI 开发者，探索出海和个人产品的长期可能性。”
-  </blockquote>
-
-  {/* 第一章：自我介绍 */}
   <h2 id='intro'>你好，我是良逍</h2>
   <p>
-    我叫<strong>良逍</strong>。学的是设计，做的是产品。在很多自媒体平台上我也叫<strong>良逍Ai出海 / 良逍Ai出海笔记</strong>。微信号是 <code class='rounded-md border border-border/80 bg-muted/80 px-2.5 py-1 text-xs font-mono font-medium text-primary'>liangxiao-20</code>。
+    我是良逍，学的是设计，做的是产品。主业是跨境电商相关的 CMS、ERP 等后台系统，平时的工作会涉及内容配置、商品管理和业务流程。
   </p>
   <p>
-    我目前本职是一名深耕业务一线的<strong>产品经理</strong>，主要负责<strong>跨境电商相关的 CMS、ERP 这类企业级后台业务系统产品</strong>。这类产品涉及的业务链路极长、规则严谨，从后台页面管理、内容配置、商品管理、库存管理，到业务流程、系统逻辑、信息架构，我都会参与得比较深。
+    工作之外，我用 AI 做一些 iOS、macOS 和 Web 产品，也在尝试出海项目。以前主要做产品方案，现在也借助 AI 把想法做出来，再根据使用中遇到的问题继续修改。
   </p>
   <p>
-    多年 B 端复杂企业级系统的实战锤炼，沉淀了我最核心的看家本领——<strong>复杂业务拆解、状态机流转与业务流程优化</strong>。比起概念和表面功能，我更习惯先理顺上下游链路、明确状态机流转，把低效冗余的流程优化掉，消除人工搬砖与系统摩擦。
-  </p>
-
-  {/* 第二章：核心转变 */}
-  <h2 id='evolution'>从会做产品，到借助 AI 自己做出来</h2>
-  <p>
-    过去一年，我把越来越多精力放在一件事上：<strong>用 AI 做产品</strong>。
-  </p>
-  <p>
-    相比单纯讨论概念或追逐抽象热点，我更关注<strong>怎么把一个想法真正做出来、上线、验证、再迭代</strong>。
-  </p>
-  <p>
-    我现在处在一个非常明确的过渡阶段：
-  </p>
-  <div class='rounded-md border border-primary/40 bg-primary/5 p-4 my-3 text-sm'>
-    <strong class='text-foreground'>从“会做产品的人”，走向“能借助 AI 把产品自己做出来的人”（PM → AI Builder）。</strong>
-  </div>
-  <p>
-    因为我做产品很多年，所以会天然更关注体验、结构、用户怎么用、产品到底能不能跑通。过去这些经验更多用在企业系统和产品方案里；而这两年，我开始把 AI 和编程结合起来，补齐从产品想法到实际落地这段能力。
-  </p>
-  <p>
-    到现在，算是已经持续做 AI 开发一年左右，也越来越确定自己想长期走的是 <strong>AI + 产品 + 出海</strong> 这条路。
+    在其他平台上，我也用「良逍Ai出海」或「良逍Ai出海笔记」这个名字。这里放了我的一些产品、文章和学习记录。
   </p>
 
-  {/* 第三章：主业与产品矩阵 */}
-  <h2 id='what-i-do'>主业业务与 10+ 款产品矩阵</h2>
+  <h2 id='what-i-do'>做过的一些产品</h2>
   <p>
-    {/* 统一分类说明：明确覆盖 Apple 原生工具与 Web 出海双主线 */}
-    目前我主要在做两类个人产品：一类是 <strong>Apple 生态原生工具（iOS / macOS）</strong>，另一类是 <strong>出海 Web 与效率工具</strong>。在过去一年里，我已经陆续用 AI 落地了 10+ 款产品：
+    我做了一些处理文件、阅读和日常记录的小工具，也有 Mac 应用。下面是其中几款。
   </p>
 
   <div class='not-prose my-5 grid grid-cols-1 gap-3.5 sm:grid-cols-2'>
-    {/* 1. PDF Snap：可点击卡片，指向隐私与支持主页（遵循 6px 微圆角矩形） */}
+    {/* 听页提供中国区 App Store 下载入口。 */}
     <a
-      href='/pdf-snap/privacy/'
+      href='https://apps.apple.com/cn/app/%E5%90%AC%E9%A1%B5-%E5%90%AC%E4%B9%A6%E4%B8%8E%E5%B0%8F%E8%AF%B4%E9%98%85%E8%AF%BB%E5%99%A8/id6794756257'
+      target='_blank'
+      rel='noopener noreferrer'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+    >
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 应用</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>中国区 App Store</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>听页</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
+        导入自己的 EPUB、TXT 或文字型 PDF，在阅读和听书之间切换。
+      </p>
+      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
+        <span>查看中国区商店 ↗</span>
+      </div>
+    </a>
+
+    {/* Fluxio 视频压缩裁切提供中国区 App Store 下载入口。 */}
+    <a
+      href='https://apps.apple.com/cn/app/fluxio%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E8%A3%81%E5%88%87/id6749803323'
+      target='_blank'
+      rel='noopener noreferrer'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+    >
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>中国区 App Store</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>Fluxio 视频压缩裁切</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
+        在手机本地压缩视频、裁切片段，导出后方便保存和分享。
+      </p>
+      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
+        <span>查看中国区商店 ↗</span>
+      </div>
+    </a>
+
+    {/* PDF Snap 提供中国区 App Store 下载入口。 */}
+    <a
+      href='https://apps.apple.com/cn/app/pdf-snap-%E5%8E%8B%E7%BC%A9-%E5%90%88%E5%B9%B6%E4%B8%8E%E5%88%86%E5%89%B2/id6743408614'
+      target='_blank'
+      rel='noopener noreferrer'
       class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
         {/* 分类标签：采用 rounded-md 现代干练微圆角小矩形，告别胶囊 */}
         <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
         {/* 状态徽标：统一为 rounded-md 微圆角小矩形规范 */}
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>已上线 App Store</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>中国区 App Store</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>PDF Snap</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        移动端轻量离线 PDF 扫描与管理工具，极简纯净，专注提升单据与文档处理效率。
+        在手机上合并、压缩、分割 PDF，也支持图片转 PDF。
       </p>
       <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>进入专区 →</span>
+        <span>查看中国区商店 ↗</span>
       </div>
     </a>
 
-    {/* 2. PhotoSpace：链接至项目矩阵 */}
+    {/* 发票识别工作台已有中国区 Mac App Store 入口。 */}
     <a
-      href='/projects'
-      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
-    >
-      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>持续迭代</span>
-      </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>PhotoSpace</h3>
-      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        轻量相册空间分析与照片整理工具，本地运行，专注隐私与存储空间释放。
-      </p>
-      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>项目详情 →</span>
-      </div>
-    </a>
-
-    {/* 3. LIT：习惯记录工具 */}
-    <a
-      href='/projects'
-      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
-    >
-      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>持续迭代</span>
-      </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>LIT</h3>
-      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        个人日常习惯与生活微记录工具，低摩擦录入，注重微交互动效与正向反馈。
-      </p>
-      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>项目详情 →</span>
-      </div>
-    </a>
-
-    {/* 4. HeatSleuth：macOS 诊断工具，链接到官方单页 */}
-    <a
-      href='/heatsleuth/'
-      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
-    >
-      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>公开测试 · 可下载</span>
-      </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>HeatSleuth</h3>
-      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        Mac 发热与功耗重载诊断工具，底层采集指标，看清是谁在占用 CPU/GPU/功耗。
-      </p>
-      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>产品主页 →</span>
-      </div>
-    </a>
-
-    {/* 5. OtterBar：macOS 菜单栏工具，链接到刚上线的官方产品单页 */}
-    <a
-      href='/otterbar/'
-      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
-    >
-      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>测试版 · 即将上线</span>
-      </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>OtterBar</h3>
-      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        快速搜索并呼出 Mac 菜单栏工具，解决图标拥挤或被刘海遮挡痛点，随叫随到。
-      </p>
-      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>产品主页 →</span>
-      </div>
-    </a>
-
-    {/* 6. AdQuiet：YouTube 桌面端纯净扩展 */}
-    <a
-      href='/adquiet/'
-      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
-    >
-      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>Chrome 扩展</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>Chrome Web Store</span>
-      </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>AdQuiet</h3>
-      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        YouTube 桌面端纯净观看扩展，极轻量 MV3 架构，零隐私索取，专注内容观看。
-      </p>
-      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>专区说明 →</span>
-      </div>
-    </a>
-
-    {/* 7. Mac 发票 OCR：离线财务开源工具 */}
-    <a
-      href='https://github.com/mrliang-github/cn-vat-invoice-ocr'
+      href='https://apps.apple.com/cn/app/%E5%8F%91%E7%A5%A8%E8%AF%86%E5%88%AB%E5%B7%A5%E4%BD%9C%E5%8F%B0/id6789881930'
       target='_blank'
       rel='noopener noreferrer'
       class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>开源工具</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>GitHub 开源</span>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>中国区 App Store</span>
       </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>Mac 发票 OCR</h3>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>发票识别工作台</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        基于 macOS 原生 Vision 离线发票识别转 Excel，纯本地处理，保护财务隐私。
+        在 Mac 本地识别中文发票，复核后导出 Excel。
       </p>
       <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>开源仓库 ↗</span>
+        <span>查看中国区商店 ↗</span>
       </div>
     </a>
 
-    {/* 8. MD 排版：微信公众号排版在线工具 */}
+    {/* MD 排版：微信公众号排版在线工具 */}
     <a
       href='https://md.liangxiaoaitool.top/'
       target='_blank'
@@ -222,133 +125,100 @@ const headings = [
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>MD 排版</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        一键将 Markdown 排版为现代优雅版式，直连微信公众号编辑器，专为创作者打造。
+        把 Markdown 排成可复制到微信公众号编辑器的文章。
       </p>
       <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
         <span>立即使用 ↗</span>
       </div>
     </a>
+
+    {/* HeatSleuth：macOS 诊断工具，链接到官方单页 */}
+    <a
+      href='/heatsleuth/zh/'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+    >
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>公开测试 · 可下载</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>HeatSleuth</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
+        查看 Mac 的资源占用，帮助排查发热和高负载的原因。
+      </p>
+      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
+        <span>产品主页 →</span>
+      </div>
+    </a>
+
+    {/* OtterBar：macOS 菜单栏工具，链接到刚上线的官方产品单页 */}
+    <a
+      href='/otterbar/'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+    >
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>公开测试 · 可下载</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>OtterBar</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
+        搜索 Mac 菜单栏里的工具，尝试打开支持的应用入口。
+      </p>
+      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
+        <span>产品主页 →</span>
+      </div>
+    </a>
+
+    {/* Lasti 记录事件上次发生的时间，当前通过海外 App Store 提供。 */}
+    <a
+      href='https://apps.apple.com/us/app/lasti-when-did-i-last/id6757007544'
+      target='_blank'
+      rel='noopener noreferrer'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+    >
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>海外 App Store</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>Lasti</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
+        记住理发、换床单等事情上次发生的时间，查看距今过了多久。
+      </p>
+      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
+        <span>查看海外商店 ↗</span>
+      </div>
+    </a>
   </div>
 
   <p>
-    除了这些公开作品，我也还在持续尝试一些暂时不方便完全公开的出海独立站项目与快站型实验产品，快速验证流量与转化模型。
+    更多应用和开源项目可以在<a href='/projects'>产品页</a>查看。
   </p>
 
-  {/* 第四章：生财有术与实战实验 */}
-  <h2 id='community'>生财有术与实战实验</h2>
+  <h2 id='writing'>写作和学习</h2>
   <p>
-    除了本职工作和个人产品，这些年我一直长期活跃在 <strong>生财有术</strong> 这个圈子里。
+    我会把做产品时用过的工具、遇到的问题和处理过程写下来。<a href='/blog'>博客</a>里主要是 AI 编程、产品设计和出海相关的文章，网站上也有<a href='/daily'>风向标整理</a>和<a href='/english'>英语学习记录</a>。
   </p>
   <p>
-    对我来说，它不只是一个社群，更像是我<strong>持续观察机会、研究副业方向、接触真实项目案例的地方</strong>。
-  </p>
-  <p>
-    我在生财圈子里待了很多年，也参与过一些志愿者相关的事情。相比只看趋势、聊风口，我更习惯把看到的机会拿来<strong>做实验、自己下场跑一轮</strong>，再从真实结果里总结认知。做过的事、跑过的闭环、踩过的代价，才是最真实的护城河。
+    我也在生财有术看项目案例、参与交流，做过一些志愿者工作。看到感兴趣的方向，会尝试做点东西，再记录过程中的发现。
   </p>
 
-  {/* 第五章：工具箱与技术栈 */}
-  <h2 id='stack'>工具箱与日常技术栈</h2>
-  <p>目前日常高频用于产品设计、AI 研发与流程编排的工具组合：</p>
-
-  <ToolSection
-    class='mb-5'
-    title='AI 编程与工作流'
-    tools={[
-      {
-        name: 'Codex / Claude Code',
-        description: '终端与全流程 Agent 协同',
-        href: 'https://github.com/features/copilot',
-        icon: import('@/assets/tools/chatgpt.svg?raw')
-      },
-      {
-        name: 'VS Code',
-        description: '核心代码编辑与工程开发',
-        href: 'https://code.visualstudio.com/',
-        icon: import('@/assets/tools/vscode.svg?raw')
-      },
-      {
-        name: '飞书多维表 / Google Sheets',
-        description: '自动化情报流与需求模具',
-        href: 'https://www.feishu.cn/',
-        icon: import('@/assets/tools/notion.svg?raw')
-      },
-      {
-        name: 'Typora',
-        description: 'Markdown 写作与思考归档',
-        href: 'https://typora.io/',
-        icon: import('@/assets/tools/typora.svg?raw')
-      }
-    ]}
-  />
-
-  <ToolSection
-    class='mb-5'
-    title='设计与系统环境'
-    tools={[
-      {
-        name: 'Apple macOS',
-        description: '生产力工作站环境',
-        href: 'https://www.apple.com/macos/',
-        icon: import('@/assets/tools/apple.svg?raw')
-      },
-      {
-        name: 'Chrome',
-        description: '日常浏览与扩展调试',
-        href: 'https://www.google.com/chrome/',
-        icon: import('@/assets/tools/chrome.svg?raw')
-      },
-      {
-        name: 'Photoshop',
-        description: '视觉与素材设计',
-        href: 'https://www.adobe.com/products/photoshop',
-        icon: import('@/assets/tools/photoshop.svg?raw')
-      },
-      {
-        name: 'Illustrator',
-        description: '矢量图形与图标绘制',
-        href: 'https://www.adobe.com/products/illustrator',
-        icon: import('@/assets/tools/illustrator.svg?raw')
-      }
-    ]}
-  />
-
-  {/* 第六章：做事原则与写作备忘 */}
-  <h2 id='principles'>做事态度与写作原则</h2>
-  <div class='not-prose my-4 space-y-3'>
-    <div class='hover-card-lift rounded-md border border-border/70 p-4'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>1. 不立虚浮人设，踩过坑的才是真东西</h3>
-      <p class='text-xs text-muted-foreground leading-relaxed'>
-        避免“全栈神仙”、“大牛”等过度包装词汇。我的内容涉猎可能比较杂（从产品设计、写代码到 SEO 和投放），但我直接承认——因为这些全都是我自己下场亲自跑过的，真诚比硬凹人设好得多。
-      </p>
-    </div>
-    <div class='hover-card-lift rounded-md border border-border/70 p-4'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>2. 业务为本，流程优先</h3>
-      <p class='text-xs text-muted-foreground leading-relaxed'>
-        做产品先摸透业务链路与状态机，找出流程断点并消除人工搬砖，是系统最大的价值所在。界面的本质是业务流的投影，把逻辑理顺比无谓的交互堆砌重要十倍。
-      </p>
-    </div>
-    <div class='hover-card-lift rounded-md border border-border/70 p-4'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>3. 真实优先，跑通闭环（End-to-End）</h3>
-      <p class='text-xs text-muted-foreground leading-relaxed'>
-        做一个玩具 Demo 很容易，但产品必须面对打包、签名、商店素材、隐私协议、App Store 审核与真实用户体验。打通从 0 到 1 的交付闭环，才能形成真正的手感。
-      </p>
-    </div>
-  </div>
-
-  {/* 第七章：联系与商务交流 */}
-  <h2 id='contact'>商务合作与交流</h2>
+  <h2 id='stack'>平时用的工具</h2>
   <p>
-    如果你也在探索 <strong>AI 开发、独立产品、出海实战、业务系统架构</strong>，或者有商业合作需求，欢迎随时联系交流：
+    做产品和开发会用到 Codex、Claude Code、VS Code，也会用飞书多维表和 Google Sheets 整理资料。写作、设计方面，用过 Typora、Photoshop 和 Illustrator。日常使用 Mac 和 Chrome。
+  </p>
+
+  <h2 id='contact'>联系我</h2>
+  <p>
+    如果你也在用 AI 做产品，或想聊聊产品设计、出海项目和合作，可以通过下面的方式联系我。
   </p>
   <ul>
     <li>
       <strong>微信联系</strong>：<code class='rounded-md border border-border/80 bg-muted/80 px-2.5 py-1 text-xs font-mono font-medium text-primary'>liangxiao-20</code>（添加时请备注来源与来意）
     </li>
     <li>
-      <strong>GitHub</strong>：<a href='https://github.com/mrliang-github' target='_blank'>@mrliang-github</a>（开源项目与代码仓库）
+      <strong>GitHub</strong>：<a href='https://github.com/mrliang-github' target='_blank' rel='noopener noreferrer'>@mrliang-github</a>（代码和开源项目）
     </li>
     <li>
-      <strong>X (Twitter)</strong>：<a href='https://x.com/lingxio71220285' target='_blank'>@lingxio71220285</a>（日常一手碎片思考与更新）
+      <strong>X (Twitter)</strong>：<a href='https://x.com/lingxio71220285' target='_blank' rel='noopener noreferrer'>@lingxio71220285</a>（日常更新）
     </li>
     <li>
       <strong>RSS 订阅</strong>：<a href='/rss.xml'>/rss.xml</a>（通过阅读器订阅文章与日报更新）
