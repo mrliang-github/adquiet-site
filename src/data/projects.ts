@@ -13,6 +13,36 @@ export interface ProjectItem {
 
 export const projects: ProjectItem[] = [
   {
+    name: '听页',
+    category: 'iOS 应用',
+    status: '中国区 App Store',
+    description: '导入自己的 EPUB、TXT 或文字型 PDF，在阅读和听书之间切换。',
+    details: '需要自行导入有权使用的无 DRM 文件；不支持扫描或加密 PDF。文件与所选声音准备好后可离线使用。',
+    href: 'https://apps.apple.com/cn/app/%E5%90%AC%E9%A1%B5-%E5%90%AC%E4%B9%A6%E4%B8%8E%E5%B0%8F%E8%AF%B4%E9%98%85%E8%AF%BB%E5%99%A8/id6794756257',
+    external: true,
+    tags: ['iOS', '阅读', '听书']
+  },
+  {
+    name: 'Fluxio 视频压缩裁切',
+    category: 'iOS 工具',
+    status: '中国区 App Store',
+    description: '在手机本地压缩视频、裁切片段，导出后方便保存和分享。',
+    details: '保留原视频，支持批量处理；提供一次成功处理体验，后续功能需通过一次性购买解锁。',
+    href: 'https://apps.apple.com/cn/app/fluxio%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E8%A3%81%E5%88%87/id6749803323',
+    external: true,
+    tags: ['iOS', '视频压缩', '视频裁切']
+  },
+  {
+    name: 'BodyMate',
+    category: 'iOS 应用',
+    status: '中国区 App Store',
+    description: '记录体重、体脂和训练，查看一段时间里的变化。',
+    details: '支持手动记录身体数据、训练计时与组数次数记录，用于个人记录和趋势查看。',
+    href: 'https://apps.apple.com/cn/app/bodymate-%E8%BA%AB%E4%BD%93%E4%B8%8E%E8%AE%AD%E7%BB%83%E8%AE%B0%E5%BD%95/id6789944461',
+    external: true,
+    tags: ['iOS', '身体数据', '训练记录']
+  },
+  {
     name: 'HeatSleuth',
     category: 'macOS 应用',
     status: '测试版 · 直接下载',

@@ -26,10 +26,50 @@ const headings = [
 
   <h2 id='what-i-do'>做过的一些产品</h2>
   <p>
-    这些项目里，有 Apple 平台上的应用，也有浏览器扩展和网页工具。各个项目的进度不同，可以从下面的入口了解。
+    我做了一些处理文件、阅读和日常记录的小工具，也有 Mac 应用。下面是其中几款。
   </p>
 
   <div class='not-prose my-5 grid grid-cols-1 gap-3.5 sm:grid-cols-2'>
+    {/* 听页提供中国区 App Store 下载入口。 */}
+    <a
+      href='https://apps.apple.com/cn/app/%E5%90%AC%E9%A1%B5-%E5%90%AC%E4%B9%A6%E4%B8%8E%E5%B0%8F%E8%AF%B4%E9%98%85%E8%AF%BB%E5%99%A8/id6794756257'
+      target='_blank'
+      rel='noopener noreferrer'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+    >
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 应用</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>中国区 App Store</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>听页</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
+        导入自己的 EPUB、TXT 或文字型 PDF，在阅读和听书之间切换。
+      </p>
+      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
+        <span>查看中国区商店 ↗</span>
+      </div>
+    </a>
+
+    {/* Fluxio 视频压缩裁切提供中国区 App Store 下载入口。 */}
+    <a
+      href='https://apps.apple.com/cn/app/fluxio%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E8%A3%81%E5%88%87/id6749803323'
+      target='_blank'
+      rel='noopener noreferrer'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+    >
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>中国区 App Store</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>Fluxio 视频压缩裁切</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
+        在手机本地压缩视频、裁切片段，导出后方便保存和分享。
+      </p>
+      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
+        <span>查看中国区商店 ↗</span>
+      </div>
+    </a>
+
     {/* PDF Snap 提供中国区 App Store 下载入口。 */}
     <a
       href='https://apps.apple.com/cn/app/pdf-snap-%E5%8E%8B%E7%BC%A9-%E5%90%88%E5%B9%B6%E4%B8%8E%E5%88%86%E5%89%B2/id6743408614'
@@ -49,100 +89,6 @@ const headings = [
       </p>
       <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
         <span>查看中国区商店 ↗</span>
-      </div>
-    </a>
-
-    {/* PhotoSpace 当前通过海外 App Store 提供。 */}
-    <a
-      href='https://apps.apple.com/us/app/photospace-photo-cleaner/id6755833132'
-      target='_blank'
-      rel='noopener noreferrer'
-      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
-    >
-      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>海外 App Store</span>
-      </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>PhotoSpace</h3>
-      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        查看相册占用的空间，整理手机里的照片。
-      </p>
-      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>查看海外商店 ↗</span>
-      </div>
-    </a>
-
-    {/* Lasti 记录事件上次发生的时间，当前通过海外 App Store 提供。 */}
-    <a
-      href='https://apps.apple.com/us/app/lasti-when-did-i-last/id6757007544'
-      target='_blank'
-      rel='noopener noreferrer'
-      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
-    >
-      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>海外 App Store</span>
-      </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>Lasti</h3>
-      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        记住理发、换床单等事情上次发生的时间，查看距今过了多久。
-      </p>
-      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>查看海外商店 ↗</span>
-      </div>
-    </a>
-
-    {/* 4. HeatSleuth：macOS 诊断工具，链接到官方单页 */}
-    <a
-      href='/heatsleuth/'
-      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
-    >
-      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>公开测试 · 可下载</span>
-      </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>HeatSleuth</h3>
-      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        查看 Mac 的资源占用，帮助排查发热和高负载的原因。
-      </p>
-      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>产品主页 →</span>
-      </div>
-    </a>
-
-    {/* 5. OtterBar：macOS 菜单栏工具，链接到刚上线的官方产品单页 */}
-    <a
-      href='/otterbar/'
-      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
-    >
-      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>公开测试 · 可下载</span>
-      </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>OtterBar</h3>
-      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        搜索 Mac 菜单栏里的工具，尝试打开支持的应用入口。
-      </p>
-      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>产品主页 →</span>
-      </div>
-    </a>
-
-    {/* 6. AdQuiet：YouTube 桌面端纯净扩展 */}
-    <a
-      href='/adquiet/'
-      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
-    >
-      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>Chrome 扩展</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>Chrome Web Store</span>
-      </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>AdQuiet</h3>
-      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        减少 YouTube 桌面端观看视频时的广告打断。
-      </p>
-      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>专区说明 →</span>
       </div>
     </a>
 
@@ -166,7 +112,7 @@ const headings = [
       </div>
     </a>
 
-    {/* 8. MD 排版：微信公众号排版在线工具 */}
+    {/* MD 排版：微信公众号排版在线工具 */}
     <a
       href='https://md.liangxiaoaitool.top/'
       target='_blank'
@@ -185,7 +131,67 @@ const headings = [
         <span>立即使用 ↗</span>
       </div>
     </a>
+
+    {/* HeatSleuth：macOS 诊断工具，链接到官方单页 */}
+    <a
+      href='/heatsleuth/zh/'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+    >
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>公开测试 · 可下载</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>HeatSleuth</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
+        查看 Mac 的资源占用，帮助排查发热和高负载的原因。
+      </p>
+      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
+        <span>产品主页 →</span>
+      </div>
+    </a>
+
+    {/* OtterBar：macOS 菜单栏工具，链接到刚上线的官方产品单页 */}
+    <a
+      href='/otterbar/'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+    >
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>公开测试 · 可下载</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>OtterBar</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
+        搜索 Mac 菜单栏里的工具，尝试打开支持的应用入口。
+      </p>
+      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
+        <span>产品主页 →</span>
+      </div>
+    </a>
+
+    {/* Lasti 记录事件上次发生的时间，当前通过海外 App Store 提供。 */}
+    <a
+      href='https://apps.apple.com/us/app/lasti-when-did-i-last/id6757007544'
+      target='_blank'
+      rel='noopener noreferrer'
+      class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
+    >
+      <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>海外 App Store</span>
+      </div>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>Lasti</h3>
+      <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
+        记住理发、换床单等事情上次发生的时间，查看距今过了多久。
+      </p>
+      <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
+        <span>查看海外商店 ↗</span>
+      </div>
+    </a>
   </div>
+
+  <p>
+    更多应用和开源项目可以在<a href='/projects'>产品页</a>查看。
+  </p>
 
   <h2 id='writing'>写作和学习</h2>
   <p>
