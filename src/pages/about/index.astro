@@ -15,7 +15,7 @@ const headings = [
 <PageLayout title='关于我' {headings} view>
   <h2 id='intro'>你好，我是良逍</h2>
   <p>
-    我是良逍，学的是设计，现在做产品经理。主业是跨境电商相关的 CMS、ERP 等后台系统，平时的工作会涉及内容配置、商品管理和业务流程。
+    我是良逍，学的是设计，做的是产品。主业是跨境电商相关的 CMS、ERP 等后台系统，平时的工作会涉及内容配置、商品管理和业务流程。
   </p>
   <p>
     工作之外，我用 AI 做一些 iOS、macOS 和 Web 产品，也在尝试出海项目。以前主要做产品方案，现在也借助 AI 把想法做出来，再根据使用中遇到的问题继续修改。
@@ -30,59 +30,65 @@ const headings = [
   </p>
 
   <div class='not-prose my-5 grid grid-cols-1 gap-3.5 sm:grid-cols-2'>
-    {/* 1. PDF Snap：可点击卡片，指向隐私与支持主页（遵循 6px 微圆角矩形） */}
+    {/* PDF Snap 提供中国区 App Store 下载入口。 */}
     <a
-      href='/pdf-snap/privacy/'
+      href='https://apps.apple.com/cn/app/pdf-snap-%E5%8E%8B%E7%BC%A9-%E5%90%88%E5%B9%B6%E4%B8%8E%E5%88%86%E5%89%B2/id6743408614'
+      target='_blank'
+      rel='noopener noreferrer'
       class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
         {/* 分类标签：采用 rounded-md 现代干练微圆角小矩形，告别胶囊 */}
         <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
         {/* 状态徽标：统一为 rounded-md 微圆角小矩形规范 */}
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>已上线 App Store</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>中国区 App Store</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>PDF Snap</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
         在手机上合并、压缩、分割 PDF，也支持图片转 PDF。
       </p>
       <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>进入专区 →</span>
+        <span>查看中国区商店 ↗</span>
       </div>
     </a>
 
-    {/* 2. PhotoSpace：链接至项目矩阵 */}
+    {/* PhotoSpace 当前通过海外 App Store 提供。 */}
     <a
-      href='/projects'
+      href='https://apps.apple.com/us/app/photospace-photo-cleaner/id6755833132'
+      target='_blank'
+      rel='noopener noreferrer'
       class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
         <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>持续迭代</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>海外 App Store</span>
       </div>
       <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>PhotoSpace</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
         查看相册占用的空间，整理手机里的照片。
       </p>
       <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>项目详情 →</span>
+        <span>查看海外商店 ↗</span>
       </div>
     </a>
 
-    {/* 3. LIT：习惯记录工具 */}
+    {/* Lasti 记录事件上次发生的时间，当前通过海外 App Store 提供。 */}
     <a
-      href='/projects'
+      href='https://apps.apple.com/us/app/lasti-when-did-i-last/id6757007544'
+      target='_blank'
+      rel='noopener noreferrer'
       class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
         <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>iOS 工具</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>持续迭代</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>海外 App Store</span>
       </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>LIT</h3>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>Lasti</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        记录日常习惯和生活中的小事。
+        记住理发、换床单等事情上次发生的时间，查看距今过了多久。
       </p>
       <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>项目详情 →</span>
+        <span>查看海外商店 ↗</span>
       </div>
     </a>
 
@@ -140,23 +146,23 @@ const headings = [
       </div>
     </a>
 
-    {/* 7. Mac 发票 OCR：离线财务开源工具 */}
+    {/* 发票识别工作台已有中国区 Mac App Store 入口。 */}
     <a
-      href='https://github.com/mrliang-github/cn-vat-invoice-ocr'
+      href='https://apps.apple.com/cn/app/%E5%8F%91%E7%A5%A8%E8%AF%86%E5%88%AB%E5%B7%A5%E4%BD%9C%E5%8F%B0/id6789881930'
       target='_blank'
       rel='noopener noreferrer'
       class='group hover-card-lift block rounded-md border border-border/70 p-4.5 transition-all hover:border-primary/40 hover:bg-muted/30 no-underline'
     >
       <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>开源工具</span>
-        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>GitHub 开源</span>
+        <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>macOS 应用</span>
+        <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>中国区 App Store</span>
       </div>
-      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>Mac 发票 OCR</h3>
+      <h3 class='text-sm font-semibold text-foreground transition-colors group-hover:text-primary'>发票识别工作台</h3>
       <p class='mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2'>
-        在 Mac 本地识别发票，把结果整理成 Excel。
+        在 Mac 本地识别中文发票，复核后导出 Excel。
       </p>
       <div class='mt-3 flex items-center justify-end text-xs font-medium text-primary opacity-80 group-hover:opacity-100 transition-opacity'>
-        <span>开源仓库 ↗</span>
+        <span>查看中国区商店 ↗</span>
       </div>
     </a>
 
