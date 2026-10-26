@@ -8,6 +8,9 @@ import { Icon } from 'astro-pure/user'
 const currentPath = Astro.url.pathname
 // 获取菜单项，添加空数组保底以满足严格 TypeScript 检查
 const menuItems = config.header.menu ?? []
+const isMenuActive = (link: string) => link === '/notes'
+  ? /^\/(notes|blog|daily|english)(\/|$)/.test(currentPath)
+  : link === '/' ? currentPath === '/' : currentPath.startsWith(link)
 ---
 
 {/* 自定义毛玻璃悬浮导航组件：采用现代胶囊圆角 rounded-full，视觉极度通透圆润 */}
@@ -36,10 +39,7 @@ const menuItems = config.header.menu ?? []
       {
         menuItems.map((item) => {
           // 判断当前路径是否与该菜单项匹配（根路径与前缀匹配）
-          const isActive =
-            item.link === '/'
-              ? currentPath === '/'
-              : currentPath.startsWith(item.link)
+          const isActive = isMenuActive(item.link)
 
           return (
             <a
@@ -68,10 +68,7 @@ const menuItems = config.header.menu ?? []
     >
       {
         menuItems.map((item) => {
-          const isActive =
-            item.link === '/'
-              ? currentPath === '/'
-              : currentPath.startsWith(item.link)
+          const isActive = isMenuActive(item.link)
 
           return (
             <a
@@ -98,7 +95,7 @@ const menuItems = config.header.menu ?? []
       <a
         class='flex size-8 sm:size-8.5 items-center justify-center rounded-full border border-transparent text-muted-foreground transition-colors hover:border-border/60 hover:bg-muted/70 hover:text-foreground'
         href='/search'
-        title='搜索文章、日报与项目'
+        title='搜索内容与查找资料'
         aria-label='站内搜索'
       >
         <Icon name='search' class='size-4' />

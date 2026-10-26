@@ -1,33 +1,80 @@
 ---
-import { PFSearch } from 'astro-pure/components/pages'
+import '@pagefind/default-ui/css/ui.css'
 import { Button } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import { integ } from '@/site-config'
 
 const meta = {
-  description: 'Search relative posts of the whole blog',
-  title: 'Search'
+  description: '搜索站内文章、攻略与笔记。查询具体企业请使用资料库中的企业搜索。',
+  title: '站内搜索'
 }
 ---
 
 <PageLayout {meta}>
-  <Button title='返回' href='/blog' variant='back' />
+  <Button title='返回首页' href='/' variant='back' />
   <main class='mt-6 lg:mt-10'>
     <div id='content-header' class='animate'>
-      <h1 class='mb-6 text-3xl font-medium'>Search</h1>
+      <h1 class='mb-6 text-3xl font-medium'>站内搜索</h1>
     </div>
 
     <div id='content' class='animate'>
       {
         integ.pagefind ? (
           <>
-            <p>Enter a search term or phrase to search the blog.</p>
-            <PFSearch />
+            <p class='mb-4'>搜索文章、攻略和学习记录。查具体企业请进入 <a class='text-primary underline' href='/data/'>企业资料库</a>。</p>
+            <div id='site-search' class='my-4' />
+            <p id='search-status' class='text-sm text-muted-foreground' role='status'>正在准备站内搜索…</p>
           </>
         ) : (
-          <p>Pagefind is disabled.</p>
+          <p>站内搜索暂未开启，可以从 <a href='/guides/'>实用攻略</a> 或 <a href='/data/'>资料库</a> 开始浏览。</p>
         )
       }
     </div>
   </main>
 </PageLayout>
+
+<script>
+  async function initializeSearch() {
+    const mount = document.getElementById('site-search')
+    const status = document.getElementById('search-status')
+    if (!mount || !status) return
+    try {
+      // @ts-expect-error Pagefind default UI does not ship TypeScript declarations.
+      const { PagefindUI } = await import('@pagefind/default-ui')
+      new PagefindUI({
+        element: '#site-search',
+        baseUrl: import.meta.env.BASE_URL,
+        bundlePath: `${import.meta.env.BASE_URL.replace(/\/$/, '')}/pagefind/`,
+        showImages: false,
+        showSubResults: true,
+        translations: {
+          language: 'zh-CN', placeholder: '搜索文章、攻略和笔记', search_label: '站内搜索',
+          clear_search: '清空', load_more: '加载更多', searching: '正在搜索…',
+          zero_results: '没有找到“[SEARCH_TERM]”的相关内容',
+          one_result: '找到 [COUNT] 条关于“[SEARCH_TERM]”的结果',
+          many_results: '找到 [COUNT] 条关于“[SEARCH_TERM]”的结果',
+          filters_label: '筛选', alt_search: '没有找到“[SEARCH_TERM]”的结果，显示“[DIFFERENT_TERM]”的结果。'
+        }
+      })
+      status.hidden = true
+    } catch {
+      status.textContent = '搜索暂时未能加载，请刷新重试，也可以从资料库或攻略入口继续浏览。'
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeSearch, {once: true})
+  else void initializeSearch()
+</script>
+
+<style>
+  #site-search {
+    --pagefind-ui-scale: 0.8;
+    --pagefind-ui-primary: hsl(var(--primary));
+    --pagefind-ui-text: hsl(var(--foreground));
+    --pagefind-ui-background: hsl(var(--background));
+    --pagefind-ui-border: hsl(var(--border));
+    --pagefind-ui-tag: hsl(var(--muted));
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 8px;
+    --pagefind-ui-font: sans-serif;
+  }
+</style>

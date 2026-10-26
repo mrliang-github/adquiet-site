@@ -1,62 +1,32 @@
 ---
-// 引入 Astro 图像组件
 import { Image } from 'astro:assets'
-
-// 引入 Pure 主题文章卡片与文章工具函数
-import { PostPreview } from 'astro-pure/components/pages'
-import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
-// 引入基础 UI 组件（按钮、图标、标签）
 import { Button, Icon, Label } from 'astro-pure/user'
-// 引入通用页面布局
 import PageLayout from '@/layouts/BaseLayout.astro'
-// 引入首页区块组件与能力栏布局组件
 import Section from '@/components/home/Section.astro'
-import SkillLayout from '@/components/home/SkillLayout.astro'
-// 引入产品矩阵数据与内容辅助函数
+import DatasetCards from '@/components/catalog/DatasetCards.astro'
 import { projects, type ProjectItem } from '@/data/projects'
-import { getDailyReports, getEnglishLessons, getEnglishLessonsByDate, type DailyReportItem, type EnglishLessonItem } from '@/data/content-helpers'
-// 引入全站配置
+import { guides } from '@/data/guides'
 import config from '@/site-config'
-
-// 引入湖山天际线横幅、头像与社区入口二维码
 import heroBanner from '@/assets/hero-banner.jpg'
 import avatarImg from '@/assets/avatar.png'
 import shengcaiQrcode from '@/assets/shengcai-qrcode.png'
+import '../styles/catalog.css'
 
 export const prerender = true
-
-// 首页文章数量限制：展示前 5 篇
-const MAX_POSTS = 5
-const allPosts = await getBlogCollection()
-const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
-
-// 获取风向标日报与出海英语数据（保留全量用于动态计数，切片前 3 篇作为首页展示）
-const allDailyReports = getDailyReports()
-const allEnglishLessons = getEnglishLessons()
-const allEnglishLessonsByDate = getEnglishLessonsByDate()
-const dailyReports = allDailyReports.slice(0, 3)
-// 英语课程按最新日期倒序展示（今天最新发布的打卡课排在最前面）
-const englishLessons = allEnglishLessonsByDate.slice(0, 3)
-
-// 首页单独选取产品，避免目录排序变化带动首页入口。
 const featuredProjects = ['听页', 'Fluxio 视频压缩裁切', 'PDF Snap', '发票识别工作台']
   .map((name) => projects.find((project) => project.name === name))
   .filter((project): project is ProjectItem => project !== undefined)
-
-const codingTools = ['Codex', 'Claude Code', 'VS Code']
-const organizingTools = ['飞书多维表', 'Google Sheets', 'Typora']
-const designTools = ['Photoshop', 'Illustrator']
 ---
 
 {/* 页面主布局：设定湖山青碧蓝 (#54889C) 为主题高光色 */}
 <PageLayout
   meta={{
     title: '首页 · 良逍',
-    description: '良逍的个人网站。学的是设计，做的是产品，工作之外用 AI 做一些 App 和网页工具。这里整理了产品、文章和学习记录。'
+    description: '查企业资料、看实用攻略、找产品工具。良逍的个人网站，整理专精特新小巨人公示名单、胡润独角兽榜单与 AI 工作流实践。'
   }}
   highlightColor='#54889C'
 >
-  <main class='flex w-full flex-col items-center'>
+  <main class='flex w-full flex-col items-center' data-pagefind-body>
     {/* 统一规范容器：最大宽度限制为 max-w-4xl，严格统一左右基线对齐 */}
     <div class='flex w-full max-w-4xl flex-col items-center'>
       
@@ -99,7 +69,7 @@ const designTools = ['Photoshop', 'Illustrator']
               主业做跨境电商相关的 CMS、ERP 系统，工作之外用 AI 做一些 App 和网页工具。
             </p>
             <p class='max-w-xl text-sm leading-relaxed text-muted-foreground'>
-              这里放着我做的产品，也记录开发和学习中遇到的问题。
+              这里可以查企业资料、找实用攻略，也放着我做的产品和实践记录。
             </p>
           </div>
 
@@ -138,8 +108,9 @@ const designTools = ['Photoshop', 'Illustrator']
           </div>
 
           <div class='flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm'>
-            <Button title='查看产品 →' href='/projects' variant='ahead' />
-            <Button title='关于我 →' href='/about' variant='ahead' />
+            <Button title='查企业资料 →' href='/data/' variant='ahead' />
+            <Button title='看实用攻略 →' href='/guides/' variant='ahead' />
+            <Button title='找产品工具 →' href='/projects' variant='ahead' />
           </div>
         </section>
       </div>
@@ -147,6 +118,24 @@ const designTools = ['Photoshop', 'Illustrator']
       {/* 2. 主体内容区块组：严格与 Hero 容器同宽（max-w-4xl 100%），统一垂直间距节奏 gap-y-12 sm:gap-y-16 */}
       <div id='content' class='animate flex w-full flex-col gap-y-12 sm:gap-y-16'>
         
+        <section class='hub-entry' aria-labelledby='home-data-title'>
+          <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
+            <div><h2 id='home-data-title' class='text-xl font-semibold'>企业资料库</h2><p class='mt-2 text-sm text-muted-foreground'>按名称、业务和地区查找，保留来源，导出需要的线索。</p></div>
+            <a class='hub-link text-sm' href='/data/'>查看全部资料 →</a>
+          </div>
+          <DatasetCards heading='h3' />
+        </section>
+
+        <section class='hub-entry' aria-labelledby='home-guides-title'>
+          <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
+            <div><h2 id='home-guides-title' class='text-xl font-semibold'>实用攻略</h2><p class='mt-2 text-sm text-muted-foreground'>从一个具体问题开始，找到可以接着做的步骤。</p></div>
+            <a class='hub-link text-sm' href='/guides/'>浏览全部攻略 →</a>
+          </div>
+          <div class='hub-home-grid'>
+            {guides.slice(0, 3).map(g => <a class='hub-card' href={g.href}><span class='hub-badge'>{g.category}</span><h3>{g.title}</h3><p>{g.description}</p><span class='hub-card-action'>阅读攻略 →</span></a>)}
+          </div>
+        </section>
+
         <Section title='产品与工具' desc='阅读、视频处理和文件整理'>
           <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
             {
@@ -182,87 +171,14 @@ const designTools = ['Photoshop', 'Illustrator']
           <Button title='查看全部产品与工具 →' class='w-fit self-end text-xs' href='/projects' variant='ahead' />
         </Section>
 
-        {/* Section 3: 最新博客文章 */}
-        {
-          allPostsByDate.length > 0 && (
-            <Section title='最近的文章' desc='做产品时用过的工具和遇到的问题'>
-              <ul class='flex flex-col gap-y-2.5'>
-                {allPostsByDate.map((p) => (
-                  <li class='flex flex-col gap-x-2 sm:flex-row'>
-                    <PostPreview post={p} />
-                  </li>
-                ))}
-              </ul>
-              <Button title='浏览全部博客文章 →' class='w-fit self-end text-xs' href='/blog' variant='ahead' />
-            </Section>
-          )
-        }
-
-        {/* Section 4: 生财有术 · 风向标 */}
-        <Section title='风向标整理' desc='阅读生财有术内容时做的记录'>
-          <div class='flex flex-col gap-3.5'>
-            {
-              dailyReports.map((report: DailyReportItem) => (
-                <a
-                  href={`/daily/${report.slug}/`}
-                  class='group hover-card-lift rounded-md border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
-                >
-                  <div class='mb-1.5 flex items-center justify-between text-xs text-muted-foreground'>
-                    <span class='font-mono font-medium text-primary'>{report.editionDate}</span>
-                    <span class='rounded-md border border-border/60 bg-muted/70 px-2.5 py-0.5 text-xs text-muted-foreground'>阅读整理</span>
-                  </div>
-                  <h3 class='text-sm font-medium text-foreground transition-colors group-hover:text-primary sm:text-base'>
-                    {report.title}
-                  </h3>
-                  <p class='mt-1.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground'>
-                    {report.summary}
-                  </p>
-                </a>
-              ))
-            }
+        <section class='hub-entry' aria-labelledby='home-notes-title'>
+          <div class='mb-5 flex items-baseline justify-between gap-2'><h2 id='home-notes-title' class='text-xl font-semibold'>实践与学习记录</h2><a class='hub-link text-sm' href='/notes/'>进入笔记 →</a></div>
+          <div class='hub-home-grid'>
+            <a class='hub-card' href='/blog'><h3>产品与开发</h3><p>做产品时用过的工具和遇到的问题。</p></a>
+            <a class='hub-card' href='/daily'><h3>风向标整理</h3><p>阅读生财有术内容时做的记录。</p></a>
+            <a class='hub-card' href='/english'><h3>英语学习</h3><p>围绕产品、合作和日常沟通练习英语。</p></a>
           </div>
-          <Button title={`查看全部风向标整理 (共 ${allDailyReports.length} 期) →`} class='w-fit self-end text-xs' href='/daily' variant='ahead' />
-        </Section>
-
-        {/* Section 5: 英语学习打卡资料（按最新发布日期倒序展示最新打卡） */}
-        <Section title='英语学习记录' desc='围绕产品、合作和日常沟通练习英语'>
-          <div class='grid gap-3.5 sm:grid-cols-3'>
-            {
-              englishLessons.map((lesson: EnglishLessonItem) => (
-                <a
-                  href={`/english/${lesson.slug}/`}
-                  class='group hover-card-lift flex flex-col justify-between rounded-md border border-border/70 p-4.5 transition-all hover:bg-muted/30'
-                >
-                  <div>
-                    {/* 卡片顶栏：显式展示最新期次日期与固定课号标签 */}
-                    <div class='flex items-center justify-between text-xs text-muted-foreground mb-1.5'>
-                      <span class='font-mono font-medium text-primary'>
-                        {lesson.editionDate}
-                      </span>
-                      <span class='rounded-md border border-border/60 bg-muted/70 px-2 py-0.5 font-mono text-[11px] text-muted-foreground'>
-                        Lesson {String(lesson.lessonNumber).padStart(2, '0')}
-                      </span>
-                    </div>
-                    <h3 class='mt-1.5 line-clamp-2 text-xs font-medium text-foreground transition-colors group-hover:text-primary'>
-                      {lesson.title}
-                    </h3>
-                    <p class='mt-1.5 line-clamp-2 text-[11px] leading-relaxed text-muted-foreground'>
-                      {lesson.scenario || lesson.goal}
-                    </p>
-                  </div>
-                  <span class='mt-3.5 text-xs font-medium text-primary'>进入打卡学习 →</span>
-                </a>
-              ))
-            }
-          </div>
-          <Button title={`查看全部打卡资料 (共 ${allEnglishLessons.length} 节) →`} class='w-fit self-end text-xs' href='/english' variant='ahead' />
-        </Section>
-
-        <Section title='平时用的工具' desc='开发、整理资料和设计时会用到'>
-          <SkillLayout title='开发' skills={codingTools} />
-          <SkillLayout title='整理资料' skills={organizingTools} />
-          <SkillLayout title='设计' skills={designTools} />
-        </Section>
+        </section>
 
         <section aria-label='生财有术体验入口' class='overflow-hidden rounded-md border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-background to-primary/5 p-4.5 sm:p-6 shadow-sm transition-all hover:border-emerald-500/50'>
           <div class='flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between'>

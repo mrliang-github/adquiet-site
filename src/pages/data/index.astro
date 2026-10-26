@@ -1,0 +1,26 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import DatasetCards from '@/components/catalog/DatasetCards.astro'
+import '../../styles/catalog.css'
+---
+<PageLayout meta={{title: '企业资料库 · 小巨人名单与独角兽榜单查询', description: '查询 2025 年第七批专精特新小巨人公示名单和 2026 胡润全球独角兽榜。按地区、行业或业务词筛选，核对来源并导出企业线索。'}}>
+  <main class='hub-shell' data-pagefind-body>
+    <nav class='hub-crumbs' aria-label='当前位置'><a href='/'>首页</a><span aria-hidden='true'>/</span><span>资料库</span></nav>
+    <header>
+      <p class='hub-kicker'>查企业 · 找业务线索</p>
+      <h1 class='hub-title'>把企业名单，变成能查的资料。</h1>
+      <p class='hub-lead'>从名称、地区或业务词入手，缩小要了解的企业范围。每份资料保留来源和快照日期，查到线索后，可以继续核对，也可以导出整理。</p>
+    </header>
+    <section class='hub-section' aria-label='可查询的数据集'><DatasetCards /></section>
+    <section class='hub-section'>
+      <h2>先查线索，再做判断</h2>
+      <div class='hub-steps'>
+        <div><h3>01 / 缩小范围</h3><p>输入企业名或业务词，再用地区、行业等条件筛选。多个关键词用空格分隔。</p></div>
+        <div><h3>02 / 核对来源</h3><p>展开企业卡片查看公示、榜单和补充资料的出处。没有业务资料的记录会明确标注。</p></div>
+        <div><h3>03 / 留下需要的结果</h3><p>分享带筛选条件的网址，或导出当前全部筛选结果，继续做自己的调研。</p></div>
+      </div>
+      <p class='hub-section'><a class='hub-link' href='/guides/company-research/'>第一次使用？看一遍企业资料查询指南 →</a></p>
+    </section>
+    <aside class='hub-notice hub-section'>这里提供公开资料的整理与检索。公示名单不等于当前有效资格，榜单估值不等于实时估值；业务资料也不覆盖所有企业。请结合原始来源和企业当前公开信息判断。</aside>
+  </main>
+</PageLayout>
