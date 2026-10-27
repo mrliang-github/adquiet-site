@@ -47,21 +47,46 @@ a.hub-card:hover { border-color: hsl(var(--primary) / .6); background: hsl(var(-
 .catalog-toolbar h2 { font-weight: 600; font-size: 1rem; }
 .catalog-toolbar { scroll-margin-top: 6rem; }
 .catalog-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
-.catalog-results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
-.company-card { min-width: 0; border: 1px solid hsl(var(--border)); border-radius: 12px; padding: 1.25rem; background: hsl(var(--background) / .55); overflow-wrap: anywhere; }
-.company-topline { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; margin-bottom: .6rem; font-size: .72rem; color: hsl(var(--muted-foreground)); }
+.catalog-table-hint { margin: 0 0 .7rem; font-size: .76rem; line-height: 1.8; color: hsl(var(--muted-foreground)); }
+.catalog-table-hint span { display: none; }
+.catalog-table-scroll { max-width: 100%; overflow-x: auto; border: 1px solid hsl(var(--border)); border-radius: 10px; isolation: isolate; }
+.catalog-table-scroll:focus-visible, .company-details summary:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 3px; }
+.catalog-table { width: 100%; min-width: 56rem; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: .8rem; line-height: 1.65; text-align: left; }
+.catalog-table-ranking { min-width: 60rem; }
+.catalog-col-name { width: 13rem; }
+.catalog-col-order { width: 3.8rem; }
+.catalog-col-region { width: 7rem; }
+.catalog-col-value { width: 6.6rem; }
+.catalog-col-website { width: 6.5rem; }
+.catalog-table th, .catalog-table td { padding: .85rem .8rem; vertical-align: top; overflow-wrap: anywhere; border-bottom: 1px solid hsl(var(--border) / .7); }
+.catalog-table thead th { font-weight: 500; font-size: .74rem; background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); }
+.catalog-table tbody tr { --row-background: hsl(var(--background)); }
+.catalog-table tbody tr:nth-child(even) { --row-background: hsl(var(--muted)); }
+.catalog-table tbody th, .catalog-table tbody td { background: var(--row-background); }
+.catalog-table tbody tr:hover { --row-background: hsl(var(--accent)); }
+.catalog-table tbody tr:last-child th, .catalog-table tbody tr:last-child td { border-bottom: 0; }
+.catalog-table thead th:first-child, .catalog-table .company-name { position: sticky; left: 0; z-index: 1; box-shadow: 1px 0 hsl(var(--border)); }
+.catalog-table .company-name { font-weight: 600; }
+.company-order { font-variant-numeric: tabular-nums; color: hsl(var(--muted-foreground)); }
 .company-value { font-variant-numeric: tabular-nums; color: hsl(var(--primary)); font-weight: 600; white-space: nowrap; }
-.company-card h3 { font-size: 1rem; font-weight: 600; line-height: 1.6; }
-.company-name-en { font-size: .8rem; color: hsl(var(--muted-foreground)); margin-top: .15rem; }
-.company-location { margin: .5rem 0; font-size: .76rem; color: hsl(var(--muted-foreground)); }
-.company-description { font-size: .82rem; line-height: 1.8; margin: .75rem 0; }
-.company-card details { border-top: 1px solid hsl(var(--border) / .7); margin-top: 1rem; padding-top: .7rem; font-size: .76rem; line-height: 1.8; color: hsl(var(--muted-foreground)); }
-.company-card summary { cursor: pointer; color: hsl(var(--primary)); padding: .15rem 0; }
-.company-card details p { margin-top: .5rem; }
+.company-value, .company-value-heading { text-align: right; }
+.company-value-heading span { display: block; font-size: .65rem; white-space: nowrap; }
+.company-name-en, .company-locality { display: block; font-size: .72rem; font-weight: 400; color: hsl(var(--muted-foreground)); margin-top: .2rem; }
+.company-industry { display: block; margin-bottom: .25rem; font-weight: 600; }
+.company-description { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; line-height: 1.7; }
+.company-details[open] .company-description { display: block; }
+.company-details summary { cursor: pointer; list-style: none; }
+.company-details summary::-webkit-details-marker { display: none; }
+.company-details-label { display: block; margin-top: .3rem; color: hsl(var(--primary)); font-size: .72rem; }
+.company-details-label::before { content: '▸ '; }
+.company-details[open] .company-details-label::before { content: '▾ '; }
+.company-details > p { margin-top: .7rem; font-size: .74rem; line-height: 1.8; color: hsl(var(--muted-foreground)); }
 .company-sources { display: flex; flex-wrap: wrap; gap: .3rem .85rem; margin-top: .5rem; }
-.company-sources a { color: hsl(var(--primary)); text-decoration: underline; text-underline-offset: 3px; }
+.company-sources a, .company-website { color: hsl(var(--primary)); text-decoration: underline; text-underline-offset: 3px; }
+.company-sources a { font-size: .74rem; }
 .catalog-pagination { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: .8rem; margin-top: 1.5rem; font-size: .8rem; }
-.catalog-empty { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; border: 1px dashed hsl(var(--border)); border-radius: 12px; }
+.catalog-table td.catalog-empty { text-align: center; padding: 3rem 1rem; }
+.catalog-empty-message { position: sticky; left: 1rem; max-width: calc(100vw - 4.25rem); }
 .catalog-empty h3 { font-weight: 600; margin-bottom: .7rem; }
 .catalog-empty p { font-size: .85rem; color: hsl(var(--muted-foreground)); }
 .hub-prose { max-width: 45rem; line-height: 1.9; font-size: .95rem; }
@@ -82,7 +107,7 @@ a.hub-card:hover { border-color: hsl(var(--primary) / .6); background: hsl(var(-
 @media (max-width: 639px) {
   .hub-shell { margin-top: .5rem; }
   .hub-crumbs { margin-bottom: 1.5rem; }
-  .hub-grid, .catalog-results, .hub-home-grid, .hub-steps { grid-template-columns: 1fr; }
+  .hub-grid, .hub-home-grid, .hub-steps { grid-template-columns: 1fr; }
   .hub-card { padding: 1.25rem; }
   .catalog-form { padding: 1rem; }
   .catalog-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -96,4 +121,8 @@ a.hub-card:hover { border-color: hsl(var(--primary) / .6); background: hsl(var(-
   .catalog-toolbar { align-items: flex-start; flex-direction: column; }
   .catalog-actions { width: 100%; }
   .catalog-actions .hub-button { flex: 1; }
+  .catalog-table { --company-name-width: min(10rem, 40vw); --company-business-width: min(12rem, 48vw); width: calc(var(--company-name-width) + var(--company-business-width) + 17.3rem); min-width: 0; }
+  .catalog-table-ranking { width: calc(var(--company-name-width) + var(--company-business-width) + 23.9rem); }
+  .catalog-col-name { width: var(--company-name-width); }
+  .catalog-table-hint span { display: block; }
 }

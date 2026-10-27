@@ -1,0 +1,36 @@
+---
+import { companySources, isRanking, safeExternalUrl, type Catalog, type Company } from '../../lib/catalog'
+interface Props { company: Company; data: Catalog }
+const {company: c, data} = Astro.props
+const ranking = isRanking(data)
+const website = safeExternalUrl(c.profile?.website)
+const region = ranking ? c.country : c.province
+const locality = ranking ? c.city : c.reportingRegion && c.reportingRegion !== c.province ? `申报地区：${c.reportingRegion}` : ''
+---
+<tr data-company-id={c.id}>
+  <th scope='row' class='company-name'>
+    <span>{c.name}</span>
+    {c.nameEn && c.nameEn !== c.name && <span class='company-name-en'>{c.nameEn}</span>}
+  </th>
+  <td class='company-order'>{ranking ? c.rank : c.sequence}</td>
+  <td><span>{region || '待补充'}</span>{locality && <span class='company-locality'>{locality}</span>}</td>
+  <td>
+    {ranking && <span class='company-industry'>{c.industry || '行业待补充'}</span>}
+    <details class='company-details'>
+      <summary>
+        <span class:list={['company-description', {'hub-muted': !c.profile?.description}]}>{c.profile?.description || '业务资料待补充'}</span>
+        <span class='company-details-label'>资料与来源</span>
+      </summary>
+      {c.profile?.description && <p>{c.profile.descriptionKind === 'excerpt' ? '公开资料摘录' : '业务资料整理'} · 核对日期 {c.profile.checkedAt}</p>}
+      {!ranking && <p>{c.sourceType}。{c.verificationNote}</p>}
+      {ranking && <p>估值基准 {data.metadata.valuationDate} · 人民币亿元。{c.founders ? `榜单负责人：${c.founders}。` : ''}不代表当前估值或任职信息。</p>}
+      {c.profile && c.profile.products.length > 0 && <p>产品 / 关键词：{c.profile.products.join('、')}</p>}
+      <div class='company-sources'>
+        {companySources(c, data).map(s => <a href={s.url} target='_blank' rel='noopener noreferrer'>{s.label} ↗</a>)}
+      </div>
+      {website && <p>网站为收录线索，未逐一核验当前运营主体与可用性。</p>}
+    </details>
+  </td>
+  {ranking && <td class='company-value'>{c.valuation?.toLocaleString('zh-CN') ?? '待补充'}</td>}
+  <td>{website ? <a class='company-website' href={website} target='_blank' rel='noopener noreferrer'>收录网站 ↗</a> : <span class='hub-muted'>未收录</span>}</td>
+</tr>
