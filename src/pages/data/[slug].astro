@@ -1,6 +1,6 @@
 ---
 import PageLayout from '@/layouts/BaseLayout.astro'
-import CompanyCard from '@/components/catalog/CompanyCard.astro'
+import CompanyRow from '@/components/catalog/CompanyRow.astro'
 import { catalogs } from '@/data/catalog'
 import { PAGE_SIZE, isRanking, optionsFor, type Catalog } from '../../lib/catalog'
 import '../../styles/catalog.css'
@@ -53,13 +53,25 @@ const datasetSchema = {'@context':'https://schema.org', '@type':'Dataset', name:
         <h2 data-count>收录 {m.count.toLocaleString('zh-CN')} 家企业</h2>
         <div class='catalog-actions'><button class='hub-button' type='button' data-share disabled>复制筛选链接</button><button class='hub-button' type='button' data-export disabled>导出筛选结果</button></div>
       </div>
-      <div class='catalog-results' data-results data-pagefind-ignore>{data.companies.slice(0, PAGE_SIZE).map(c => <CompanyCard company={c} {data} />)}</div>
+      <p class='catalog-table-hint' id='catalog-table-hint'>按行对比企业，点击“资料与来源”查看完整介绍与依据。<span>左右滑动查看其他列，企业名称会固定在左侧。</span></p>
+      <div class='catalog-table-scroll' role='region' aria-label='企业数据表' aria-describedby='catalog-table-hint' tabindex='0' data-pagefind-ignore>
+        <table class:list={['catalog-table', {'catalog-table-ranking': ranking}]}>
+          <caption class='sr-only'>{title}，数据快照 {m.snapshotDate}</caption>
+          <colgroup><col class='catalog-col-name' /><col class='catalog-col-order' /><col class='catalog-col-region' /><col />{ranking && <col class='catalog-col-value' />}<col class='catalog-col-website' /></colgroup>
+          <thead><tr>
+            <th scope='col'>企业名称</th><th scope='col'>{ranking ? '名次' : '序号'}</th><th scope='col'>{ranking ? '国家 / 地区' : '地区'}</th><th scope='col'>{ranking ? '行业 / 业务资料' : '业务资料'}</th>
+            {ranking && <th scope='col' class='company-value-heading'>估值<span>人民币亿元</span></th>}
+            <th scope='col'>网站线索</th>
+          </tr></thead>
+          <tbody data-results>{data.companies.slice(0, PAGE_SIZE).map(c => <CompanyRow company={c} {data} />)}</tbody>
+        </table>
+      </div>
       <nav class='catalog-pagination' aria-label='结果翻页'><button class='hub-button' type='button' data-prev disabled>上一页</button><span data-page>第 1 / {Math.ceil(m.count / PAGE_SIZE)} 页</span><button class='hub-button' type='button' data-next disabled>下一页</button></nav>
     </section>
     <section id='data-method' class='hub-section hub-prose'>
       <h2>这份资料包括什么</h2>
       <p>{m.note} {m.qualificationNote}</p>
-      {ranking ? <p>来源为<a href={m.sourceUrl} target='_blank' rel='noopener noreferrer'>胡润研究院榜单查询页</a>，发布于 {m.publishedDate}。<a href='https://www.hurun.net/en-us/info/detail?num=N5C7D1KGTE8G' target='_blank' rel='noopener noreferrer'>官方发布稿</a>与查询快照的总数有差异，本页保留实际收录数量。估值以人民币亿元展示，“榜单负责人”沿用来源字段，不等同于当前创始人或在任管理者。</p> : <p>名单按省份与申报地区分别整理。深圳等单列申报地区可单独筛选；企业卡片保留地区官方页面或转载来源，其中部分转载记录未逐条对照原附件复核。</p>}
+      {ranking ? <p>来源为<a href={m.sourceUrl} target='_blank' rel='noopener noreferrer'>胡润研究院榜单查询页</a>，发布于 {m.publishedDate}。<a href='https://www.hurun.net/en-us/info/detail?num=N5C7D1KGTE8G' target='_blank' rel='noopener noreferrer'>官方发布稿</a>与查询快照的总数有差异，本页保留实际收录数量。估值以人民币亿元展示，“榜单负责人”沿用来源字段，不等同于当前创始人或在任管理者。</p> : <p>名单按省份与申报地区分别整理。深圳等单列申报地区可单独筛选；每条记录保留地区官方页面或转载来源，其中部分转载记录未逐条对照原附件复核。</p>}
       <p>业务介绍与网站属于补充资料，共有 {m.profileCount.toLocaleString('zh-CN')} 条业务介绍、{m.websiteCount.toLocaleString('zh-CN')} 条网站线索。摘录、整理内容及其来源会分别标注，未逐家人工核实；未收录资料不代表企业没有相关业务。</p>
       <p>关键词会匹配企业名称、地区、{ranking ? '行业、' : ''}已收录的业务介绍和产品词。多个关键词用空格分隔，结果需同时匹配；筛选网址可分享，导出包含当前全部筛选结果及来源说明。</p>
       <p><a href='/data/'>返回潜力公司库 →</a> · <a href='/guides/company-research/'>了解如何筛选求职公司 →</a></p>

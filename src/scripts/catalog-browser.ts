@@ -1,6 +1,6 @@
 import {
-  companySources, defaultQuery, exportCsv, filterCompanies, isRanking, locationText,
-  PAGE_SIZE, paginate, queryParams, readQuery, safeExternalUrl, validQuery, valuationText,
+  companySources, defaultQuery, exportCsv, filterCompanies, isRanking,
+  PAGE_SIZE, paginate, queryParams, readQuery, safeExternalUrl, validQuery,
   type Catalog, type Company, type QueryState
 } from '../lib/catalog'
 
@@ -11,27 +11,33 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, text = '', class
   return node
 }
 
-function companyCard(c: Company, data: Catalog) {
+function companyRow(c: Company, data: Catalog) {
   const ranking = isRanking(data)
-  const card = element('article', '', 'company-card')
-  card.dataset.companyId = c.id
-  const top = element('div', '', 'company-topline')
-  top.append(element('span', ranking ? `榜单 #${c.rank}` : `名单序号 ${c.sequence}`))
-  if (ranking) top.append(element('span', valuationText(c), 'company-value'))
-  card.append(top, element('h3', c.name))
-  if (c.nameEn && c.nameEn !== c.name) card.append(element('p', c.nameEn, 'company-name-en'))
-  card.append(element('p', locationText(c, data), 'company-location'))
-  card.append(element('p', c.profile?.description || '暂未收录业务资料，可先核对名单来源。', `company-description${c.profile?.description ? '' : ' hub-muted'}`))
-  const details = element('details')
-  details.append(element('summary', '查看来源与资料说明'))
+  const row = element('tr')
+  row.dataset.companyId = c.id
+  const name = element('th', '', 'company-name')
+  name.scope = 'row'
+  name.append(element('span', c.name))
+  if (c.nameEn && c.nameEn !== c.name) name.append(element('span', c.nameEn, 'company-name-en'))
+  const region = ranking ? c.country : c.province
+  const locality = ranking ? c.city : c.reportingRegion && c.reportingRegion !== c.province ? `申报地区：${c.reportingRegion}` : ''
+  const location = element('td')
+  location.append(element('span', region || '待补充'))
+  if (locality) location.append(element('span', locality, 'company-locality'))
+  row.append(name, element('td', String((ranking ? c.rank : c.sequence) ?? ''), 'company-order'), location)
+  const business = element('td')
+  if (ranking) business.append(element('span', c.industry || '行业待补充', 'company-industry'))
+  const details = element('details', '', 'company-details')
+  const summary = element('summary')
+  summary.append(element('span', c.profile?.description || '业务资料待补充', `company-description${c.profile?.description ? '' : ' hub-muted'}`), element('span', '资料与来源', 'company-details-label'))
+  details.append(summary)
   if (c.profile?.description) details.append(element('p', `${c.profile.descriptionKind === 'excerpt' ? '公开资料摘录' : '业务资料整理'} · 核对日期 ${c.profile.checkedAt}`))
   if (!ranking) details.append(element('p', `${c.sourceType}。${c.verificationNote}`))
   if (ranking) details.append(element('p', `估值基准 ${data.metadata.valuationDate} · 人民币亿元。${c.founders ? `榜单负责人：${c.founders}。` : ''}不代表当前估值或任职信息。`))
   if (c.profile?.products.length) details.append(element('p', `产品 / 关键词：${c.profile.products.join('、')}`))
   const links = element('div', '', 'company-sources')
   const website = safeExternalUrl(c.profile?.website)
-  const sources = [...companySources(c, data), ...(website ? [{label: '收录网站', url: website}] : [])]
-  for (const source of sources) {
+  for (const source of companySources(c, data)) {
     const link = element('a', `${source.label} ↗`)
     link.href = source.url
     link.target = '_blank'
@@ -40,8 +46,19 @@ function companyCard(c: Company, data: Catalog) {
   }
   details.append(links)
   if (website) details.append(element('p', '网站为收录线索，未逐一核验当前运营主体与可用性。'))
-  card.append(details)
-  return card
+  business.append(details)
+  row.append(business)
+  if (ranking) row.append(element('td', c.valuation?.toLocaleString('zh-CN') ?? '待补充', 'company-value'))
+  const websiteCell = element('td')
+  if (website) {
+    const link = element('a', '收录网站 ↗', 'company-website')
+    link.href = website
+    link.target = '_blank'
+    link.rel = 'noopener noreferrer'
+    websiteCell.append(link)
+  } else websiteCell.append(element('span', '未收录', 'hub-muted'))
+  row.append(websiteCell)
+  return row
 }
 
 function setup(root: HTMLElement) {
@@ -76,12 +93,17 @@ function setup(root: HTMLElement) {
     state.page = page.page
     syncForm()
     const fragment = document.createDocumentFragment()
-    if (page.items.length) for (const c of page.items) fragment.append(companyCard(c, data))
+    if (page.items.length) for (const c of page.items) fragment.append(companyRow(c, data))
     else {
-      const empty = element('div', '', 'catalog-empty')
-      empty.append(element('h3', '没有找到同时符合这些条件的企业'))
-      empty.append(element('p', '可以缩短关键词、去掉一个地区条件，或取消“只看含业务资料”。未匹配到不代表企业没有相关业务。'))
-      fragment.append(empty)
+      const row = element('tr')
+      const empty = element('td', '', 'catalog-empty')
+      empty.colSpan = isRanking(data) ? 6 : 5
+      const message = element('div', '', 'catalog-empty-message')
+      message.append(element('h3', '没有找到同时符合这些条件的企业'))
+      message.append(element('p', '可以缩短关键词、去掉一个地区条件，或取消“只看含业务资料”。未匹配到不代表企业没有相关业务。'))
+      empty.append(message)
+      row.append(empty)
+      fragment.append(row)
     }
     results.replaceChildren(fragment)
     count.textContent = `找到 ${filtered.length.toLocaleString('zh-CN')} 家企业`
