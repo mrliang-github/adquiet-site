@@ -60,14 +60,14 @@ const topics = articleTopics.map(topic => ({
     <div class='flex w-full max-w-4xl flex-col items-center'>
       
       {/* 1. Header Profile Hero：与顶部吸顶导航保留舒展自然的呼吸空间，视野开阔不局促 */}
-      <div class='group/hero animate mt-1 sm:mt-3 mb-8 w-full sm:mb-12'>
-        {/* 顶部湖山天际线全景横幅：支持横幅独立悬浮与全 Hero 悬浮双重景深动效 (hero-banner-container) */}
-        <div class='hero-banner-container group relative h-52 w-full overflow-hidden rounded-md cursor-pointer sm:h-64 md:h-76 ring-1 ring-border/50 transition-all duration-500 hover:ring-primary/50 hover:shadow-lg'>
-          {/* 横幅全景原图：带平滑景深推进动效 (hover 时从 1.0 平滑放大至 1.05)，增加 will-change 硬件加速 */}
+      <div class='animate mt-1 sm:mt-3 mb-8 w-full sm:mb-12'>
+        {/* 顶部湖山天际线全景横幅：多增加 px 圆角 (12px~16px)，限定仅鼠标真正移入横幅本身时触发动效 */}
+        <div class='hero-banner-container group relative h-52 w-full overflow-hidden rounded-xl sm:rounded-2xl cursor-pointer sm:h-64 md:h-76 ring-1 ring-border/50 transition-all duration-300 hover:ring-primary/40'>
+          {/* 横幅全景原图：仅平滑微景深展开 (1.035)，纯粹几何缩放，严格保持原图自然光影不变明变暗 */}
           <Image
             src={heroBanner}
             alt='湖山与城市天际线全景'
-            class='hero-banner-image h-full w-full object-cover object-center filter brightness-[0.98] contrast-[1.02] transition-all duration-700 ease-out group-hover:scale-105 group-hover/hero:scale-105 will-change-transform dark:brightness-[0.76]'
+            class='hero-banner-image h-full w-full object-cover object-center filter brightness-[0.98] contrast-[1.02] transition-transform duration-600 ease-out group-hover:scale-[1.035] will-change-transform dark:brightness-[0.76]'
             loading='eager'
             fetchpriority='high'
           />
