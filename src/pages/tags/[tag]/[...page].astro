@@ -7,6 +7,8 @@ import { getBlogCollection, getUniqueTags, sortMDByDate } from 'astro-pure/serve
 import { Button } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import config from '@/site-config'
+import { articleTopics } from '@/data/article-topics'
+import '../../../styles/articles.css'
 
 export const prerender = true
 
@@ -30,22 +32,23 @@ interface Props {
 
 const { page } = Astro.props
 const { tag } = Astro.params
+const displayTag = articleTopics.find(topic => topic.toLowerCase() === tag) ?? tag
 
 const meta = {
-  description: `View all posts with the tag - ${tag}`,
-  title: `Tag: ${tag}`
+  description: `良逍关于${displayTag}的文章与实践记录，按发表时间阅读。`,
+  title: `主题 · ${displayTag}`
 }
 
 const paginationProps = {
   ...(page.url.prev && {
     prevUrl: {
-      text: `← Previous Tags`,
+      text: `← 上一页`,
       url: page.url.prev
     }
   }),
   ...(page.url.next && {
     nextUrl: {
-      text: `Next Tags →`,
+      text: `下一页 →`,
       url: page.url.next
     }
   })
@@ -56,10 +59,8 @@ const paginationProps = {
   <Button title='返回' href='/blog' variant='back' />
   <main class='mt-6 lg:mt-10'>
     <div id='content-header' class='animate'>
-      <h1 class='mb-6 flex items-end gap-x-2 text-3xl font-medium'>
-        Tags:
-        <span class='text-2xl'>#{tag}</span>
-      </h1>
+      <h1 class='mb-3 text-3xl font-medium'>{displayTag}</h1>
+      <p class='mb-6 text-sm text-muted-foreground'>共 {page.total} 篇文章 · 按发表时间阅读</p>
     </div>
 
     <section id='content' class='animate' aria-label='Blog post list'>

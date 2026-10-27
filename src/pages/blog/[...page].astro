@@ -7,6 +7,8 @@ import { getBlogCollection, getUniqueTagsWithCount, sortMDByDate } from 'astro-p
 import { Button, Icon } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import config from '@/site-config'
+import { articleTopics, articleTopicHref } from '@/data/article-topics'
+import '../../styles/articles.css'
 
 export const prerender = true
 
@@ -29,8 +31,8 @@ interface Props {
 const { page, uniqueTags, collectionsCount } = Astro.props
 
 const meta = {
-  description: '良逍的技术探索、独立开发实践与产品思考',
-  title: '博客文章'
+  description: '良逍的公众号文章与实践记录。按 AI 工作流、产品与设计、独立站、工具使用查找内容，保留原始发布日期。',
+  title: '公众号文章与实践记录'
 }
 
 const paginationProps = {
@@ -53,7 +55,11 @@ const paginationProps = {
   <Button title='返回' href='/' variant='back' />
   <main class='mt-6 lg:mt-10'>
     <div id='content-header' class='animate'>
-      <h1 class='mb-6 mt-6 text-3xl font-medium sm:mt-10'>博客文章</h1>
+      <h1 class='mb-3 mt-6 text-3xl font-medium sm:mt-10'>公众号文章与实践记录</h1>
+      <p class='mb-5 max-w-2xl text-sm leading-relaxed text-muted-foreground'>记录用过的工具、做产品的过程和遇到的问题。这里的公众号文章保留原始发表时间，工具和操作入口请结合当下版本阅读。</p>
+      <nav class='mb-7 flex flex-wrap gap-2' aria-label='按主题阅读文章'>
+        {articleTopics.filter(topic => uniqueTags.includes(topic.toLowerCase())).map(topic => <a class='rounded-md border border-border px-3 py-2 text-xs transition-colors hover:border-primary/50 hover:text-primary' href={articleTopicHref(topic)}>{topic}</a>)}
+      </nav>
     </div>
     {
       page.data.length === 0 ? (

@@ -4,6 +4,7 @@ publishDate: "2026-06-23"
 description: "把独立站上新整理成一套表格驱动的流程：内容、图片、价格和状态进表，再由 Codex 更新产品内容，并由人做最终审核。"
 cover: "https://img.liangxiaoaitool.top/2026/06/gzh-illust-00-cover-independent-site-codex-v4.png"
 tags: ["独立站","Codex","自动化"]
+sourcePlatform: "微信公众号"
 source: "2026-06-23-独立站产品用Codex和GoogleSheets自动上架.md"
 
 draft: false
@@ -374,7 +375,7 @@ Codex 执行上架或更新。\
 
 ---
 
-我是良逍，产品经理，最近主要在折腾 AI 产品、独立开发和出海工具。
+我是良逍，做产品，最近主要在折腾 AI 产品、独立开发和出海工具。
 
 这个号会记录我自己实测过的工具、踩过的坑，以及从想法到产品上线的过程。
 
