@@ -9,9 +9,9 @@ const {heading: Heading = 'h2'} = Astro.props
       <span class='hub-badge'>{m.kind === 'directory' ? '企业名录 · 公示快照' : '企业榜单 · 历史估值'}</span>
       <Heading>{m.kind === 'directory' ? '专精特新“小巨人”企业查询' : '胡润全球独角兽榜查询'}</Heading>
       <div class='hub-card-count'>{m.count.toLocaleString('zh-CN')}<small>条收录记录</small></div>
-      <p>{m.kind === 'directory' ? '2025 年第七批公示名单。按企业名称、业务词、省份和申报地区查找。' : '2026 年榜单快照。按企业名称、国家/地区和行业查找，查看榜单估值。'}</p>
+      <p>{m.kind === 'directory' ? '按省份、申报地区和业务词找公司，先了解它做什么。收录 2025 年第七批公示名单。' : '按国家/地区和行业找公司，再核对当前业务与招聘信息。收录 2026 年榜单快照。'}</p>
       <div class='hub-card-footer'><span>{m.profileCount.toLocaleString('zh-CN')} 条含业务资料</span><span>快照 {m.snapshotDate}</span></div>
-      <span class='hub-card-action'>进入查询 <span aria-hidden='true'>→</span></span>
+      <span class='hub-card-action'>从这份名单找公司 <span aria-hidden='true'>→</span></span>
     </a>
   ))}
 </div>

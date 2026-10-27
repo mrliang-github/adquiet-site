@@ -1,9 +1,9 @@
 export const guides = [
   {
-    title: '从一份企业名单，查到可核对的业务线索',
-    description: '用地区、业务词和来源缩小范围，再导出需要继续核对的企业。',
-    category: '企业调研', date: '2026-10-27', href: '/guides/company-research/',
-    action: '打开资料库，完成一次查询'
+    title: '用小巨人名单和独角兽榜，整理求职公司名单',
+    description: '先按地区和业务筛选公司，再核对招聘岗位、团队情况与自己的匹配程度。',
+    category: '求职选公司', date: '2026-10-27', href: '/guides/company-research/',
+    action: '找公司、查岗位、留下候选名单'
   },
   {
     title: 'Mac 发票转 Excel：先识别，再复核',

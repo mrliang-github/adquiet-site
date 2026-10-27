@@ -5,7 +5,7 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 import { integ } from '@/site-config'
 
 const meta = {
-  description: '搜索站内文章、攻略与笔记。查询具体企业请使用资料库中的企业搜索。',
+  description: '搜索站内文章、攻略与笔记。求职选公司或查询具体企业，可使用潜力公司库中的企业搜索。',
   title: '站内搜索'
 }
 ---
@@ -21,12 +21,12 @@ const meta = {
       {
         integ.pagefind ? (
           <>
-            <p class='mb-4'>搜索文章、攻略和学习记录。查具体企业请进入 <a class='text-primary underline' href='/data/'>企业资料库</a>。</p>
+            <p class='mb-4'>搜索文章、攻略和学习记录。找公司或查具体企业，请进入 <a class='text-primary underline' href='/data/'>潜力公司库</a>。</p>
             <div id='site-search' class='my-4' />
             <p id='search-status' class='text-sm text-muted-foreground' role='status'>正在准备站内搜索…</p>
           </>
         ) : (
-          <p>站内搜索暂未开启，可以从 <a href='/guides/'>实用攻略</a> 或 <a href='/data/'>资料库</a> 开始浏览。</p>
+          <p>站内搜索暂未开启，可以从 <a href='/guides/'>实用攻略</a> 或 <a href='/data/'>潜力公司库</a> 开始浏览。</p>
         )
       }
     </div>
@@ -58,7 +58,7 @@ const meta = {
       })
       status.hidden = true
     } catch {
-      status.textContent = '搜索暂时未能加载，请刷新重试，也可以从资料库或攻略入口继续浏览。'
+      status.textContent = '搜索暂时未能加载，请刷新重试，也可以从潜力公司库或攻略入口继续浏览。'
     }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeSearch, {once: true})

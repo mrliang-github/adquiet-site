@@ -6,7 +6,7 @@ export const theme: ThemeUserConfig = {
   title: '良逍 · 个人产品与学习空间',
   /** Will be used in index page & copyright declaration */
   author: '良逍',
-  description: '良逍的个人网站。学的是设计，做的是产品。这里可以查询企业资料、阅读实用攻略，也能找到我做的 App、网页工具和学习记录。',
+  description: '良逍的个人网站。学的是设计，做的是产品。这里放着我做的 App、网页工具和实践记录，也整理了实用攻略与供求职选公司参考的榜单资料。',
   /** The default favicon for your site which should be a path to an image in the `public/` directory. */
   favicon: '/favicon/favicon.ico',
   /** The default social card image for your site which should be a path to an image in the `public/` directory. */
@@ -40,7 +40,7 @@ export const theme: ThemeUserConfig = {
   /** Configure the header of your site. */
   header: {
     menu: [
-      { title: '资料库', link: '/data' },
+      { title: '潜力公司库', link: '/data' },
       { title: '实用攻略', link: '/guides' },
       { title: '产品工具', link: '/projects' },
       { title: '笔记', link: '/notes' },
