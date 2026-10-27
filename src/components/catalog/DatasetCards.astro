@@ -1,0 +1,17 @@
+---
+import { catalogs } from '@/data/catalog'
+interface Props {heading?: 'h2' | 'h3'}
+const {heading: Heading = 'h2'} = Astro.props
+---
+<div class='hub-grid'>
+  {catalogs.map(({metadata: m}) => (
+    <a class='hub-card' href={`/data/${m.slug}/`}>
+      <span class='hub-badge'>{m.kind === 'directory' ? '企业名录 · 公示快照' : '企业榜单 · 历史估值'}</span>
+      <Heading>{m.kind === 'directory' ? '专精特新“小巨人”企业查询' : '胡润全球独角兽榜查询'}</Heading>
+      <div class='hub-card-count'>{m.count.toLocaleString('zh-CN')}<small>条收录记录</small></div>
+      <p>{m.kind === 'directory' ? '按省份、申报地区和业务词找公司，先了解它做什么。收录 2025 年第七批公示名单。' : '按国家/地区和行业找公司，再核对当前业务与招聘信息。收录 2026 年榜单快照。'}</p>
+      <div class='hub-card-footer'><span>{m.profileCount.toLocaleString('zh-CN')} 条含业务资料</span><span>快照 {m.snapshotDate}</span></div>
+      <span class='hub-card-action'>从这份名单找公司 <span aria-hidden='true'>→</span></span>
+    </a>
+  ))}
+</div>

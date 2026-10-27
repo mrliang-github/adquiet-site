@@ -3,7 +3,8 @@ title: "我给 Codex 办了两张飞书工卡：公司和个人分开上岗"
 publishDate: "2026-07-16"
 description: "我在 Codex 里同时接入了公司飞书和个人飞书：两套账号和文档空间分开，各自服务不同场景。"
 cover: "https://img.liangxiaoaitool.top/2026/07/gzh-illust-00-cover-v1.png"
-tags: ["Codex","飞书","工作流"]
+tags: ["AI 工作流","Codex","飞书","工作流"]
+sourcePlatform: "微信公众号"
 source: "2026-07-16-我给Codex办了两张飞书工卡.md"
 
 draft: false

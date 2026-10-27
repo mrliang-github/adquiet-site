@@ -1,0 +1,16 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import '../../styles/catalog.css'
+const sections = [
+  {title:'公众号文章与实践记录', description:'AI 工作流、产品与设计、独立站和工具使用。保留发表时间，按主题继续阅读。', href:'/blog', action:'浏览文章'},
+  {title:'风向标整理', description:'阅读生财有术内容时做的记录，保留对应期次和时间背景。', href:'/daily', action:'查看阅读整理'},
+  {title:'英语学习记录', description:'围绕产品、合作和日常沟通练习英语，按课次继续学习。', href:'/english', action:'进入英语打卡'}
+]
+---
+<PageLayout meta={{title:'笔记 · 产品实践、阅读整理与英语学习', description:'良逍的产品与开发文章、生财有术风向标阅读整理和英语学习记录。'}}>
+  <main class='hub-shell' data-pagefind-body>
+    <nav class='hub-crumbs' aria-label='当前位置'><a href='/'>首页</a><span aria-hidden='true'>/</span><span>笔记</span></nav>
+    <header><p class='hub-kicker'>做过的事，遇到的问题</p><h1 class='hub-title'>把实践和学习留个记录。</h1><p class='hub-lead'>这里放着我做产品、阅读和学习时的笔记。想按具体任务找方法，也可以直接去<a class='hub-link' href='/guides/'>实用攻略</a>。</p></header>
+    <div class='hub-grid hub-section'>{sections.map(s => <a class='hub-card' href={s.href}><h2>{s.title}</h2><p>{s.description}</p><span class='hub-card-action'>{s.action} →</span></a>)}</div>
+  </main>
+</PageLayout>

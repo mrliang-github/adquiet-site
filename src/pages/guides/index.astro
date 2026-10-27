@@ -1,0 +1,18 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { guides } from '@/data/guides'
+import '../../styles/catalog.css'
+---
+<PageLayout meta={{title: '实用攻略 · 求职选公司、AI 工作流与文件处理', description: '从具体任务出发，阅读求职选公司、AI 工作流、Mac 文件处理和产品实践指南。每篇提供可继续操作的步骤与相关入口。'}}>
+  <main class='hub-shell' data-pagefind-body>
+    <nav class='hub-crumbs' aria-label='当前位置'><a href='/'>首页</a><span aria-hidden='true'>/</span><span>实用攻略</span></nav>
+    <header><p class='hub-kicker'>从一个具体问题开始</p><h1 class='hub-title'>查资料、用工具，把事情做完。</h1><p class='hub-lead'>这里整理求职选公司、文件处理和 AI 工作流的具体做法。先选你正在处理的任务，再看步骤、适用条件和相关工具。</p></header>
+    <section class='hub-section' aria-label='已发布攻略'>
+      <div class='hub-grid'>{guides.map(g => <a class='hub-card' href={g.href}>
+        <span class='hub-badge'>{g.category}</span><h2>{g.title}</h2><p>{g.description}</p>
+        <div class='hub-card-footer'><span>{g.action}</span><time datetime={g.date}>{g.date}</time></div><span class='hub-card-action'>阅读攻略 →</span>
+      </a>)}</div>
+    </section>
+    <aside class='hub-notice hub-section'>软件和平台界面会变化，文章日期代表对应做法的时间背景。操作涉及账号或权限时，请先核对自己当前使用的版本与权限范围。</aside>
+  </main>
+</PageLayout>

@@ -6,8 +6,7 @@ export const theme: ThemeUserConfig = {
   title: '良逍 · 个人产品与学习空间',
   /** Will be used in index page & copyright declaration */
   author: '良逍',
-  // 网站描述元数据：学的是设计，做的是产品；主业跨境电商CMS/ERP与流程优化，用AI落地10+款产品
-  description: '学的是设计，做的是产品。主业负责跨境电商 CMS/ERP 系统的产品架构与业务流程优化；业余持续用 AI 做了 10+ 款 iOS 与 Web 工具，探索出海和个人产品的长期可能性。',
+  description: '良逍的个人网站。学的是设计，做的是产品。这里放着我做的 App、网页工具和实践记录，也整理了实用攻略与供求职选公司参考的榜单资料。',
   /** The default favicon for your site which should be a path to an image in the `public/` directory. */
   favicon: '/favicon/favicon.ico',
   /** The default social card image for your site which should be a path to an image in the `public/` directory. */
@@ -41,11 +40,11 @@ export const theme: ThemeUserConfig = {
   /** Configure the header of your site. */
   header: {
     menu: [
-      { title: '博客', link: '/blog' },
-      { title: '风向标', link: '/daily' },
-      { title: '英语打卡', link: '/english' },
-      { title: '产品矩阵', link: '/projects' },
-      { title: '关于我', link: '/about' }
+      { title: '潜力公司库', link: '/data' },
+      { title: '实用攻略', link: '/guides' },
+      { title: '产品工具', link: '/projects' },
+      { title: '笔记', link: '/notes' },
+      { title: '关于', link: '/about' }
     ]
   },
 

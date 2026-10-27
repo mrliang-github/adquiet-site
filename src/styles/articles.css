@@ -1,0 +1,8 @@
+/* Topic labels should wrap as whole pills on narrow article lists. */
+.post-preview .tag-list {
+  flex-wrap: wrap;
+}
+
+.post-preview .tag-list a {
+  white-space: nowrap;
+}

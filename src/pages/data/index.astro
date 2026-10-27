@@ -1,0 +1,26 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import DatasetCards from '@/components/catalog/DatasetCards.astro'
+import '../../styles/catalog.css'
+---
+<PageLayout meta={{title: '潜力公司库 · 从小巨人名单与胡润独角兽榜找公司', description: '找工作时，从专精特新小巨人名单和胡润独角兽榜发现更多公司。按地区、行业或业务筛选候选公司，核对来源，再了解招聘岗位与团队情况。'}}>
+  <main class='hub-shell' data-pagefind-body>
+    <nav class='hub-crumbs' aria-label='当前位置'><a href='/'>首页</a><span aria-hidden='true'>/</span><span>潜力公司库</span></nav>
+    <header>
+      <p class='hub-kicker'>找工作 · 先选公司</p>
+      <h1 class='hub-title'>潜力公司库</h1>
+      <p class='hub-lead'>找工作时，除了熟悉的大厂，也可以从专精特新“小巨人”名单和胡润独角兽榜单里发现公司。先按地区、行业或业务缩小范围，再了解招聘岗位、团队和发展情况。</p>
+    </header>
+    <section class='hub-section' aria-label='可查询的数据集'><DatasetCards /></section>
+    <section class='hub-section'>
+      <h2>从榜单线索，到自己的求职名单</h2>
+      <div class='hub-steps'>
+        <div><h3>01 / 找一批公司</h3><p>从想去的地区、感兴趣的行业或业务词开始筛选，看看有哪些以前没注意到的公司。</p></div>
+        <div><h3>02 / 看业务与岗位</h3><p>查看企业资料和原始来源，再到企业官网等渠道核对招聘岗位、工作地点与团队情况。</p></div>
+        <div><h3>03 / 留下候选名单</h3><p>导出筛选结果，记录适合自己的岗位和待了解的问题，再决定是否投递。</p></div>
+      </div>
+      <p class='hub-section'><a class='hub-link' href='/guides/company-research/'>怎么用这两份榜单筛选求职公司？→</a></p>
+    </section>
+    <aside class='hub-notice hub-section'>本库提供找公司的线索，未接入实时招聘岗位。名单中的公司处于不同发展阶段，上榜不代表正在招聘、一定会成长为大厂或适合你加入。公示资格、榜单估值与业务资料的时间范围，详见各查询页的数据说明。</aside>
+  </main>
+</PageLayout>

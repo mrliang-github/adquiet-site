@@ -3,7 +3,8 @@ title: "Claude code 不说话，就是一味的封号；Codex 也不说话，就
 publishDate: "2026-07-03"
 description: "从一次工具不可用的经历出发，记录 Claude Code 和 Codex 在额度、解释和工作连续性上的不同感受。"
 cover: "https://img.liangxiaoaitool.top/2026/07/2026-07-03-claude-codex-cover-v1.png"
-tags: ["AI 编程","Codex","工具观察"]
+tags: ["AI 工作流","AI 编程","Codex","工具观察"]
+sourcePlatform: "微信公众号"
 source: "2026-07-03-Claude封号Codex重置AI编程工具最伤人的是不解释.md"
 
 draft: false

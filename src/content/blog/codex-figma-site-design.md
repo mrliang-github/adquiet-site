@@ -3,7 +3,8 @@ title: "免费模板搭完独立站后，我用 Codex + Figma 做了自己的页
 publishDate: "2026-06-15"
 description: "免费模板虽然完整，却不一定适合产品、竞品风格和询盘路径；于是先用 Codex + Figma 整理自己的页面设计。"
 cover: "https://img.liangxiaoaitool.top/2026/06/gzh-figma-site-design-cover-image2-v9.png"
-tags: ["独立站","Figma","页面设计"]
+tags: ["产品与设计","独立站","Figma","页面设计"]
+sourcePlatform: "微信公众号"
 source: "2026-06-15-独立站前先把网站风格整理进Figma.md"
 
 draft: false
@@ -235,7 +236,7 @@ Figma 这一步，是为了在模板之上先想清楚：哪些地方必须像�
 
 ---
 
-我是良逍，产品经理，最近主要在折腾 AI 产品、独立开发和出海工具。
+我是良逍，做产品，最近主要在折腾 AI 产品、独立开发和出海工具。
 
 这个号会记录我自己实测过的工具、踩过的坑，以及从想法到产品上线的过程。
 

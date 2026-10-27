@@ -59,6 +59,13 @@ const primaryColor = data.heroImage?.color ?? 'hsl(var(--primary) / var(--un-tex
     </Fragment>
   </Hero>
 
+  {data.sourcePlatform && (
+    <aside class='mb-7 rounded-md border border-border bg-muted/30 px-4 py-3 text-xs leading-relaxed text-muted-foreground' aria-label='文章来源与时间'>
+      <p>原载微信公众号 · {publishDate.toISOString().slice(0, 10)}</p>
+      <p class='mt-1'>这是发表时的实践记录。文中的工具版本、套餐和操作入口可能已变化，使用时请核对官方当前说明。</p>
+    </aside>
+  )}
+
   <slot />
 
   <Fragment slot='bottom'>

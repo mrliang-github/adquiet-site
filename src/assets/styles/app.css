@@ -347,15 +347,24 @@ span[class*='rounded'],
 
 /* ==========================================================================
    8. 首页湖山全景横幅动效系统 (Hero Banner Motion System)
-   从根本上解决非标原子类偶发失效问题，保障 100% 丝滑景深微动效
+   精确定位交互范围，纯净几何景深缩放（绝不变明变暗），圆角加大更显温润开阔
    ========================================================================== */
 
-/* 横幅视窗容器：锁定溢出隐藏，设定手型光标与高光过渡 */
+/* 横幅视窗容器：锁定溢出隐藏，赋予 12px~16px 大视窗优雅圆角 */
 .hero-banner-container {
   /* 确保缩放时超出视窗的内容被优雅裁切 */
   overflow: hidden !important;
   /* 鼠标悬停显式手型，给予明确交互反馈 */
   cursor: pointer !important;
+  /* 移动端圆角增加至 12px，摆脱直角生硬感 */
+  border-radius: 12px !important;
+}
+
+/* 桌面端大屏幕：圆角进一步提升至 16px (1rem)，呈现开阔大画卷的高级质感 */
+@media (min-width: 640px) {
+  .hero-banner-container {
+    border-radius: 16px !important;
+  }
 }
 
 /* 横幅图片基础状态：开启 GPU 硬件加速，防止边缘锯齿与缩放抖动 */
@@ -364,33 +373,21 @@ span[class*='rounded'],
   transform: scale(1) translateZ(0) !important;
   /* 缩放中心点：以画面正中心为锚点向外平滑展开 */
   transform-origin: center center !important;
-  /* 贝塞尔曲线过渡：0.75s 极柔和展开与回弹 */
-  transition:
-    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.75s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  /* 贝塞尔曲线过渡：纯粹针对几何变换进行 0.6s 丝滑推进与回弹，严格不触发任何明暗颜色变化 */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
   /* 硬件加速提示：通知浏览器提前分配合成图层 */
-  will-change: transform, filter !important;
+  will-change: transform !important;
   /* 消除 WebKit 缩放时出现的微小抖动 */
   -webkit-backface-visibility: hidden !important;
   backface-visibility: hidden !important;
 }
 
-/* 鼠标悬停交互状态：支持横幅自身 hover 与 Hero 区域 hover 双重触发 */
-.hero-banner-container:hover .hero-banner-image,
-.group\/hero:hover .hero-banner-image {
-  /* 放大至 1.045：既不过度变形破坏排版，又能清晰感知湖山画卷徐徐展开的景深推进感 */
-  transform: scale(1.045) translateZ(0) !important;
-  /* 浅色模式微调高光：轻微提升亮度和对比度，呈现晴空通透感 */
-  filter: brightness(1.02) contrast(1.04) !important;
-}
-
-/* 深色模式下的悬停状态：降低过度曝光，增强暗夜景深 */
-.dark .hero-banner-container:hover .hero-banner-image,
-.dark .group\/hero:hover .hero-banner-image {
-  /* 保持与浅色一致的优雅缩放幅度 */
-  transform: scale(1.045) translateZ(0) !important;
-  /* 深色模式微光通透度微调 */
-  filter: brightness(0.82) contrast(1.06) !important;
+/* 鼠标悬停交互状态：【严格限定】仅当鼠标真正移入横幅图片容器本身时触发 */
+/* 绝不在外层名字、头像、标签处提前触发，避免交互过激与误触 */
+.hero-banner-container:hover .hero-banner-image {
+  /* 克制优雅放大至 1.035：既有清晰自然的景深微展开感，又绝不过度变形破坏布局基线 */
+  transform: scale(1.035) translateZ(0) !important;
+  /* 严格禁止改变 brightness 和 contrast，保持原图原本纯净、真实的光影色彩 */
 }
 
 

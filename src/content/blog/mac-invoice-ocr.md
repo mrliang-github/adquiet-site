@@ -3,7 +3,8 @@ title: "我开源了个 Mac 发票 OCR 工具，不接 API 也能转 Excel"
 publishDate: "2026-06-13"
 description: "用 macOS 自带 Apple Vision 做本地文字识别，把一批发票先整理成 Excel，再交给人复核关键字段。"
 cover: "https://img.liangxiaoaitool.top/2026/06/00-cover-image2-v2.png"
-tags: ["开源","macOS","OCR"]
+tags: ["工具使用","开源","macOS","OCR"]
+sourcePlatform: "微信公众号"
 source: "2026-06-13-我开源了个Mac发票OCR工具，不接API也能转Excel.md"
 
 draft: false
@@ -172,7 +173,7 @@ Mac 负责识别文字，我补一点字段规则，Excel 负责交付，人最�
 
 ---
 
-我是良逍，产品经理，最近主要在折腾 AI 产品、独立开发和出海工具。
+我是良逍，做产品，最近主要在折腾 AI 产品、独立开发和出海工具。
 
 这个号会记录我自己实测过的工具、踩过的坑，以及从想法到产品上线的过程。
 

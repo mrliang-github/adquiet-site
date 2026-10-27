@@ -22,6 +22,7 @@ const blog = defineCollection({
       publishDate: z.coerce.date(),
       // Optional
       updatedDate: z.coerce.date().optional(),
+      sourcePlatform: z.literal('微信公众号').optional(),
       heroImage: z
         .object({
           src: image(),
