@@ -1,9 +1,9 @@
 ---
 import { Image } from 'astro:assets'
+import { getCollection } from 'astro:content'
 import { Button, Icon, Label } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import Section from '@/components/home/Section.astro'
-import DatasetCards from '@/components/catalog/DatasetCards.astro'
 import { projects, type ProjectItem } from '@/data/projects'
 import { guides } from '@/data/guides'
 import config from '@/site-config'
@@ -16,13 +16,26 @@ export const prerender = true
 const featuredProjects = ['听页', 'Fluxio 视频压缩裁切', 'PDF Snap', '发票识别工作台']
   .map((name) => projects.find((project) => project.name === name))
   .filter((project): project is ProjectItem => project !== undefined)
+const featuredGuides = guides.filter(({ href }) => [
+  '/blog/mac-invoice-ocr/',
+  '/blog/xiaohongshu-comment-intelligence/',
+  '/blog/codex-google-sheets-store-upload/'
+].includes(href))
+const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .map(({ id, data }) => ({
+    title: data.title,
+    href: `/blog/${id}`,
+    date: data.updatedDate ?? data.publishDate
+  }))
+  .sort((a, b) => b.date.valueOf() - a.date.valueOf())
+  .slice(0, 3)
 ---
 
 {/* 页面主布局：设定湖山青碧蓝 (#54889C) 为主题高光色 */}
 <PageLayout
   meta={{
     title: '首页 · 良逍',
-    description: '查企业资料、看实用攻略、找产品工具。良逍的个人网站，整理专精特新小巨人公示名单、胡润独角兽榜单与 AI 工作流实践。'
+    description: '良逍的个人网站。这里放着我做的 App 和网页工具，也记录 AI 工作流、文件处理和产品开发中的实践。'
   }}
   highlightColor='#54889C'
 >
@@ -69,7 +82,7 @@ const featuredProjects = ['听页', 'Fluxio 视频压缩裁切', 'PDF Snap', '�
               主业做跨境电商相关的 CMS、ERP 系统，工作之外用 AI 做一些 App 和网页工具。
             </p>
             <p class='max-w-xl text-sm leading-relaxed text-muted-foreground'>
-              这里可以查企业资料、找实用攻略，也放着我做的产品和实践记录。
+              这里放着我做的产品，也记录用过的方法和遇到的问题。
             </p>
           </div>
 
@@ -108,9 +121,8 @@ const featuredProjects = ['听页', 'Fluxio 视频压缩裁切', 'PDF Snap', '�
           </div>
 
           <div class='flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm'>
-            <Button title='查企业资料 →' href='/data/' variant='ahead' />
+            <Button title='看产品与工具 →' href='/projects' variant='ahead' />
             <Button title='看实用攻略 →' href='/guides/' variant='ahead' />
-            <Button title='找产品工具 →' href='/projects' variant='ahead' />
           </div>
         </section>
       </div>
@@ -118,24 +130,6 @@ const featuredProjects = ['听页', 'Fluxio 视频压缩裁切', 'PDF Snap', '�
       {/* 2. 主体内容区块组：严格与 Hero 容器同宽（max-w-4xl 100%），统一垂直间距节奏 gap-y-12 sm:gap-y-16 */}
       <div id='content' class='animate flex w-full flex-col gap-y-12 sm:gap-y-16'>
         
-        <section class='hub-entry' aria-labelledby='home-data-title'>
-          <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
-            <div><h2 id='home-data-title' class='text-xl font-semibold'>企业资料库</h2><p class='mt-2 text-sm text-muted-foreground'>按名称、业务和地区查找，保留来源，导出需要的线索。</p></div>
-            <a class='hub-link text-sm' href='/data/'>查看全部资料 →</a>
-          </div>
-          <DatasetCards heading='h3' />
-        </section>
-
-        <section class='hub-entry' aria-labelledby='home-guides-title'>
-          <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
-            <div><h2 id='home-guides-title' class='text-xl font-semibold'>实用攻略</h2><p class='mt-2 text-sm text-muted-foreground'>从一个具体问题开始，找到可以接着做的步骤。</p></div>
-            <a class='hub-link text-sm' href='/guides/'>浏览全部攻略 →</a>
-          </div>
-          <div class='hub-home-grid'>
-            {guides.slice(0, 3).map(g => <a class='hub-card' href={g.href}><span class='hub-badge'>{g.category}</span><h3>{g.title}</h3><p>{g.description}</p><span class='hub-card-action'>阅读攻略 →</span></a>)}
-          </div>
-        </section>
-
         <Section title='产品与工具' desc='阅读、视频处理和文件整理'>
           <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
             {
@@ -171,12 +165,36 @@ const featuredProjects = ['听页', 'Fluxio 视频压缩裁切', 'PDF Snap', '�
           <Button title='查看全部产品与工具 →' class='w-fit self-end text-xs' href='/projects' variant='ahead' />
         </Section>
 
-        <section class='hub-entry' aria-labelledby='home-notes-title'>
-          <div class='mb-5 flex items-baseline justify-between gap-2'><h2 id='home-notes-title' class='text-xl font-semibold'>实践与学习记录</h2><a class='hub-link text-sm' href='/notes/'>进入笔记 →</a></div>
+        <section class='hub-entry' aria-labelledby='home-guides-title'>
+          <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
+            <div><h2 id='home-guides-title' class='text-xl font-semibold'>精选攻略</h2><p class='mt-2 text-sm text-muted-foreground'>整理文件、收集需求、维护产品资料时用到的方法。</p></div>
+            <a class='hub-link text-sm' href='/guides/'>浏览全部攻略 →</a>
+          </div>
           <div class='hub-home-grid'>
-            <a class='hub-card' href='/blog'><h3>产品与开发</h3><p>做产品时用过的工具和遇到的问题。</p></a>
-            <a class='hub-card' href='/daily'><h3>风向标整理</h3><p>阅读生财有术内容时做的记录。</p></a>
-            <a class='hub-card' href='/english'><h3>英语学习</h3><p>围绕产品、合作和日常沟通练习英语。</p></a>
+            {featuredGuides.map(g => <a class='hub-card' href={g.href}><span class='hub-badge'>{g.category}</span><h3>{g.title}</h3><p>{g.description}</p><span class='hub-card-action'>阅读攻略 →</span></a>)}
+          </div>
+        </section>
+
+        <section class='hub-entry' aria-labelledby='home-updates-title'>
+          <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
+            <div><h2 id='home-updates-title' class='text-xl font-semibold'>最近更新</h2><p class='mt-2 text-sm text-muted-foreground'>做产品时用过的工具和遇到的问题。</p></div>
+            <a class='hub-link text-sm' href='/blog'>查看全部文章 →</a>
+          </div>
+          <ul class='divide-y divide-border border-y border-border'>
+            {latestPosts.map(post => (
+              <li>
+                <a class='group flex flex-col gap-2 py-4 text-sm transition-colors hover:text-primary sm:flex-row sm:items-baseline sm:gap-5' href={post.href}>
+                  <time class='shrink-0 font-mono text-xs text-muted-foreground' datetime={post.date.toISOString()}>{post.date.toISOString().slice(0, 10)}</time>
+                  <span class='min-w-0 flex-1 leading-relaxed'>{post.title}</span>
+                  <span class='hidden text-primary sm:block' aria-hidden='true'>→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div class='mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm'>
+            <a class='hub-link' href='/notes/'>全部笔记 →</a>
+            <a class='hub-link' href='/daily'>风向标整理 →</a>
+            <a class='hub-link' href='/english'>英语学习 →</a>
           </div>
         </section>
 
