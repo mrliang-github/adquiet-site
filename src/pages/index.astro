@@ -5,8 +5,6 @@ import { Button, Icon, Label } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import Section from '@/components/home/Section.astro'
 import { projects, type ProjectItem } from '@/data/projects'
-import DatasetCards from '@/components/catalog/DatasetCards.astro'
-import { articleTopics, articleTopicHref } from '@/data/article-topics'
 import config from '@/site-config'
 import heroBanner from '@/assets/hero-banner.jpg'
 import avatarImg from '@/assets/avatar.png'
@@ -14,32 +12,68 @@ import shengcaiQrcode from '@/assets/shengcai-qrcode.png'
 import '../styles/catalog.css'
 
 export const prerender = true
+
+// 1. 精选产品与工具（保持原样 4 款代表作）
 const featuredProjects = ['听页', 'Fluxio 视频压缩裁切', 'PDF Snap', '发票识别工作台']
   .map((name) => projects.find((project) => project.name === name))
   .filter((project): project is ProjectItem => project !== undefined)
+
+// 2. 首页精选文章显示别名
 const articleHomeTitles: Record<string, string> = {
+  '100-lines-python-agent': '不用 LangChain：100 行原生 Python 跑通你的第一个本地 Agent',
   'grok-bot-workflows': '我怎样给 5 个 Bot 分工',
   'wordpress-security-review': '一次 WordPress 独立站安全复盘',
   'codex-app-production-line': '把两个 App 的送审流程串起来',
   'two-lark-work-cards': '给 Codex 接入公司和个人两套飞书',
   'chatgpt-codex-work-notes': '新版桌面端里的 Chat、Work 和 Codex',
-  'xiaohongshu-comment-intelligence': '把小红书评论整理成产品需求线索'
+  'xiaohongshu-comment-intelligence': '把小红书评论整理成产品需求线索',
+  'mac-invoice-ocr': 'Mac 发票转 Excel：先识别，再复核'
 }
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
+
+// 3. 读取所有博客文章并按发布时间倒序排列
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-const latestPosts = posts.slice(0, 6)
-  .map(({ id, data }) => ({
+
+// 辅助分类归并逻辑（将原本割裂的“文章”与“攻略”融合并规范化）
+function getPostCategory(tags: string[] = []): { category: string; key: string } {
+  const lower = tags.map(t => t.toLowerCase())
+  if (lower.some(t => t.includes('agent'))) {
+    return { category: 'AI Agent 实战', key: 'agent' }
+  }
+  if (lower.some(t => ['工具使用', '开源', '需求验证', 'ocr', '发票', '小红书'].includes(t))) {
+    return { category: '实战攻略', key: 'guide' }
+  }
+  if (lower.some(t => ['ai 工作流', 'codex', 'grok bot', '飞书', '自动化'].includes(t))) {
+    return { category: 'AI 工作流', key: 'workflow' }
+  }
+  if (lower.some(t => ['产品与设计', '独立站', 'figma', 'wordpress', '设计系统'].includes(t))) {
+    return { category: '产品与设计', key: 'design' }
+  }
+  return { category: tags[0] || '实践记录', key: 'other' }
+}
+
+const formattedPosts = allPosts.map(({ id, data }) => {
+  const { category, key } = getPostCategory(data.tags)
+  return {
+    id,
     title: articleHomeTitles[id] ?? data.title,
-    href: `/blog/${id}`,
+    href: `/blog/${id}/`,
     date: data.publishDate,
     description: data.description,
-    topic: articleTopics.find(topic => data.tags.includes(topic.toLowerCase())) ?? data.tags[0]
-  }))
-const topics = articleTopics.map(topic => ({
-  title: topic,
-  href: articleTopicHref(topic),
-  count: posts.filter(({ data }) => data.tags.includes(topic.toLowerCase())).length
-})).filter(topic => topic.count > 0)
+    category,
+    categoryKey: key,
+    tag: data.tags[0] || category
+  }
+})
+
+// 分类筛选药丸数据定义
+const categoryFilters = [
+  { label: '全部', key: 'all', count: allPosts.length },
+  { label: 'AI Agent 实战', key: 'agent', count: formattedPosts.filter(p => p.categoryKey === 'agent').length },
+  { label: '实战攻略', key: 'guide', count: formattedPosts.filter(p => p.categoryKey === 'guide').length },
+  { label: 'AI 工作流', key: 'workflow', count: formattedPosts.filter(p => p.categoryKey === 'workflow').length },
+  { label: '产品与设计', key: 'design', count: formattedPosts.filter(p => p.categoryKey === 'design').length }
+].filter(c => c.key === 'all' || c.count > 0)
 ---
 
 {/* 页面主布局：设定湖山青碧蓝 (#54889C) 为主题高光色 */}
@@ -54,11 +88,10 @@ const topics = articleTopics.map(topic => ({
     {/* 统一规范容器：最大宽度限制为 max-w-4xl，严格统一左右基线对齐 */}
     <div class='flex w-full max-w-4xl flex-col items-center'>
       
-      {/* 1. Header Profile Hero：与顶部吸顶导航保留舒展自然的呼吸空间，视野开阔不局促 */}
+      {/* 1. Header Profile Hero：Banner 和头像区 100% 保持原样不动 */}
       <div class='animate mt-1 sm:mt-3 mb-8 w-full sm:mb-12'>
-        {/* 顶部湖山天际线全景横幅：多增加 px 圆角 (12px~16px)，限定仅鼠标真正移入横幅本身时触发动效 */}
+        {/* 顶部湖山天际线全景横幅 */}
         <div class='hero-banner-container group relative h-52 w-full overflow-hidden rounded-xl sm:rounded-2xl cursor-pointer sm:h-64 md:h-76 ring-1 ring-border/50 transition-all duration-300 hover:ring-primary/40'>
-          {/* 横幅全景原图：仅平滑微景深展开 (1.035)，纯粹几何缩放，严格保持原图自然光影不变明变暗 */}
           <Image
             src={heroBanner}
             alt='湖山与城市天际线全景'
@@ -66,13 +99,11 @@ const topics = articleTopics.map(topic => ({
             loading='eager'
             fetchpriority='high'
           />
-          {/* 底部渐变透明遮罩：pointer-events-none 确保鼠标事件穿透给横幅容器，与页面主底色无缝融为一体 */}
           <div class='absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background pointer-events-none'></div>
         </div>
 
-        {/* 头像与身份定位区：自然悬浮于横幅地平线交界，无拘束通透排布 */}
+        {/* 头像与身份定位区：自然悬浮于横幅地平线交界 */}
         <section class='relative -mt-16 flex flex-col items-center gap-y-3.5 px-4 text-center sm:-mt-20 sm:gap-y-4' id='content-header'>
-          {/* 圆形头像：环境光晕厚边框与微悬浮动效 */}
           <div class='relative'>
             <Image
               src={avatarImg}
@@ -97,9 +128,8 @@ const topics = articleTopics.map(topic => ({
             </p>
           </div>
 
-          {/* 核心社交与实战合作标签：严肃正式矩形微圆角质感 (rounded-md) */}
+          {/* 核心社交与实战合作标签 */}
           <div class='flex flex-wrap items-center justify-center gap-2.5 text-xs'>
-            {/* 商务交流与微信号标签 */}
             <div
               class='flex items-center gap-x-2 rounded-md border border-border/80 bg-background/90 px-3 py-1.5 font-mono text-muted-foreground shadow-xs transition-colors hover:border-primary/50 hover:text-foreground'
               title='微信联系'
@@ -108,7 +138,6 @@ const topics = articleTopics.map(topic => ({
               <span>liangxiao-20</span>
             </div>
 
-            {/* GitHub 链接 */}
             <Label
               title='GitHub'
               as='a'
@@ -119,7 +148,6 @@ const topics = articleTopics.map(topic => ({
               <Icon name='github' class='size-3.5' slot='icon' />
             </Label>
 
-            {/* X (Twitter) 链接 */}
             <Label
               title='X (Twitter)'
               as='a'
@@ -138,14 +166,14 @@ const topics = articleTopics.map(topic => ({
         </section>
       </div>
 
-      {/* 2. 主体内容区块组：严格与 Hero 容器同宽（max-w-4xl 100%），统一垂直间距节奏 gap-y-12 sm:gap-y-16 */}
+      {/* 2. 主体内容区块组：严格与 Hero 容器同宽（max-w-4xl 100%），统一垂直间距节奏 */}
       <div id='content' class='animate flex w-full flex-col gap-y-12 sm:gap-y-16'>
         
+        {/* [楼层 2] 产品与工具：保持原样，展示 4 款代表作 */}
         <Section title='产品与工具' desc='阅读、视频处理和文件整理'>
           <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
             {
               featuredProjects.map((p: ProjectItem) => (
-                /* 产品卡片：容器统一为 rounded-lg 现代克制矩形微圆角，内层徽标为 rounded-md 精致微圆角标签 */
                 <a
                   href={p.href}
                   target={p.external ? '_blank' : undefined}
@@ -154,9 +182,7 @@ const topics = articleTopics.map(topic => ({
                 >
                   <div>
                     <div class='mb-2.5 flex items-center justify-between text-xs text-muted-foreground'>
-                      {/* 分类标签：rounded-md 矩形微圆角 */}
                       <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>{p.category}</span>
-                      {/* 状态徽标：rounded-md 规范 */}
                       <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>{p.status}</span>
                     </div>
                     <h3 class='text-base font-medium text-foreground transition-colors group-hover:text-primary'>
@@ -176,92 +202,210 @@ const topics = articleTopics.map(topic => ({
           <Button title='查看全部产品与工具 →' class='w-fit self-end text-xs' href='/projects' variant='ahead' />
         </Section>
 
-        {/* 3. 潜力公司库：给专精特新和小巨人、独角兽数据一个清晰的主位展示 */}
+        {/* [楼层 3] 潜力公司库（新增独立楼层，亮出核心企业数据资产与 Agent 接口） */}
         <section class='hub-entry' aria-labelledby='home-data-title'>
           <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
             <div>
-              <h2 id='home-data-title' class='text-xl font-semibold'>潜力公司库</h2>
-              <p class='mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground'>
-                找工作时，从专精特新“小巨人”名单与胡润独角兽榜单找公司。按地区、行业筛选，先了解它做什么。
+              <div class='flex items-center gap-x-2'>
+                <span class='rounded-md border border-primary/25 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>企业数据资产</span>
+                <span class='text-xs text-muted-foreground font-mono'>5,084 家企业收录</span>
+              </div>
+              <h2 id='home-data-title' class='mt-2 text-xl font-semibold text-foreground'>潜力公司库</h2>
+              <p class='mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground'>
+                整理专精特新“小巨人”公示名单与胡润全球独角兽企业快照，支持按省市、赛道多维穿透筛选，并开放机器可读的 Agent 数据网关。
               </p>
             </div>
-            <div class='flex items-center gap-x-4 text-sm'>
-              <a class='hub-link' href='/data/agents/'>Agent 接口 →</a>
-              <a class='hub-link' href='/data'>查看全部数据 →</a>
+            <a class='hub-link text-sm' href='/data'>进入公司库主页 →</a>
+          </div>
+
+          {/* 两个大卡片并排：小巨人 vs 独角兽 */}
+          <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+            {/* 卡片 1: 专精特新小巨人 */}
+            <a href='/data/little-giants/' class='group flex flex-col justify-between rounded-md border border-border/80 bg-background/90 p-5 transition-all hover:border-primary/60 hover:bg-muted/30 hover:shadow-xs'>
+              <div>
+                <div class='flex items-center justify-between text-xs'>
+                  <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary'>国家级公示名录</span>
+                  <span class='font-mono text-muted-foreground'>快照 2025-09</span>
+                </div>
+                <h3 class='mt-3 text-lg font-semibold text-foreground transition-colors group-hover:text-primary'>专精特新“小巨人”企业查询</h3>
+                <div class='mt-2 flex items-baseline gap-x-2'>
+                  <span class='text-2xl font-bold font-mono tracking-tight text-foreground'>3,482</span>
+                  <span class='text-xs text-muted-foreground'>家收录企业 · 2,193 家含主营业务画像</span>
+                </div>
+                <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground'>
+                  收录第七批新增公示名单全国整理版。支持按省份、申报地区和业务领域检索，溯源官方公示依据，查看主营业务画像。
+                </p>
+              </div>
+              <div class='mt-4 flex items-center justify-between border-t border-border/50 pt-3 text-xs'>
+                <span class='text-muted-foreground'>支持筛选链接与 CSV 导出</span>
+                <span class='font-medium text-primary group-hover:underline'>在线检索名录 →</span>
+              </div>
+            </a>
+
+            {/* 卡片 2: 胡润独角兽榜单 */}
+            <a href='/data/unicorns/' class='group flex flex-col justify-between rounded-md border border-border/80 bg-background/90 p-5 transition-all hover:border-primary/60 hover:bg-muted/30 hover:shadow-xs'>
+              <div>
+                <div class='flex items-center justify-between text-xs'>
+                  <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary'>胡润全球独角兽</span>
+                  <span class='font-mono text-muted-foreground'>估值基准 2026-01</span>
+                </div>
+                <h3 class='mt-3 text-lg font-semibold text-foreground transition-colors group-hover:text-primary'>胡润全球独角兽榜查询</h3>
+                <div class='mt-2 flex items-baseline gap-x-2'>
+                  <span class='text-2xl font-bold font-mono tracking-tight text-foreground'>1,602</span>
+                  <span class='text-xs text-muted-foreground'>家收录企业 · 人民币亿元估值基准</span>
+                </div>
+                <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground'>
+                  聚合全球估值 10 亿美元以上核心企业画像。支持按行业赛道、国家地区多维穿透，查看历史估值、负责人信息与主营业务。
+                </p>
+              </div>
+              <div class='mt-4 flex items-center justify-between border-t border-border/50 pt-3 text-xs'>
+                <span class='text-muted-foreground'>支持按估值排序与多维检索</span>
+                <span class='font-medium text-primary group-hover:underline'>在线查询榜单 →</span>
+              </div>
+            </a>
+          </div>
+
+          {/* 底部开放数据与 Agent 接口条 */}
+          <div class='mt-4 flex flex-col gap-3 rounded-md border border-border/70 bg-muted/40 p-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-4'>
+            <div class='flex items-center gap-2.5 text-xs text-muted-foreground'>
+              <span class='inline-flex items-center justify-center rounded-sm bg-primary/15 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-primary'>AGENT API</span>
+              <span>已开放机器可读网关，AI Agent / 脚本可免登录直接读取地域分片与全量 JSON 快照</span>
+            </div>
+            <div class='flex flex-wrap items-center gap-x-4 gap-y-1 text-xs'>
+              <a href='/data/agents/' class='font-medium text-primary hover:underline'>让 Agent 读取数据 →</a>
+              <a href='/guides/company-research/' class='text-muted-foreground hover:text-foreground hover:underline'>企业调研指南 →</a>
             </div>
           </div>
-          <DatasetCards heading='h3' />
         </section>
 
-        {/* 4. 文章与实战复盘：将原有的“公众号文章”与“攻略”合并，消灭重复感 */}
+        {/* [楼层 4] 文章与实战攻略（融合文章与攻略，消灭重复感，带分类筛选小药丸） */}
         <section class='hub-entry' aria-labelledby='home-articles-title'>
           <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
             <div>
-              <h2 id='home-articles-title' class='text-xl font-semibold'>文章与实战复盘</h2>
-              <p class='mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground'>
-                记录 AI 工具、Agent 搭建、出海独立站和踩坑复盘，方便按主题查找。
+              <h2 id='home-articles-title' class='text-xl font-semibold text-foreground'>文章与实战攻略</h2>
+              <p class='mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground'>
+                记录真实环境下的 AI Agent 开发、独立产品出海、代码实战与业务自动化方法。
               </p>
             </div>
-            <a class='hub-link text-sm' href='/blog'>全部 {posts.length} 篇 →</a>
+            <a class='hub-link text-sm' href='/blog'>全部 {allPosts.length} 篇归档 →</a>
           </div>
-          <nav class='mb-5 flex flex-wrap gap-2' aria-label='按主题阅读文章'>
-            {topics.map(topic => <a href={topic.href} class='inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-xs transition-colors hover:border-primary/50 hover:text-primary'><span>{topic.title}</span><span class='text-muted-foreground'>{topic.count}</span></a>)}
+
+          {/* 分类筛选小药丸 */}
+          <nav class='mb-5 flex flex-wrap gap-2' aria-label='按分类筛选文章'>
+            {categoryFilters.map(filter => (
+              <button
+                type='button'
+                data-post-filter={filter.key}
+                class:list={[
+                  'category-pill inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs transition-colors',
+                  filter.key === 'all' ? 'active' : ''
+                ]}
+              >
+                <span>{filter.label}</span>
+                <span class='opacity-70 text-[11px]'>{filter.count}</span>
+              </button>
+            ))}
           </nav>
-          <ul class='grid gap-4 sm:grid-cols-2' aria-label='近期文章'>
-            {latestPosts.map(post => (
-              <li class='min-w-0'>
-                <a class='group flex h-full flex-col rounded-md border border-border/70 p-5 transition-colors hover:border-primary/50 hover:bg-muted/30' href={post.href}>
-                  <div class='mb-3 flex flex-wrap items-center justify-between gap-2 text-xs'>
-                    <span class='text-primary'>{post.topic}</span>
-                    <time class='font-mono text-muted-foreground' datetime={post.date.toISOString()}>{post.date.toISOString().slice(0, 10)}</time>
+
+          {/* 文章卡片网格列表（展示最新实战内容） */}
+          <ul class='grid gap-4 sm:grid-cols-2' aria-label='近期文章与实战攻略'>
+            {formattedPosts.slice(0, 10).map((post, idx) => (
+              <li
+                class='min-w-0'
+                data-post-card
+                data-post-category={post.categoryKey}
+                data-default={idx < 6 ? 'true' : 'false'}
+                style={idx >= 6 ? 'display: none;' : undefined}
+              >
+                <a
+                  class='group flex h-full flex-col justify-between rounded-md border border-border/70 bg-background/80 p-5 transition-all hover:border-primary/50 hover:bg-muted/30 hover:shadow-xs'
+                  href={post.href}
+                >
+                  <div>
+                    <div class='mb-3 flex flex-wrap items-center justify-between gap-2 text-xs'>
+                      <span class='rounded-md border border-primary/20 bg-primary/10 px-2 py-0.5 font-medium text-primary'>{post.category}</span>
+                      <time class='font-mono text-muted-foreground' datetime={post.date.toISOString()}>
+                        {post.date.toISOString().slice(0, 10)}
+                      </time>
+                    </div>
+                    <h3 class='text-base font-medium leading-snug text-foreground transition-colors group-hover:text-primary'>
+                      {post.title}
+                    </h3>
+                    <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground line-clamp-2'>
+                      {post.description}
+                    </p>
                   </div>
-                  <h3 class='text-base font-medium leading-relaxed transition-colors group-hover:text-primary'>{post.title}</h3>
-                  <p class='mt-2 flex-1 text-sm leading-relaxed text-muted-foreground'>{post.description}</p>
-                  <span class='mt-4 text-xs text-primary'>阅读全文 →</span>
+                  <div class='mt-4 flex items-center justify-between border-t border-border/40 pt-3 text-xs text-primary'>
+                    <span class='font-mono text-[11px] text-muted-foreground'>#{post.tag}</span>
+                    <span class='font-medium group-hover:underline'>阅读全文 →</span>
+                  </div>
                 </a>
               </li>
             ))}
           </ul>
+
+          <div class='mt-4 flex items-center justify-end text-xs'>
+            <a class='hub-link' href='/blog'>查看全部 {allPosts.length} 篇文章与完整标签 →</a>
+          </div>
         </section>
 
-        {/* 5. 探索与日常专题：整洁的三列小卡片，轻量收纳 */}
-        <section class='hub-entry' aria-labelledby='home-topics-title'>
+        {/* [楼层 5] 探索与日常：轻量收纳行 */}
+        <section class='hub-entry' aria-labelledby='home-explore-title'>
           <div class='mb-4 flex flex-wrap items-baseline justify-between gap-2'>
             <div>
-              <h2 id='home-topics-title' class='text-xl font-semibold'>探索与专题</h2>
-              <p class='mt-1.5 text-sm text-muted-foreground'>日常商业观察、出海职场英语与碎片笔记。</p>
+              <h2 id='home-explore-title' class='text-lg sm:text-xl font-medium tracking-tight text-foreground'>探索与日常</h2>
+              <p class='mt-1 text-xs text-muted-foreground'>
+                日常零碎资讯梳理、英语表达与技术手记。
+              </p>
             </div>
           </div>
-          <div class='grid grid-cols-1 gap-4 sm:grid-cols-3'>
-            <a href='/daily' class='group flex flex-col justify-between rounded-md border border-border/70 p-4.5 transition-colors hover:border-primary/50 hover:bg-muted/30'>
+
+          <div class='grid grid-cols-1 gap-3.5 sm:grid-cols-3'>
+            {/* 胶囊 1: 每日风向标 */}
+            <a href='/daily' class='group flex flex-col justify-between rounded-md border border-border/70 bg-background/80 p-4 transition-all hover:border-primary/50 hover:bg-muted/30 hover:shadow-xs'>
               <div>
-                <span class='text-xs font-mono text-primary'>商业洞察</span>
-                <h3 class='mt-1.5 text-base font-medium text-foreground transition-colors group-hover:text-primary'>商业风向标整理</h3>
-                <p class='mt-2 text-xs leading-relaxed text-muted-foreground'>持续跟踪海外市场动态、前沿工具与副业机会整理。</p>
+                <div class='flex items-center justify-between text-xs'>
+                  <span class='font-medium text-foreground group-hover:text-primary transition-colors'>每日风向标</span>
+                  <span class='rounded-sm border border-border/60 bg-muted/70 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground'>Daily</span>
+                </div>
+                <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground'>
+                  跟踪生财有术精华案例、行业风向与商业模式观察。
+                </p>
               </div>
-              <span class='mt-4 text-xs font-medium text-primary'>查看风向标 →</span>
+              <span class='mt-3.5 text-xs font-medium text-primary group-hover:underline'>查看风向标整理 →</span>
             </a>
 
-            <a href='/english' class='group flex flex-col justify-between rounded-md border border-border/70 p-4.5 transition-colors hover:border-primary/50 hover:bg-muted/30'>
+            {/* 胶囊 2: 职场英语 */}
+            <a href='/english' class='group flex flex-col justify-between rounded-md border border-border/70 bg-background/80 p-4 transition-all hover:border-primary/50 hover:bg-muted/30 hover:shadow-xs'>
               <div>
-                <span class='text-xs font-mono text-primary'>出海沟通</span>
-                <h3 class='mt-1.5 text-base font-medium text-foreground transition-colors group-hover:text-primary'>职场英语实战</h3>
-                <p class='mt-2 text-xs leading-relaxed text-muted-foreground'>面对海外客户、发票催款、Bug 反馈时的真实高频英文对话。</p>
+                <div class='flex items-center justify-between text-xs'>
+                  <span class='font-medium text-foreground group-hover:text-primary transition-colors'>职场英语</span>
+                  <span class='rounded-sm border border-border/60 bg-muted/70 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground'>English</span>
+                </div>
+                <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground'>
+                  真实跨国协作、产品讨论与出海日常表达与情景对话。
+                </p>
               </div>
-              <span class='mt-4 text-xs font-medium text-primary'>查看英语卡片 →</span>
+              <span class='mt-3.5 text-xs font-medium text-primary group-hover:underline'>进入情景练习 →</span>
             </a>
 
-            <a href='/notes/' class='group flex flex-col justify-between rounded-md border border-border/70 p-4.5 transition-colors hover:border-primary/50 hover:bg-muted/30'>
+            {/* 胶囊 3: 随手笔记 */}
+            <a href='/notes/' class='group flex flex-col justify-between rounded-md border border-border/70 bg-background/80 p-4 transition-all hover:border-primary/50 hover:bg-muted/30 hover:shadow-xs'>
               <div>
-                <span class='text-xs font-mono text-primary'>速查备忘</span>
-                <h3 class='mt-1.5 text-base font-medium text-foreground transition-colors group-hover:text-primary'>随手笔记与指南</h3>
-                <p class='mt-2 text-xs leading-relaxed text-muted-foreground'>做独立站、配置服务器、调试环境时的零散记录与备忘。</p>
+                <div class='flex items-center justify-between text-xs'>
+                  <span class='font-medium text-foreground group-hover:text-primary transition-colors'>随手笔记</span>
+                  <span class='rounded-sm border border-border/60 bg-muted/70 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground'>Notes</span>
+                </div>
+                <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground'>
+                  开发过程中的快速备忘、脚本片段与踩坑记录。
+                </p>
               </div>
-              <span class='mt-4 text-xs font-medium text-primary'>查看全部笔记 →</span>
+              <span class='mt-3.5 text-xs font-medium text-primary group-hover:underline'>浏览全部笔记 →</span>
             </a>
           </div>
         </section>
 
+        {/* [楼层 6] 生财有术体验卡：100% 保持原样 */}
         <section aria-label='生财有术体验入口' class='overflow-hidden rounded-md border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-background to-primary/5 p-4.5 sm:p-6 shadow-sm transition-all hover:border-emerald-500/50'>
           <div class='flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between'>
             {/* 左侧文案与行动按钮 */}
@@ -310,3 +454,58 @@ const topics = articleTopics.map(topic => ({
     </div>
   </main>
 </PageLayout>
+
+<style>
+  .category-pill {
+    border-color: hsl(var(--border));
+    color: hsl(var(--muted-foreground));
+    background: hsl(var(--background));
+    cursor: pointer;
+    user-select: none;
+  }
+  .category-pill:hover {
+    border-color: hsl(var(--primary) / 0.5);
+    color: hsl(var(--foreground));
+  }
+  .category-pill.active {
+    border-color: hsl(var(--primary));
+    background-color: hsl(var(--primary) / 0.12);
+    color: hsl(var(--primary));
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  function setupArticleFilter() {
+    const pills = document.querySelectorAll<HTMLButtonElement>('[data-post-filter]')
+    const cards = document.querySelectorAll<HTMLElement>('[data-post-card]')
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const filterKey = pill.dataset.postFilter
+        pills.forEach(p => p.classList.remove('active'))
+        pill.classList.add('active')
+
+        let matchCount = 0
+        cards.forEach(card => {
+          const categoryKey = card.dataset.postCategory
+          const isDefault = card.dataset.default === 'true'
+
+          if (filterKey === 'all') {
+            card.style.display = isDefault ? '' : 'none'
+          } else {
+            if (categoryKey === filterKey && matchCount < 6) {
+              card.style.display = ''
+              matchCount++
+            } else {
+              card.style.display = 'none'
+            }
+          }
+        })
+      })
+    })
+  }
+
+  setupArticleFilter()
+  document.addEventListener('astro:page-load', setupArticleFilter)
+</script>
