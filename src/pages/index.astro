@@ -5,7 +5,7 @@ import { Button, Icon, Label } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import Section from '@/components/home/Section.astro'
 import { projects, type ProjectItem } from '@/data/projects'
-import { guides } from '@/data/guides'
+import DatasetCards from '@/components/catalog/DatasetCards.astro'
 import { articleTopics, articleTopicHref } from '@/data/article-topics'
 import config from '@/site-config'
 import heroBanner from '@/assets/hero-banner.jpg'
@@ -17,11 +17,6 @@ export const prerender = true
 const featuredProjects = ['听页', 'Fluxio 视频压缩裁切', 'PDF Snap', '发票识别工作台']
   .map((name) => projects.find((project) => project.name === name))
   .filter((project): project is ProjectItem => project !== undefined)
-const featuredGuides = guides.filter(({ href }) => [
-  '/blog/mac-invoice-ocr/',
-  '/blog/xiaohongshu-comment-intelligence/',
-  '/blog/codex-google-sheets-store-upload/'
-].includes(href))
 const articleHomeTitles: Record<string, string> = {
   'grok-bot-workflows': '我怎样给 5 个 Bot 分工',
   'wordpress-security-review': '一次 WordPress 独立站安全复盘',
@@ -181,15 +176,38 @@ const topics = articleTopics.map(topic => ({
           <Button title='查看全部产品与工具 →' class='w-fit self-end text-xs' href='/projects' variant='ahead' />
         </Section>
 
+        {/* 3. 潜力公司库：给专精特新和小巨人、独角兽数据一个清晰的主位展示 */}
+        <section class='hub-entry' aria-labelledby='home-data-title'>
+          <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
+            <div>
+              <h2 id='home-data-title' class='text-xl font-semibold'>潜力公司库</h2>
+              <p class='mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground'>
+                找工作时，从专精特新“小巨人”名单与胡润独角兽榜单找公司。按地区、行业筛选，先了解它做什么。
+              </p>
+            </div>
+            <div class='flex items-center gap-x-4 text-sm'>
+              <a class='hub-link' href='/data/agents/'>Agent 接口 →</a>
+              <a class='hub-link' href='/data'>查看全部数据 →</a>
+            </div>
+          </div>
+          <DatasetCards heading='h3' />
+        </section>
+
+        {/* 4. 文章与实战复盘：将原有的“公众号文章”与“攻略”合并，消灭重复感 */}
         <section class='hub-entry' aria-labelledby='home-articles-title'>
           <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
-            <div><h2 id='home-articles-title' class='text-xl font-semibold'>公众号文章</h2><p class='mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground'>我在公众号写的 AI 工具、产品实践和建站记录，也放在这里，方便按主题查找。</p></div>
+            <div>
+              <h2 id='home-articles-title' class='text-xl font-semibold'>文章与实战复盘</h2>
+              <p class='mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground'>
+                记录 AI 工具、Agent 搭建、出海独立站和踩坑复盘，方便按主题查找。
+              </p>
+            </div>
             <a class='hub-link text-sm' href='/blog'>全部 {posts.length} 篇 →</a>
           </div>
           <nav class='mb-5 flex flex-wrap gap-2' aria-label='按主题阅读文章'>
             {topics.map(topic => <a href={topic.href} class='inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-xs transition-colors hover:border-primary/50 hover:text-primary'><span>{topic.title}</span><span class='text-muted-foreground'>{topic.count}</span></a>)}
           </nav>
-          <ul class='grid gap-4 sm:grid-cols-2' aria-label='近期公众号文章'>
+          <ul class='grid gap-4 sm:grid-cols-2' aria-label='近期文章'>
             {latestPosts.map(post => (
               <li class='min-w-0'>
                 <a class='group flex h-full flex-col rounded-md border border-border/70 p-5 transition-colors hover:border-primary/50 hover:bg-muted/30' href={post.href}>
@@ -204,20 +222,43 @@ const topics = articleTopics.map(topic => ({
               </li>
             ))}
           </ul>
-          <div class='mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm'>
-            <a class='hub-link' href='/notes/'>全部笔记 →</a>
-            <a class='hub-link' href='/daily'>风向标整理 →</a>
-            <a class='hub-link' href='/english'>英语学习 →</a>
-          </div>
         </section>
 
-        <section class='hub-entry' aria-labelledby='home-guides-title'>
-          <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
-            <div><h2 id='home-guides-title' class='text-xl font-semibold'>精选攻略</h2><p class='mt-2 text-sm text-muted-foreground'>整理文件、收集需求、维护产品资料时用到的方法。</p></div>
-            <a class='hub-link text-sm' href='/guides/'>浏览全部攻略 →</a>
+        {/* 5. 探索与日常专题：整洁的三列小卡片，轻量收纳 */}
+        <section class='hub-entry' aria-labelledby='home-topics-title'>
+          <div class='mb-4 flex flex-wrap items-baseline justify-between gap-2'>
+            <div>
+              <h2 id='home-topics-title' class='text-xl font-semibold'>探索与专题</h2>
+              <p class='mt-1.5 text-sm text-muted-foreground'>日常商业观察、出海职场英语与碎片笔记。</p>
+            </div>
           </div>
-          <div class='hub-home-grid'>
-            {featuredGuides.map(g => <a class='hub-card' href={g.href}><span class='hub-badge'>{g.category}</span><h3>{g.title}</h3><p>{g.description}</p><span class='hub-card-action'>阅读攻略 →</span></a>)}
+          <div class='grid grid-cols-1 gap-4 sm:grid-cols-3'>
+            <a href='/daily' class='group flex flex-col justify-between rounded-md border border-border/70 p-4.5 transition-colors hover:border-primary/50 hover:bg-muted/30'>
+              <div>
+                <span class='text-xs font-mono text-primary'>商业洞察</span>
+                <h3 class='mt-1.5 text-base font-medium text-foreground transition-colors group-hover:text-primary'>商业风向标整理</h3>
+                <p class='mt-2 text-xs leading-relaxed text-muted-foreground'>持续跟踪海外市场动态、前沿工具与副业机会整理。</p>
+              </div>
+              <span class='mt-4 text-xs font-medium text-primary'>查看风向标 →</span>
+            </a>
+
+            <a href='/english' class='group flex flex-col justify-between rounded-md border border-border/70 p-4.5 transition-colors hover:border-primary/50 hover:bg-muted/30'>
+              <div>
+                <span class='text-xs font-mono text-primary'>出海沟通</span>
+                <h3 class='mt-1.5 text-base font-medium text-foreground transition-colors group-hover:text-primary'>职场英语实战</h3>
+                <p class='mt-2 text-xs leading-relaxed text-muted-foreground'>面对海外客户、发票催款、Bug 反馈时的真实高频英文对话。</p>
+              </div>
+              <span class='mt-4 text-xs font-medium text-primary'>查看英语卡片 →</span>
+            </a>
+
+            <a href='/notes/' class='group flex flex-col justify-between rounded-md border border-border/70 p-4.5 transition-colors hover:border-primary/50 hover:bg-muted/30'>
+              <div>
+                <span class='text-xs font-mono text-primary'>速查备忘</span>
+                <h3 class='mt-1.5 text-base font-medium text-foreground transition-colors group-hover:text-primary'>随手笔记与指南</h3>
+                <p class='mt-2 text-xs leading-relaxed text-muted-foreground'>做独立站、配置服务器、调试环境时的零散记录与备忘。</p>
+              </div>
+              <span class='mt-4 text-xs font-medium text-primary'>查看全部笔记 →</span>
+            </a>
           </div>
         </section>
 
