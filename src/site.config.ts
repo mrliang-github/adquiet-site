@@ -40,10 +40,9 @@ export const theme: ThemeUserConfig = {
   /** Configure the header of your site. */
   header: {
     menu: [
-      { title: '潜力公司库', link: '/data' },
-      { title: '实用攻略', link: '/guides' },
       { title: '产品工具', link: '/projects' },
-      { title: '笔记', link: '/notes' },
+      { title: '文章与攻略', link: '/blog' },
+      { title: '潜力公司库', link: '/data' },
       { title: '关于', link: '/about' }
     ]
   },

@@ -8,9 +8,13 @@ import { Icon } from 'astro-pure/user'
 const currentPath = Astro.url.pathname
 // 获取菜单项，添加空数组保底以满足严格 TypeScript 检查
 const menuItems = config.header.menu ?? []
-const isMenuActive = (link: string) => link === '/notes'
-  ? /^\/(notes|blog|daily|english)(\/|$)/.test(currentPath)
-  : link === '/' ? currentPath === '/' : currentPath.startsWith(link)
+const isMenuActive = (link: string) => {
+  if (link === '/') return currentPath === '/'
+  if (link === '/blog') return /^\/(blog|guides|tags)(\/|$)/.test(currentPath)
+  if (link === '/projects') return /^\/(projects|otterbar)(\/|$)/.test(currentPath)
+  if (link === '/notes') return /^\/(notes|daily|english)(\/|$)/.test(currentPath)
+  return currentPath.startsWith(link)
+}
 ---
 
 {/* 自定义毛玻璃悬浮导航组件：采用现代胶囊圆角 rounded-full，视觉极度通透圆润 */}
