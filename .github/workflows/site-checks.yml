@@ -23,4 +23,5 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - run: node --experimental-strip-types --test tests/agent-data.test.mjs
       - run: npm run build:pages

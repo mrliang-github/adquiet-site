@@ -41,6 +41,7 @@ const socialImageURL = new URL(ogImage ? ogImage : config.socialCard, Astro.url)
 <meta content={siteTitle} name='title' />
 <meta content={description} name='description' />
 <meta content={config.author} name='author' />
+{['/404', '/404/', '/404.html'].includes(Astro.url.pathname) && <meta name='robots' content='noindex, follow' />}
 
 {/* Theme Color */}
 {/* <meta content='' name='theme-color' /> */}

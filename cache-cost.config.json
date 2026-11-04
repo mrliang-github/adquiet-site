@@ -1,0 +1,24 @@
+{
+  "standard": "WEB-CACHE-CPU 1.0",
+  "platform": "Cloudflare Pages",
+  "buildOutput": "static",
+  "dynamicExceptions": [],
+  "publicArtifacts": [
+    "index.html", "about/index.html", "projects/index.html", "blog/index.html",
+    "data/index.html", "data/little-giants/index.html", "data/unicorns/index.html",
+    "data/little-giants.json", "data/unicorns.json", "guides/company-research/index.html",
+    "data/agents/index.html", "data/agents/manifest.json", "data/agents/schema.json", "data/agents/README.md", "llms.txt"
+  ],
+  "notFoundArtifact": "404.html",
+  "budgets": {
+    "maxManifestBytes": 16384,
+    "maxIndexBytes": 131072,
+    "maxSnapshotBytes": 8388608,
+    "maxPartBytes": 262144,
+    "maxPartRecords": 100,
+    "maxAgentFiles": 500,
+    "recommendedParallelDownloads": 2,
+    "warningUsedPercent": 70,
+    "stopReleaseUsedPercent": 90
+  }
+}

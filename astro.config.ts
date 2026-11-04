@@ -20,6 +20,7 @@ import {
   transformerRemoveNotationEscape
 } from './src/plugins/shiki-official/transformers.ts'
 import config from './src/site.config.ts'
+import cacheCostIntegration from './scripts/cache-cost-integration.mjs'
 
 // https://astro.build/config
 export default defineConfig({
@@ -109,7 +110,8 @@ export default defineConfig({
     // astro-pure will automatically add sitemap, mdx & unocss
     // sitemap(),
     // mdx(),
-    AstroPureIntegration(config)
+    AstroPureIntegration(config),
+    cacheCostIntegration()
   ],
 
   // [Experimental]

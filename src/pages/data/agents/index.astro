@@ -1,0 +1,63 @@
+---
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { agentBundle } from '@/data/agent-access'
+import '../../../styles/catalog.css'
+
+export const prerender = true
+const { datasets } = agentBundle
+const prompt = '请先读取 https://liangxiaoai.dev/data/agents/manifest.json，选择小巨人或胡润数据集，按我指定的地区读取索引中的分块，在本地按业务关键词筛选。返回公司名称、主营业务、地区、网站线索、原始来源和快照日期。没有资料时标注未知，不把上榜当作正在招聘或就业推荐。'
+---
+<PageLayout meta={{ title: 'Agent 数据入口 · 潜力公司库', description: '让 Agent 直接读取小巨人公示名单与胡润独角兽榜快照。提供地区分块、完整 JSON、字段说明、来源与数据版本。' }}>
+  <main class='hub-shell' data-pagefind-body>
+    <nav class='hub-crumbs' aria-label='当前位置'><a href='/'>首页</a><span aria-hidden='true'>/</span><a href='/data/'>潜力公司库</a><span aria-hidden='true'>/</span><span>Agent 数据入口</span></nav>
+    <header>
+      <p class='hub-kicker'>让 Agent 帮你整理公司线索</p>
+      <h1 class='hub-title'>Agent 数据入口</h1>
+      <p class='hub-lead'>把数据入口交给你的 Agent，按地区和业务筛选公司，保留来源后继续核对。支持按地区读取和完整下载，无需登录。</p>
+    </header>
+    <div class='agent-entry-links'>
+      <a class='hub-button primary' href='/data/agents/manifest.json' data-astro-prefetch='false'>读取数据清单 →</a>
+      <a class='hub-button' href='/data/agents/README.md' data-astro-prefetch='false'>查看 Agent 读取说明</a>
+      <a class='hub-button' href='/data/agents/schema.json' data-astro-prefetch='false'>JSON Schema</a>
+    </div>
+    <section class='hub-section' aria-labelledby='agent-prompt-title'>
+      <h2 id='agent-prompt-title'>把这段话交给 Agent</h2>
+      <blockquote class='agent-prompt'>{prompt}</blockquote>
+      <p class='hub-muted'>再补充你想去的地区和感兴趣的业务，例如“广东省、传感器”。Agent 在自己的运行环境中筛选和分析数据。</p>
+    </section>
+    <section class='hub-section' aria-labelledby='agent-datasets-title'>
+      <h2 id='agent-datasets-title'>可读取的数据</h2>
+      <div class='agent-datasets'>
+        {datasets.map(dataset => <article class='agent-dataset'>
+          <h3>{dataset.title}</h3>
+          <p>{dataset.recordCount.toLocaleString('zh-CN')} 家企业 · 快照 <time datetime={dataset.snapshotDate}>{dataset.snapshotDate}</time></p>
+          <p class='hub-muted'>{dataset.profileCount.toLocaleString('zh-CN')} 条业务资料 · {dataset.websiteCount.toLocaleString('zh-CN')} 条网站线索</p>
+          <div class='agent-entry-links'>
+            <a class='hub-link' href={new URL(dataset.index.url).pathname} data-astro-prefetch='false'>地区分块索引 →</a>
+            <a class='hub-link' href={new URL(dataset.snapshot.url).pathname} data-astro-prefetch='false'>完整 JSON · {(dataset.snapshot.bytes / 1_000_000).toFixed(2)} MB →</a>
+          </div>
+          <a class='hub-link' href={new URL(dataset.pageUrl).pathname}>在网页中查询 →</a>
+        </article>)}
+      </div>
+    </section>
+    <section class='hub-section hub-prose' aria-labelledby='agent-reading-title'>
+      <h2 id='agent-reading-title'>怎样读取更省请求</h2>
+      <ol>
+        <li>先读清单，从地区索引找到需要的分块；每块最多 100 家企业。</li>
+        <li>下载后在本地复用，用脚本筛选，再把少量结果交给模型分析。全量研究可一次下载完整快照。</li>
+        <li>最多每小时主动检查一次清单，下载并发建议不超过 2。版本链接失效时重新读清单一次，避免循环重试。</li>
+      </ol>
+      <p>字段、缓存、校验与错误处理约定见<a href='/data/agents/README.md' data-astro-prefetch='false'>读取说明</a>。数据文件记录版本和快照日期，引用时保留记录中的原始来源。</p>
+    </section>
+    <aside class='hub-notice hub-section'>数据用于发现和核对公司线索。未接入实时招聘；公示不等于当前有效资格，历史估值不代表当前估值。网站线索和业务资料未逐家核验，未收录表示未知。第三方资料的适用条件以来源为准。</aside>
+  </main>
+</PageLayout>
+<style>
+  .agent-entry-links { display: flex; flex-wrap: wrap; align-items: center; gap: .85rem; margin: 1.25rem 0; }
+  .agent-prompt { margin: 1.25rem 0; padding: 1.25rem; border-left: 3px solid hsl(var(--primary)); border-radius: .5rem; background: hsl(var(--muted)); line-height: 1.9; overflow-wrap: anywhere; }
+  .agent-datasets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+  .agent-dataset { border: 1px solid hsl(var(--border)); border-radius: .75rem; padding: 1.25rem; }
+  .agent-dataset h3 { font-weight: 600; font-size: 1.1rem; }
+  .agent-dataset p { margin-top: .75rem; line-height: 1.7; }
+  @media (max-width: 639px) { .agent-datasets { grid-template-columns: 1fr; } }
+</style>
