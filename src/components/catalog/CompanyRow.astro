@@ -1,36 +1,57 @@
 ---
-import { companySources, isRanking, safeExternalUrl, type Catalog, type Company } from '../../lib/catalog'
+// 导入处理数据类型判定的工具函数
+import { isRanking, safeExternalUrl, type Catalog, type Company } from '../../lib/catalog'
+
+// 定义组件接收的属性：单个企业记录与对应的数据集目录
 interface Props { company: Company; data: Catalog }
-const {company: c, data} = Astro.props
+const { company: c, data } = Astro.props
+
+// 判断当前数据集是否为排名榜单（例如胡润全球独角兽榜单）
 const ranking = isRanking(data)
+// 校验并提取可信的官网外链地址
 const website = safeExternalUrl(c.profile?.website)
+// 区分地区展示：榜单展示国家，小巨人名单展示省份
 const region = ranking ? c.country : c.province
+// 补充展示申报细分区域（如深圳市等单列申报地区）
 const locality = ranking ? c.city : c.reportingRegion && c.reportingRegion !== c.province ? `申报地区：${c.reportingRegion}` : ''
 ---
 <tr data-company-id={c.id}>
+  <!-- 企业主体名称列 -->
   <th scope='row' class='company-name'>
     <span>{c.name}</span>
     {c.nameEn && c.nameEn !== c.name && <span class='company-name-en'>{c.nameEn}</span>}
   </th>
+  <!-- 排名位次或序列号 -->
   <td class='company-order'>{ranking ? c.rank : c.sequence}</td>
-  <td><span>{region || '待补充'}</span>{locality && <span class='company-locality'>{locality}</span>}</td>
+  <!-- 所属地理区域 -->
   <td>
-    {ranking && <span class='company-industry'>{c.industry || '行业待补充'}</span>}
-    <details class='company-details'>
-      <summary>
-        <span class:list={['company-description', {'hub-muted': !c.profile?.description}]}>{c.profile?.description || '业务资料待补充'}</span>
-        <span class='company-details-label'>资料与来源</span>
-      </summary>
-      {c.profile?.description && <p>{c.profile.descriptionKind === 'excerpt' ? '公开资料摘录' : '业务资料整理'} · 核对日期 {c.profile.checkedAt}</p>}
-      {!ranking && <p>{c.sourceType}。{c.verificationNote}</p>}
-      {ranking && <p>估值基准 {data.metadata.valuationDate} · 人民币亿元。{c.founders ? `榜单负责人：${c.founders}。` : ''}不代表当前估值或任职信息。</p>}
-      {c.profile && c.profile.products.length > 0 && <p>产品 / 关键词：{c.profile.products.join('、')}</p>}
-      <div class='company-sources'>
-        {companySources(c, data).map(s => <a href={s.url} target='_blank' rel='noopener noreferrer'>{s.label} ↗</a>)}
-      </div>
-      {website && <p>网站为收录线索，未逐一核验当前运营主体与可用性。</p>}
-    </details>
+    <span>{region || '待补充'}</span>
+    {locality && <span class='company-locality'>{locality}</span>}
   </td>
+  <!-- 业务简介与详情档案入口（轻量化平铺，突出主营业务） -->
+  <td class='company-business-cell'>
+    {ranking && <span class='company-industry'>{c.industry || '行业待补充'}</span>}
+    <span class:list={['company-description', { 'hub-muted': !c.profile?.description }]}>
+      {c.profile?.description || '暂无业务简介'}
+    </span>
+    <!-- 呼出右侧抽屉档案弹窗的交互按钮 -->
+    <button
+      type='button'
+      class='company-profile-trigger'
+      data-open-detail={c.id}
+      aria-label={`查看 ${c.name} 企业主营业务档案`}
+    >
+      查看档案 ↗
+    </button>
+  </td>
+  <!-- 估值数据列（榜单专属） -->
   {ranking && <td class='company-value'>{c.valuation?.toLocaleString('zh-CN') ?? '待补充'}</td>}
-  <td>{website ? <a class='company-website' href={website} target='_blank' rel='noopener noreferrer'>收录网站 ↗</a> : <span class='hub-muted'>未收录</span>}</td>
+  <!-- 官网直达列（原“网站线索”升级为专业官网入口） -->
+  <td>
+    {website ? (
+      <a class='company-website' href={website} target='_blank' rel='noopener noreferrer'>访问官网 ↗</a>
+    ) : (
+      <span class='hub-muted'>未收录</span>
+    )}
+  </td>
 </tr>

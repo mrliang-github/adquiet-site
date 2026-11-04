@@ -50,7 +50,7 @@ a.hub-card:hover { border-color: hsl(var(--primary) / .6); background: hsl(var(-
 .catalog-table-hint { margin: 0 0 .7rem; font-size: .76rem; line-height: 1.8; color: hsl(var(--muted-foreground)); }
 .catalog-table-hint span { display: none; }
 .catalog-table-scroll { max-width: 100%; overflow-x: auto; border: 1px solid hsl(var(--border)); border-radius: 10px; isolation: isolate; }
-.catalog-table-scroll:focus-visible, .company-details summary:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 3px; }
+.catalog-table-scroll:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 3px; }
 .catalog-table { width: 100%; min-width: 56rem; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: .8rem; line-height: 1.65; text-align: left; }
 .catalog-table-ranking { min-width: 60rem; }
 .catalog-col-name { width: 13rem; }
@@ -73,17 +73,11 @@ a.hub-card:hover { border-color: hsl(var(--primary) / .6); background: hsl(var(-
 .company-value-heading span { display: block; font-size: .65rem; white-space: nowrap; }
 .company-name-en, .company-locality { display: block; font-size: .72rem; font-weight: 400; color: hsl(var(--muted-foreground)); margin-top: .2rem; }
 .company-industry { display: block; margin-bottom: .25rem; font-weight: 600; }
-.company-description { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; line-height: 1.7; }
-.company-details[open] .company-description { display: block; }
-.company-details summary { cursor: pointer; list-style: none; }
-.company-details summary::-webkit-details-marker { display: none; }
-.company-details-label { display: block; margin-top: .3rem; color: hsl(var(--primary)); font-size: .72rem; }
-.company-details-label::before { content: '▸ '; }
-.company-details[open] .company-details-label::before { content: '▾ '; }
-.company-details > p { margin-top: .7rem; font-size: .74rem; line-height: 1.8; color: hsl(var(--muted-foreground)); }
-.company-sources { display: flex; flex-wrap: wrap; gap: .3rem .85rem; margin-top: .5rem; }
-.company-sources a, .company-website { color: hsl(var(--primary)); text-decoration: underline; text-underline-offset: 3px; }
-.company-sources a { font-size: .74rem; }
+.company-business-cell { display: flex; flex-direction: column; gap: .35rem; align-items: flex-start; }
+.company-description { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; line-height: 1.7; font-size: .78rem; }
+.company-profile-trigger { display: inline-flex; align-items: center; gap: .25rem; padding: .2rem .55rem; font-size: .74rem; font-weight: 550; color: hsl(var(--primary)); background: hsl(var(--background)); border: 1px solid hsl(var(--border)); border-radius: 4px; cursor: pointer; transition: all .2s ease; margin-top: .15rem; }
+.company-profile-trigger:hover { background: hsl(var(--muted)); border-color: hsl(var(--primary) / .6); color: hsl(var(--primary)); }
+.company-website { color: hsl(var(--primary)); text-decoration: underline; text-underline-offset: 3px; font-size: .78rem; }
 .catalog-pagination { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: .8rem; margin-top: 1.5rem; font-size: .8rem; }
 .catalog-table td.catalog-empty { text-align: center; padding: 3rem 1rem; }
 .catalog-empty-message { position: sticky; left: 1rem; max-width: calc(100vw - 4.25rem); }
@@ -104,6 +98,338 @@ a.hub-card:hover { border-color: hsl(var(--primary) / .6); background: hsl(var(-
 .hub-home-grid .hub-card { padding: 1.15rem; }
 .hub-home-grid h2 { font-size: 1rem; }
 [hidden] { display: none !important; }
+
+/* ==========================================================================
+   企业档案抽屉弹窗 (Company Record Drawer Dialog)
+   吸收 unicorn-atlas 信息架构：分层渐进呈现、结构化指标与来源依据
+   严格遵循全站微圆角规范：容器 6px、标签按钮 4px，绝不用胶囊圆角
+   ========================================================================== */
+
+.company-detail-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.company-detail-dialog {
+  position: fixed;
+  inset: 0 0 0 auto;
+  left: auto !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  margin: 0 !important;
+  width: 520px;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  border: 0;
+  border-left: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  padding: 0;
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.16);
+  outline: none;
+  overflow: hidden;
+}
+
+.dark .company-detail-dialog {
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55);
+}
+
+@keyframes drawer-slide-in {
+  from {
+    transform: translateX(40px);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.company-detail-dialog[open] {
+  animation: drawer-slide-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.company-dialog-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.company-dialog-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.4rem;
+  border-bottom: 1px solid hsl(var(--border));
+  position: sticky;
+  top: 0;
+  background: hsl(var(--background));
+  z-index: 10;
+}
+
+.company-dialog-kicker {
+  font-size: 0.72rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+  color: hsl(var(--muted-foreground));
+  font-weight: 600;
+}
+
+.company-dialog-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px !important;
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.company-dialog-close:hover {
+  background: hsl(var(--muted));
+  border-color: hsl(var(--primary) / 0.6);
+  color: hsl(var(--foreground));
+}
+
+.company-dialog-body {
+  padding: 1.5rem 1.4rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.company-dialog-eyebrow {
+  font-size: 0.76rem;
+  color: hsl(var(--primary));
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.company-dialog-title {
+  font-size: clamp(1.45rem, 2.8vw, 1.85rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+  margin: 0;
+  word-break: break-word;
+}
+
+.company-dialog-en {
+  font-size: 0.95rem;
+  color: hsl(var(--muted-foreground));
+  margin: -0.65rem 0 0;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.company-dialog-profile {
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--muted) / 0.45);
+  border-radius: 6px !important;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.company-dialog-profile h3 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: hsl(var(--primary));
+  margin: 0;
+}
+
+.company-dialog-desc {
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: hsl(var(--foreground));
+  margin: 0;
+  word-break: break-word;
+}
+
+.company-product-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.company-product-tags span {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px !important;
+  color: hsl(var(--foreground));
+}
+
+.company-website-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding-top: 0.2rem;
+}
+
+.company-website-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.company-checked-date,
+.company-website-pending {
+  font-size: 0.74rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.company-dialog-sources {
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+  border-top: 1px dashed hsl(var(--border));
+  padding-top: 0.65rem;
+}
+
+.company-dialog-sources summary {
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+  color: hsl(var(--primary));
+}
+
+.company-sources-list {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.company-sources-list a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+
+.company-provenance-note {
+  font-size: 0.74rem;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+}
+
+.company-dialog-stats {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 1rem;
+  padding-block: 1rem;
+  border-block: 1px solid hsl(var(--border));
+}
+
+.company-stat-label {
+  display: block;
+  font-size: 0.74rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.35rem;
+}
+
+.company-stat-value {
+  display: block;
+  font-size: 1.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  color: hsl(var(--foreground));
+}
+
+.company-stat-value small {
+  font-size: 0.75rem;
+  font-weight: normal;
+  margin-left: 0.35rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.company-stat-value.company-stat-text {
+  font-size: 1.25rem;
+  font-weight: 650;
+}
+
+.company-dialog-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.company-dialog-fields > div {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 0.8rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.6);
+  align-items: baseline;
+}
+
+.company-dialog-fields dt {
+  font-size: 0.76rem;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+}
+
+.company-dialog-fields dd {
+  font-size: 0.84rem;
+  color: hsl(var(--foreground));
+  margin: 0;
+  word-break: break-word;
+}
+
+.company-dialog-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.35rem;
+}
+
+.company-dialog-actions button {
+  flex: 1;
+  min-height: 40px;
+  font-size: 0.82rem;
+  border-radius: 4px !important;
+}
+
+.company-dialog-source {
+  font-size: 0.74rem;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.75;
+  padding-top: 0.25rem;
+}
+
+.company-dialog-source p {
+  margin: 0.2rem 0;
+}
+
+.company-disclaimer-note {
+  opacity: 0.85;
+}
+
 @media (max-width: 639px) {
   .hub-shell { margin-top: .5rem; }
   .hub-crumbs { margin-bottom: 1.5rem; }
@@ -125,4 +451,7 @@ a.hub-card:hover { border-color: hsl(var(--primary) / .6); background: hsl(var(-
   .catalog-table-ranking { width: calc(var(--company-name-width) + var(--company-business-width) + 23.9rem); }
   .catalog-col-name { width: var(--company-name-width); }
   .catalog-table-hint span { display: block; }
+  .company-detail-dialog { width: 100vw; max-width: 100vw; border-left: 0; }
+  .company-dialog-body { padding: 1.2rem 1rem 2rem; }
+  .company-dialog-actions { flex-direction: column; }
 }
