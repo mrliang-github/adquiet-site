@@ -10,9 +10,8 @@ const currentPath = Astro.url.pathname
 const menuItems = config.header.menu ?? []
 const isMenuActive = (link: string) => {
   if (link === '/') return currentPath === '/'
-  if (link === '/blog') return /^\/(blog|guides|tags)(\/|$)/.test(currentPath)
+  if (link === '/blog') return /^\/(blog|guides|tags|archives)(\/|$)/.test(currentPath)
   if (link === '/projects') return /^\/(projects|otterbar)(\/|$)/.test(currentPath)
-  if (link === '/notes') return /^\/(notes|daily|english)(\/|$)/.test(currentPath)
   return currentPath.startsWith(link)
 }
 ---

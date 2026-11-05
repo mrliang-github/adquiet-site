@@ -5,8 +5,9 @@ export const GET: APIRoute = () => new Response(`# 良逍 · 潜力公司库
 
 > 从小巨人公示名单与胡润独角兽榜发现公司线索。数据是历史快照，没有实时招聘或成长评分。
 
-- [Agent 数据入口](https://liangxiaoai.dev/data/agents/): 数据范围与读取方法。
-- [读取说明](https://liangxiaoai.dev/data/agents/README.md): 字段、来源与缓存约定。
+- [Agent 接入页](https://liangxiaoai.dev/data/agents/): Agent Skill、免安装提问与 JSON 接口说明。
+- [Agent 使用说明](https://liangxiaoai.dev/data/agents/README.md): 按问题选数据、回答规范、字段与缓存约定。
+- [Agent Skill 安装说明](https://liangxiaoai.dev/data/agents/skill/README.md): 安装 SKILL.md，装一次长期使用。
 - [数据清单](https://liangxiaoai.dev/data/agents/manifest.json): 从这里取得当前版本、地区索引和完整快照网址。
 - [JSON Schema](https://liangxiaoai.dev/data/agents/schema.json): 快照与地区分块的企业字段。
 - [潜力公司库](https://liangxiaoai.dev/data/): 供人浏览的查询入口。

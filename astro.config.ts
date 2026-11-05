@@ -48,8 +48,9 @@ export default defineConfig({
     '/writing/ai-enterprise-prototype-style': '/blog/ai-enterprise-prototype-style',
     '/writing/codex-figma-site-design': '/blog/codex-figma-site-design',
     '/writing/mac-invoice-ocr': '/blog/mac-invoice-ocr',
-    // 兼容旧主站工具聚合路由，统一重定向至 Astro 新版的项目列表页
-    '/tools': '/projects'
+    // 兼容旧主站工具聚合路由与旧笔记中转路由
+    '/tools': '/projects',
+    '/notes': '/blog'
   },
 
   // [Assets]

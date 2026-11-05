@@ -7,7 +7,8 @@
     "index.html", "about/index.html", "projects/index.html", "blog/index.html",
     "data/index.html", "data/little-giants/index.html", "data/unicorns/index.html",
     "data/little-giants.json", "data/unicorns.json", "guides/company-research/index.html",
-    "data/agents/index.html", "data/agents/manifest.json", "data/agents/schema.json", "data/agents/README.md", "llms.txt"
+    "data/agents/index.html", "data/agents/manifest.json", "data/agents/schema.json",
+    "data/agents/README.md", "data/agents/skill/README.md", "data/agents/skill/SKILL.md", "llms.txt"
   ],
   "notFoundArtifact": "404.html",
   "budgets": {

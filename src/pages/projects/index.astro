@@ -1,52 +1,35 @@
 ---
 import PageLayout from '@/layouts/CommonPage.astro'
 import ProjectSection from '@/components/projects/ProjectSection.astro'
-import { projects, type ProjectItem } from '@/data/projects'
+import { projects } from '@/data/projects'
 
 export const prerender = true
 
+const iosProjects = projects.filter((p) => p.group === 'ios')
+const macProjects = projects.filter((p) => p.group === 'macos')
+const webProjects = projects.filter((p) => p.group === 'web')
+
 const headings = [
-  { depth: 2, slug: 'featured', text: '正在维护与可用产品' },
-  { depth: 2, slug: 'open-source', text: '开源项目与工作流' },
+  { depth: 2, slug: 'ios-apps', text: `iOS 与 Apple Watch 应用（${iosProjects.length}）` },
+  { depth: 2, slug: 'macos-apps', text: `macOS 桌面应用（${macProjects.length}）` },
+  { depth: 2, slug: 'web-and-open', text: `网页工具、扩展与开源项目（${webProjects.length}）` },
   { depth: 2, slug: 'app-policy', text: '应用支持与合规' }
 ]
-
-const featuredProjects = projects
-  .filter((p: ProjectItem) => !p.category.includes('开源'))
-  .map((p: ProjectItem) => ({
-    name: p.name,
-    description: p.description,
-    links: [
-      ...(p.href ? [{ type: 'site' as const, href: p.href }] : []),
-      ...(p.github ? [{ type: 'github' as const, href: p.github }] : [])
-    ]
-  }))
-
-const openSourceProjects = projects
-  .filter((p: ProjectItem) => p.category.includes('开源') || Boolean(p.github))
-  .map((p: ProjectItem) => ({
-    name: p.name,
-    description: p.description,
-    links: [
-      ...(p.github ? [{ type: 'github' as const, href: p.github }] : []),
-      ...(p.href ? [{ type: 'site' as const, href: p.href }] : [])
-    ]
-  }))
 ---
 
-<PageLayout title='产品与工具矩阵' {headings} view>
+<PageLayout title='产品与工具' {headings} view>
   <div class='not-prose mb-6 flex flex-wrap items-center justify-between gap-3'>
     <p class='text-sm text-muted-foreground'>
-      把想法做成东西，记录真实限制、技术选型与上线进展。
+      把想法做成能用的东西。目前维护 {projects.length} 款 iOS、Apple Watch、macOS 与 Web 工具，按实际分发渠道标注上架状态。
     </p>
     <a
       href='https://github.com/mrliang-github'
       target='_blank'
       rel='noopener noreferrer'
-      class='flex items-center gap-x-2 rounded-lg border bg-background px-3 py-1.5 text-xs text-muted-foreground shadow-sm transition-all hover:text-foreground hover:shadow'
+      class='flex items-center gap-x-2 rounded-lg border bg-background px-3 py-1.5 text-xs text-muted-foreground shadow-sm transition-all hover:text-foreground hover:shadow no-underline'
     >
       <span class='size-2 rounded-full bg-emerald-500'></span>
-      <p class='font-medium'>GitHub @mrliang-github</p>
+      <span class='font-medium'>GitHub @mrliang-github</span>
     </a>
   </div>
 
@@ -60,29 +43,47 @@ const openSourceProjects = projects
     />
   </div>
 
-  <h2 id='featured'>正在维护与可用产品</h2>
-  <ProjectSection projects={featuredProjects} />
+  <h2 id='ios-apps'>iOS 与 Apple Watch 应用</h2>
+  <p class='text-sm text-muted-foreground leading-relaxed mb-4'>
+    围绕录音转写、阅读听书、量房、视频与文件整理等高频个人场景开发，核心处理尽量留在设备本地完成。
+  </p>
+  <ProjectSection projects={iosProjects} class='my-4' />
 
-  <h2 id='open-source'>开源项目与工作流</h2>
-  <ProjectSection projects={openSourceProjects} />
+  <h2 id='macos-apps'>macOS 桌面应用</h2>
+  <p class='text-sm text-muted-foreground leading-relaxed mb-4'>
+    解决日常办公发票核对、菜单栏图标检索与机身发热诊断的小工具。
+  </p>
+  <ProjectSection projects={macProjects} class='my-4' />
+
+  <h2 id='web-and-open'>网页工具、扩展与开源项目</h2>
+  <p class='text-sm text-muted-foreground leading-relaxed mb-4'>
+    打开浏览器就能用的排版、格式转换工具，以及浏览器扩展和开源 AI Skill。
+  </p>
+  <ProjectSection projects={webProjects} class='my-4' />
 
   <h2 id='app-policy'>应用支持与合规</h2>
   <p class='text-sm text-muted-foreground leading-relaxed'>
-    上线至 App Store 与 Chrome Web Store 的产品独立服务政策：
+    站内托管的产品主页、隐私政策与技术支持入口：
   </p>
   <div class='grid gap-3.5 sm:grid-cols-2 not-prose my-4'>
-    {/* 应用独立合规与落地卡片：遵循统一 rounded-lg 微圆角矩形规范 */}
     <div class='rounded-lg border border-border/70 p-4.5 bg-muted/20'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>AdQuiet (Chrome 扩展)</h3>
-      <p class='text-xs text-muted-foreground mb-3'>纯净视频播放扩展</p>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>OtterBar (macOS)</h3>
+      <p class='text-xs text-muted-foreground mb-3'>菜单栏工具快速搜索</p>
       <div class='flex gap-2 text-xs'>
-        <a href='/adquiet/privacy/' class='text-primary hover:underline'>隐私政策</a>
-        <span>·</span>
-        <a href='/adquiet/support/' class='text-primary hover:underline'>技术支持</a>
+        <a href='/otterbar/' class='text-primary hover:underline'>产品主页与下载</a>
       </div>
     </div>
     <div class='rounded-lg border border-border/70 p-4.5 bg-muted/20'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>PDF SNAP (iOS 应用)</h3>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>HeatSleuth (macOS)</h3>
+      <p class='text-xs text-muted-foreground mb-3'>发热与高负载诊断工具</p>
+      <div class='flex gap-2 text-xs'>
+        <a href='/heatsleuth/zh/' class='text-primary hover:underline'>中文产品主页与下载</a>
+        <span>·</span>
+        <a href='/heatsleuth/' class='text-muted-foreground hover:text-foreground hover:underline'>English</a>
+      </div>
+    </div>
+    <div class='rounded-lg border border-border/70 p-4.5 bg-muted/20'>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>PDF Snap (iOS 应用)</h3>
       <p class='text-xs text-muted-foreground mb-3'>离线 PDF 实用工具</p>
       <div class='flex gap-2 text-xs'>
         <a href='/pdf-snap/privacy/' class='text-primary hover:underline'>隐私政策</a>
@@ -91,21 +92,14 @@ const openSourceProjects = projects
       </div>
     </div>
     <div class='rounded-lg border border-border/70 p-4.5 bg-muted/20'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>HeatSleuth (macOS)</h3>
-      <p class='text-xs text-muted-foreground mb-3'>发热功耗诊断工具</p>
+      <h3 class='text-sm font-semibold text-foreground mb-1'>AdQuiet (Chrome 扩展)</h3>
+      <p class='text-xs text-muted-foreground mb-3'>纯净视频播放扩展</p>
       <div class='flex gap-2 text-xs'>
-        <a href='/heatsleuth/' class='text-primary hover:underline'>产品主页与安装包下载</a>
-      </div>
-    </div>
-    {/* OtterBar 独立卡片：提供菜单栏搜索工具的快速介绍入口 */}
-    <div class='rounded-lg border border-border/70 p-4.5 bg-muted/20'>
-      {/* 应用标题及平台标识 */}
-      <h3 class='text-sm font-semibold text-foreground mb-1'>OtterBar (macOS)</h3>
-      {/* 核心定位说明 */}
-      <p class='text-xs text-muted-foreground mb-3'>菜单栏工具快速搜索</p>
-      <div class='flex gap-2 text-xs'>
-        {/* 指向 OtterBar 独立产品单页 */}
-        <a href='/otterbar/' class='text-primary hover:underline'>产品介绍主页</a>
+        <a href='/adquiet/' class='text-primary hover:underline'>扩展介绍</a>
+        <span>·</span>
+        <a href='/adquiet/privacy/' class='text-primary hover:underline'>隐私政策</a>
+        <span>·</span>
+        <a href='/adquiet/support/' class='text-primary hover:underline'>技术支持</a>
       </div>
     </div>
   </div>

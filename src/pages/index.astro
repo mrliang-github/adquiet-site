@@ -4,7 +4,9 @@ import { getCollection } from 'astro:content'
 import { Button, Icon, Label } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import Section from '@/components/home/Section.astro'
-import { projects, type ProjectItem } from '@/data/projects'
+import { getPostCategory, postCategoryDefinitions } from '@/data/article-topics'
+import { catalogBySlug, catalogs } from '@/data/catalog'
+import { getProjectCtaLabel, projects, type ProjectItem } from '@/data/projects'
 import config from '@/site-config'
 import heroBanner from '@/assets/hero-banner.jpg'
 import avatarImg from '@/assets/avatar.png'
@@ -13,8 +15,8 @@ import '../styles/catalog.css'
 
 export const prerender = true
 
-// 1. 精选产品与工具（保持原样 4 款代表作）
-const featuredProjects = ['听页', 'Fluxio 视频压缩裁切', 'PDF Snap', '发票识别工作台']
+// 1. 精选产品与工具（展示最新上架代表作，覆盖 Watch/iOS/macOS）
+const featuredProjects = ['录一下', '听页', '发票识别工作台', 'Fluxio 视频压缩裁切']
   .map((name) => projects.find((project) => project.name === name))
   .filter((project): project is ProjectItem => project !== undefined)
 
@@ -30,27 +32,14 @@ const articleHomeTitles: Record<string, string> = {
   'mac-invoice-ocr': 'Mac 发票转 Excel：先识别，再复核'
 }
 
-// 3. 读取所有博客文章并按发布时间倒序排列
+// 3. 企业数据库动态元数据统计
+const giantsMeta = catalogBySlug('little-giants')!.metadata
+const unicornsMeta = catalogBySlug('unicorns')!.metadata
+const totalCompanies = catalogs.reduce((sum, item) => sum + item.metadata.count, 0)
+
+// 4. 读取所有博客文章并按发布时间倒序排列
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-
-// 辅助分类归并逻辑（将原本割裂的“文章”与“攻略”融合并规范化）
-function getPostCategory(tags: string[] = []): { category: string; key: string } {
-  const lower = tags.map(t => t.toLowerCase())
-  if (lower.some(t => t.includes('agent'))) {
-    return { category: 'AI Agent 实战', key: 'agent' }
-  }
-  if (lower.some(t => ['工具使用', '开源', '需求验证', 'ocr', '发票', '小红书'].includes(t))) {
-    return { category: '实战攻略', key: 'guide' }
-  }
-  if (lower.some(t => ['ai 工作流', 'codex', 'grok bot', '飞书', '自动化'].includes(t))) {
-    return { category: 'AI 工作流', key: 'workflow' }
-  }
-  if (lower.some(t => ['产品与设计', '独立站', 'figma', 'wordpress', '设计系统'].includes(t))) {
-    return { category: '产品与设计', key: 'design' }
-  }
-  return { category: tags[0] || '实践记录', key: 'other' }
-}
 
 const formattedPosts = allPosts.map(({ id, data }) => {
   const { category, key } = getPostCategory(data.tags)
@@ -69,11 +58,12 @@ const formattedPosts = allPosts.map(({ id, data }) => {
 // 分类筛选药丸数据定义
 const categoryFilters = [
   { label: '全部', key: 'all', count: allPosts.length },
-  { label: 'AI Agent 实战', key: 'agent', count: formattedPosts.filter(p => p.categoryKey === 'agent').length },
-  { label: '实战攻略', key: 'guide', count: formattedPosts.filter(p => p.categoryKey === 'guide').length },
-  { label: 'AI 工作流', key: 'workflow', count: formattedPosts.filter(p => p.categoryKey === 'workflow').length },
-  { label: '产品与设计', key: 'design', count: formattedPosts.filter(p => p.categoryKey === 'design').length }
-].filter(c => c.key === 'all' || c.count > 0)
+  ...postCategoryDefinitions.map((def) => ({
+    label: def.label,
+    key: def.key,
+    count: formattedPosts.filter((p) => p.categoryKey === def.key).length
+  }))
+].filter((c) => c.key === 'all' || c.count > 0)
 ---
 
 {/* 页面主布局：设定湖山青碧蓝 (#54889C) 为主题高光色 */}
@@ -161,7 +151,7 @@ const categoryFilters = [
 
           <div class='flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm'>
             <Button title='看产品与工具 →' href='/projects' variant='ahead' />
-            <Button title='看实用攻略 →' href='/guides/' variant='ahead' />
+            <Button title='查潜力公司库 →' href='/data' variant='ahead' />
           </div>
         </section>
       </div>
@@ -169,8 +159,8 @@ const categoryFilters = [
       {/* 2. 主体内容区块组：严格与 Hero 容器同宽（max-w-4xl 100%），统一垂直间距节奏 */}
       <div id='content' class='animate flex w-full flex-col gap-y-12 sm:gap-y-16'>
         
-        {/* [楼层 2] 产品与工具：保持原样，展示 4 款代表作 */}
-        <Section title='产品与工具' desc='阅读、视频处理和文件整理'>
+        {/* [楼层 2] 产品与工具：展示 4 款代表作 */}
+        <Section title='产品与工具' desc='录音转写、阅读听书与文件处理'>
           <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
             {
               featuredProjects.map((p: ProjectItem) => (
@@ -193,13 +183,13 @@ const categoryFilters = [
                     </p>
                   </div>
                   <div class='mt-3.5 flex items-center justify-end text-xs font-medium text-primary'>
-                    <span>查看中国区商店 ↗</span>
+                    <span>{getProjectCtaLabel(p)}</span>
                   </div>
                 </a>
               ))
             }
           </div>
-          <Button title='查看全部产品与工具 →' class='w-fit self-end text-xs' href='/projects' variant='ahead' />
+          <Button title={`查看全部 ${projects.length} 款产品与工具 →`} class='w-fit self-end text-xs' href='/projects' variant='ahead' />
         </Section>
 
         {/* [楼层 3] 潜力公司库（新增独立楼层，亮出核心企业数据资产与 Agent 接口） */}
@@ -208,7 +198,7 @@ const categoryFilters = [
             <div>
               <div class='flex items-center gap-x-2'>
                 <span class='rounded-md border border-primary/25 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>企业数据资产</span>
-                <span class='text-xs text-muted-foreground font-mono'>5,084 家企业收录</span>
+                <span class='text-xs text-muted-foreground font-mono'>{totalCompanies.toLocaleString('zh-CN')} 家企业收录</span>
               </div>
               <h2 id='home-data-title' class='mt-2 text-xl font-semibold text-foreground'>潜力公司库</h2>
               <p class='mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground'>
@@ -221,19 +211,19 @@ const categoryFilters = [
           {/* 两个大卡片并排：小巨人 vs 独角兽 */}
           <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
             {/* 卡片 1: 专精特新小巨人 */}
-            <a href='/data/little-giants/' class='group flex flex-col justify-between rounded-md border border-border/80 bg-background/90 p-5 transition-all hover:border-primary/60 hover:bg-muted/30 hover:shadow-xs'>
+            <a href={`/data/${giantsMeta.slug}/`} class='group flex flex-col justify-between rounded-md border border-border/80 bg-background/90 p-5 transition-all hover:border-primary/60 hover:bg-muted/30 hover:shadow-xs'>
               <div>
                 <div class='flex items-center justify-between text-xs'>
                   <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary'>国家级公示名录</span>
-                  <span class='font-mono text-muted-foreground'>快照 2025-09</span>
+                  <span class='font-mono text-muted-foreground'>快照 {giantsMeta.snapshotDate}</span>
                 </div>
                 <h3 class='mt-3 text-lg font-semibold text-foreground transition-colors group-hover:text-primary'>专精特新“小巨人”企业查询</h3>
                 <div class='mt-2 flex items-baseline gap-x-2'>
-                  <span class='text-2xl font-bold font-mono tracking-tight text-foreground'>3,482</span>
-                  <span class='text-xs text-muted-foreground'>家收录企业 · 2,193 家含主营业务画像</span>
+                  <span class='text-2xl font-bold font-mono tracking-tight text-foreground'>{giantsMeta.count.toLocaleString('zh-CN')}</span>
+                  <span class='text-xs text-muted-foreground'>家收录企业 · {giantsMeta.profileCount.toLocaleString('zh-CN')} 家含主营业务画像</span>
                 </div>
                 <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground'>
-                  收录第七批新增公示名单全国整理版。支持按省份、申报地区和业务领域检索，溯源官方公示依据，查看主营业务画像。
+                  收录 {giantsMeta.year} 年第七批新增公示名单全国整理版。支持按省份、申报地区和业务领域检索，溯源官方公示依据，查看主营业务画像。
                 </p>
               </div>
               <div class='mt-4 flex items-center justify-between border-t border-border/50 pt-3 text-xs'>
@@ -243,15 +233,15 @@ const categoryFilters = [
             </a>
 
             {/* 卡片 2: 胡润独角兽榜单 */}
-            <a href='/data/unicorns/' class='group flex flex-col justify-between rounded-md border border-border/80 bg-background/90 p-5 transition-all hover:border-primary/60 hover:bg-muted/30 hover:shadow-xs'>
+            <a href={`/data/${unicornsMeta.slug}/`} class='group flex flex-col justify-between rounded-md border border-border/80 bg-background/90 p-5 transition-all hover:border-primary/60 hover:bg-muted/30 hover:shadow-xs'>
               <div>
                 <div class='flex items-center justify-between text-xs'>
                   <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary'>胡润全球独角兽</span>
-                  <span class='font-mono text-muted-foreground'>估值基准 2026-01</span>
+                  <span class='font-mono text-muted-foreground'>估值基准 {unicornsMeta.valuationDate.slice(0, 7)}</span>
                 </div>
                 <h3 class='mt-3 text-lg font-semibold text-foreground transition-colors group-hover:text-primary'>胡润全球独角兽榜查询</h3>
                 <div class='mt-2 flex items-baseline gap-x-2'>
-                  <span class='text-2xl font-bold font-mono tracking-tight text-foreground'>1,602</span>
+                  <span class='text-2xl font-bold font-mono tracking-tight text-foreground'>{unicornsMeta.count.toLocaleString('zh-CN')}</span>
                   <span class='text-xs text-muted-foreground'>家收录企业 · 人民币亿元估值基准</span>
                 </div>
                 <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground'>
@@ -265,15 +255,15 @@ const categoryFilters = [
             </a>
           </div>
 
-          {/* 底部开放数据与 Agent 接口条 */}
+          {/* 底部开放数据与 Agent 接入条 */}
           <div class='mt-4 flex flex-col gap-3 rounded-md border border-border/70 bg-muted/40 p-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-4'>
             <div class='flex items-center gap-2.5 text-xs text-muted-foreground'>
-              <span class='inline-flex items-center justify-center rounded-sm bg-primary/15 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-primary'>AGENT API</span>
-              <span>已开放机器可读网关，AI Agent / 脚本可免登录直接读取地域分片与全量 JSON 快照</span>
+              <span class='inline-flex items-center justify-center rounded-sm bg-primary/15 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-primary'>AGENT 接入</span>
+              <span>把公司库接进 Claude Code、Codex 或联网 AI 助手，直接用大白话按地区和赛道找公司</span>
             </div>
             <div class='flex flex-wrap items-center gap-x-4 gap-y-1 text-xs'>
-              <a href='/data/agents/' class='font-medium text-primary hover:underline'>让 Agent 读取数据 →</a>
-              <a href='/guides/company-research/' class='text-muted-foreground hover:text-foreground hover:underline'>企业调研指南 →</a>
+              <a href='/data/agents/' class='font-medium text-primary hover:underline'>把数据接进 Agent →</a>
+              <a href='/guides/company-research/' class='text-muted-foreground hover:text-foreground hover:underline'>求职筛选指南 →</a>
             </div>
           </div>
         </section>
@@ -307,9 +297,9 @@ const categoryFilters = [
             ))}
           </nav>
 
-          {/* 文章卡片网格列表（展示最新实战内容） */}
+          {/* 文章卡片网格列表（全量渲染以保证各分类筛选不漏项，默认展示最新 6 篇） */}
           <ul class='grid gap-4 sm:grid-cols-2' aria-label='近期文章与实战攻略'>
-            {formattedPosts.slice(0, 10).map((post, idx) => (
+            {formattedPosts.map((post, idx) => (
               <li
                 class='min-w-0'
                 data-post-card
@@ -355,12 +345,12 @@ const categoryFilters = [
             <div>
               <h2 id='home-explore-title' class='text-lg sm:text-xl font-medium tracking-tight text-foreground'>探索与日常</h2>
               <p class='mt-1 text-xs text-muted-foreground'>
-                日常零碎资讯梳理、英语表达与技术手记。
+                日常商业资讯梳理与出海实战英语练习。
               </p>
             </div>
           </div>
 
-          <div class='grid grid-cols-1 gap-3.5 sm:grid-cols-3'>
+          <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
             {/* 胶囊 1: 每日风向标 */}
             <a href='/daily' class='group flex flex-col justify-between rounded-md border border-border/70 bg-background/80 p-4 transition-all hover:border-primary/50 hover:bg-muted/30 hover:shadow-xs'>
               <div>
@@ -387,20 +377,6 @@ const categoryFilters = [
                 </p>
               </div>
               <span class='mt-3.5 text-xs font-medium text-primary group-hover:underline'>进入情景练习 →</span>
-            </a>
-
-            {/* 胶囊 3: 随手笔记 */}
-            <a href='/notes/' class='group flex flex-col justify-between rounded-md border border-border/70 bg-background/80 p-4 transition-all hover:border-primary/50 hover:bg-muted/30 hover:shadow-xs'>
-              <div>
-                <div class='flex items-center justify-between text-xs'>
-                  <span class='font-medium text-foreground group-hover:text-primary transition-colors'>随手笔记</span>
-                  <span class='rounded-sm border border-border/60 bg-muted/70 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground'>Notes</span>
-                </div>
-                <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground'>
-                  开发过程中的快速备忘、脚本片段与踩坑记录。
-                </p>
-              </div>
-              <span class='mt-3.5 text-xs font-medium text-primary group-hover:underline'>浏览全部笔记 →</span>
             </a>
           </div>
         </section>
@@ -480,26 +456,22 @@ const categoryFilters = [
     const pills = document.querySelectorAll<HTMLButtonElement>('[data-post-filter]')
     const cards = document.querySelectorAll<HTMLElement>('[data-post-card]')
 
-    pills.forEach(pill => {
+    pills.forEach((pill) => {
+      if (pill.dataset.bound === 'true') return
+      pill.dataset.bound = 'true'
       pill.addEventListener('click', () => {
         const filterKey = pill.dataset.postFilter
-        pills.forEach(p => p.classList.remove('active'))
+        pills.forEach((p) => p.classList.remove('active'))
         pill.classList.add('active')
 
-        let matchCount = 0
-        cards.forEach(card => {
+        cards.forEach((card) => {
           const categoryKey = card.dataset.postCategory
           const isDefault = card.dataset.default === 'true'
 
           if (filterKey === 'all') {
             card.style.display = isDefault ? '' : 'none'
           } else {
-            if (categoryKey === filterKey && matchCount < 6) {
-              card.style.display = ''
-              matchCount++
-            } else {
-              card.style.display = 'none'
-            }
+            card.style.display = categoryKey === filterKey ? '' : 'none'
           }
         })
       })

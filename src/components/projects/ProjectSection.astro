@@ -1,102 +1,73 @@
 ---
-import type { ImageMetadata } from 'astro'
-import { Image } from 'astro:assets'
-
-import type { IconsType } from 'astro-pure/types'
 import { Icon } from 'astro-pure/user'
 import { cn } from 'astro-pure/utils'
-
-interface Project {
-  image?: string
-  name: string
-  description: string
-  links: {
-    type: string
-    href: string
-  }[]
-}
+import { getProjectCtaLabel, type ProjectItem } from '@/data/projects'
 
 interface Props {
   class?: string
-  projects: Project[]
+  projects: ProjectItem[]
 }
+
 const { class: className, projects, ...props } = Astro.props
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/projects/*.{jpeg,jpg,png,gif,avif.webp,webp}'
-)
-const projectIconSet: Record<string, IconsType> = {
-  github: 'github-circle',
-  site: 'earth',
-  doc: 'document',
-  release: 'package'
-}
 ---
 
-<div class={className} {...props}>
-  <div class='grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2 sm:gap-y-4'>
+<div class={cn('not-prose', className)} {...props}>
+  <div class='grid grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4'>
     {
-      projects.map((project) => {
-        var imagePath = null
-        if (project.image) {
-          imagePath = '/src/assets/projects/' + project.image
-          if (!images[imagePath])
-            throw new Error(
-              `"${imagePath}" does not exist in glob: "src/assets/projects/*.{jpeg,jpg,png,gif,avif,webp}"`
-            )
-        }
-
+      projects.map((p) => {
+        const showRepoLink = Boolean(p.github && p.github !== p.href)
         return (
-          <div class='hover-card-lift relative overflow-hidden rounded-lg border border-border/80 bg-muted/20'>
-            {imagePath && (
-              <Image
-                class='absolute end-0 z-0 m-0 h-full w-1/2 object-cover opacity-40'
-                src={images[imagePath]()}
-                alt={project.name}
-                loading='lazy'
-                style={{
-                  msMaskImage:
-                    '-ms-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%)',
-                  WebkitMaskImage:
-                    '-webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%)',
-                  maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%)'
-                }}
-              />
-            )}
-            <div
-              class={cn(
-                'relative z-10 flex flex-col justify-between gap-y-2.5 p-4 sm:p-5',
-                imagePath && 'me-16 sm:me-24'
-              )}
-            >
-              <div>
+          <article class='group hover-card-lift flex flex-col justify-between rounded-md border border-border/75 bg-background/85 p-4.5 transition-all hover:border-primary/45 hover:bg-muted/25'>
+            <div>
+              <div class='mb-2 flex flex-wrap items-center justify-between gap-1.5 text-xs text-muted-foreground'>
+                <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>
+                  {p.category}
+                </span>
+                <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>
+                  {p.status}
+                </span>
+              </div>
+
+              <h3 class='mt-2 text-sm sm:text-base font-semibold text-foreground transition-colors group-hover:text-primary'>
                 <a
-                  class='line-clamp-1 font-medium text-foreground no-underline transition-colors hover:text-primary'
-                  href={project.links[0].href}
-                  target='_blank'
+                  href={p.href}
+                  target={p.external ? '_blank' : undefined}
+                  rel={p.external ? 'noopener noreferrer' : undefined}
+                  class='no-underline text-inherit'
                 >
-                  {project.name}
+                  {p.name}
                 </a>
-                <div class='mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:h-10'>
-                  {project.description}
-                </div>
-              </div>
-              <div class='flex flex-row items-center gap-x-2 sm:gap-x-2.5 pt-1'>
-                {project.links.map((link) => {
-                  const icon = projectIconSet[link.type]
-                  return (
-                    <a
-                      href={link.href}
-                      class='rounded-md bg-muted/80 border border-border/60 p-1.5 text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground'
-                      aria-label={link.type}
-                      target='_blank'
-                    >
-                      <Icon class='size-4' name={icon} />
-                    </a>
-                  )
-                })}
-              </div>
+              </h3>
+
+              <p class='mt-1.5 text-xs leading-relaxed text-muted-foreground'>
+                {p.description}
+              </p>
             </div>
-          </div>
+
+            <div class='mt-3.5 flex items-center justify-between gap-2 border-t border-border/45 pt-2.5 text-xs'>
+              <div>
+                {showRepoLink && (
+                  <a
+                    href={p.github}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    class='inline-flex items-center gap-1 text-muted-foreground no-underline transition-colors hover:text-foreground'
+                  >
+                    <Icon class='size-3.5' name='github' />
+                    <span>开源仓库 ↗</span>
+                  </a>
+                )}
+              </div>
+              <a
+                href={p.href}
+                target={p.external ? '_blank' : undefined}
+                rel={p.external ? 'noopener noreferrer' : undefined}
+                class='font-medium text-primary no-underline hover:underline'
+              >
+                {getProjectCtaLabel(p)}
+              </a>
+            </div>
+          </article>
         )
       })
     }
