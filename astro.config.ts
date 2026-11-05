@@ -57,7 +57,7 @@ export default defineConfig({
   image: {
     responsiveStyles: true,
     service: { entrypoint: 'astro/assets/services/sharp' },
-    remotePatterns: [{ protocol: 'https' }]
+    domains: ['img.liangxiaoaitool.top']
   },
 
   // [Markdown]
