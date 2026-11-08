@@ -1,0 +1,121 @@
+---
+// 引入 Astro 内置图片优化组件，自动生成准确的宽高属性以消除布局偏移
+import { Image } from 'astro:assets'
+// 引入类名合并工具函数
+import { cn } from 'astro-pure/utils'
+// 引入全站统一的公众号公开配置数据
+import { wechatOfficialAccount } from '@/data/wechat'
+// 引入从公众号后台导出的官方带头像二维码静态资源
+import wechatMpQrcode from '@/assets/wechat-mp-qrcode.jpg'
+
+// 定义组件接收的可选外部样式类名与场景化描述属性
+interface Props {
+  class?: string
+  description?: string
+}
+
+// 解构外部传入的 className 与可选自定义引导文案
+const { class: className, description } = Astro.props
+---
+
+{/* 微信公众号订阅引导卡片：采用与主站一致的青碧蓝低饱和边框与微底纹 */}
+<aside
+  aria-label='微信公众号关注入口'
+  class={cn(
+    'not-prose overflow-hidden rounded-md border border-primary/25 bg-gradient-to-br from-primary/8 via-background to-muted/30 p-4.5 sm:p-5.5 shadow-2xs transition-colors hover:border-primary/45',
+    className
+  )}
+>
+  <div class='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+    {/* 左侧：公众号名称、内容定位与一键复制微信号操作 */}
+    <div class='flex flex-1 flex-col gap-y-2'>
+      <div class='flex flex-wrap items-center gap-2'>
+        <span class='rounded-md border border-primary/25 bg-primary/12 px-2.5 py-0.5 text-xs font-medium text-primary'>
+          微信公众号
+        </span>
+        <span class='font-mono text-xs text-muted-foreground'>
+          ID: {wechatOfficialAccount.accountId}
+        </span>
+      </div>
+
+      {/* 公众号主标题 */}
+      <h3 class='text-base font-semibold text-foreground sm:text-lg'>
+        {wechatOfficialAccount.name}
+      </h3>
+
+      {/* 公众号真实内容简介（支持按具体页面传入场景化承接文案） */}
+      <p class='text-xs leading-relaxed text-muted-foreground sm:text-sm'>
+        {description ?? wechatOfficialAccount.description}
+      </p>
+
+      {/* 辅助操作：方便手机端不方便直接扫本机屏幕的读者一键复制公众号名去微信搜索 */}
+      <div class='mt-1 flex flex-wrap items-center gap-2.5 pt-0.5 text-xs'>
+        <button
+          type='button'
+          data-copy-wechat={wechatOfficialAccount.name}
+          class='inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-primary/30 bg-background/90 px-3 py-1.5 text-xs font-medium text-primary shadow-2xs transition-colors hover:border-primary/60 hover:bg-primary/10'
+        >
+          <span data-copy-label>复制公众号名称</span>
+        </button>
+        <span class='text-[11px] text-muted-foreground'>
+          微信搜一搜「{wechatOfficialAccount.name}」或右侧扫码关注
+        </span>
+      </div>
+    </div>
+
+    {/* 右侧：白底圆角包裹的官方二维码，保证深浅色模式下均能稳定扫码识别 */}
+    <div class='flex shrink-0 items-center justify-center border-t border-border/50 pt-3.5 sm:border-t-0 sm:border-l sm:pl-5 sm:pt-0'>
+      <div class='flex flex-col items-center gap-y-1.5'>
+        <div class='overflow-hidden rounded-md border border-border/80 bg-white p-1.5 shadow-2xs'>
+          <Image
+            src={wechatMpQrcode}
+            alt={`${wechatOfficialAccount.name}微信公众号二维码`}
+            width={88}
+            height={88}
+            class='size-20 object-contain sm:size-22'
+            loading='lazy'
+          />
+        </div>
+        <span class='text-[11px] text-muted-foreground'>微信扫码关注</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+  // 为页面上所有公众号复制按钮绑定点击事件，提供即时的“已复制”视觉反馈
+  function setupWechatCopyButtons() {
+    // 查找所有带有 data-copy-wechat 属性的触发按钮
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-copy-wechat]')
+    buttons.forEach((btn) => {
+      // 防止在 Astro 页面切换时重复绑定事件监听器
+      if (btn.dataset.copyBound === 'true') return
+      btn.dataset.copyBound = 'true'
+
+      btn.addEventListener('click', async () => {
+        // 读取需要写入剪贴板的公众号名称文本
+        const textToCopy = btn.dataset.copyWechat
+        const labelEl = btn.querySelector<HTMLElement>('[data-copy-label]')
+        if (!textToCopy || !labelEl) return
+
+        // 保存按钮初始文案，以便在短暂提示后恢复原状
+        const originalText = labelEl.textContent || '复制公众号名称'
+        try {
+          // 调用浏览器原生异步剪贴板接口复制名称
+          await navigator.clipboard.writeText(textToCopy)
+          labelEl.textContent = '已复制，去微信搜一搜 ✓'
+          setTimeout(() => {
+            labelEl.textContent = originalText
+          }, 2200)
+        } catch {
+          // 若受浏览器权限限制复制失败，提示用户手动长按复制
+          labelEl.textContent = `请搜：${textToCopy}`
+        }
+      })
+    })
+  }
+
+  // 初次加载与客户端路由切换完成后均执行绑定
+  setupWechatCopyButtons()
+  document.addEventListener('astro:page-load', setupWechatCopyButtons)
+</script>

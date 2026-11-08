@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  这份 HTML 的数据 100% 内嵌在下方 <script id="TRIP_DATA"> 里，内容与同目录的
+  travel-data.json 解析后的数据一致（嵌入时做 HTML 安全转义）。
+  想拆成外部数据文件：把 <script id="TRIP_DATA" type="application/json"> 里的
+  内容原样另存为 travel-data.json，再把该标签替换为 fetch('./travel-data.json')
+  并在 DOMContentLoaded 后渲染即可，其余渲染代码无需改动。
+  ============================================================================
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="松鼠旅行官：安排行程、整理预算、记住待办。打开示例，在 WorkBuddy 制作自己的旅行手册。">
+<title></title>
+<style>
+  :root{
+    --bg:#f4f3ed; --card:#ffffff; --ink:#24382e; --ink2:#546256; --ink3:#69776b;
+    --line:#e2e6dc; --brand:#a64420; --brand2:#2f6bff; --food:#e8833a;
+    --ref:#f7f4ea; --refink:#7a6f57; --ok:#2f8f5b;
+    --r:18px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:24px 22px 104px}
+  /* header */
+  .hero{background:#244d3a;color:#fff;border-radius:24px;padding:28px;margin-bottom:18px;position:relative;overflow:hidden}
+  .hero h1{margin:0 0 10px;font-size:30px;letter-spacing:-.5px;line-height:1.35;font-weight:700;max-width:760px}
+  .hero p{margin:0;font-size:14px;color:#d6e3d8}
+  .cd{margin-top:12px;background:rgba(255,255,255,.1);border-radius:14px;padding:10px 12px;display:block}
+  .cd b{font-size:21px;font-weight:700;letter-spacing:.5px;white-space:nowrap;display:block;margin-top:1px}
+  .cd span{font-size:12px;color:#cfc8ba;display:block;margin-top:4px;line-height:1.5}
+  .cd .cdl{font-size:11.5px;color:#a89f8f;margin:0}
+  /* tabs */
+  .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.94);
+    backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:center;
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+  .tabs .tb{flex:1;text-align:center;font-size:11px;color:var(--ink3);padding:6px 0 4px;border:0;background:none;font-family:inherit;cursor:pointer}
+  .tabs .tb svg{display:block;margin:0 auto 2px;opacity:.5}
+  .tabs .tb.on{color:var(--brand);font-weight:600}
+  /* Tab 图标统一用内联 SVG：emoji 在不同系统/浏览器会渲染成带日期数字的图标（如日历显示 17），
+     跨设备不一致且容易被误读成角标，故一律不用 emoji。 */
+  .tabs .tb.on svg{opacity:1}
+  .tabs-inner{max-width:760px;margin:0 auto;display:flex;width:100%}
+  /* generic card */
+  .card{background:var(--card);border-radius:var(--r);padding:14px 15px;margin-bottom:11px;box-shadow:0 1px 2px rgba(31,29,26,.05)}
+  .card h2{margin:0 0 10px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px}
+  .card h2::before{content:"";width:3px;height:14px;border-radius:2px;background:var(--brand)}
+  .sub{font-size:12px;color:var(--ink3);margin:-4px 0 10px}
+  .muted{color:var(--ink3)}
+  /* badges */
+  .b{display:inline-block;font-size:10px;padding:1px 6px;border-radius:6px;vertical-align:1px;font-weight:600;line-height:1.6}
+  .b-real{background:#e9f5ee;color:var(--ok)}
+  .b-est{background:#fdf0e6;color:#b5651d}
+  .b-ref{background:var(--ref);color:var(--refink)}
+  .b-na{background:#efedE8;color:#8b857b}
+  .b-gray{background:#eef1f7;color:#4a5878}
+  /* rows */
+  .row{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:0}
+  .row .k{flex:1;min-width:0}
+  .row .v{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .t1{font-size:14px;font-weight:600}
+  .t2{font-size:12px;color:var(--ink2)}
+  .t3{font-size:11.5px;color:var(--ink3)}
+  .price{color:var(--brand);font-weight:700}
+  /* day card */
+  .day{padding:0;overflow:hidden}
+  .day > .hd{display:flex;align-items:center;gap:10px;padding:13px 15px;cursor:pointer;user-select:none}
+  .day .dt{flex:0 0 auto;text-align:center;background:#f3efe6;border-radius:12px;padding:5px 9px;min-width:52px}
+  .day .dt b{display:block;font-size:15px;font-weight:700;line-height:1.15}
+  .day .dt span{font-size:10px;color:var(--ink3)}
+  .day .tt{flex:1;min-width:0}
+  .day .tt b{font-size:14px;font-weight:600;display:block}
+  .day .tt span{font-size:11.5px;color:var(--ink3)}
+  .day .cv{flex:0 0 auto;color:var(--ink3);font-size:12px;transition:transform .2s}
+  .day.open .cv{transform:rotate(180deg)}
+  .day .bd{display:none;padding:0 15px 14px;border-top:1px solid var(--line)}
+  .day.open .bd{display:block}
+  .slot{display:flex;gap:9px;padding:9px 0 0}
+  .slot .lb{flex:0 0 40px;font-size:11px;color:#fff;background:var(--ink3);border-radius:7px;text-align:center;height:19px;line-height:19px;margin-top:2px}
+  .slot.am .lb{background:#4b7bd6}.slot.pm .lb{background:#c98a2e}.slot.ev .lb{background:#5a4a7a}
+  .slot .tx{flex:1;font-size:13px;color:var(--ink2)}
+  .blk{margin-top:11px;border-radius:13px;overflow:hidden}
+  .blk .bt{font-size:11.5px;font-weight:700;color:var(--ink2);padding:0 0 6px}
+  .ref{background:var(--ref);border-radius:12px;padding:9px 11px;margin-top:7px}
+  .ref .rt{font-size:12.5px;font-weight:600;color:var(--refink)}
+  .ref .rl{font-size:12px;color:#6d6349;margin-top:2px}
+  .warn{background:#fdf3f1;border-left:3px solid var(--brand);border-radius:0 11px 11px 0;padding:8px 11px;margin-top:8px;font-size:12.5px;color:#7a3a2e}
+  .hotel{background:#f4f7fd;border-radius:12px;padding:10px 11px;margin-top:9px}
+  .hotel .hn{font-size:13.5px;font-weight:600;color:#2b3f6b}
+  .hotel .hi{font-size:12px;color:#4a5878;margin-top:3px}
+  /* food */
+  .fgrp{margin-bottom:12px}
+  .fgrp .fh{font-size:13px;font-weight:700;margin:0 0 7px;display:flex;justify-content:space-between;align-items:baseline}
+  .fd{display:flex;gap:10px;padding:5px 0;border-top:1px dashed var(--line)}
+  .fd:first-of-type{border-top:0}
+  .fd .fn{font-weight:600;font-size:13.5px;cursor:pointer}
+  .fd .fn:hover{color:var(--brand)}
+  .fd .fl{font-size:11.5px;color:var(--ink3);margin-top:1px}
+  .fd .fr{text-align:right;white-space:nowrap}
+  /* map */
+  #mapbox{position:relative;height:300px;border-radius:15px;overflow:hidden;background:#eae7e0;margin-bottom:10px}
+  #mapbox .fb{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px;font-size:12.5px;color:var(--ink2);gap:6px}
+  .pills{display:flex;gap:6px;overflow-x:auto;padding-bottom:9px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .pills::-webkit-scrollbar{display:none}
+  .pill{flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--ink2);border-radius:999px;
+    padding:5px 12px;font-size:12px;font-family:inherit;cursor:pointer;white-space:nowrap}
+  .pill.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+  .lgd{display:flex;gap:14px;font-size:11.5px;color:var(--ink3);margin-bottom:8px}
+  .lgd i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:0}
+  /* todo / ticket */
+  .ck{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+  .ck:last-child{border-bottom:0}
+  .ck input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--brand);flex:0 0 auto}
+  .ck.done .lb{text-decoration:line-through;color:var(--ink3)}
+  .ptag{font-size:10px;padding:1px 5px;border-radius:5px;background:#eef1f7;color:#4a5878;font-weight:700;margin-right:5px}
+  .ptag.P0{background:#fdeceb;color:#b83a2a}
+  .lrow{font-size:12.5px;color:var(--ink2);padding:6px 0;border-top:1px dashed var(--line);display:flex;justify-content:space-between;gap:10px}
+  .lrow:first-of-type{border-top:0}
+  .sum{display:flex;justify-content:space-between;font-size:13px;font-weight:700;padding-top:9px;border-top:1px solid var(--line);margin-top:4px}
+  footer{font-size:11.5px;color:var(--ink3);text-align:center;padding:8px 6px 0;line-height:1.7}
+  .hidden{display:none}
+  button,a,input,textarea{font:inherit}
+  a{color:var(--brand);text-underline-offset:3px}
+  button{cursor:pointer}
+  button:focus-visible,a:focus-visible,textarea:focus-visible,.hd:focus-visible{outline:3px solid #dc9247;outline-offset:4px}
+  .brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+  .brandlock{display:flex;align-items:center;gap:12px}
+  .brandname{font-size:21px;font-weight:800;letter-spacing:1px}
+  .brandnote{font-size:12px;color:var(--ink2)}
+  .squirrel{width:48px;height:48px;flex-shrink:0}
+  .btn{display:inline-flex;justify-content:center;align-items:center;gap:7px;min-height:44px;padding:10px 18px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);text-decoration:none;font-weight:600}
+  .btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .btn.soft{background:#eff4ee}
+  .actions{display:flex;gap:10px;flex-wrap:wrap}
+  .eyebrow{font-size:12px;letter-spacing:2px;color:#d4deaa;margin-bottom:10px}
+  .stats{display:flex;gap:24px;margin-top:22px;padding-top:18px;border-top:1px solid #ffffff28;flex-wrap:wrap}
+  .stats b{font-size:24px;color:#fff;display:block}
+  .stats span{font-size:12px;color:#d6e3d8}
+  .cd{margin-top:18px;max-width:480px}
+  .notice{border:1px solid #e1c895;border-radius:12px;background:#fff8e7;color:#735424;padding:10px 14px;margin-bottom:16px;font-size:12px}
+  .pane[data-k="plan"]:not(.hidden){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+  .day{margin-bottom:0}
+  .day > .hd{min-height:76px}
+  .card h2{font-size:17px}
+  .card{padding:18px}
+  .day{padding:0}
+  .section-intro{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:2px}
+  .section-intro h2{font-size:20px;margin:0}
+  .section-intro p{font-size:12px;color:var(--ink2);margin:4px 0}
+  .trip-note{font-size:13px;color:var(--ink2);margin:0 0 16px;overflow-wrap:anywhere}
+  .route-order{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  .route-stop{border:1px solid var(--line);border-radius:10px;background:#f4f7ef;padding:9px 12px;font-size:13px}
+  #mapbox{height:340px}
+  #mapbox .fb{background:#edf1e6;position:absolute}
+  #mapFallback svg{width:100%;height:225px;flex:1;min-height:0}
+  dialog{width:min(640px,calc(100% - 24px));max-height:88vh;border:0;border-radius:22px;padding:0;color:var(--ink);box-shadow:0 20px 90px #10261944}
+  dialog::backdrop{background:#18312688;backdrop-filter:blur(4px)}
+  .dialog-head{position:sticky;top:0;z-index:1;background:#fff;padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .dialog-head h2{font-size:20px;margin:0}
+  .dialog-body{padding:20px 22px}
+  .close{background:#f2f4ef;border:0;border-radius:50%;width:36px;height:36px;flex-shrink:0}
+  .mode-switch{display:flex;gap:8px;margin-bottom:18px}
+  .mode-switch button{flex:1}
+  .mode-switch [aria-pressed="true"]{background:#244d3a;color:#fff;border-color:#244d3a}
+  .setup-step{border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+  .setup-step h3{font-size:16px;margin:0 0 8px}
+  .setup-step p,.dialog-body li{font-size:13px;color:var(--ink2);line-height:1.8}
+  .setup-step ol{padding-left:20px}
+  .prompt{width:100%;min-height:178px;resize:vertical;padding:12px;border:1px solid var(--line);border-radius:10px;background:#f8f9f5;color:var(--ink);font-size:13px;line-height:1.8;margin-bottom:10px}
+  .feedback{font-size:12px;color:var(--ok);min-height:22px;margin:6px 0}
+  .muted-link{font-size:12px}
+  @media(max-width:600px){
+    .wrap{padding:14px 14px 96px}.brandbar{margin-bottom:16px;align-items:center}.brandlock{gap:8px}
+    .squirrel{width:38px;height:38px}.brandname{font-size:18px}.brandnote{font-size:10px}.brandbar .btn{font-size:12px;padding:9px 11px}
+    .hero{padding:22px 18px;border-radius:19px}.hero h1{font-size:24px}.hero p{font-size:12px}.stats{gap:22px}.stats b{font-size:23px}
+    .pane[data-k="plan"]:not(.hidden){grid-template-columns:1fr}.section-intro{align-items:start}.section-intro h2{font-size:18px}
+    .section-intro .btn{font-size:12px;padding:7px 10px}.dialog-body{padding:16px}.dialog-head{padding:16px}.card{padding:15px}.day{padding:0}
+    #mapbox{height:290px}.row .v{white-space:normal;max-width:36%;min-width:70px}.lrow{flex-wrap:wrap}
+  }
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="brandbar">
+    <div class="brandlock">
+      <svg class="squirrel" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="18" fill="#f0e4c9"/><path d="M31 49C11 50 6 39 13 28c4-6 11-7 15-3 5 5 2 12-4 11 3 8 11 3 11-2" fill="none" stroke="#bc6d32" stroke-width="9" stroke-linecap="round"/><path d="M34 29l-1-15 9 9 8-7 1 16c10 14-1 22-12 20-10-2-12-13-5-23" fill="#b55e2e"/><path d="M42 34c-6 2-8 9-4 15 7 2 13-1 14-6" fill="#f5d8a7"/><circle cx="44" cy="29" r="2" fill="#24382e"/><path d="M49 35l5-1-3 4" fill="#24382e"/><path d="M37 41l7-2 5 7-8 6z" fill="#5e774c"/><path d="M39 42l6 6" stroke="#e4edcb" stroke-width="2"/></svg>
+      <div><div class="brandname">松鼠旅行官</div><div class="brandnote">替你做攻略的 J 人小松鼠</div></div>
+    </div>
+    <button class="btn primary" type="button" id="makeTrip">制作我的行程 ↗</button>
+  </header>
+  <div class="hero">
+    <div class="eyebrow">TRAVEL WITH A PLAN · 把行程带在身边</div>
+    <h1 id="hTitle"></h1>
+    <p id="hSub"></p>
+    <div class="stats" id="tripStats"></div>
+    <div class="cd">
+      <div><span class="cdl" id="cdLabel">距离最近一程出发</span><b id="cdNum">--</b></div>
+      <span id="cdWhat"></span>
+    </div>
+  </div>
+  <div class="notice hidden" id="exampleNotice">示例行程 · 展示历史资料整理效果；价格、日期和营业信息请按自己的出行计划重新查询。</div>
+  <div class="notice hidden" id="localNotice">本地地图预览版 · 本文件包含你的地图 Key，请勿公开上传。公开分享请重新生成默认版本。</div>
+  <p class="trip-note" id="tripNote"></p>
+  <div id="panes"></div>
+  <footer>
+    交通住宿资料日期：2026-09-20 · 地图资料日期：2026-09-20。未知信息标为「未查到」，推算标为「估」。<br>
+    页面保存的是生成时的资料，票价、库存和营业信息不会自动更新。示意连线仅表示游览顺序。<br>
+    <a href="https://github.com/mrliang-github/liangxiao-travel" target="_blank" rel="noopener noreferrer">松鼠旅行官 · 开源 Skill</a> · 良逍制作 · <button type="button" class="pill" id="imaHelp">保存到 ima</button>
+  </footer>
+</div>
+
+<dialog id="onboarding" aria-labelledby="onboardTitle">
+  <div class="dialog-head"><h2 id="onboardTitle">开始你的第一份行程</h2><button type="button" class="close" data-close="onboarding" aria-label="关闭使用引导">×</button></div>
+  <div class="dialog-body">
+    <p class="trip-note">在电脑上的 WorkBuddy 中制作。首次完成安装和配置后，以后直接说旅行需求。</p>
+    <div class="mode-switch"><button class="btn" type="button" id="firstUse" aria-pressed="true">首次使用</button><button class="btn" type="button" id="installedUse" aria-pressed="false">我已安装</button></div>
+    <section class="setup-step" id="installStep"><h3>01 · 安装松鼠旅行官</h3>
+      <ol><li>下载 <strong>1.2.0 或更新版</strong> Skill 安装包。</li><li>打开 WorkBuddy → 技能 → 添加技能 → 上传技能，选择 ZIP。</li><li>确认「松鼠旅行官」已启用，再复制下面的启动指令。</li></ol>
+      <div class="actions"><a class="btn primary" id="downloadSkill" href="./liangxiao-travel-1.2.0.zip" target="_blank" rel="noopener noreferrer">下载安装包</a><a class="btn" href="https://www.codebuddy.cn/work/" target="_blank" rel="noopener noreferrer">获取 WorkBuddy</a></div>
+      <p>已经装过旧版「良逍旅行规划」？先备份自己的修改，再导入更新；技术标识仍是 liangxiao-travel。</p>
+    </section>
+    <section class="setup-step"><h3 id="launchHeading">02 · 在 WorkBuddy 接着完成配置</h3>
+      <p>复制到一个新任务发送。助手只引导当前一步，已有配置会跳过；完成后回复「继续」。网页不会读取你的安装状态。</p>
+      <label for="launchPrompt" class="t3">启动指令（可直接编辑，旅行需求只需说一次）</label>
+      <textarea id="launchPrompt" class="prompt" spellcheck="false"></textarea>
+      <div class="actions"><button class="btn primary" type="button" id="copyLaunch">复制启动指令</button><button class="btn" type="button" id="basicLaunch">先做基础攻略</button></div>
+      <p class="feedback" id="copyStatus" role="status" aria-live="polite"></p>
+    </section>
+    <section class="setup-step"><h3>接下来会发生什么？</h3>
+      <ol><li><strong>地图：</strong>缺少官方腾讯地图助手时先安装；随后阅读协议并完成手机验证，Key 自动保存，不用自己找。</li><li><strong>同程：</strong>在 WorkBuddy「连应用」完成同程旅行授权，不需要填写 Key。</li><li><strong>规划：</strong>确认出发地、目的地、日期和人数，生成属于你的行程页。</li></ol>
+      <p>也可明确选择基础攻略，先整理公开资料和清单；未查询的票价与坐标会留空。申请额度、授权结果以服务方为准。</p>
+    </section>
+  </div>
+</dialog>
+<dialog id="imaDialog" aria-labelledby="imaTitle">
+  <div class="dialog-head"><h2 id="imaTitle">把行程存入腾讯 ima</h2><button type="button" class="close" data-close="imaDialog" aria-label="关闭 ima 说明">×</button></div>
+  <div class="dialog-body"><p>行程文档与当前页面使用同一份资料，适合在手机上查阅和提问。</p>
+    <ol><li>复制下方行程文档，在 WorkBuddy 粘贴并要求「把这份内容保存为行程.md」。已有生成的同名 Markdown 文件时可直接使用。</li><li>在 WorkBuddy 中选中文档 → 上传到云端 → ima 知识库；首次使用按官方入口授权。</li><li>确认文档已存入并可检索后，在 ima 选择该知识库，询问某天的安排。</li></ol>
+    <div class="actions"><button type="button" class="btn primary" id="copyDocument">复制行程文档</button><button type="button" class="btn" id="downloadDocument">下载行程文档 .md</button></div>
+    <div id="documentTextBox" class="hidden"><label for="documentText">行程文档 · 可全选复制</label><textarea id="documentText" class="prompt" readonly spellcheck="false"></textarea></div>
+    <p class="feedback" id="documentStatus" role="status"></p>
+    <p class="t3">WorkBuddy 分享页可能限制下载，可用复制方式保存。复制或下载不代表已上传 ima。网页待办勾选保存在当前浏览器，不会同步到知识库。资料不会自动刷新。</p>
+    <a class="muted-link" href="https://www.codebuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Knowledge-Base/IMA%20Knowledge%20Base/01-Workbuddy-IMA-Basic-Guide" target="_blank" rel="noopener noreferrer">查看官方保存流程 ↗</a>
+  </div>
+</dialog>
+
+<nav class="tabs"><div class="tabs-inner" id="tabbar"></div></nav>
+
+<script id="TRIP_DATA" type="application/json">{"meta":{"title":"武汉出发 · 川西大环线 13 天","origin":"武汉","destinations":["成都","四姑娘山镇","丹巴","新都桥","稻城","亚丁","康定","磨西","成都"],"dateStart":"2026-09-25","dateEnd":"2026-10-07","days":13,"people":4,"currency":"CNY","updatedAt":"2026-09-20","note":"以稻城亚丁、四姑娘山、丹巴与新都桥为主线的 4 人结伴旅行示例。保留 2026 年 9 月的资料快照，制作自己的行程时请重新查询。","mapBoundary":"四川·阿坝州与甘孜州（川西高原）","isExample":true},"flightsOrTrains":[{"mode":"flight","from":"武汉","to":"成都","date":"2026-09-25","no":"MU9808","depart":"18:30","arrive":"20:25","price":460,"priceType":"实","duration":"1时55分","note":"主方案｜武汉天河T3 → 成都天府T2。当晚 22:00 前能到市区酒店，第二天跑 3.8 小时山路不吃力。同为天河T3出发的 18:00 国航 CA8269 ¥491。"},{"mode":"flight","from":"武汉","to":"成都","date":"2026-09-25","no":"CZ3831","depart":"20:40","arrive":"22:40","price":440,"priceType":"实","duration":"2时","note":"备选（更便宜）｜比 MU9808 省 ¥20，但 22:40 落地、到酒店约 0:30，D2 要早起，省的钱不值。"},{"mode":"train","from":"武汉","to":"成都","date":"2026-09-25","no":"G3463","depart":"09:02","arrive":"16:07","price":643,"priceType":"实","duration":"7时5分","note":"备选（不想坐飞机）｜武汉 → 成都，比机票贵 ¥183 且多花 5 小时。同线 D953 动车 ¥387（8时2分）性价比更高但需当天整白天。"},{"mode":"train","from":"成都","to":"武汉","date":"2026-10-07","no":"G3465","depart":"16:29","arrive":"23:28","price":555,"priceType":"实","duration":"6时59分","note":"主方案（性价比）｜成都东 → 武汉。比 10/7 机票省 ¥404/人（4 人省 ¥1616）。早上还能在成都逛半天再走。⚠️ 国庆返程最高峰，须开售即抢。"},{"mode":"train","from":"成都","to":"武汉","date":"2026-10-07","no":"D954","depart":"07:47","arrive":"15:43","price":448,"priceType":"实","duration":"7时56分","note":"备选（更省）｜比 G3465 便宜 ¥107，慢 1 小时，代价是 10/7 早上 6:30 就要到站。"},{"mode":"flight","from":"成都","to":"武汉","date":"2026-10-07","no":"3U6751","depart":"08:15","arrive":"09:55","price":959,"priceType":"实","duration":"1时40分","note":"备选（体验优先）｜成都天府 → 武汉，上午到家。但 10/7 机票是同程返程最贵档之一，比高铁贵 ¥404/人。"},{"mode":"flight","from":"成都","to":"武汉","date":"2026-10-06","no":"MU9807","depart":"09:20","arrive":"11:05","price":846,"priceType":"实","duration":"1时45分","note":"备选（提前一天回）｜10/6 机票 ¥846 比 10/7 便宜 ¥113，且能在家休整一天再上班。代价：成都只玩 10/5 一天。"}],"hotels":[{"date":"2026-09-25","city":"成都","name":"悦蓝里S酒店(成都宽窄巷子抚琴地铁站店)","area":"青羊区·宽窄巷子片区","price":222,"priceType":"实","score":"4.9（17772条）","alt":"成都宽窄巷子美居酒店 422｜如家派柏·云(犀浦) 146","lockAdvice":"落地当夜只睡一晚，选地铁沿线即可。天府机场进城约 50km，打车约 ¥120–150。"},{"date":"2026-09-26","city":"四姑娘山镇","name":"四姑娘山云漫山居","area":"小金县·四姑娘山镇","price":209,"priceType":"估","score":"3.9（66条）","alt":"同程仅返回 1 条四姑娘山镇住宿，样本少","lockAdvice":"⚠️ 该镇住宿选择极少（同程只返回 1 条），务必提前在多个平台比价预订。海拔约 3200m，第一晚不宜洗澡。"},{"date":"2026-09-27","city":"丹巴","name":"丹巴嘉绒河谷酒店","area":"丹巴县城","price":260,"priceType":"实","score":"4.6（545条）","alt":"丹巴凯鑫大酒店 133｜梦回东女部落风情小筑 200｜丹巴楠城云顶 263","lockAdvice":"丹巴县城海拔仅约 1800m，是全程最好的『低海拔休整点』，值得住好一点回血。"},{"date":"2026-09-28","city":"新都桥","name":"泥朵·仓嘉云舍(康定新都桥店)","area":"康定市·新都桥镇","price":195,"priceType":"实","score":"4.8（1400条）","alt":"雪域宫廷酒店 211（4.9/1510条）｜如家精选318国道店 282","lockAdvice":"海拔 3460m，是上高原第二晚的关键适应点。选带地暖/供氧的房型更稳。⚠️ 用『新都桥』当关键词查到的是康定城区，必须搜『新都桥镇』。"},{"date":"2026-09-29","city":"稻城","name":"稻城县明珠供氧假日酒店","area":"稻城县城·金珠镇","price":248,"priceType":"实","score":"4.7（2624条）","alt":"稻城泰天大酒店 340｜稻城洛克家园国际 357","lockAdvice":"海拔 3750m，选『供氧房』是这里最值的一笔钱，直接决定第二天上不上得了亚丁长线。"},{"date":"2026-09-30","city":"稻城·亚丁村","name":"稻城亚丁扎西空墅藏文化主题酒店","area":"香格里拉镇·亚丁村一号站","price":398,"priceType":"估","score":"4.9（500条）","alt":"香格里拉镇（景区门口镇）民宿普遍 ¥200–400","lockAdvice":"⚠️ 住亚丁村（3900m）能省 2 小时往返车程，但海拔更高、睡眠质量差；对高反没底就住香格里拉镇（2900m）。国庆房源极紧，提前 10 天订。"},{"date":"2026-10-01","city":"稻城","name":"稻城泰天大酒店","area":"稻城县城·金珠镇","price":340,"priceType":"实","score":"4.9（346条）","alt":"稻城县明珠供氧假日酒店 248","lockAdvice":"长线徒步后回县城住一晚，海拔比亚丁村低 850m，恢复更快。"},{"date":"2026-10-02","city":"康定","name":"你好酒店(康定店)","area":"康定市区·炉城镇","price":274,"priceType":"实","score":"4.8（555条）","alt":"康定雪域星辰 148｜康定菩心院民宿 138","lockAdvice":"康定 2560m，是全程第二个低海拔休整点。市区沿河，晚上可以走走溜溜城。"},{"date":"2026-10-03","city":"磨西","name":"木林森·一里云山温泉民宿(海螺沟冰川森林公园店)","area":"泸定县·磨西镇共和村","price":348,"priceType":"实","score":"4.9（757条）","alt":"海螺沟紫荆别院 134｜金山摄影温泉度假酒店(三号营地) 671","lockAdvice":"海螺沟泡温泉是这条线的收尾奖励，连走 8 天山路后这一晚最值得加钱。"},{"date":"2026-10-04","city":"成都","name":"悦蓝里S酒店(成都宽窄巷子抚琴地铁站店)","area":"青羊区·宽窄巷子片区","price":222,"priceType":"实","score":"4.9（17772条）","alt":"成都太古里春熙林恩国际 399｜Pagoda君亭设计酒店 685","lockAdvice":"回到成都后连住 3 晚，同一家酒店不用换，省搬行李的力气。"},{"date":"2026-10-05","city":"成都","name":"悦蓝里S酒店(成都宽窄巷子抚琴地铁站店)","area":"青羊区·宽窄巷子片区","price":222,"priceType":"实","score":"4.9（17772条）","alt":"同上","lockAdvice":"国庆后段成都房价高峰，提前锁必订房型。"},{"date":"2026-10-06","city":"成都","name":"悦蓝里S酒店(成都宽窄巷子抚琴地铁站店)","area":"青羊区·宽窄巷子片区","price":222,"priceType":"实","score":"4.9（17772条）","alt":"同上","lockAdvice":"若改为 10/6 提前返程（机票 ¥846），这晚退掉。"}],"days":[{"date":"2026-09-25","city":"武汉 → 成都","title":"飞成都，火锅开场","am":"出发前把高原包配齐：冲锋衣+抓绒、保暖内衣、登山鞋、墨镜、SPF50+ 防晒、唇膏、氧气瓶 2 罐/人、血氧仪。红景天提前 3 天开始吃。","pm":"MU9808 武汉天河T3 18:30 起飞 → 成都天府T2 20:25 落地；打车或地铁 18 号线进城，约 1 小时。","evening":"放行李后就近吃一顿火锅，别喝多。今晚是全程唯一一次『海拔 500m 睡饱』的机会。","tickets":[],"warnings":["天府机场 → 成都市区约 50km，打车约 ¥120–150；地铁 18 号线＋换乘更省但要 70 分钟。","今晚别熬夜。D2 要连开 3.8 小时山路并直接上到 3200m。"],"photoSpots":[],"foods":[{"name":"矮板凳老火锅(华熙528店)","dish":"牛油火锅","area":"锦江区·华熙Live528","avgPrice":86,"priceType":"实","score":0,"openHours":"未查到","lat":30.592842,"lng":104.145274},{"name":"马旺子川小馆(太古里店)","dish":"川菜","area":"锦江区·太古里","avgPrice":110,"priceType":"实","score":0,"openHours":"未查到","lat":30.651234,"lng":104.083999}],"mapPoints":[{"name":"宽窄巷子","lat":30.663831,"lng":104.05364,"openHours":"全天","kind":"sight"},{"name":"矮板凳老火锅(华熙528店)","lat":30.592842,"lng":104.145274,"openHours":"未查到","kind":"food"}]},{"date":"2026-09-26","city":"成都 → 四姑娘山镇","title":"翻巴朗山，见蜀山之后","am":"8:00 出发，211km / 约 3.8 小时。成都→都江堰→映秀→卧龙峡谷→巴朗山隧道，出隧道后先在猫鼻梁观景台停 20 分钟拍四姑娘山全景。","pm":"13:00 前后进双桥沟：全程观光车，沟长 40 余公里。重点下车点——红杉林（沟尾，3840m，四面雪山）、布达拉峰（白塔+公路大片）、四姑娜措（枯木湖水倒影）、人参果坪（高山草甸）。","evening":"住四姑娘山镇（3200m）。今晚开始执行高原三不：不洗澡、不喝酒、不剧烈运动。多喝水。","tickets":[{"name":"四姑娘山双桥沟 门票","price":60,"priceType":"实","note":"同程实查（2026-09-20）"},{"name":"双桥沟 观光车","price":70,"priceType":"估","note":"经验行情，实际以景区现场为准"}],"warnings":["海拔从 500m 直接拉到 3200m，今晚是高反第一关：不洗澡、不喝酒、早睡。","四姑娘山镇住宿选择极少（同程只返回 1 条），务必多平台比价预订。"],"photoSpots":[{"name":"猫鼻梁观景台","shot":"四姑娘山四峰全景，幺妹峰 6250m 正对镜头","bestTime":"上午顺光（10:00–12:00）","tip":"垭口风大，三脚架要压重；用 24–70mm 竖构图把公路当前景","traffic":"巴朗山隧道出隧道后路边观景台，自驾即停","source":"Trip.com 川西攻略 / 国际旅游摄影网","queriedAt":"2026-09-20","confidence":"参考"},{"name":"双桥沟·红杉林","shot":"沟尾四面雪山环抱，千年沙棘枯木","bestTime":"下午（景区车终点，午后光线入沟）","tip":"枯木+雪山用长焦压缩；观光车终点站下车步行即到","traffic":"双桥沟景区观光车终点站","source":"Trip.com 川西攻略","queriedAt":"2026-09-20","confidence":"参考"},{"name":"双桥沟·布达拉峰","shot":"形似布达拉宫的岩峰 + 白塔 + 公路","bestTime":"全天，午后侧光立体感强","tip":"经典公路大片机位，广角低机位把人放画面下三分之一","traffic":"双桥沟景区内观光车停靠点","source":"携程笔记 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"四姑娘山镇沿线藏餐馆（未实查）","dish":"牦牛肉汤锅","area":"四姑娘山镇","avgPrice":0,"priceType":"估","score":0,"openHours":"未查到","lat":0,"lng":0}],"mapPoints":[{"name":"四姑娘山景区-双桥沟景区","lat":30.979239,"lng":102.769608,"openHours":"未查到","kind":"sight"},{"name":"猫鼻梁观景点","lat":30.986351,"lng":102.843833,"openHours":"全天","kind":"sight"}]},{"date":"2026-09-27","city":"四姑娘山 → 丹巴","title":"长坪沟清晨，甲居藏寨日落","am":"可选：长坪沟半日徒步（近观幺妹峰，需半天体力）。赶时间就直接走：110.6km / 约 2.5 小时到丹巴。","pm":"先到中路藏寨（比甲居更原始安静、商业化低，碉楼与民居错落）。16:00 后转场甲居藏寨（门票 ¥50），占好观景台等日落。","evening":"住丹巴县城（1800m）。今晚是全程海拔最低的一夜——洗澡、睡饱、把体力补回来。","tickets":[{"name":"甲居藏寨 门票","price":50,"priceType":"实","note":"同程实查（2026-09-20）；另有观光车约 ¥35，来源为自媒体转述，未同程核实"}],"warnings":["丹巴是全程唯一真正的低海拔休整点，别浪费——把洗衣服、补给、睡好觉都安排在这晚。","甲居藏寨内部路窄坡陡，自驾注意会车。"],"photoSpots":[{"name":"甲居藏寨观景台","shot":"嘉绒藏族碉楼群全景，白墙红顶层层叠叠","bestTime":"日落前 1 小时（约 18:00–19:00，9 月下旬）","tip":"从高处俯瞰用长焦压缩层次；晨雾机位在次日日出更佳","traffic":"丹巴县城包小车约 15 分钟上山","source":"国际旅游摄影网 / 携程笔记","queriedAt":"2026-09-20","confidence":"参考"},{"name":"中路藏寨","shot":"比甲居更原始的古碉楼与藏式民居","bestTime":"上午晨雾时段","tip":"游客极少，适合人文扫街；拍摄前先征得住户同意","traffic":"丹巴县城往小金方向约 10 公里","source":"携程笔记（自媒体）","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"丹巴白玛康钦特色藏餐","dish":"藏餐","area":"丹巴县·梭坡乡莫洛村","avgPrice":42,"priceType":"实","score":0,"openHours":"未查到","lat":30.845625,"lng":101.93482},{"name":"牧骑茶咖特色藏餐","dish":"藏餐","area":"丹巴县·章谷镇三岔河南路","avgPrice":47,"priceType":"实","score":0,"openHours":"未查到","lat":30.877507,"lng":101.894219}],"mapPoints":[{"name":"甲居藏寨","lat":30.917019,"lng":101.874281,"openHours":"未查到","kind":"sight"},{"name":"丹巴白玛康钦特色藏餐","lat":30.845625,"lng":101.93482,"openHours":"未查到","kind":"food"}]},{"date":"2026-09-28","city":"丹巴 → 新都桥","title":"墨石公园 + 塔公草原 + 鱼子西日照金山","am":"甲居藏寨晨雾（早点起）→ 经牦牛谷、八美。123km / 约 2.7 小时到塔公方向，中途进墨石公园（灰黑色糜棱岩石林，『异域星球』）。","pm":"塔公草原 + 木雅金塔，正对雅拉雪山。塔公→新都桥仅 41.3km / 约 50 分钟，15:30 前后到新都桥镇落脚。","evening":"包当地小车上鱼子西观景台看日照金山（贡嘎 + 雅拉同框）。⚠️ 鱼子西遇森林防火管制会关闭，备选斯丁措观景台。","tickets":[{"name":"墨石公园 门票","price":60,"priceType":"估","note":"来源为自媒体行程单，未同程核实；观光车另约 ¥20"},{"name":"鱼子西 环保费","price":30,"priceType":"估","note":"来源为自媒体行程单，未同程核实"},{"name":"塔公草原","price":0,"priceType":"实","note":"同程景区页未返回价格，草原本身免费通行"}],"warnings":["今晚 3460m，是上高原第二晚，高反常在这晚出现。头痛就吃布洛芬+喝热水，别硬扛。","同程用『新都桥』当关键词会返回康定城区酒店，必须搜『新都桥镇』。","鱼子西看日落要摸黑下山，山路无路灯，包车司机务必是本地熟路的。"],"photoSpots":[{"name":"鱼子西观景台","shot":"360° 无遮挡，贡嘎群峰 + 雅拉雪山日照金山同框","bestTime":"日落前 1 小时（约 16:30–17:30 为金山时段）","tip":"需超广角 14–24mm 才装得下全景；风口大，三脚架挂重物","traffic":"新都桥镇包当地小车约 40 分钟；自驾路况差","source":"新浪旅游 / 携程笔记","queriedAt":"2026-09-20","confidence":"参考"},{"name":"塔公草原·木雅金塔","shot":"纯金塔 + 雅拉雪山同框","bestTime":"上午到正午，雪山不易被云挡","tip":"塔身反光强，偏振镜压反光；中长焦把塔与雪山顶在同一轴线","traffic":"新都桥镇往八美方向约 40km，路边","source":"国际旅游摄影网 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"},{"name":"墨石公园","shot":"灰黑色糜棱岩石林，异域星球感","bestTime":"下午侧光（立体感最强）","tip":"石林与人对比强烈，广角低角度仰拍最出片；纯黑灰一片，穿亮色衣服","traffic":"道孚县八美镇，丹巴/塔公途中","source":"携程笔记 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"},{"name":"新都桥·摄影天堂","shot":"杨树林 + 溪流 + 藏房，光影流动","bestTime":"下午 16:00–18:00 斜阳把杨树染暖金","tip":"沿 G318 镇外河滩找机位；9 月底杨树尚未全黄，色彩以青黄过渡为主","traffic":"新都桥镇外 G318 沿线，自驾随时停","source":"新浪旅游 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"黑青稞庄园·新式藏餐·牦牛肉汤锅(新都桥店)","dish":"牦牛肉汤锅","area":"康定市·新都桥镇318国道营官村","avgPrice":84,"priceType":"实","score":0,"openHours":"未查到","lat":30.018496,"lng":101.529869}],"mapPoints":[{"name":"墨石公园景区","lat":30.44436,"lng":101.542744,"openHours":"未查到","kind":"sight"},{"name":"塔公草原","lat":30.329812,"lng":101.554997,"openHours":"全天","kind":"sight"},{"name":"鱼子西","lat":30.087942,"lng":101.561199,"openHours":"未查到","kind":"sight"},{"name":"黑青稞庄园(新都桥店)","lat":30.018496,"lng":101.529869,"openHours":"未查到","kind":"food"}]},{"date":"2026-09-29","city":"新都桥 → 稻城","title":"318 景观大道硬仗：428km / 8.5 小时","am":"7:30 出发。新都桥 → 雅江 → 天路十八弯观景台（剪子弯山）→ 卡子拉山垭口（4718m，高山草甸）。新都桥→理塘 194.1km / 约 4.4 小时。","pm":"理塘午餐（世界高城 4014m，别快走、别爬楼）。餐后理塘 → 稻城，234km / 约 4.1 小时：经毛垭大草原、海子山古冰帽遗迹，日落前到稻城。","evening":"住稻城县城（3750m）或香格里拉镇（2900m）。今晚务必住供氧房。","tickets":[{"name":"勒通古镇·千户藏寨（理塘）","price":0,"priceType":"未查到","note":"同程景区页未返回价格；古镇街区自由通行"}],"warnings":["今天是全程最累的一天：8.5 小时车程 + 全程 4000m 以上。换司机开、别赶夜路。","理塘海拔 4014m，午餐后不要爬楼、不要快走，多数高反在这一站被触发。","海子山一段手机信号极差，提前下离线地图。"],"photoSpots":[{"name":"天路十八弯观景台","shot":"G318 连续发卡弯俯瞰，曲线美","bestTime":"上午（顺光，弯道阴影层次清楚）","tip":"需要长焦压缩弯道层次，24mm 拍不出感觉","traffic":"雅江 → 理塘 G318 剪子弯山段，路边观景台","source":"携程笔记 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"},{"name":"卡子拉山垭口","shot":"4718m 高山草甸，云在脚下","bestTime":"上午 10:00–12:00，云海概率高","tip":"草原光线平，靠人像/牦牛做前景才有层次；风极大，注意失温","traffic":"G318 理塘段路边垭口","source":"携程笔记（自媒体）","queriedAt":"2026-09-20","confidence":"参考"},{"name":"海子山·姊妹湖","shot":"古冰川遗迹上的大小海子（冰蚀湖）","bestTime":"上午 9:00–11:00，湖面无风时倒影最清","tip":"偏振镜消除水面反光；乱石滩苍凉逆光剪影也好拍","traffic":"理塘 → 稻城 G227 途中，路边观景台","source":"新浪旅游 / 携程笔记","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"藏味牦牛肉火锅","dish":"牦牛肉火锅","area":"理塘县·仁康古街59号","avgPrice":76,"priceType":"实","score":0,"openHours":"未查到","lat":29.99392,"lng":100.266661},{"name":"牦牛汤锅","dish":"牦牛汤锅","area":"理塘县·团结南路62-64号","avgPrice":58,"priceType":"实","score":0,"openHours":"未查到","lat":29.989858,"lng":100.26827},{"name":"巴瓦藏餐","dish":"藏餐","area":"稻城县·金珠镇新区贡巴路","avgPrice":70,"priceType":"实","score":0,"openHours":"未查到","lat":29.038474,"lng":100.300024}],"mapPoints":[{"name":"天路十八弯观景台","lat":29.996985,"lng":100.874796,"openHours":"全天","kind":"sight"},{"name":"卡子拉山","lat":30.141999,"lng":100.651567,"openHours":"全天","kind":"sight"},{"name":"勒通古镇·千户藏寨旅游景区","lat":29.993796,"lng":100.268469,"openHours":"未查到","kind":"sight"},{"name":"海子山国家级自然保护区","lat":29.423712,"lng":100.17489,"openHours":"全天","kind":"sight"}]},{"date":"2026-09-30","city":"稻城 → 亚丁","title":"亚丁短线：冲古寺 + 珍珠海（适应日）","am":"稻城 → 亚丁景区游客中心 81.1km / 约 1.7 小时。换景区观光车进沟（约 1 小时）到扎灌崩，步行 10 分钟到冲古寺。","pm":"短线：冲古寺 → 卓玛拉措（珍珠海），木栈道约 2km，仙乃日雪山倒影。全程 2–3 小时，不求快，专为适应海拔。","evening":"住亚丁村（3900m）或退回香格里拉镇（2900m）。明天是长线，今晚睡眠质量直接决定成败。","tickets":[{"name":"稻城亚丁 门票","price":0,"priceType":"参考","note":"2026-08-01 至 10-31 全国免门票（原价 146 元），须官方微信小程序实名预约；来源：新浪旅游转述景区政策，检索日 2026-09-20"},{"name":"亚丁观光车 + 电瓶车","price":0,"priceType":"参考","note":"自 2026-05-29 起暂停收费（原观光车 120 元、电瓶车 70–80 元），恢复时间未定；来源：新浪旅游转述景区公告，检索日 2026-09-20"}],"warnings":["⚠️ 免票期仍须实名预约，每日限流约 15000 人，国庆须提前 5–7 天抢约（官方微信小程序『稻城亚丁景区』）。","⚠️ 门票/观光车免费政策来自媒体转述，出发前务必在景区官方小程序再确认一次，不要按 0 元做预算唯一依据。","住亚丁村（3900m）能省 2 小时往返，但海拔高、睡不好；对高反没底就回香格里拉镇睡。"],"photoSpots":[{"name":"珍珠海（卓玛拉措）","shot":"仙乃日神山倒影，池水如镜","bestTime":"上午 8:00 前，无风无人的窗口","tip":"9 点后起风倒影就散；栈道尽头左侧机位更完整","traffic":"冲古寺沿木栈道步行约 2km","source":"新浪旅游 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"},{"name":"冲古寺 + 冲古草甸","shot":"夏诺多吉神山与草甸经幡","bestTime":"清晨与傍晚","tip":"草甸开阔，用经幡做前景框住雪山","traffic":"扎灌崩步行 10 分钟","source":"Trip.com 稻城攻略","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"藏巴拉藏餐吧","dish":"藏餐","area":"稻城县·香格里拉镇呷拥社区","avgPrice":0,"priceType":"未查到","score":0,"openHours":"未查到","lat":28.559199,"lng":100.350987},{"name":"次姆藏餐","dish":"藏餐","area":"稻城县·香格里拉镇","avgPrice":0,"priceType":"未查到","score":0,"openHours":"未查到","lat":28.566054,"lng":100.35063}],"mapPoints":[{"name":"稻城亚丁景区游客中心","lat":28.536232,"lng":100.316746,"openHours":"日场约 07:00–16:40","kind":"sight"},{"name":"稻城亚丁风景区-冲古寺","lat":28.427764,"lng":100.358063,"openHours":"未查到","kind":"sight"},{"name":"稻城亚丁景区-珍珠海","lat":28.421811,"lng":100.352865,"openHours":"未查到","kind":"sight"}]},{"date":"2026-10-01","city":"亚丁","title":"亚丁长线：洛绒牛场 → 牛奶海 → 五色海","am":"7:00 前进沟（国庆首日人流最大）。观光车 → 扎灌崩 → 冲古寺，换电瓶车到洛绒牛场（4180m，央迈勇神山最佳机位）。","pm":"洛绒牛场沿栈道徒步 → 牛奶海（4600m）→ 再爬升约 100m 到五色海（4700m）。往返约 10–12km，海拔爬升约 500m。体力不足可骑马到舍身崖（约 ¥200–300/匹，需一早抢）。","evening":"回稻城县城住。⚠️ 15:00 前必须开始下撤，否则错过末班电瓶车和观光车。","tickets":[{"name":"稻城亚丁 门票（D2）","price":0,"priceType":"参考","note":"免票期仍须逐日预约；两日进沟政策以景区公告为准"},{"name":"洛绒牛场骑马（可选）","price":250,"priceType":"估","note":"媒体转述约 ¥200–300/匹/次，自愿项目，未同程核实"}],"warnings":["⚠️ 全程最危险的一天：4700m 徒步，务必 15:00 前下撤，末班车不等人。","带够热水和高热量食物；氧气瓶放包侧袋随手可取。","国庆首日沟内人流最大，越早越好；亚丁景区内全面禁飞无人机。"],"photoSpots":[{"name":"洛绒牛场","shot":"央迈勇神山 + 夏诺多吉同框，草原溪流","bestTime":"上午 9:00–11:00 光线通透","tip":"央迈勇最佳机位就在牛场；用 70–200mm 压缩雪山与草甸","traffic":"冲古寺换电瓶车约 20 分钟","source":"新浪旅游 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"},{"name":"牛奶海（洛绒措）","shot":"扇贝形碧蓝冰川湖，外圈乳白钙化环","bestTime":"中午 12:00–13:00，光线好且不算顶光","tip":"左侧山坡可俯拍全景；风大注意保暖与站稳","traffic":"洛绒牛场沿栈道徒步约 5km，海拔 4180→4600m","source":"新浪旅游 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"},{"name":"五色海（登崇措）","shot":"仙乃日与央迈勇之间的圣湖，光折射呈多色","bestTime":"晴天正午前后","tip":"比牛奶海再高 100m，坡陡风大，上了就下、别久留","traffic":"牛奶海继续上行约 100m 爬升","source":"携程笔记 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"稻城县金珠镇藏餐（返稻城后）","dish":"藏香猪 / 松茸炖鸡","area":"稻城县城","avgPrice":0,"priceType":"估","score":0,"openHours":"未查到","lat":0,"lng":0}],"mapPoints":[{"name":"甘孜稻城亚丁景区-洛绒牛场","lat":28.38666,"lng":100.382576,"openHours":"未查到","kind":"sight"},{"name":"牛奶海","lat":28.371627,"lng":100.348713,"openHours":"未查到","kind":"sight"},{"name":"稻城亚丁景区-五色海","lat":28.37651,"lng":100.35248,"openHours":"未查到","kind":"sight"}]},{"date":"2026-10-02","city":"稻城 → 康定","title":"返程穿越：416km / 8 小时，翻折多山","am":"先到稻城白塔（尊胜塔林）拍日出，再沿 G227 回理塘，重走海子山、毛垭大草原。","pm":"理塘 → 雅江 → 新都桥 → 折多山垭口（4298m，云海机位）→ 下山到康定。全程 416km / 约 8 小时。","evening":"住康定（2560m）。海拔终于降下来，这一晚能睡踏实。市区沿河，溜溜城步行街可逛。","tickets":[],"warnings":["折多山垭口 4298m，是全程最后一个高海拔点，雨天易起雾结冰，注意慢行。","又是 8 小时车程，和司机轮换、别赶夜路。"],"photoSpots":[{"name":"稻城白塔（尊胜塔林）","shot":"主塔 + 108 座小塔环绕，晨光中金顶发光","bestTime":"日出后 30 分钟内","tip":"绕塔顺时针；广角仰拍把塔尖与天空留白","traffic":"稻城大桥桥头，县城西侧","source":"Trip.com 稻城攻略","queriedAt":"2026-09-20","confidence":"参考"},{"name":"折多山垭口","shot":"4298m 垭口云海 + 盘山公路","bestTime":"上午或雨后初晴","tip":"垭口常大雾，能见度低时别硬拍，安全第一","traffic":"新都桥 → 康定 G318 途中","source":"携程笔记 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"玛吉阿米·特色藏餐(康定店)","dish":"藏餐","area":"康定市·炉城街道东大街","avgPrice":79,"priceType":"实","score":0,"openHours":"未查到","lat":30.048437,"lng":101.963119},{"name":"康定央切尔锅庄·牦牛肉酸汤(溜溜城店)","dish":"牦牛肉酸汤锅","area":"康定市·向阳街","avgPrice":88,"priceType":"实","score":0,"openHours":"未查到","lat":30.044477,"lng":101.960538},{"name":"Pine Green 青棵康定菜","dish":"康定菜","area":"康定市·溜溜城步行街","avgPrice":106,"priceType":"实","score":0,"openHours":"未查到","lat":30.048065,"lng":101.963448}],"mapPoints":[{"name":"稻城白塔","lat":29.04801,"lng":100.297936,"openHours":"全天","kind":"sight"},{"name":"玛吉阿米·特色藏餐(康定店)","lat":30.048437,"lng":101.963119,"openHours":"未查到","kind":"food"}]},{"date":"2026-10-03","city":"康定 → 磨西","title":"木格措 + 泸定桥，降到磨西泡温泉","am":"康定 → 木格措 28.9km / 约 1.2 小时（门票 ¥185）。七色海、药池沸泉，海拔 3700m 上下。","pm":"木格措 → 泸定桥（免费，铁索桥，4A）→ 磨西镇，137.8km / 约 2.8 小时。","evening":"住磨西镇，泡海螺沟温泉。这是连走 8 天山路后最该花钱的一晚。","tickets":[{"name":"康定木格措景区","price":185,"priceType":"实","note":"同程实查（2026-09-20），4A，甘孜全城必玩榜 No.1"},{"name":"泸定桥","price":0,"priceType":"参考","note":"同程度假产品页显示免费；票价以现场为准"}],"warnings":["木格措在康定北面，海螺沟在南面，今天是先北后南折返，实际车程比直线多约 30km。","磨西镇住宿『海螺沟紫荆别院 ¥134』这类低价房多为简易房，泡温泉要选温泉民宿。"],"photoSpots":[{"name":"木格措（七色海）","shot":"高原湖泊 + 药池沸泉 + 雪山","bestTime":"上午，湖面无风倒影清","tip":"湖边栈道中段机位比入口好；高原湖反光强，偏振镜必备","traffic":"康定市区北行约 29km，景区观光车进沟","source":"同程度假产品页 / 携程笔记","queriedAt":"2026-09-20","confidence":"参考"},{"name":"泸定桥","shot":"大渡河铁索桥，红色历史地标","bestTime":"上午顺光","tip":"桥面晃，手持稳一点；用长焦拍桥索结构纹理","traffic":"泸定县城·泸桥镇红军路","source":"同程度假产品页","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"余氏农家土菜馆","dish":"农家土菜","area":"泸定县·磨西镇贡嘎大道","avgPrice":49,"priceType":"实","score":0,"openHours":"未查到","lat":29.642181,"lng":102.124226},{"name":"海螺沟好口福土菜馆","dish":"农家土菜","area":"泸定县·磨西镇贡嘎大道下段","avgPrice":57,"priceType":"实","score":0,"openHours":"未查到","lat":29.639862,"lng":102.127432}],"mapPoints":[{"name":"康定木格措景区","lat":30.166872,"lng":101.873602,"openHours":"未查到","kind":"sight"},{"name":"泸定桥广场","lat":29.91182,"lng":102.23305,"openHours":"未查到","kind":"sight"},{"name":"海螺沟好口福土菜馆","lat":29.639862,"lng":102.127432,"openHours":"未查到","kind":"food"}]},{"date":"2026-10-04","city":"磨西 → 成都","title":"海螺沟冰川，然后回城","am":"海螺沟冰川森林公园（¥160）：三号营地看冰川舌，四号营地看贡嘎主峰。景区开放约 08:00–14:30。","pm":"300.8km / 约 4.1 小时回成都，经雅安上高速。18:00 前后到成都市区。","evening":"住成都。晚上逛太古里/九眼桥，吃点不重口的收尾。","tickets":[{"name":"海螺沟","price":160,"priceType":"实","note":"同程实查（2026-09-20），5A；景区观光车票价未同程返回，需现场/官方渠道确认"}],"warnings":["海螺沟 14:30 就停止入园，必须早进；想拍日照金山要住三号营地（¥671 起）。","高原行程今天正式结束，回到 500m 海拔后可以正常洗澡、喝酒了。"],"photoSpots":[{"name":"海螺沟·四号营地","shot":"贡嘎主峰（7556m）近距视角","bestTime":"清晨日照金山（住三号营地才赶得上）","tip":"冰川反光极强，曝光要减 1–2 档；长焦压缩冰川裂隙","traffic":"磨西镇乘景区观光车至三号营地，再换索道/步行","source":"携程笔记 / Trip.com","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"成都太古里美食区","dish":"川菜 / 火锅","area":"锦江区·太古里","avgPrice":0,"priceType":"估","score":0,"openHours":"未查到","lat":30.651234,"lng":104.083999}],"mapPoints":[{"name":"海螺沟风景区","lat":29.597081,"lng":102.05087,"openHours":"约 08:00–14:30","kind":"sight"},{"name":"宽窄巷子","lat":30.663831,"lng":104.05364,"openHours":"全天","kind":"sight"}]},{"date":"2026-10-05","city":"成都","title":"熊猫基地 + 市区慢逛","am":"7:30 出发去成都大熊猫繁育研究基地（¥55）。熊猫早上活跃，9 点后基本就睡了。市区→基地 21.6km / 约 40 分钟。","pm":"下午宽窄巷子 / 人民公园喝盖碗茶 / 武侯祠锦里，节奏放到最慢。","evening":"太古里、九眼桥；或看一场川剧变脸。","tickets":[{"name":"成都大熊猫繁育研究基地","price":55,"priceType":"估","note":"同程景区页未返回熊猫基地票价；此价为常规行情，以官方渠道为准"}],"warnings":["熊猫基地国庆日限流，需提前在官方渠道实名预约，早场票最抢手。","今天开始是『降海拔恢复日』，别排太满。"],"photoSpots":[{"name":"成都大熊猫繁育研究基地·月亮产房","shot":"幼年熊猫活动场","bestTime":"08:00–10:00 投食时段最活跃","tip":"玻璃有反光，贴镜拍摄或用偏振镜；长焦 200mm 以上更从容","traffic":"地铁 3 号线熊猫大道站转公交","source":"腾讯地图 POI / 常识","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"马旺子川小馆(太古里店)","dish":"川菜","area":"锦江区·太古里","avgPrice":110,"priceType":"实","score":0,"openHours":"未查到","lat":30.651234,"lng":104.083999},{"name":"蓉庭食府·匠心川菜","dish":"精品川菜","area":"锦江区·提督街林恩国际酒店","avgPrice":98,"priceType":"实","score":0,"openHours":"未查到","lat":30.660522,"lng":104.075583}],"mapPoints":[{"name":"成都大熊猫繁育研究基地","lat":30.736643,"lng":104.143773,"openHours":"未查到","kind":"sight"},{"name":"宽窄巷子","lat":30.663831,"lng":104.05364,"openHours":"全天","kind":"sight"}]},{"date":"2026-10-06","city":"成都","title":"都江堰 + 青城山（或纯市区躺平）","am":"都江堰景区（¥68，5A，成都人气打卡榜 No.2）：鱼嘴、飞沙堰、宝瓶口。","pm":"青城山（¥80，5A，成都登山榜 No.1）前山为主，或只在都江堰慢慢走。","evening":"回成都。行李今晚收好，明天要赶 16:29 的高铁。","tickets":[{"name":"都江堰景区","price":68,"priceType":"实","note":"同程实查（2026-09-20），5A"},{"name":"青城山","price":80,"priceType":"实","note":"同程实查（2026-09-20），5A"},{"name":"青城山索道","price":35,"priceType":"实","note":"同程实查（2026-09-20）"}],"warnings":["若改为 10/6 提前返程（MU9807 ¥846），今天就是返程日，都江堰行程取消。","都江堰+青城山一天跑完偏赶，二选一体验更好。"],"photoSpots":[{"name":"都江堰·鱼嘴分水堤","shot":"岷江分流工程，江水与人字堤","bestTime":"上午顺光","tip":"高处俯瞰（二王庙一侧）比平拍更能看出水利结构","traffic":"成都地铁 2 号线→都江堰站转公交","source":"同程景区页","queriedAt":"2026-09-20","confidence":"参考"}],"foods":[{"name":"成都市区川菜（未指定）","dish":"川菜","area":"成都市区","avgPrice":0,"priceType":"估","score":0,"openHours":"未查到","lat":0,"lng":0}],"mapPoints":[{"name":"都江堰景区","lat":31.001522,"lng":103.609571,"openHours":"未查到","kind":"sight"},{"name":"青城山风景区","lat":30.890721,"lng":103.51669,"openHours":"未查到","kind":"sight"}]},{"date":"2026-10-07","city":"成都 → 武汉","title":"高铁返程，13 天收尾","am":"上午自由活动或补觉，中午退房。成都东站提前 1 小时到。","pm":"G3465 成都东 16:29 → 武汉 23:28（6时59分，¥555）。","evening":"到武汉。⚠️ 10/8 上班，当晚直接回家休息，别安排别的事。","tickets":[{"name":"G3465 成都东→武汉 二等座","price":555,"priceType":"实","note":"同程实查（2026-09-20）；12306 约提前 15 天开售"}],"warnings":["⚠️ 国庆返程最高峰，火车票开售即抢；抢不到就切 10/7 机票 ¥959 或 10/6 机票 ¥846。","高铁 7 小时，带好颈枕和干粮；D954 更便宜（¥448）但更慢（7时56分）。"],"photoSpots":[],"foods":[],"mapPoints":[{"name":"宽窄巷子","lat":30.663831,"lng":104.05364,"openHours":"全天","kind":"sight"}]}],"todos":[{"text":"稻城亚丁官方微信小程序实名预约 9/30、10/1 两天门票（免票期仍须预约，每日限流约 15000 人，国庆需提前 5–7 天）","done":false,"priority":"P0"},{"text":"订 9/25 武汉→成都机票（主 MU9808 ¥460 或 CZ3831 ¥440），价格随时变","done":false,"priority":"P0"},{"text":"抢 10/7 成都东→武汉 高铁票（G3465 ¥555 / D954 ¥448），12306 约提前 15 天开售，返程最高峰","done":false,"priority":"P0"},{"text":"订 9/26 四姑娘山镇住宿（同程仅 1 条结果，必须多平台比价）","done":false,"priority":"P0"},{"text":"订 9/29 稻城『供氧房』+ 9/30–10/1 稻城/亚丁住宿（国庆房源极紧）","done":false,"priority":"P0"},{"text":"确认成都落地后的包车/拼车（11 天，4 人 7 座商务车，含司机油费过路）——同程未查到实价，需另行比价","done":false,"priority":"P0"},{"text":"出发前 3 天开始服红景天；备氧气瓶 2 罐/人、血氧仪、布洛芬","done":false,"priority":"P0"},{"text":"订 9/27 丹巴、9/28 新都桥、10/2 康定、10/3 磨西（温泉民宿）、10/4–10/6 成都住宿","done":false,"priority":"P1"},{"text":"预约景区门票：四姑娘山双桥沟、木格措、海螺沟、熊猫基地","done":false,"priority":"P1"},{"text":"下载川西离线地图（海子山、亚丁部分路段无信号）","done":false,"priority":"P1"},{"text":"买高原旅行意外险（含高海拔徒步条款）","done":false,"priority":"P1"},{"text":"备少量现金（部分藏寨停车、小摊只收现金）","done":false,"priority":"P2"},{"text":"确认鱼子西当日是否因森林防火管制关闭，备选斯丁措观景台","done":false,"priority":"P2"},{"text":"10/3 若不住磨西，可考虑住海螺沟三号营地 ¥671 起（第二天拍日照金山）","done":false,"priority":"P2"}],"budget":{"comfort":{"title":"舒适档（越野车包车 + 温泉民宿 + 骑马 + 飞回）","items":{"往返大交通（去程机票 ¥560 + 返程机票 ¥959）":1519,"成都起止包车（11 天越野车/9 座，¥1500/天 ÷ 4 人）":4125,"住宿 12 晚（2 人 1 间，¥500/间均价，含国庆上浮）":3000,"门票 + 骑马（亚丁免票期内，含骑马约 ¥300）":1200,"餐饮 13 天 × ¥250":3250,"杂项（氧气/保险/零食/温泉）":600},"total":54800,"perPerson":13700,"note":"预算按 4 人计。包车费为经验行情（估），非同程实查；亚丁门票按免票政策计 0 元，若政策变化需回补约 ¥266/人。"},"saver":{"title":"性价比档（7 座商务车 + 经济连锁/民宿 + 高铁返程）","items":{"往返大交通（去程机票 ¥460 + 返程高铁 ¥555）":1015,"成都起止包车（11 天 7 座商务车，¥1100/天 ÷ 4 人）":3025,"住宿 12 晚（2 人 1 间，¥300/间均价，含国庆上浮）":2200,"门票（避开门票免费/低价的加项）":840,"餐饮 13 天 × ¥130":1690,"杂项（氧气/保险/基础补给）":300},"total":36180,"perPerson":9045,"note":"预算按 4 人计。比舒适档省约 ¥4700/人，省下的主要是车型、温泉民宿、骑马和返程机票差价。包车费为经验行情（估）。"}},"source":{"tripQueryAt":"2026-09-20（同程旅行连接器实查）","mapQueryAt":"2026-09-20（腾讯位置服务 WebService API）","photoQueryAt":"2026-09-20（联网检索，标『参考』）","notes":["放假依据：国务院办公厅《关于 2026 年部分节假日安排的通知》（国办发明电〔2025〕7 号）——中秋 9/25–27、国庆 10/1–7，9/20 与 10/10 调休上班。","酒店价格为同程『最低价』参考，未按入住日实时价核算；国庆档（10/1–10/7）川西实际房价通常上浮 50%–100%，必须按入住日重新实查。","最低价 ≠ 可比价：同程酒店最低价可能是青旅床位或单人间，本表已尽量剔除，但比价时仍需按同类型房型比较。","关键词错配已剔除：用『四姑娘山』『新都桥』『稻城亚丁』『磨西』『香格里拉镇』当酒店关键词时，同程分别返回九寨沟、康定城区、云南香格里拉等错误结果，已全部丢弃并改用『小金县』『新都桥镇』『海螺沟』等精确词重查。","稻城亚丁免门票 + 观光车暂停收费政策来自媒体转述（新浪旅游，2026-09-16），同程景区页显示成人票 ¥0 与之吻合，但出发前须在景区官方小程序二次确认。","四姑娘山镇（日隆）与磨西镇的住宿同程仅返回 1 条结果，样本不足，不代表当地全部房源。","成都起止包车 / 拼车价格同程未提供实查数据，表中为经验行情（估），需落地前另行比价。"]}}</script>
+<script>
+window.__CITY_STOPS__ = [{"name":"武汉 → 成都","lat":30.628336,"lng":104.099457,"view":"c063f28"},{"name":"成都 → 四姑娘山镇","lat":30.982795,"lng":102.806721,"view":"c978d0e"},{"name":"四姑娘山 → 丹巴","lat":30.881322,"lng":101.90455,"view":"ce21b2f"},{"name":"丹巴 → 新都桥","lat":30.220153,"lng":101.547202,"view":"ce8e4fc"},{"name":"新都桥 → 稻城","lat":29.889123,"lng":100.49243,"view":"cd4506a"},{"name":"稻城 → 亚丁","lat":28.461936,"lng":100.342558,"view":"ce13fa3"},{"name":"亚丁","lat":28.378266,"lng":100.361256,"view":"c4c1c44"},{"name":"稻城 → 康定","lat":29.548223,"lng":101.130527,"view":"cd8e7a0"},{"name":"康定 → 磨西","lat":29.906185,"lng":102.078028,"view":"c4ffcee"},{"name":"磨西 → 成都","lat":30.130456,"lng":103.052255,"view":"c3a0f40"},{"name":"成都","lat":30.700237,"lng":104.098706,"view":"c14bf5c"},{"name":"成都 → 武汉","lat":30.663831,"lng":104.05364,"view":"ca9676d"}];
+window.__CITY_VIEWS__ = [{"key":"all","label":"全线","center":[30.0326,102.1639],"zoom":5},{"key":"c063f28","label":"武汉 → 成都","center":[30.628336,104.099457],"zoom":12},{"key":"c978d0e","label":"成都 → 四姑娘山镇","center":[30.982795,102.806721],"zoom":12},{"key":"ce21b2f","label":"四姑娘山 → 丹巴","center":[30.881322,101.90455],"zoom":12},{"key":"ce8e4fc","label":"丹巴 → 新都桥","center":[30.220153,101.547202],"zoom":12},{"key":"cd4506a","label":"新都桥 → 稻城","center":[29.889123,100.49243],"zoom":12},{"key":"ce13fa3","label":"稻城 → 亚丁","center":[28.461936,100.342558],"zoom":12},{"key":"c4c1c44","label":"亚丁","center":[28.378266,100.361256],"zoom":12},{"key":"cd8e7a0","label":"稻城 → 康定","center":[29.548223,101.130527],"zoom":12},{"key":"c4ffcee","label":"康定 → 磨西","center":[29.906185,102.078028],"zoom":12},{"key":"c3a0f40","label":"磨西 → 成都","center":[30.130456,103.052255],"zoom":12},{"key":"c14bf5c","label":"成都","center":[30.700237,104.098706],"zoom":12},{"key":"ca9676d","label":"成都 → 武汉","center":[30.663831,104.05364],"zoom":12}];
+</script>
+<script>
+/* ===== 数据 ===== */
+var TRIP = JSON.parse(document.getElementById('TRIP_DATA').textContent);
+window.TRIP = TRIP;
+var CITY_STOPS = window.__CITY_STOPS__;
+var CITY_VIEWS = window.__CITY_VIEWS__;
+var MAP_QUERY = "2026-09-20";
+var MAP_KEY = "";
+var TRIP_MARKDOWN = "# 松鼠旅行官 · 武汉出发 · 川西大环线 13 天\n\n2026-09-25 至 2026-10-07 · 13 天 · 4 人\n出发地：武汉\n目的地：成都 → 四姑娘山镇 → 丹巴 → 新都桥 → 稻城 → 亚丁 → 康定 → 磨西 → 成都\n\n\u003e 示例行程，展示历史资料整理效果，不是实时查询或预订依据。\n\n以稻城亚丁、四姑娘山、丹巴与新都桥为主线的 4 人结伴旅行示例。保留 2026 年 9 月的资料快照，制作自己的行程时请重新查询。\n\n## 每日行程\n\n### D1 · 2026-09-25 · 飞成都，火锅开场\n地点：武汉 → 成都\n- 上午：出发前把高原包配齐：冲锋衣+抓绒、保暖内衣、登山鞋、墨镜、SPF50+ 防晒、唇膏、氧气瓶 2 罐/人、血氧仪。红景天提前 3 天开始吃。\n- 下午：MU9808 武汉天河T3 18:30 起飞 → 成都天府T2 20:25 落地；打车或地铁 18 号线进城，约 1 小时。\n- 晚上：放行李后就近吃一顿火锅，别喝多。今晚是全程唯一一次『海拔 500m 睡饱』的机会。\n- 住宿：悦蓝里S酒店(成都宽窄巷子抚琴地铁站店) · 青羊区·宽窄巷子片区 · ¥222。落地当夜只睡一晚，选地铁沿线即可。天府机场进城约 50km，打车约 ¥120–150。\n- 美食：矮板凳老火锅(华熙528店) · 牛油火锅 · 人均 ¥86。营业：未查到\n- 美食：马旺子川小馆(太古里店) · 川菜 · 人均 ¥110。营业：未查到\n- 注意：天府机场 → 成都市区约 50km，打车约 ¥120–150；地铁 18 号线＋换乘更省但要 70 分钟。\n- 注意：今晚别熬夜。D2 要连开 3.8 小时山路并直接上到 3200m。\n\n### D2 · 2026-09-26 · 翻巴朗山，见蜀山之后\n地点：成都 → 四姑娘山镇\n- 上午：8:00 出发，211km / 约 3.8 小时。成都→都江堰→映秀→卧龙峡谷→巴朗山隧道，出隧道后先在猫鼻梁观景台停 20 分钟拍四姑娘山全景。\n- 下午：13:00 前后进双桥沟：全程观光车，沟长 40 余公里。重点下车点——红杉林（沟尾，3840m，四面雪山）、布达拉峰（白塔+公路大片）、四姑娜措（枯木湖水倒影）、人参果坪（高山草甸）。\n- 晚上：住四姑娘山镇（3200m）。今晚开始执行高原三不：不洗澡、不喝酒、不剧烈运动。多喝水。\n- 住宿：四姑娘山云漫山居 · 小金县·四姑娘山镇 · ¥209（估算）。⚠️ 该镇住宿选择极少（同程只返回 1 条），务必提前在多个平台比价预订。海拔约 3200m，第一晚不宜洗澡。\n- 门票 / 预约：四姑娘山双桥沟 门票 · ¥60。同程实查（2026-09-20）\n- 门票 / 预约：双桥沟 观光车 · ¥70（估算）。经验行情，实际以景区现场为准\n- 美食：四姑娘山镇沿线藏餐馆（未实查） · 牦牛肉汤锅 · 人均 免费（估算）。营业：未查到\n- 拍照参考：猫鼻梁观景台 · 上午顺光（10:00–12:00） · 垭口风大，三脚架要压重；用 24–70mm 竖构图把公路当前景。来源：Trip.com 川西攻略 / 国际旅游摄影网\n- 拍照参考：双桥沟·红杉林 · 下午（景区车终点，午后光线入沟） · 枯木+雪山用长焦压缩；观光车终点站下车步行即到。来源：Trip.com 川西攻略\n- 拍照参考：双桥沟·布达拉峰 · 全天，午后侧光立体感强 · 经典公路大片机位，广角低机位把人放画面下三分之一。来源：携程笔记 / Trip.com\n- 注意：海拔从 500m 直接拉到 3200m，今晚是高反第一关：不洗澡、不喝酒、早睡。\n- 注意：四姑娘山镇住宿选择极少（同程只返回 1 条），务必多平台比价预订。\n\n### D3 · 2026-09-27 · 长坪沟清晨，甲居藏寨日落\n地点：四姑娘山 → 丹巴\n- 上午：可选：长坪沟半日徒步（近观幺妹峰，需半天体力）。赶时间就直接走：110.6km / 约 2.5 小时到丹巴。\n- 下午：先到中路藏寨（比甲居更原始安静、商业化低，碉楼与民居错落）。16:00 后转场甲居藏寨（门票 ¥50），占好观景台等日落。\n- 晚上：住丹巴县城（1800m）。今晚是全程海拔最低的一夜——洗澡、睡饱、把体力补回来。\n- 住宿：丹巴嘉绒河谷酒店 · 丹巴县城 · ¥260。丹巴县城海拔仅约 1800m，是全程最好的『低海拔休整点』，值得住好一点回血。\n- 门票 / 预约：甲居藏寨 门票 · ¥50。同程实查（2026-09-20）；另有观光车约 ¥35，来源为自媒体转述，未同程核实\n- 美食：丹巴白玛康钦特色藏餐 · 藏餐 · 人均 ¥42。营业：未查到\n- 美食：牧骑茶咖特色藏餐 · 藏餐 · 人均 ¥47。营业：未查到\n- 拍照参考：甲居藏寨观景台 · 日落前 1 小时（约 18:00–19:00，9 月下旬） · 从高处俯瞰用长焦压缩层次；晨雾机位在次日日出更佳。来源：国际旅游摄影网 / 携程笔记\n- 拍照参考：中路藏寨 · 上午晨雾时段 · 游客极少，适合人文扫街；拍摄前先征得住户同意。来源：携程笔记（自媒体）\n- 注意：丹巴是全程唯一真正的低海拔休整点，别浪费——把洗衣服、补给、睡好觉都安排在这晚。\n- 注意：甲居藏寨内部路窄坡陡，自驾注意会车。\n\n### D4 · 2026-09-28 · 墨石公园 + 塔公草原 + 鱼子西日照金山\n地点：丹巴 → 新都桥\n- 上午：甲居藏寨晨雾（早点起）→ 经牦牛谷、八美。123km / 约 2.7 小时到塔公方向，中途进墨石公园（灰黑色糜棱岩石林，『异域星球』）。\n- 下午：塔公草原 + 木雅金塔，正对雅拉雪山。塔公→新都桥仅 41.3km / 约 50 分钟，15:30 前后到新都桥镇落脚。\n- 晚上：包当地小车上鱼子西观景台看日照金山（贡嘎 + 雅拉同框）。⚠️ 鱼子西遇森林防火管制会关闭，备选斯丁措观景台。\n- 住宿：泥朵·仓嘉云舍(康定新都桥店) · 康定市·新都桥镇 · ¥195。海拔 3460m，是上高原第二晚的关键适应点。选带地暖/供氧的房型更稳。⚠️ 用『新都桥』当关键词查到的是康定城区，必须搜『新都桥镇』。\n- 门票 / 预约：墨石公园 门票 · ¥60（估算）。来源为自媒体行程单，未同程核实；观光车另约 ¥20\n- 门票 / 预约：鱼子西 环保费 · ¥30（估算）。来源为自媒体行程单，未同程核实\n- 门票 / 预约：塔公草原 · 免费。同程景区页未返回价格，草原本身免费通行\n- 美食：黑青稞庄园·新式藏餐·牦牛肉汤锅(新都桥店) · 牦牛肉汤锅 · 人均 ¥84。营业：未查到\n- 拍照参考：鱼子西观景台 · 日落前 1 小时（约 16:30–17:30 为金山时段） · 需超广角 14–24mm 才装得下全景；风口大，三脚架挂重物。来源：新浪旅游 / 携程笔记\n- 拍照参考：塔公草原·木雅金塔 · 上午到正午，雪山不易被云挡 · 塔身反光强，偏振镜压反光；中长焦把塔与雪山顶在同一轴线。来源：国际旅游摄影网 / Trip.com\n- 拍照参考：墨石公园 · 下午侧光（立体感最强） · 石林与人对比强烈，广角低角度仰拍最出片；纯黑灰一片，穿亮色衣服。来源：携程笔记 / Trip.com\n- 拍照参考：新都桥·摄影天堂 · 下午 16:00–18:00 斜阳把杨树染暖金 · 沿 G318 镇外河滩找机位；9 月底杨树尚未全黄，色彩以青黄过渡为主。来源：新浪旅游 / Trip.com\n- 注意：今晚 3460m，是上高原第二晚，高反常在这晚出现。头痛就吃布洛芬+喝热水，别硬扛。\n- 注意：同程用『新都桥』当关键词会返回康定城区酒店，必须搜『新都桥镇』。\n- 注意：鱼子西看日落要摸黑下山，山路无路灯，包车司机务必是本地熟路的。\n\n### D5 · 2026-09-29 · 318 景观大道硬仗：428km / 8.5 小时\n地点：新都桥 → 稻城\n- 上午：7:30 出发。新都桥 → 雅江 → 天路十八弯观景台（剪子弯山）→ 卡子拉山垭口（4718m，高山草甸）。新都桥→理塘 194.1km / 约 4.4 小时。\n- 下午：理塘午餐（世界高城 4014m，别快走、别爬楼）。餐后理塘 → 稻城，234km / 约 4.1 小时：经毛垭大草原、海子山古冰帽遗迹，日落前到稻城。\n- 晚上：住稻城县城（3750m）或香格里拉镇（2900m）。今晚务必住供氧房。\n- 住宿：稻城县明珠供氧假日酒店 · 稻城县城·金珠镇 · ¥248。海拔 3750m，选『供氧房』是这里最值的一笔钱，直接决定第二天上不上得了亚丁长线。\n- 门票 / 预约：勒通古镇·千户藏寨（理塘） · 免费。同程景区页未返回价格；古镇街区自由通行\n- 美食：藏味牦牛肉火锅 · 牦牛肉火锅 · 人均 ¥76。营业：未查到\n- 美食：牦牛汤锅 · 牦牛汤锅 · 人均 ¥58。营业：未查到\n- 美食：巴瓦藏餐 · 藏餐 · 人均 ¥70。营业：未查到\n- 拍照参考：天路十八弯观景台 · 上午（顺光，弯道阴影层次清楚） · 需要长焦压缩弯道层次，24mm 拍不出感觉。来源：携程笔记 / Trip.com\n- 拍照参考：卡子拉山垭口 · 上午 10:00–12:00，云海概率高 · 草原光线平，靠人像/牦牛做前景才有层次；风极大，注意失温。来源：携程笔记（自媒体）\n- 拍照参考：海子山·姊妹湖 · 上午 9:00–11:00，湖面无风时倒影最清 · 偏振镜消除水面反光；乱石滩苍凉逆光剪影也好拍。来源：新浪旅游 / 携程笔记\n- 注意：今天是全程最累的一天：8.5 小时车程 + 全程 4000m 以上。换司机开、别赶夜路。\n- 注意：理塘海拔 4014m，午餐后不要爬楼、不要快走，多数高反在这一站被触发。\n- 注意：海子山一段手机信号极差，提前下离线地图。\n\n### D6 · 2026-09-30 · 亚丁短线：冲古寺 + 珍珠海（适应日）\n地点：稻城 → 亚丁\n- 上午：稻城 → 亚丁景区游客中心 81.1km / 约 1.7 小时。换景区观光车进沟（约 1 小时）到扎灌崩，步行 10 分钟到冲古寺。\n- 下午：短线：冲古寺 → 卓玛拉措（珍珠海），木栈道约 2km，仙乃日雪山倒影。全程 2–3 小时，不求快，专为适应海拔。\n- 晚上：住亚丁村（3900m）或退回香格里拉镇（2900m）。明天是长线，今晚睡眠质量直接决定成败。\n- 住宿：稻城亚丁扎西空墅藏文化主题酒店 · 香格里拉镇·亚丁村一号站 · ¥398（估算）。⚠️ 住亚丁村（3900m）能省 2 小时往返车程，但海拔更高、睡眠质量差；对高反没底就住香格里拉镇（2900m）。国庆房源极紧，提前 10 天订。\n- 门票 / 预约：稻城亚丁 门票 · 免费。2026-08-01 至 10-31 全国免门票（原价 146 元），须官方微信小程序实名预约；来源：新浪旅游转述景区政策，检索日 2026-09-20\n- 门票 / 预约：亚丁观光车 + 电瓶车 · 免费。自 2026-05-29 起暂停收费（原观光车 120 元、电瓶车 70–80 元），恢复时间未定；来源：新浪旅游转述景区公告，检索日 2026-09-20\n- 美食：藏巴拉藏餐吧 · 藏餐 · 人均 免费。营业：未查到\n- 美食：次姆藏餐 · 藏餐 · 人均 免费。营业：未查到\n- 拍照参考：珍珠海（卓玛拉措） · 上午 8:00 前，无风无人的窗口 · 9 点后起风倒影就散；栈道尽头左侧机位更完整。来源：新浪旅游 / Trip.com\n- 拍照参考：冲古寺 + 冲古草甸 · 清晨与傍晚 · 草甸开阔，用经幡做前景框住雪山。来源：Trip.com 稻城攻略\n- 注意：⚠️ 免票期仍须实名预约，每日限流约 15000 人，国庆须提前 5–7 天抢约（官方微信小程序『稻城亚丁景区』）。\n- 注意：⚠️ 门票/观光车免费政策来自媒体转述，出发前务必在景区官方小程序再确认一次，不要按 0 元做预算唯一依据。\n- 注意：住亚丁村（3900m）能省 2 小时往返，但海拔高、睡不好；对高反没底就回香格里拉镇睡。\n\n### D7 · 2026-10-01 · 亚丁长线：洛绒牛场 → 牛奶海 → 五色海\n地点：亚丁\n- 上午：7:00 前进沟（国庆首日人流最大）。观光车 → 扎灌崩 → 冲古寺，换电瓶车到洛绒牛场（4180m，央迈勇神山最佳机位）。\n- 下午：洛绒牛场沿栈道徒步 → 牛奶海（4600m）→ 再爬升约 100m 到五色海（4700m）。往返约 10–12km，海拔爬升约 500m。体力不足可骑马到舍身崖（约 ¥200–300/匹，需一早抢）。\n- 晚上：回稻城县城住。⚠️ 15:00 前必须开始下撤，否则错过末班电瓶车和观光车。\n- 住宿：稻城泰天大酒店 · 稻城县城·金珠镇 · ¥340。长线徒步后回县城住一晚，海拔比亚丁村低 850m，恢复更快。\n- 门票 / 预约：稻城亚丁 门票（D2） · 免费。免票期仍须逐日预约；两日进沟政策以景区公告为准\n- 门票 / 预约：洛绒牛场骑马（可选） · ¥250（估算）。媒体转述约 ¥200–300/匹/次，自愿项目，未同程核实\n- 美食：稻城县金珠镇藏餐（返稻城后） · 藏香猪 / 松茸炖鸡 · 人均 免费（估算）。营业：未查到\n- 拍照参考：洛绒牛场 · 上午 9:00–11:00 光线通透 · 央迈勇最佳机位就在牛场；用 70–200mm 压缩雪山与草甸。来源：新浪旅游 / Trip.com\n- 拍照参考：牛奶海（洛绒措） · 中午 12:00–13:00，光线好且不算顶光 · 左侧山坡可俯拍全景；风大注意保暖与站稳。来源：新浪旅游 / Trip.com\n- 拍照参考：五色海（登崇措） · 晴天正午前后 · 比牛奶海再高 100m，坡陡风大，上了就下、别久留。来源：携程笔记 / Trip.com\n- 注意：⚠️ 全程最危险的一天：4700m 徒步，务必 15:00 前下撤，末班车不等人。\n- 注意：带够热水和高热量食物；氧气瓶放包侧袋随手可取。\n- 注意：国庆首日沟内人流最大，越早越好；亚丁景区内全面禁飞无人机。\n\n### D8 · 2026-10-02 · 返程穿越：416km / 8 小时，翻折多山\n地点：稻城 → 康定\n- 上午：先到稻城白塔（尊胜塔林）拍日出，再沿 G227 回理塘，重走海子山、毛垭大草原。\n- 下午：理塘 → 雅江 → 新都桥 → 折多山垭口（4298m，云海机位）→ 下山到康定。全程 416km / 约 8 小时。\n- 晚上：住康定（2560m）。海拔终于降下来，这一晚能睡踏实。市区沿河，溜溜城步行街可逛。\n- 住宿：你好酒店(康定店) · 康定市区·炉城镇 · ¥274。康定 2560m，是全程第二个低海拔休整点。市区沿河，晚上可以走走溜溜城。\n- 美食：玛吉阿米·特色藏餐(康定店) · 藏餐 · 人均 ¥79。营业：未查到\n- 美食：康定央切尔锅庄·牦牛肉酸汤(溜溜城店) · 牦牛肉酸汤锅 · 人均 ¥88。营业：未查到\n- 美食：Pine Green 青棵康定菜 · 康定菜 · 人均 ¥106。营业：未查到\n- 拍照参考：稻城白塔（尊胜塔林） · 日出后 30 分钟内 · 绕塔顺时针；广角仰拍把塔尖与天空留白。来源：Trip.com 稻城攻略\n- 拍照参考：折多山垭口 · 上午或雨后初晴 · 垭口常大雾，能见度低时别硬拍，安全第一。来源：携程笔记 / Trip.com\n- 注意：折多山垭口 4298m，是全程最后一个高海拔点，雨天易起雾结冰，注意慢行。\n- 注意：又是 8 小时车程，和司机轮换、别赶夜路。\n\n### D9 · 2026-10-03 · 木格措 + 泸定桥，降到磨西泡温泉\n地点：康定 → 磨西\n- 上午：康定 → 木格措 28.9km / 约 1.2 小时（门票 ¥185）。七色海、药池沸泉，海拔 3700m 上下。\n- 下午：木格措 → 泸定桥（免费，铁索桥，4A）→ 磨西镇，137.8km / 约 2.8 小时。\n- 晚上：住磨西镇，泡海螺沟温泉。这是连走 8 天山路后最该花钱的一晚。\n- 住宿：木林森·一里云山温泉民宿(海螺沟冰川森林公园店) · 泸定县·磨西镇共和村 · ¥348。海螺沟泡温泉是这条线的收尾奖励，连走 8 天山路后这一晚最值得加钱。\n- 门票 / 预约：康定木格措景区 · ¥185。同程实查（2026-09-20），4A，甘孜全城必玩榜 No.1\n- 门票 / 预约：泸定桥 · 免费。同程度假产品页显示免费；票价以现场为准\n- 美食：余氏农家土菜馆 · 农家土菜 · 人均 ¥49。营业：未查到\n- 美食：海螺沟好口福土菜馆 · 农家土菜 · 人均 ¥57。营业：未查到\n- 拍照参考：木格措（七色海） · 上午，湖面无风倒影清 · 湖边栈道中段机位比入口好；高原湖反光强，偏振镜必备。来源：同程度假产品页 / 携程笔记\n- 拍照参考：泸定桥 · 上午顺光 · 桥面晃，手持稳一点；用长焦拍桥索结构纹理。来源：同程度假产品页\n- 注意：木格措在康定北面，海螺沟在南面，今天是先北后南折返，实际车程比直线多约 30km。\n- 注意：磨西镇住宿『海螺沟紫荆别院 ¥134』这类低价房多为简易房，泡温泉要选温泉民宿。\n\n### D10 · 2026-10-04 · 海螺沟冰川，然后回城\n地点：磨西 → 成都\n- 上午：海螺沟冰川森林公园（¥160）：三号营地看冰川舌，四号营地看贡嘎主峰。景区开放约 08:00–14:30。\n- 下午：300.8km / 约 4.1 小时回成都，经雅安上高速。18:00 前后到成都市区。\n- 晚上：住成都。晚上逛太古里/九眼桥，吃点不重口的收尾。\n- 住宿：悦蓝里S酒店(成都宽窄巷子抚琴地铁站店) · 青羊区·宽窄巷子片区 · ¥222。回到成都后连住 3 晚，同一家酒店不用换，省搬行李的力气。\n- 门票 / 预约：海螺沟 · ¥160。同程实查（2026-09-20），5A；景区观光车票价未同程返回，需现场/官方渠道确认\n- 美食：成都太古里美食区 · 川菜 / 火锅 · 人均 免费（估算）。营业：未查到\n- 拍照参考：海螺沟·四号营地 · 清晨日照金山（住三号营地才赶得上） · 冰川反光极强，曝光要减 1–2 档；长焦压缩冰川裂隙。来源：携程笔记 / Trip.com\n- 注意：海螺沟 14:30 就停止入园，必须早进；想拍日照金山要住三号营地（¥671 起）。\n- 注意：高原行程今天正式结束，回到 500m 海拔后可以正常洗澡、喝酒了。\n\n### D11 · 2026-10-05 · 熊猫基地 + 市区慢逛\n地点：成都\n- 上午：7:30 出发去成都大熊猫繁育研究基地（¥55）。熊猫早上活跃，9 点后基本就睡了。市区→基地 21.6km / 约 40 分钟。\n- 下午：下午宽窄巷子 / 人民公园喝盖碗茶 / 武侯祠锦里，节奏放到最慢。\n- 晚上：太古里、九眼桥；或看一场川剧变脸。\n- 住宿：悦蓝里S酒店(成都宽窄巷子抚琴地铁站店) · 青羊区·宽窄巷子片区 · ¥222。国庆后段成都房价高峰，提前锁必订房型。\n- 门票 / 预约：成都大熊猫繁育研究基地 · ¥55（估算）。同程景区页未返回熊猫基地票价；此价为常规行情，以官方渠道为准\n- 美食：马旺子川小馆(太古里店) · 川菜 · 人均 ¥110。营业：未查到\n- 美食：蓉庭食府·匠心川菜 · 精品川菜 · 人均 ¥98。营业：未查到\n- 拍照参考：成都大熊猫繁育研究基地·月亮产房 · 08:00–10:00 投食时段最活跃 · 玻璃有反光，贴镜拍摄或用偏振镜；长焦 200mm 以上更从容。来源：腾讯地图 POI / 常识\n- 注意：熊猫基地国庆日限流，需提前在官方渠道实名预约，早场票最抢手。\n- 注意：今天开始是『降海拔恢复日』，别排太满。\n\n### D12 · 2026-10-06 · 都江堰 + 青城山（或纯市区躺平）\n地点：成都\n- 上午：都江堰景区（¥68，5A，成都人气打卡榜 No.2）：鱼嘴、飞沙堰、宝瓶口。\n- 下午：青城山（¥80，5A，成都登山榜 No.1）前山为主，或只在都江堰慢慢走。\n- 晚上：回成都。行李今晚收好，明天要赶 16:29 的高铁。\n- 住宿：悦蓝里S酒店(成都宽窄巷子抚琴地铁站店) · 青羊区·宽窄巷子片区 · ¥222。若改为 10/6 提前返程（机票 ¥846），这晚退掉。\n- 门票 / 预约：都江堰景区 · ¥68。同程实查（2026-09-20），5A\n- 门票 / 预约：青城山 · ¥80。同程实查（2026-09-20），5A\n- 门票 / 预约：青城山索道 · ¥35。同程实查（2026-09-20）\n- 美食：成都市区川菜（未指定） · 川菜 · 人均 免费（估算）。营业：未查到\n- 拍照参考：都江堰·鱼嘴分水堤 · 上午顺光 · 高处俯瞰（二王庙一侧）比平拍更能看出水利结构。来源：同程景区页\n- 注意：若改为 10/6 提前返程（MU9807 ¥846），今天就是返程日，都江堰行程取消。\n- 注意：都江堰+青城山一天跑完偏赶，二选一体验更好。\n\n### D13 · 2026-10-07 · 高铁返程，13 天收尾\n地点：成都 → 武汉\n- 上午：上午自由活动或补觉，中午退房。成都东站提前 1 小时到。\n- 下午：G3465 成都东 16:29 → 武汉 23:28（6时59分，¥555）。\n- 晚上：到武汉。⚠️ 10/8 上班，当晚直接回家休息，别安排别的事。\n- 门票 / 预约：G3465 成都东→武汉 二等座 · ¥555。同程实查（2026-09-20）；12306 约提前 15 天开售\n- 注意：⚠️ 国庆返程最高峰，火车票开售即抢；抢不到就切 10/7 机票 ¥959 或 10/6 机票 ¥846。\n- 注意：高铁 7 小时，带好颈枕和干粮；D954 更便宜（¥448）但更慢（7时56分）。\n\n## 交通比选\n\n- 2026-09-25 MU9808 武汉 → 成都，18:30–20:25，单人 ¥460。主方案｜武汉天河T3 → 成都天府T2。当晚 22:00 前能到市区酒店，第二天跑 3.8 小时山路不吃力。同为天河T3出发的 18:00 国航 CA8269 ¥491。\n- 2026-09-25 CZ3831 武汉 → 成都，20:40–22:40，单人 ¥440。备选（更便宜）｜比 MU9808 省 ¥20，但 22:40 落地、到酒店约 0:30，D2 要早起，省的钱不值。\n- 2026-09-25 G3463 武汉 → 成都，09:02–16:07，单人 ¥643。备选（不想坐飞机）｜武汉 → 成都，比机票贵 ¥183 且多花 5 小时。同线 D953 动车 ¥387（8时2分）性价比更高但需当天整白天。\n- 2026-10-07 G3465 成都 → 武汉，16:29–23:28，单人 ¥555。主方案（性价比）｜成都东 → 武汉。比 10/7 机票省 ¥404/人（4 人省 ¥1616）。早上还能在成都逛半天再走。⚠️ 国庆返程最高峰，须开售即抢。\n- 2026-10-07 D954 成都 → 武汉，07:47–15:43，单人 ¥448。备选（更省）｜比 G3465 便宜 ¥107，慢 1 小时，代价是 10/7 早上 6:30 就要到站。\n- 2026-10-07 3U6751 成都 → 武汉，08:15–09:55，单人 ¥959。备选（体验优先）｜成都天府 → 武汉，上午到家。但 10/7 机票是同程返程最贵档之一，比高铁贵 ¥404/人。\n- 2026-10-06 MU9807 成都 → 武汉，09:20–11:05，单人 ¥846。备选（提前一天回）｜10/6 机票 ¥846 比 10/7 便宜 ¥113，且能在家休整一天再上班。代价：成都只玩 10/5 一天。\n\n## 预算\n\n### 舒适档（越野车包车 + 温泉民宿 + 骑马 + 飞回）\n- 往返大交通（去程机票 ¥560 + 返程机票 ¥959）：¥1,519\n- 成都起止包车（11 天越野车/9 座，¥1500/天 ÷ 4 人）：¥4,125\n- 住宿 12 晚（2 人 1 间，¥500/间均价，含国庆上浮）：¥3,000\n- 门票 + 骑马（亚丁免票期内，含骑马约 ¥300）：¥1,200\n- 餐饮 13 天 × ¥250：¥3,250\n- 杂项（氧气/保险/零食/温泉）：¥600\n合计：¥54,800；人均：¥13,700。预算按 4 人计。包车费为经验行情（估），非同程实查；亚丁门票按免票政策计 0 元，若政策变化需回补约 ¥266/人。\n\n### 性价比档（7 座商务车 + 经济连锁/民宿 + 高铁返程）\n- 往返大交通（去程机票 ¥460 + 返程高铁 ¥555）：¥1,015\n- 成都起止包车（11 天 7 座商务车，¥1100/天 ÷ 4 人）：¥3,025\n- 住宿 12 晚（2 人 1 间，¥300/间均价，含国庆上浮）：¥2,200\n- 门票（避开门票免费/低价的加项）：¥840\n- 餐饮 13 天 × ¥130：¥1,690\n- 杂项（氧气/保险/基础补给）：¥300\n合计：¥36,180；人均：¥9,045。预算按 4 人计。比舒适档省约 ¥4700/人，省下的主要是车型、温泉民宿、骑马和返程机票差价。包车费为经验行情（估）。\n\n## 行前清单\n\n- [ ] 稻城亚丁官方微信小程序实名预约 9/30、10/1 两天门票（免票期仍须预约，每日限流约 15000 人，国庆需提前 5–7 天）\n- [ ] 订 9/25 武汉→成都机票（主 MU9808 ¥460 或 CZ3831 ¥440），价格随时变\n- [ ] 抢 10/7 成都东→武汉 高铁票（G3465 ¥555 / D954 ¥448），12306 约提前 15 天开售，返程最高峰\n- [ ] 订 9/26 四姑娘山镇住宿（同程仅 1 条结果，必须多平台比价）\n- [ ] 订 9/29 稻城『供氧房』+ 9/30–10/1 稻城/亚丁住宿（国庆房源极紧）\n- [ ] 确认成都落地后的包车/拼车（11 天，4 人 7 座商务车，含司机油费过路）——同程未查到实价，需另行比价\n- [ ] 出发前 3 天开始服红景天；备氧气瓶 2 罐/人、血氧仪、布洛芬\n- [ ] 订 9/27 丹巴、9/28 新都桥、10/2 康定、10/3 磨西（温泉民宿）、10/4–10/6 成都住宿\n- [ ] 预约景区门票：四姑娘山双桥沟、木格措、海螺沟、熊猫基地\n- [ ] 下载川西离线地图（海子山、亚丁部分路段无信号）\n- [ ] 买高原旅行意外险（含高海拔徒步条款）\n- [ ] 备少量现金（部分藏寨停车、小摊只收现金）\n- [ ] 确认鱼子西当日是否因森林防火管制关闭，备选斯丁措观景台\n- [ ] 10/3 若不住磨西，可考虑住海螺沟三号营地 ¥671 起（第二天拍日照金山）\n\n## 资料日期与限制\n\n- 交通住宿查询：2026-09-20（同程旅行连接器实查）\n- 地图查询：2026-09-20（腾讯位置服务 WebService API）\n- 攻略检索：2026-09-20（联网检索，标『参考』）\n- 放假依据：国务院办公厅《关于 2026 年部分节假日安排的通知》（国办发明电〔2025〕7 号）——中秋 9/25–27、国庆 10/1–7，9/20 与 10/10 调休上班。\n- 酒店价格为同程『最低价』参考，未按入住日实时价核算；国庆档（10/1–10/7）川西实际房价通常上浮 50%–100%，必须按入住日重新实查。\n- 最低价 ≠ 可比价：同程酒店最低价可能是青旅床位或单人间，本表已尽量剔除，但比价时仍需按同类型房型比较。\n- 关键词错配已剔除：用『四姑娘山』『新都桥』『稻城亚丁』『磨西』『香格里拉镇』当酒店关键词时，同程分别返回九寨沟、康定城区、云南香格里拉等错误结果，已全部丢弃并改用『小金县』『新都桥镇』『海螺沟』等精确词重查。\n- 稻城亚丁免门票 + 观光车暂停收费政策来自媒体转述（新浪旅游，2026-09-16），同程景区页显示成人票 ¥0 与之吻合，但出发前须在景区官方小程序二次确认。\n- 四姑娘山镇（日隆）与磨西镇的住宿同程仅返回 1 条结果，样本不足，不代表当地全部房源。\n- 成都起止包车 / 拼车价格同程未提供实查数据，表中为经验行情（估），需落地前另行比价。\n\n本文是生成时的资料快照，不会自动更新票价、营业时间或预约库存。\n\n## 保存到腾讯 ima\n\n在 WorkBuddy 中选中这份文档 → 上传到云端 → ima 知识库；首次使用按官方入口授权。\n在 ima 中选择相应知识库并确认文档可检索后，再询问某天行程、住宿或待办。\n网页的勾选仅保存在本机浏览器，不会同步修改此文档或 ima。\n";
+var STORAGE_PREFIX = "squirrel_46499099d2d21ea7_";
+
+/* ===== 工具 ===== */
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function ptype(t){
+  /* 默认态不标：实查数据直接展示数值即可，冗余的「实」标签反而干扰阅读。
+     只标异常态：估（推算）与未查到。参考类信息另走「参考」标记。 */
+  if(t==='实') return '';
+  if(t==='估') return '<span class="b b-est">估</span>';
+  return '<span class="b b-na">未查到</span>';
+}
+function money(v){
+  if(v===0) return '<span class="price">免费</span>';
+  if(typeof v!=='number') return '<span class="muted">未查到</span>';
+  return '<span class="price">¥'+v.toLocaleString('zh-CN')+'</span>';
+}
+function ymd(d){var s=String(d).split('-');return {m:+s[1],d:+s[2]};}
+var WEEK=['日','一','二','三','四','五','六'];
+function weekOf(ds){var t=new Date(ds+'T00:00:00');return '周'+WEEK[t.getDay()];}
+function toDate(ds,hm){return new Date(ds+'T'+(hm&&hm.length===5?hm:'00:00')+':00');}
+
+/* ===== 最近一程倒计时 ===== */
+function nearestLeg(){
+  var now=new Date(), best=null;
+  (TRIP.flightsOrTrains||[]).forEach(function(f){
+    var t=toDate(f.date,f.depart);
+    if(t>now && (!best || t<best.t)) best={t:t,f:f};
+  });
+  return best;
+}
+function renderCountdown(){
+  var m=TRIP.meta, num=document.getElementById('cdNum'), what=document.getElementById('cdWhat');
+  document.getElementById('cdLabel').textContent=m.isExample?'案例预览':'出行日历';
+  if(m.isExample){num.textContent='先看一份，再做你的';what.textContent='点击右上角「制作我的行程」开始。';return;}
+  var now=new Date(), start=toDate(m.dateStart), end=toDate(m.dateEnd);
+  end.setDate(end.getDate()+1);
+  if(!Number.isFinite(start.getTime())||!Number.isFinite(end.getTime())){num.textContent='日期待确认';what.textContent='';return;}
+  num.textContent=now<start?'距出发 '+Math.ceil((start-now)/86400000)+' 天':now<end?'行程进行中':'行程已结束';
+  what.textContent='按行程日期计算；实际出发时间请核对已确认的车票或机票。';
+}
+
+/* 首次使用留在一个 WorkBuddy 任务中；网页不假装能检测本机安装或完成授权。 */
+var START_PROMPT='使用「松鼠旅行官」Skill（liangxiao-travel，1.2.0 或更新版）带我完成首次配置和旅行规划。\n先确认版本；若版本不符，提示我安装更新。检查现有配置，每次只引导当前一项，已经完成的跳过。\n将需求与进度保存在当前任务的 outputs/my-trip/onboarding-state.json，不保存 Key、token、手机号或验证码。地图按官方助手流程由我确认协议并完成手机验证；同程由我在连应用授权，完成后我回复“继续”。\n配置完成后，一次询问缺少的出发地、目的地、出行日期和人数；已经提供的不要重复问。生成公开行程页和可存入 ima 的文档。';
+function showDialog(id){document.getElementById(id).showModal();}
+function bindOnboarding(){
+  var prompt=document.getElementById('launchPrompt');
+  prompt.value=START_PROMPT;
+  document.getElementById('makeTrip').onclick=function(){showDialog('onboarding');};
+  document.getElementById('imaHelp').onclick=function(){showDialog('imaDialog');};
+  Array.prototype.forEach.call(document.querySelectorAll('[data-close]'),function(b){b.onclick=function(){document.getElementById(b.dataset.close).close();};});
+  function mode(installed){
+    document.getElementById('installStep').classList.toggle('hidden',installed);
+    document.getElementById('firstUse').setAttribute('aria-pressed',String(!installed));
+    document.getElementById('installedUse').setAttribute('aria-pressed',String(installed));
+    document.getElementById('launchHeading').textContent=installed?'在 WorkBuddy 开始或继续':'02 · 在 WorkBuddy 接着完成配置';
+  }
+  document.getElementById('firstUse').onclick=function(){mode(false);};
+  document.getElementById('installedUse').onclick=function(){mode(true);};
+  document.getElementById('basicLaunch').onclick=function(){
+    if(prompt.value.indexOf('当前选择：先做基础攻略')===-1) prompt.value+='\n当前选择：先做基础攻略，暂不申请地图 Key、暂不连接同程。仅整理可查的公开资料；未知价格留空，未核实坐标不要写入。';
+    document.getElementById('copyStatus').textContent='已加入基础攻略选择，请复制指令到 WorkBuddy。';
+  };
+  document.getElementById('copyLaunch').onclick=async function(){
+    var status=document.getElementById('copyStatus');
+    try{await navigator.clipboard.writeText(prompt.value);status.textContent='已复制。切到 WorkBuddy，粘贴到新任务后发送。';}
+    catch(e){prompt.focus();prompt.select();status.textContent='浏览器未允许自动复制。文字已选中，请按 Ctrl+C 或 ⌘C 复制。';}
+  };
+  var documentText=document.getElementById('documentText');
+  documentText.value=TRIP_MARKDOWN;
+  document.getElementById('copyDocument').onclick=async function(){
+    document.getElementById('documentTextBox').classList.remove('hidden');
+    var status=document.getElementById('documentStatus');
+    try{await navigator.clipboard.writeText(documentText.value);status.textContent='已复制行程文档。在 WorkBuddy 粘贴，并要求保存为行程.md。';}
+    catch(e){documentText.focus();documentText.select();status.textContent='文字已选中，请按 Ctrl+C 或 ⌘C 复制；在手机上可长按全选复制。随后粘贴到 WorkBuddy 并要求保存为行程.md。';}
+  };
+  document.getElementById('downloadDocument').onclick=function(){
+    var url=URL.createObjectURL(new Blob([TRIP_MARKDOWN],{type:'text/markdown;charset=utf-8'}));
+    var a=document.createElement('a');a.href=url;
+    a.download='松鼠旅行官-'+String(TRIP.meta.title||'我的行程').replace(/[\\/:*?"<>|]/g,'-').slice(0,70)+'.md';
+    document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    document.getElementById('documentStatus').textContent='已请求下载。若没有出现文件，请使用「复制行程文档」保存；以浏览器实际下载结果为准。';
+  };
+}
+
+/* ===== Tab ===== */
+var ICO='fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"';
+function ic(d){return '<svg viewBox="0 0 18 18" width="18" height="18" '+ICO+'>'+d+'</svg>';}
+var TABS=[
+  {k:'traffic',i:ic('<path d="M2.6 11.4h6.2M8.8 11.4 14 6.2M8.8 11.4l5.2 5.2M3.6 5.4h3.6"/>'),l:'交通'},
+  {k:'route',i:ic('<path d="M9 15.6s4.6-4.7 4.6-7.7A4.6 4.6 0 0 0 4.4 7.9c0 3 4.6 7.7 4.6 7.7z"/><circle cx="9" cy="7.7" r="1.5"/>'),l:'路线'},
+  {k:'plan',i:ic('<rect x="2.6" y="3.8" width="12.8" height="11.6" rx="2.2"/><path d="M2.6 7.3h12.8M6 2.4v2.8M12 2.4v2.8"/>'),l:'行程'},
+  {k:'ticket',i:ic('<path d="M2.4 6.4h13.2v1.6a1.6 1.6 0 0 0 0 3.2v1.6H2.4v-1.6a1.6 1.6 0 0 0 0-3.2V6.4z"/><path d="M8.9 5.2v7.6"/>'),l:'门票'},
+  {k:'food',i:ic('<path d="M3.2 8.6h11.6a5.8 5.8 0 0 1-11.6 0z"/><path d="M6.4 5.4c0-1.1 1.1-1.1 1.1-2.2M9.9 5.4c0-1.1 1.1-1.1 1.1-2.2"/>'),l:'美食'},
+  {k:'todo',i:ic('<rect x="2.6" y="2.6" width="12.8" height="12.8" rx="2.8"/><path d="M5.8 9.2 8.1 11.4 12.4 6.9"/>'),l:'待办'}
+];
+var active='plan', mapInited=false;
+function buildTabs(){
+  var bar=document.getElementById('tabbar');
+  TABS.forEach(function(t){
+    var b=document.createElement('button');
+    b.className='tb'+(t.k===active?' on':''); b.dataset.k=t.k;
+    b.innerHTML=t.i+t.l;
+    b.setAttribute('aria-current',t.k===active?'page':'false');
+    b.onclick=function(){switchTab(t.k);};
+    bar.appendChild(b);
+  });
+}
+function switchTab(k){
+  active=k;
+  Array.prototype.forEach.call(document.querySelectorAll('.tb'),function(b){b.classList.toggle('on',b.dataset.k===k);b.setAttribute('aria-current',b.dataset.k===k?'page':'false');});
+  Array.prototype.forEach.call(document.querySelectorAll('.pane'),function(p){p.classList.toggle('hidden',p.dataset.k!==k);});
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(k==='route'){ setTimeout(ensureMap,80); }
+}
+
+/* ===== 渲染各 Tab ===== */
+function renderTraffic(){
+  var people=(TRIP.meta&&TRIP.meta.people)||2;
+  var queried=(TRIP.source&&TRIP.source.tripQueryAt)||'';
+  var h=['<div class="card"><h2>交通比选'+(queried?' · '+esc(queried):'')+'</h2>'];
+  h.push('<div class="sub">单人票价；包含备选班次，不代表已预订。以标注的资料日期和实际查询为准。</div>');
+  if(!(TRIP.flightsOrTrains||[]).length) h.push('<p class="t2">尚未查询班次和票价。可在 WorkBuddy 授权同程后补充。</p>');
+  var sum=0, n=0;
+  (TRIP.flightsOrTrains||[]).forEach(function(f){
+    var y=ymd(f.date);
+    var mode=f.mode==='flight'?'✈️':'🚄';
+    if(typeof f.price==='number'){ sum+=f.price; n+=1; }
+    h.push('<div class="row"><div class="k">'
+      +'<div class="t1">'+mode+' '+esc(f.no)+'</div>'
+      +'<div class="t2">'+esc(f.from)+' → '+esc(f.to)+'</div>'
+      +'<div class="t3">'+y.m+'月'+y.d+'日 '+weekOf(f.date)+' · '+esc(f.depart)+'-'+esc(f.arrive)+' · '+esc(f.duration)+'</div>'
+      +(f.note?'<div class="t3" style="color:#8b857b;margin-top:3px">'+esc(f.note)+'</div>':'')
+      +'</div><div class="v"><div>'+money(f.price)+' '+ptype(f.priceType)+'</div><div class="t3">'+esc(people)+'人 '+money(typeof f.price==='number'?f.price*people:null)+'</div></div></div>');
+  });
+  h.push('</div>');
+  return h.join('');
+}
+
+function renderRoute(){
+  var h=['<div class="card"><h2>把路线看明白</h2>'];
+  h.push('<div class="pills" id="viewPills"></div>');
+  h.push('<div class="lgd"><span><i style="background:#2f6bff"></i>景点</span><span><i style="background:#e8833a"></i>美食</span><span><i style="background:#c8452c"></i>城市节点</span></div>');
+  h.push('<div id="mapbox"><div id="mapCanvas" style="width:100%;height:100%"></div><div class="fb" id="mapFallback"></div></div>');
+  h.push('<div class="sub" style="margin:8px 0 0">连线表示游览顺序，不是道路导航或距离计算。没有已核实坐标时，以下方文字顺序为准。</div>');
+  h.push('</div>');
+  /* 城市小结：按 days 顺序，每天标题拼成该城顺序 */
+  h.push('<div class="card"><h2>同城顺序建议</h2>');
+  var byCity=Object.create(null), cityOrder=[];
+  (TRIP.days||[]).forEach(function(d,i){
+    var c=d.city||'';
+    if(!c) return;
+    if(!byCity[c]){ byCity[c]=[]; cityOrder.push(c); }
+    byCity[c].push('D'+(i+1)+' '+ (d.title||''));
+  });
+  cityOrder.forEach(function(c){
+    h.push('<div class="row"><div class="k"><div class="t1">'+esc(c)+'</div><div class="t3">'+esc(byCity[c].join(' → '))+'</div></div></div>');
+  });
+  h.push('</div>');
+  return h.join('');
+}
+
+function renderPlan(){
+  var h=['<div class="section-intro"><div><h2>每天怎么玩</h2><p>展开每天的安排，住宿与注意事项一起看。</p></div><button type="button" class="btn soft" id="planIma">带到 ima ↗</button></div>'];
+  (TRIP.days||[]).forEach(function(d,i){
+    var y=ymd(d.date);
+    h.push('<div class="card day'+(i===0?' open':'')+'" data-day="'+i+'">');
+    h.push('<div class="hd" role="button" tabindex="0" aria-expanded="'+(i===0?'true':'false')+'" aria-controls="dayBody'+i+'"><div class="dt"><b>D'+(i+1)+'</b><span>'+y.m+'/'+y.d+'</span></div>'
+      +'<div class="tt"><b>'+esc(d.title)+'</b><span>'+esc(d.city)+' · '+weekOf(d.date)+'</span></div>'
+      +'<div class="cv">▾</div></div>');
+    h.push('<div class="bd" id="dayBody'+i+'">');
+    h.push('<div class="slot am"><div class="lb">上午</div><div class="tx">'+esc(d.am)+'</div></div>');
+    h.push('<div class="slot pm"><div class="lb">下午</div><div class="tx">'+esc(d.pm)+'</div></div>');
+    h.push('<div class="slot ev"><div class="lb">晚上</div><div class="tx">'+esc(d.evening)+'</div></div>');
+    (TRIP.hotels||[]).filter(function(hotel){return hotel.date===d.date;}).forEach(function(hotel){
+      h.push('<div class="hotel"><div class="hn">住 · '+esc(hotel.name)+'</div><div class="hi">'+esc(hotel.area)+' · '+money(hotel.price)+' '+ptype(hotel.priceType)+'</div><div class="hi">'+esc(hotel.lockAdvice||hotel.alt||'')+'</div></div>');
+    });
+    /* 出片（经验信息，浅底 + 参考） */
+    if(d.photoSpots && d.photoSpots.length){
+      h.push('<div class="blk"><div class="bt">出片攻略 <span class="b b-ref">参考</span></div>');
+      d.photoSpots.forEach(function(p){
+        h.push('<div class="ref"><div class="rt">'+esc(p.name)+' · '+esc(p.shot)+'</div>'
+          +'<div class="rl">最佳时段：'+esc(p.bestTime)+'</div>'
+          +'<div class="rl">拍摄要点：'+esc(p.tip)+'</div>'
+          +'<div class="rl">到达：'+esc(p.traffic)+'</div>'
+          +'<div class="rl" style="color:#8b857b">来源：'+esc(p.source)+'｜'+esc(p.confidence)+'</div></div>');
+      });
+      h.push('</div>');
+    }
+    /* 吃（本日动线） */
+    if(d.foods && d.foods.length){
+      h.push('<div class="blk"><div class="bt">本日吃什么</div>');
+      d.foods.forEach(function(f){
+        h.push('<div class="row"><div class="k"><div class="t1">'+esc(f.name)+'</div>'
+          +'<div class="t3">'+esc(f.dish)+' · '+esc(f.area)+'</div>'
+          +'<div class="t3">营业 '+esc(f.openHours)+' · 评分 '+esc(f.score)+'</div></div>'
+          +'<div class="v">'+(typeof f.avgPrice==='number'? money(f.avgPrice):'<span class="muted">人均未查到</span>')
+          +'<div class="t3">人均</div></div></div>');
+      });
+      h.push('</div>');
+    }
+    (d.warnings||[]).forEach(function(w){ h.push('<div class="warn">'+esc(w)+'</div>'); });
+    h.push('</div></div>');
+  });
+  return h.join('');
+}
+
+function renderTickets(){
+  var h=['<div class="card"><h2>门票 / 预约</h2><div class="sub">勾选状态保存在本机浏览器。</div>'];
+  var any=false;
+  (TRIP.days||[]).forEach(function(d){
+    if(!d.tickets || !d.tickets.length) return;
+    any=true;
+    h.push('<div class="t3" style="margin:10px 0 2px;font-weight:700;color:#5c574f">'+esc(d.date)+' · '+esc(d.city)+'</div>');
+    d.tickets.forEach(function(t,idx){
+      var id='tk_'+d.date+'_'+idx;
+      h.push('<label class="ck" data-id="'+esc(id)+'"><input type="checkbox" data-ck="'+esc(id)+'">'
+        +'<div class="lb"><b>'+esc(t.name)+'</b> '+money(t.price)+' '+ptype(t.priceType)
+        +'<div class="t3" style="margin-top:3px">'+esc(t.note)+'</div></div></label>');
+    });
+  });
+  if(!any) h.push('<div class="t3">暂无门票或预约记录，请按实际行程核对。</div>');
+  h.push('</div>');
+  return h.join('');
+}
+
+function renderFood(){
+  var g=Object.create(null), order=[];
+  (TRIP.days||[]).forEach(function(d){
+    (d.foods||[]).forEach(function(f){
+      if(!g[d.city]){g[d.city]=[];order.push(d.city);}
+      g[d.city].push(f);
+    });
+  });
+  var h=['<div class="card"><h2>吃 · 按城市</h2><div class="sub">资料日期：'+esc(MAP_QUERY)+'。菜名与拍摄建议为参考；价格和营业情况以实际查询为准。</div>'];
+  if(!order.length) h.push('<p class="t2">暂无餐厅记录，可在 WorkBuddy 中继续补充。</p>');
+  order.forEach(function(c){
+    h.push('<div class="fgrp"><div class="fh"><span>'+esc(c)+'</span><span class="t3">'+g[c].length+' 家</span></div>');
+    g[c].forEach(function(f){
+      h.push('<div class="fd"><div style="flex:1;min-width:0">'
+        +'<div class="fn" data-jump="'+esc(f.lat)+','+esc(f.lng)+'">'+esc(f.name)+' <span class="b b-ref">参考</span></div>'
+        +'<div class="fl">'+esc(f.dish)+' · '+esc(f.area)+'</div>'
+        +'<div class="fl">营业 '+esc(f.openHours)+' · 评分 '+esc(f.score)+'</div>'
+        +'</div><div class="fr">'+(typeof f.avgPrice==='number'? money(f.avgPrice):'<span class="muted">未查到</span>')
+        +'<div class="t3">'+(typeof f.avgPrice==='number'? ptype(f.priceType):'')+'</div></div></div>');
+    });
+    h.push('</div>');
+  });
+  h.push('</div>');
+  return h.join('');
+}
+
+function renderTodo(){
+  var h=['<div class="card"><h2>行前待办</h2><p class="sub">按行程保存在当前浏览器；不会同步到其他设备或 ima。</p>'];
+  (TRIP.todos||[]).forEach(function(t,i){
+    var id='td_'+i;
+    h.push('<label class="ck" data-id="'+id+'"><input type="checkbox" data-ck="'+id+'" data-default="'+(t.done?'1':'0')+'">'
+      +'<div class="lb"><span class="ptag '+esc(t.priority)+'">'+esc(t.priority)+'</span>'+esc(t.text)+'</div></label>');
+  });
+  h.push('</div>');
+  /* 预算 */
+  h.push('<div class="card"><h2>预算两档（'+esc(TRIP.meta.people)+' 人合计）</h2>');
+  ['comfort','saver'].forEach(function(k){
+    var b=(TRIP.budget||{})[k];
+    if(!b) return;
+    h.push('<div class="t1" style="margin:6px 0 4px">'+esc(b.title)+'</div>');
+    Object.keys(b.items||{}).forEach(function(key){
+      h.push('<div class="lrow"><span>'+esc(key)+'</span><span>'+money(b.items[key])+'</span></div>');
+    });
+    h.push('<div class="sum"><span>合计 · 人均</span><span>'+money(b.total)+' · 人均 '+money(b.perPerson)+'</span></div>');
+    h.push('<div class="t3" style="margin:6px 0 12px">'+esc(b.note)+'</div>');
+  });
+  h.push('</div>');
+  return h.join('');
+}
+
+/* ===== localStorage 勾选 ===== */
+function bindChecks(){
+  Array.prototype.forEach.call(document.querySelectorAll('input[data-ck]'),function(el){
+    var id=el.dataset.ck;
+    var on=el.dataset.default==='1';
+    try{var saved=localStorage.getItem(STORAGE_PREFIX+id);if(saved!==null) on=saved==='1';}catch(e){}
+    el.checked=on;
+    el.closest('.ck').classList.toggle('done',on);
+    el.addEventListener('change',function(){
+      el.closest('.ck').classList.toggle('done',el.checked);
+      try{ localStorage.setItem(STORAGE_PREFIX+id, el.checked?'1':'0'); }catch(e){}
+    });
+  });
+}
+
+/* ===== 地图 ===== */
+var map=null, markerLayer=null, lineLayer=null, curView='all';
+var _tmState=0, _tmWait=[];
+/* 懒加载腾讯 GL JS：切到「路线」页才注入 SDK，避免首屏被地图拖慢。
+   Key 明文内嵌，仅用于本地或受信任的内网预览。
+   公网部署前应按腾讯地图官方文档设置代理与访问限制。 */
+function ensureMap(){
+  buildPills();
+  if(!MAP_KEY){mapFallback('无需 Key 即可查看示意与文字行程。');return;}
+  if(mapInited) return;
+  if(typeof TMap!=='undefined' && TMap.Map){ initMap(); return; }
+  if(_tmState===2){ return; }
+  if(_tmState===1){ _tmWait.push(initMap); return; }
+  _tmState=1;
+  _tmWait.push(initMap);
+  var s=document.createElement('script');
+  s.src='https://map.qq.com/api/gljs?v=1&key='+encodeURIComponent(MAP_KEY);
+  s.async=true;
+  s.onload=function(){
+    _tmState=3;
+    var a=_tmWait.slice(); _tmWait=[];
+    a.forEach(function(f){ try{ f(); }catch(e){ mapFallback('地图暂不可用，请查看文字路线。'); } });
+  };
+  s.onerror=function(){
+    _tmState=2; _tmWait=[];
+    mapFallback('地图 SDK 加载失败（网络或代理未就绪）。');
+  };
+  document.head.appendChild(s);
+}
+function pin(color){
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="26" height="34" viewBox="0 0 26 34">'
+    +'<path d="M13 0C5.8 0 0 5.8 0 13c0 9.7 13 21 13 21s13-11.3 13-21C26 5.8 20.2 0 13 0z" fill="'+color+'"/>'
+    +'<circle cx="13" cy="13" r="5.2" fill="#fff"/></svg>';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+function viewCity(key){ // 归组：把每天的 mapPoints 归到城市
+  return key;
+}
+function pointsFor(view){
+  var out=[];
+  if(view==='all') return out;
+  var stop=CITY_STOPS.filter(function(c){return c.view===view;})[0];
+  var target=stop?stop.name:null;
+  if(!target) return out;
+  (TRIP.days||[]).forEach(function(d){
+    if(d.city!==target) return;
+    (d.mapPoints||[]).forEach(function(p){
+      if(typeof p.lat!=='number'||typeof p.lng!=='number'||!Number.isFinite(p.lat)||!Number.isFinite(p.lng)||Math.abs(p.lat)>90||Math.abs(p.lng)>180) return;
+      out.push({id:view+'_'+out.length,lat:p.lat,lng:p.lng,name:p.name,kind:p.kind,hours:p.openHours});
+    });
+  });
+  return out;
+}
+function cityGeoms(){
+  return CITY_STOPS.map(function(c,i){
+    return {id:'city_'+i, styleId:'city', position:new TMap.LatLng(c.lat,c.lng), properties:{title:c.name}};
+  });
+}
+function applyView(view){
+  curView=view;
+  if(!map){mapFallback(MAP_KEY?'地图暂不可用，请查看顺序示意。':'无需 Key 即可查看示意与文字行程。');return;}
+  var geoms=[];
+  if(view==='all'){
+    geoms=cityGeoms();
+    if(lineLayer){ try{ lineLayer.setVisible(true);}catch(e){} }
+  }else{
+    if(lineLayer){ try{ lineLayer.setVisible(false);}catch(e){} }
+    var pts=pointsFor(view);
+    geoms=pts.map(function(p){
+      return {id:p.id, styleId:(p.kind==='food'?'food':'sight'),
+        position:new TMap.LatLng(p.lat,p.lng),
+        properties:{title:p.name+'\n'+(p.hours&&p.hours!=='未查到'?('营业 '+p.hours):'营业时间未查到')}};
+    });
+  }
+  if(markerLayer){ try{ markerLayer.setGeometries(geoms); }catch(e){ console.warn(e); } }
+  var v=CITY_VIEWS.filter(function(x){return x.key===view;})[0];
+  if(v){ map.setCenter(new TMap.LatLng(v.center[0],v.center[1])); map.setZoom(v.zoom); }
+}
+function buildPills(){
+  var box=document.getElementById('viewPills');
+  if(!box) return;
+  box.innerHTML='';
+  CITY_VIEWS.forEach(function(v){
+    var b=document.createElement('button');
+    b.className='pill'+(v.key===curView?' on':''); b.textContent=v.label; b.dataset.k=v.key;
+    b.onclick=function(){
+      Array.prototype.forEach.call(box.children,function(c){c.classList.toggle('on',c.dataset.k===v.key);});
+      applyView(v.key);
+    };
+    box.appendChild(b);
+  });
+}
+function mapFallback(msg){
+  var f=document.getElementById('mapFallback');
+  if(!f) return;
+  var points=curView==='all'?CITY_STOPS:pointsFor(curView);
+  var illustration='';
+  if(points.length){
+    var lats=points.map(function(p){return p.lat;}), lngs=points.map(function(p){return p.lng;});
+    var minLat=Math.min.apply(null,lats), maxLat=Math.max.apply(null,lats), minLng=Math.min.apply(null,lngs), maxLng=Math.max.apply(null,lngs);
+    var positions=points.map(function(p){return {x:maxLng===minLng?220:50+(p.lng-minLng)/(maxLng-minLng)*340,y:maxLat===minLat?100:32+(maxLat-p.lat)/(maxLat-minLat)*130};});
+    illustration='<svg viewBox="0 0 440 220" role="img" aria-label="游览顺序示意图"><polyline points="'+positions.map(function(p){return p.x+','+p.y;}).join(' ')+'" stroke="#a8b693" stroke-width="3" stroke-dasharray="6 6" fill="none"/>';
+    points.forEach(function(p,i){var xy=positions[i];illustration+='<circle cx="'+xy.x+'" cy="'+xy.y+'" r="13" fill="#355c42"/><text x="'+xy.x+'" y="'+(xy.y+4)+'" text-anchor="middle" fill="white" font-size="11">'+(i+1)+'</text><text x="'+xy.x+'" y="'+(xy.y+30)+'" text-anchor="middle" fill="#24382e" font-size="11">'+esc(String(p.name||'地点').slice(0,12))+'</text>';});
+    illustration+='</svg>';
+  }else{
+    illustration='<div class="route-order">'+(TRIP.meta.destinations||[]).map(function(c,i){return '<span class="route-stop">'+(i+1)+' · '+esc(c)+'</span>';}).join('')+'</div>';
+  }
+  f.innerHTML='<div style="font-weight:600">'+(points.length?'游览顺序示意':'文字路线 · 坐标尚未核实')+'</div>'+illustration+'<div class="t3">'+esc(msg)+'</div>';
+  f.style.display='flex';
+}
+function initMap(){
+  if(mapInited) return;
+  var box=document.getElementById('mapbox');
+  if(!box || box.offsetWidth===0) return;  // 仍在隐藏 Tab，等下一次
+  mapInited=true;
+  if(typeof TMap==='undefined' || !TMap.Map){ mapFallback('地图 SDK 不可达（网络或代理未就绪）。'); return; }
+  try{
+    map=new TMap.Map('mapCanvas',{center:new TMap.LatLng(CITY_VIEWS[0].center[0],CITY_VIEWS[0].center[1]),zoom:CITY_VIEWS[0].zoom});
+    var styles={
+      sight:new TMap.MarkerStyle({width:26,height:34,anchor:{x:13,y:34},src:pin('#2f6bff')}),
+      food:new TMap.MarkerStyle({width:26,height:34,anchor:{x:13,y:34},src:pin('#e8833a')}),
+      city:new TMap.MarkerStyle({width:30,height:38,anchor:{x:15,y:38},src:pin('#c8452c')})
+    };
+    var geo=cityGeoms();
+    markerLayer=new TMap.MultiMarker({
+      map:map, styles:styles, geometries:geo
+    });
+    lineLayer=new TMap.MultiPolyline({
+      map:map,
+      styles:{route:new TMap.PolylineStyle({color:'#c8452c',width:3,borderWidth:1,borderColor:'#ffffff',lineCap:'round'})},
+      geometries:[{id:'main',styleId:'route',
+        paths:CITY_STOPS.map(function(c){return new TMap.LatLng(c.lat,c.lng);})}]
+    });
+    /* InfoWindow 必须带初始 position 创建，否则 SDK 内部 projectToContainer(undefined)
+       返回 null 并在渲染时抛 "Cannot read properties of null (reading 'x')" */
+    var info=new TMap.InfoWindow({map:map,position:new TMap.LatLng(CITY_VIEWS[0].center[0],CITY_VIEWS[0].center[1]),offset:{x:0,y:-30},content:''});
+    info.close();
+    markerLayer.on('click',function(e){
+      info.open();
+      info.setPosition(e.geometry.position);
+      info.setContent('<div style="font-size:12.5px;padding:2px 4px;white-space:pre-line">'+esc(e.geometry.properties.title||'')+'</div>');
+    });
+    var f=document.getElementById('mapFallback');
+    if(f) f.style.display='none';
+    buildPills();
+    applyView(curView);
+    setTimeout(function(){applyView(curView);},120);
+  }catch(err){
+    map=null;
+    mapFallback('地图初始化失败，请查看顺序示意与文字路线。');
+  }
+  setTimeout(function(){
+    if(!map) mapFallback('地图长时间未响应（SDK 或代理不可达）。');
+  },4000);
+}
+
+/* ===== 启动 ===== */
+function boot(){
+  document.title='松鼠旅行官 · '+TRIP.meta.title;
+  document.getElementById('hTitle').textContent=TRIP.meta.title;
+  var m=TRIP.meta;
+  document.getElementById('hSub').textContent=m.dateStart+' — '+m.dateEnd+' · '+m.days+' 天 · '+m.people+' 人 · '+m.destinations.join(' → ');
+  document.getElementById('tripNote').textContent=m.note||'';
+  document.getElementById('exampleNotice').classList.toggle('hidden',!m.isExample);
+  document.getElementById('localNotice').classList.toggle('hidden',!MAP_KEY);
+  document.getElementById('tripStats').innerHTML='<div><b>'+esc(m.days)+'</b><span>天的安排</span></div><div><b>'+esc(m.people)+'</b><span>位旅行搭子</span></div><div><b>'+esc((TRIP.todos||[]).length)+'</b><span>项行前待办</span></div>';
+  buildTabs();
+  document.getElementById('panes').innerHTML=
+      '<div class="pane" data-k="traffic">'+renderTraffic()+'</div>'
+    + '<div class="pane" data-k="route">'+renderRoute()+'</div>'
+    + '<div class="pane" data-k="plan">'+renderPlan()+'</div>'
+    + '<div class="pane" data-k="ticket">'+renderTickets()+'</div>'
+    + '<div class="pane" data-k="food">'+renderFood()+'</div>'
+    + '<div class="pane" data-k="todo">'+renderTodo()+'</div>';
+  Array.prototype.forEach.call(document.querySelectorAll('.pane'),function(p){p.classList.toggle('hidden',p.dataset.k!==active);});
+  /* 日卡折叠 */
+  Array.prototype.forEach.call(document.querySelectorAll('.day .hd'),function(hd){
+    hd.addEventListener('click',function(){hd.parentNode.classList.toggle('open');hd.setAttribute('aria-expanded',String(hd.parentNode.classList.contains('open')));});
+    hd.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();hd.click();}});
+  });
+  /* 吃 → 地图 */
+  Array.prototype.forEach.call(document.querySelectorAll('.fn[data-jump]'),function(el){
+    el.addEventListener('click',function(){
+      switchTab('route');
+      setTimeout(function(){
+        var d=document.querySelector('.day'); // noop
+        var target=nearestCityView(parseFloat(el.dataset.jump.split(',')[0]),parseFloat(el.dataset.jump.split(',')[1]));
+        if(target){
+          var box=document.getElementById('viewPills');
+          if(box) Array.prototype.forEach.call(box.children,function(c){c.classList.toggle('on',c.dataset.k===target);});
+          curView=target; setTimeout(function(){ ensureMap(); setTimeout(function(){ if(map) applyView(target); },160); },100);
+        }
+      },100);
+    });
+  });
+  bindChecks();
+  bindOnboarding();
+  document.getElementById('planIma').onclick=function(){showDialog('imaDialog');};
+  buildPills();
+  mapFallback('无需 Key 即可查看示意与文字行程。');
+  renderCountdown();
+  setInterval(renderCountdown,60000);
+  if(active==='route') setTimeout(ensureMap,80);
+}
+function nearestCityView(lat,lng){
+  var best=null,bd=1e9;
+  CITY_STOPS.forEach(function(c){
+    var d=Math.pow(c.lat-lat,2)+Math.pow(c.lng-lng,2);
+    if(d<bd){bd=d;best=c.view;}
+  });
+  return best;
+}
+document.addEventListener('DOMContentLoaded',boot);
+if(document.readyState!=='loading') boot();
+</script>
+</body>
+</html>

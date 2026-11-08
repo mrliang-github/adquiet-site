@@ -1,6 +1,8 @@
 ---
 import PageLayout from '@/layouts/CommonPage.astro'
 import ProjectSection from '@/components/projects/ProjectSection.astro'
+// 引入公众号关注卡片，方便对产品研发过程感兴趣的访客持续关注更新
+import WechatSubscribeCard from '@/components/wechat/WechatSubscribeCard.astro'
 import { projects } from '@/data/projects'
 
 export const prerender = true
@@ -9,18 +11,18 @@ const iosProjects = projects.filter((p) => p.group === 'ios')
 const macProjects = projects.filter((p) => p.group === 'macos')
 const webProjects = projects.filter((p) => p.group === 'web')
 
+// 目录导航不附加具体数字，准确传达此处仅展示部分公开在架产品
 const headings = [
-  { depth: 2, slug: 'ios-apps', text: `iOS 与 Apple Watch 应用（${iosProjects.length}）` },
-  { depth: 2, slug: 'macos-apps', text: `macOS 桌面应用（${macProjects.length}）` },
-  { depth: 2, slug: 'web-and-open', text: `网页工具、扩展与开源项目（${webProjects.length}）` },
-  { depth: 2, slug: 'app-policy', text: '应用支持与合规' }
+  { depth: 2, slug: 'ios-apps', text: 'iOS 与 Apple Watch 应用' },
+  { depth: 2, slug: 'macos-apps', text: 'macOS 桌面应用' },
+  { depth: 2, slug: 'web-and-open', text: '网页工具、扩展与 AI Skill' }
 ]
 ---
 
 <PageLayout title='产品与工具' {headings} view>
   <div class='not-prose mb-6 flex flex-wrap items-center justify-between gap-3'>
-    <p class='text-sm text-muted-foreground'>
-      把想法做成能用的东西。目前维护 {projects.length} 款 iOS、Apple Watch、macOS 与 Web 工具，按实际分发渠道标注上架状态。
+    <p class='max-w-xl text-sm leading-relaxed text-muted-foreground'>
+      把日常痛点做成顺手的小工具。这里整理了部分公开在架的 iOS / Apple Watch 应用、macOS 桌面工具、免注册 Web 工具与自研 AI Skill，每款均标明核心用途、适用人群与实际分发入口（海外商店与内部自用工具未全部列出）。
     </p>
     <a
       href='https://github.com/mrliang-github'
@@ -55,52 +57,12 @@ const headings = [
   </p>
   <ProjectSection projects={macProjects} class='my-4' />
 
-  <h2 id='web-and-open'>网页工具、扩展与开源项目</h2>
+  <h2 id='web-and-open'>网页工具、扩展与 AI Skill</h2>
   <p class='text-sm text-muted-foreground leading-relaxed mb-4'>
-    打开浏览器就能用的排版、格式转换工具，以及浏览器扩展和开源 AI Skill。
+    打开浏览器就能用的排版、格式转换工具，以及浏览器扩展和可直接下载安装的原创 AI Skill。
   </p>
   <ProjectSection projects={webProjects} class='my-4' />
 
-  <h2 id='app-policy'>应用支持与合规</h2>
-  <p class='text-sm text-muted-foreground leading-relaxed'>
-    站内托管的产品主页、隐私政策与技术支持入口：
-  </p>
-  <div class='grid gap-3.5 sm:grid-cols-2 not-prose my-4'>
-    <div class='rounded-lg border border-border/70 p-4.5 bg-muted/20'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>OtterBar (macOS)</h3>
-      <p class='text-xs text-muted-foreground mb-3'>菜单栏工具快速搜索</p>
-      <div class='flex gap-2 text-xs'>
-        <a href='/otterbar/' class='text-primary hover:underline'>产品主页与下载</a>
-      </div>
-    </div>
-    <div class='rounded-lg border border-border/70 p-4.5 bg-muted/20'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>HeatSleuth (macOS)</h3>
-      <p class='text-xs text-muted-foreground mb-3'>发热与高负载诊断工具</p>
-      <div class='flex gap-2 text-xs'>
-        <a href='/heatsleuth/zh/' class='text-primary hover:underline'>中文产品主页与下载</a>
-        <span>·</span>
-        <a href='/heatsleuth/' class='text-muted-foreground hover:text-foreground hover:underline'>English</a>
-      </div>
-    </div>
-    <div class='rounded-lg border border-border/70 p-4.5 bg-muted/20'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>PDF Snap (iOS 应用)</h3>
-      <p class='text-xs text-muted-foreground mb-3'>离线 PDF 实用工具</p>
-      <div class='flex gap-2 text-xs'>
-        <a href='/pdf-snap/privacy/' class='text-primary hover:underline'>隐私政策</a>
-        <span>·</span>
-        <a href='/pdf-snap/support/' class='text-primary hover:underline'>技术支持</a>
-      </div>
-    </div>
-    <div class='rounded-lg border border-border/70 p-4.5 bg-muted/20'>
-      <h3 class='text-sm font-semibold text-foreground mb-1'>AdQuiet (Chrome 扩展)</h3>
-      <p class='text-xs text-muted-foreground mb-3'>纯净视频播放扩展</p>
-      <div class='flex gap-2 text-xs'>
-        <a href='/adquiet/' class='text-primary hover:underline'>扩展介绍</a>
-        <span>·</span>
-        <a href='/adquiet/privacy/' class='text-primary hover:underline'>隐私政策</a>
-        <span>·</span>
-        <a href='/adquiet/support/' class='text-primary hover:underline'>技术支持</a>
-      </div>
-    </div>
-  </div>
+  {/* 产品页尾部承接：想了解这些工具背后的 AI 研发与上架过程，可扫码关注公众号 */}
+  <WechatSubscribeCard class='mt-8' />
 </PageLayout>

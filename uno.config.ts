@@ -125,8 +125,11 @@ const typographyConfig: TypographyOptions = {
 }
 
 const themeColors = {
-  // Primary
-  primary: 'hsl(var(--primary) / <alpha-value>)',
+  // Primary 主题色与配套高对比度按钮文字令牌
+  primary: {
+    DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+    foreground: 'hsl(var(--primary-foreground) / <alpha-value>)'
+  },
   // Foreground & background
   foreground: 'hsl(var(--foreground) / <alpha-value>)',
   background: 'hsl(var(--background) / <alpha-value>)',

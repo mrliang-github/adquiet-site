@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>麦麦搭餐 · 配餐演示（真实核价，不用 Token）</title>
+<style>
+:root{--ink:#27241e;--muted:#726d63;--paper:#fffdf7;--accent:#edb731;--gold:#d8a418;--rule:#d6d0c4;--ok:#0f6e56;--warn:#8a5a00}
+*{box-sizing:border-box}
+body{margin:0;background:#e8e4da;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+.wrap{max-width:1000px;margin:0 auto;padding:48px 28px 72px}
+.brand{font-size:14px;font-weight:500;letter-spacing:.06em}
+.brand i{display:inline-block;font-style:normal;font-family:"Songti SC","STSong",serif;color:var(--gold);font-size:22px;transform:rotate(-6deg);margin-right:6px;vertical-align:-2px}
+h1{font-size:32px;line-height:1.35;letter-spacing:-.03em;margin:26px 0 14px;font-weight:500}
+.lead{font-size:14px;color:var(--muted);max-width:640px;margin:0 0 8px}
+.lead b{color:var(--ink);font-weight:500}
+.snap{display:inline-flex;align-items:baseline;gap:8px;background:#fff8e6;border-radius:8px;padding:8px 13px;font-size:11.5px;color:var(--warn);margin:14px 0 0}
+.snap b{color:var(--ink);font:500 12px ui-monospace,SFMono-Regular,Menlo,monospace}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 10px}
+.facts div{background:var(--paper);padding:16px 14px;border-radius:12px}
+.facts b{display:block;font:500 26px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.04em}
+.facts span{font-size:11px;color:var(--muted)}
+.provenance{font-size:11px;color:var(--muted);margin:14px 0 40px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tabs button{border:0.5px solid var(--rule);background:var(--paper);color:var(--ink);font:inherit;font-size:13px;padding:9px 16px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.controls{background:var(--paper);border-radius:12px;padding:20px 22px;display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-bottom:26px}
+.ctl label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:10px}
+.ctl label b{color:var(--ink);font:500 15px ui-monospace,monospace}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.hint{font-size:11px;color:var(--muted);grid-column:1/-1;margin:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:var(--paper);border-radius:12px;padding:22px 22px 18px;position:relative}
+.card.out{opacity:.45}
+.rank{position:absolute;top:20px;right:20px;font-size:10px;letter-spacing:.08em;color:var(--muted)}
+.card h3{font-size:16px;font-weight:500;margin:0 0 4px;letter-spacing:-.01em}
+.card .sub{font-size:11px;color:var(--muted);margin-bottom:14px}
+.money{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.money b{font:500 32px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.05em}
+.money b i{font-style:normal;font-size:17px;margin-right:2px}
+.strike{font-size:12px;color:var(--muted);text-decoration:line-through}
+.save{font-size:11px;color:var(--ok);margin-bottom:16px}
+.rule{border-top:1px dashed var(--rule);margin:14px 0}
+.foods{list-style:none;padding:0;margin:0 0 4px}
+.foods li{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;padding:5px 0}
+.foods li>span:last-child{color:var(--muted);font:11px ui-monospace,monospace;white-space:nowrap}
+.foods li.unknown>span:last-child{color:var(--warn)}
+.foods em{font-style:normal;font-size:10.5px;color:var(--muted);margin-left:6px}
+.foods li.unknown em{color:var(--warn)}
+.nut{display:flex;gap:22px;font-size:12px;color:var(--muted);margin-top:12px}
+.nut b{color:var(--ink);font:500 16px ui-monospace,monospace;display:block}
+.nut .no b{color:var(--warn);font-size:13px}
+.checks{margin-top:16px;border-top:1px dashed var(--rule);padding-top:12px}
+.checks summary{font-size:11px;color:var(--muted);cursor:pointer;list-style:none}
+.checks summary::-webkit-details-marker{display:none}
+.checks summary::after{content:" ▾"}
+.checks[open] summary::after{content:" ▴"}
+.chk{display:flex;gap:8px;font-size:11.5px;padding:4px 0;color:var(--muted)}
+.chk i{font-style:normal;width:13px;flex:none}
+.chk.y i{color:var(--ok)}
+.chk.n i{color:var(--warn)}
+.chk b{color:var(--ink);font-weight:400}
+.rejected{margin-top:30px}
+.rejected h2{font-size:13px;font-weight:500;margin:0 0 12px;color:var(--muted)}
+.rejected ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.rejected li{background:#fff8e6;border-radius:8px;padding:11px 14px;font-size:12px;display:flex;justify-content:space-between;gap:14px}
+.rejected li em{font-style:normal;color:var(--warn);text-align:right}
+footer{margin-top:52px;border-top:1px solid var(--rule);padding-top:22px;font-size:11.5px;color:var(--muted)}
+footer b{color:var(--ink);font-weight:500}
+footer p{margin:6px 0}
+footer code{font-size:11px}
+@media(max-width:680px){
+  .wrap{padding:30px 18px 48px}
+  h1{font-size:24px;margin:20px 0 12px}
+  .facts{grid-template-columns:repeat(2,1fr);gap:10px}
+  .controls{grid-template-columns:1fr;gap:18px;padding:18px}
+  .cards{grid-template-columns:1fr}
+  .money b{font-size:28px}
+  .rejected li{display:block}
+  .rejected li em{display:block;text-align:left;margin-top:4px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="brand"><i>麦</i>麦麦搭餐 · 配餐演示</div>
+  <h1>真实门店，真实核价。<br>打开就能看。</h1>
+  <p class="lead">下面每一个金额都来自麦当劳官方接口的 <b>calculate-price 核价响应</b>，
+  不是样例数据，也不需要你申请 Token。</p>
+  <p class="snap">这是 <b id="snapStamp"></b> 的核价快照，<span>不是实时价格</span></p>
+  <div class="facts" id="facts"></div>
+  <p class="provenance" id="provenance"></p>
+
+  <nav class="tabs" id="tabs" role="tablist"></nav>
+
+  <section class="controls">
+    <div class="ctl">
+      <label>预算上限 <b id="budgetOut">不限</b></label>
+      <input type="range" id="budget" min="10" max="40" step="1" value="40">
+    </div>
+    <div class="ctl">
+      <label>热量上限 <b id="kcalOut">不限</b></label>
+      <input type="range" id="kcal" min="400" max="1100" step="50" value="1100">
+    </div>
+    <p class="hint">拖动滑杆看方案怎么被筛掉。预算判定用核价总额；热量上限只在营养数据完整时才判定——
+    判不了就如实说不确定，在「控热量」场景里更是直接不进候选。</p>
+  </section>
+
+  <div class="cards" id="cards"></div>
+  <section class="rejected" id="rejectedWrap" hidden>
+    <h2>被排除的方案</h2>
+    <ul id="rejected"></ul>
+  </section>
+
+  <footer>
+    <p><b>数据来源</b>：麦当劳官方 MCP <code>https://mcp.mcd.cn</code>，门店 <span id="fStore"></span>（<span id="fCode"></span>），核价采集于 <span id="fTime"></span>。</p>
+    <p><b>真实调用</b>：query-meals 取 <span id="fMeals"></span> 项可售餐品、list-nutrition-foods 取 <span id="fNut"></span> 条营养、query-meal-detail 展开套餐子项、calculate-price 逐方案核价。以上均为只读调用，未下单、未领券。</p>
+    <p><b>诚实声明</b>：菜单与券会随餐段和账号变化，本页价格是 <span id="fTime2"></span> 的核价快照，不能当实时价格使用。有 <span id="fPartial"></span> 个方案的营养数据与官方营养表未能完全对应，本页对它们只显示已知部分并标注「未知」，不推算、不补零。</p>
+    <p><b>可复核性</b>：<span id="fCoverage"></span></p>
+    <p><b>这不是算法演示</b>：本页只呈现已核价的候选与筛选结果。真正的 Skill 不会声称穷举全菜单或全网最低价。</p>
+  </footer>
+</main>
+<script>
+const DATA = {
+  "store": "麦当劳武汉光谷六路联投餐厅",
+  "store_code": "1960283",
+  "captured": "2026-10-13 23:39–23:40",
+  "channel": "到店自取",
+  "sources": {
+    "menu_items": 117,
+    "menu_categories": 15,
+    "nutrition_rows": 160,
+    "nutrition_unique": 158,
+    "nutrition_api_count": 160,
+    "note": "menu_items 来自 query-meals 一次调用；nutrition_api_count 是接口自报条数"
+  },
+  "coverage": {
+    "covered": 7,
+    "uncovered": 4,
+    "snapshot": "2026-10-14 00:39:51 → 2026-10-14 00:39:57",
+    "menu_items": 85,
+    "dir": "recorded/demo-snapshot/"
+  },
+  "scenes": {
+    "burger": {
+      "title": "想吃汉堡",
+      "sub": "至少一个汉堡，价格和营养一起看",
+      "require_kcal": false,
+      "plans": [
+        {
+          "name": "麦辣鸡腿汉堡三件套",
+          "code": "9900005456",
+          "price": 3400,
+          "menu_price": 3400,
+          "list_price": 4750,
+          "kcal": 921,
+          "protein": 28.0,
+          "nutrition_complete": true,
+          "tier": {
+            "exact": 3,
+            "fuzzy": 0,
+            "miss": 0
+          },
+          "items": [
+            {
+              "name": "麦辣鸡腿汉堡",
+              "kcal": 485,
+              "tier": "exact",
+              "matched_name": "麦辣鸡腿汉堡"
+            },
+            {
+              "name": "中薯条",
+              "kcal": 289,
+              "tier": "exact",
+              "matched_name": "中薯条"
+            },
+            {
+              "name": "可乐中杯",
+              "kcal": 147,
+              "tier": "exact",
+              "matched_name": "可乐中杯"
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:39:57"
+        },
+        {
+          "name": "板烧鸡腿堡三件套",
+          "code": "9900005462",
+          "price": 3500,
+          "menu_price": 3500,
+          "list_price": 4850,
+          "kcal": 827,
+          "protein": 27.0,
+          "nutrition_complete": true,
+          "tier": {
+            "exact": 3,
+            "fuzzy": 0,
+            "miss": 0
+          },
+          "items": [
+            {
+              "name": "板烧鸡腿堡",
+              "kcal": 391,
+              "tier": "exact",
+              "matched_name": "板烧鸡腿堡"
+            },
+            {
+              "name": "中薯条",
+              "kcal": 289,
+              "tier": "exact",
+              "matched_name": "中薯条"
+            },
+            {
+              "name": "可乐中杯",
+              "kcal": 147,
+              "tier": "exact",
+              "matched_name": "可乐中杯"
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:39:58"
+        },
+        {
+          "name": "巨无霸三件套",
+          "code": "9900005466",
+          "price": 3700,
+          "menu_price": 3700,
+          "list_price": 5050,
+          "kcal": 949,
+          "protein": 31.0,
+          "nutrition_complete": true,
+          "tier": {
+            "exact": 3,
+            "fuzzy": 0,
+            "miss": 0
+          },
+          "items": [
+            {
+              "name": "巨无霸",
+              "kcal": 513,
+              "tier": "exact",
+              "matched_name": "巨无霸"
+            },
+            {
+              "name": "中薯条",
+              "kcal": 289,
+              "tier": "exact",
+              "matched_name": "中薯条"
+            },
+            {
+              "name": "可乐中杯",
+              "kcal": 147,
+              "tier": "exact",
+              "matched_name": "可乐中杯"
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:39:57"
+        }
+      ]
+    },
+    "new": {
+      "title": "想尝新品",
+      "sub": "当期官方活动里的新品，目标门店在售",
+      "require_kcal": false,
+      "plans": [
+        {
+          "name": "龙焰鸡腿堡三件套",
+          "code": "9900016073",
+          "price": 2690,
+          "menu_price": 2690,
+          "list_price": 4900,
+          "kcal": null,
+          "protein": null,
+          "nutrition_complete": false,
+          "tier": {
+            "exact": 2,
+            "fuzzy": 0,
+            "miss": 1
+          },
+          "items": [
+            {
+              "name": "龙焰鸡腿堡",
+              "kcal": null,
+              "tier": "miss",
+              "matched_name": null
+            },
+            {
+              "name": "中薯条",
+              "kcal": 289,
+              "tier": "exact",
+              "matched_name": "中薯条"
+            },
+            {
+              "name": "可乐中杯",
+              "kcal": 147,
+              "tier": "exact",
+              "matched_name": "可乐中杯"
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:39:59"
+        },
+        {
+          "name": "龙焰芝士棒鸡腿堡三件套",
+          "code": "9900016075",
+          "price": 2990,
+          "menu_price": 2990,
+          "list_price": 5200,
+          "kcal": null,
+          "protein": null,
+          "nutrition_complete": false,
+          "tier": {
+            "exact": 2,
+            "fuzzy": 0,
+            "miss": 1
+          },
+          "items": [
+            {
+              "name": "龙焰芝士棒鸡腿堡",
+              "kcal": null,
+              "tier": "miss",
+              "matched_name": null
+            },
+            {
+              "name": "中薯条",
+              "kcal": 289,
+              "tier": "exact",
+              "matched_name": "中薯条"
+            },
+            {
+              "name": "可乐中杯",
+              "kcal": 147,
+              "tier": "exact",
+              "matched_name": "可乐中杯"
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:39:58"
+        }
+      ]
+    },
+    "light": {
+      "title": "控热量",
+      "sub": "整餐热量与蛋白质必须可判定，判不了的不进候选",
+      "require_kcal": true,
+      "plans": [
+        {
+          "name": "酥脆无双套餐",
+          "code": "9900011126",
+          "price": 2000,
+          "menu_price": 2000,
+          "list_price": 2000,
+          "kcal": 434,
+          "protein": 23.0,
+          "nutrition_complete": true,
+          "tier": {
+            "exact": 3,
+            "fuzzy": 0,
+            "miss": 0
+          },
+          "items": [
+            {
+              "name": "麦麦脆汁鸡-琵琶腿",
+              "kcal": 328,
+              "tier": "exact",
+              "matched_name": "麦麦脆汁鸡-琵琶腿"
+            },
+            {
+              "name": "迷你薯条",
+              "kcal": 106,
+              "tier": "exact",
+              "matched_name": "迷你薯条"
+            },
+            {
+              "name": "无糖可口可乐中杯",
+              "kcal": 0,
+              "tier": "exact",
+              "matched_name": "无糖可口可乐中杯"
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:39:59"
+        },
+        {
+          "name": "“辣”么快乐套餐",
+          "code": "9900011123",
+          "price": 2400,
+          "menu_price": 2400,
+          "list_price": 3650,
+          "kcal": 394,
+          "protein": 23.0,
+          "nutrition_complete": true,
+          "tier": {
+            "exact": 2,
+            "fuzzy": 1,
+            "miss": 0
+          },
+          "items": [
+            {
+              "name": "麦辣鸡翅2块",
+              "kcal": 224,
+              "tier": "fuzzy",
+              "matched_name": "麦辣鸡翅-2块"
+            },
+            {
+              "name": "麦乐鸡4块",
+              "kcal": 170,
+              "tier": "exact",
+              "matched_name": "麦乐鸡4块"
+            },
+            {
+              "name": "无糖可口可乐中杯",
+              "kcal": 0,
+              "tier": "exact",
+              "matched_name": "无糖可口可乐中杯"
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:40:00"
+        },
+        {
+          "name": "牛气满满套餐",
+          "code": "9900009245",
+          "price": 3400,
+          "menu_price": 3400,
+          "list_price": 4750,
+          "kcal": 495,
+          "protein": 26.0,
+          "nutrition_complete": true,
+          "tier": {
+            "exact": 3,
+            "fuzzy": 0,
+            "miss": 0
+          },
+          "items": [
+            {
+              "name": "培根蔬萃双层牛堡",
+              "kcal": 442,
+              "tier": "exact",
+              "matched_name": "培根蔬萃双层牛堡"
+            },
+            {
+              "name": "小杯玉米杯",
+              "kcal": 53,
+              "tier": "exact",
+              "matched_name": "小杯玉米杯"
+            },
+            {
+              "name": "无糖可口可乐中杯",
+              "kcal": 0,
+              "tier": "exact",
+              "matched_name": "无糖可口可乐中杯"
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:40:00"
+        }
+      ]
+    },
+    "general": {
+      "title": "预算有限",
+      "sub": "先满足预算，再排序",
+      "require_kcal": false,
+      "plans": [
+        {
+          "name": "精选超值随心配",
+          "code": "9900015568",
+          "price": 1390,
+          "menu_price": 1390,
+          "list_price": 1390,
+          "kcal": 502,
+          "protein": 24.0,
+          "nutrition_complete": true,
+          "tier": {
+            "exact": 1,
+            "fuzzy": 1,
+            "miss": 0
+          },
+          "items": [
+            {
+              "name": "那么大鸡排（椒盐风味）",
+              "kcal": 385,
+              "tier": "fuzzy",
+              "matched_name": "那么大鸡排"
+            },
+            {
+              "name": "阳光柠檬红茶中杯",
+              "kcal": 117,
+              "tier": "exact",
+              "matched_name": "阳光柠檬红茶中杯"
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:40:01"
+        },
+        {
+          "name": "人气经典随心配",
+          "code": "9900013304",
+          "price": 1490,
+          "menu_price": 1490,
+          "list_price": 1490,
+          "kcal": null,
+          "protein": null,
+          "nutrition_complete": false,
+          "tier": {
+            "exact": 1,
+            "fuzzy": 0,
+            "miss": 1
+          },
+          "items": [
+            {
+              "name": "双层吉士汉堡",
+              "kcal": 429,
+              "tier": "exact",
+              "matched_name": "双层吉士汉堡"
+            },
+            {
+              "name": "可乐麦炫酷",
+              "kcal": null,
+              "tier": "miss",
+              "matched_name": null
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:40:02"
+        },
+        {
+          "name": "大堡口福三件套",
+          "code": "9900015602",
+          "price": 2290,
+          "menu_price": 2290,
+          "list_price": 4850,
+          "kcal": null,
+          "protein": null,
+          "nutrition_complete": false,
+          "tier": {
+            "exact": 2,
+            "fuzzy": 0,
+            "miss": 1
+          },
+          "items": [
+            {
+              "name": "Hold不住鸡排堡（椒盐风味）",
+              "kcal": null,
+              "tier": "miss",
+              "matched_name": null
+            },
+            {
+              "name": "中薯条",
+              "kcal": 289,
+              "tier": "exact",
+              "matched_name": "中薯条"
+            },
+            {
+              "name": "可乐中杯",
+              "kcal": 147,
+              "tier": "exact",
+              "matched_name": "可乐中杯"
+            }
+          ],
+          "quote_stamp": "2026-10-13 23:40:01"
+        }
+      ]
+    }
+  }
+};
+const money = c => (c / 100).toFixed(2);
+const yuan  = c => (c % 100 === 0 ? String(c / 100) : (c / 100).toFixed(2));
+const $ = id => document.getElementById(id);
+let scene = "burger";
+
+const allPlans = () => Object.values(DATA.scenes).flatMap(s => s.plans);
+const cur = () => DATA.scenes[scene];
+
+$("facts").innerHTML = [
+  [DATA.sources.menu_items, "项可售餐品"],
+  [DATA.sources.nutrition_unique, "项官方营养"],
+  [allPlans().length, "组真实核价"],
+  ["0", "个虚构价格"],
+].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
+$("snapStamp").textContent = DATA.captured;
+$("provenance").textContent = `门店 ${DATA.store} · ${DATA.channel} · 核价快照采集于 ${DATA.captured}`;
+$("fStore").textContent = DATA.store; $("fCode").textContent = DATA.store_code;
+$("fTime").textContent = DATA.captured; $("fTime2").textContent = DATA.captured;
+$("fMeals").textContent = DATA.sources.menu_items;
+$("fNut").textContent = DATA.sources.nutrition_api_count;
+$("fPartial").textContent = allPlans().filter(p => !p.nutrition_complete).length;
+$("fCoverage").innerHTML = (() => {
+  const c = DATA.coverage;
+  if (!c) return "本页金额的原始报文尚未归档核查。运行 <code>verify_provenance.py</code> 生成覆盖率后刷新。";
+  const n = allPlans().length;
+  let s = `本页 ${n} 个金额中，<b>${c.covered}</b> 个能与归档的官方原始报文逐字对上（金额一致）`;
+  if (c.uncovered)
+    s += `；其余 ${c.uncovered} 个因归档时段（${c.snapshot}，该时段门店仅 ${c.menu_items} 项在售）不在菜单里，未能归档`;
+  s += `。归档目录 <code>${c.dir}</code>，每笔含官方 datetime 与 traceId。`;
+  return s;
+})();
+
+$("tabs").innerHTML = Object.entries(DATA.scenes).map(([k, v]) =>
+  `<button role="tab" data-k="${k}" aria-selected="${k === scene}">${v.title}</button>`).join("");
+$("tabs").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  scene = b.dataset.k;
+  [...$("tabs").children].forEach(x => x.setAttribute("aria-selected", x.dataset.k === scene));
+  render();
+});
+
+// budget / kcalCap 单位：分 / 千卡
+//
+// 每一项判定都必须独立算完，不能短路。曾经写成「预算不过就提前返回」，
+// 结果热量那一行在预算不通过时拿到未定义的 unsure，把「没算过」渲染成「已判定通过」，
+// 还把 p.kcal 的 null 直接拼进了文案。判定与汇总分开，各算各的。
+function budgetCheck(p, budget) {
+  return p.price > budget
+    ? { state: "fail", text: `核价总额 ¥${money(p.price)} 超过预算 ¥${yuan(budget)}` }
+    : { state: "pass", text: `核价总额 ¥${money(p.price)}，预算上限 ¥${yuan(budget)}` };
+}
+
+function kcalCheck(p, kcalCap, requireKcal) {
+  if (p.kcal === null)
+    return requireKcal
+      ? { state: "fail", text: "营养数据不完整，本场景要求热量可判定，故不列为候选" }
+      : { state: "unsure", text: "营养不完整，无法判定是否满足上限" };
+  if (p.kcal > kcalCap)
+    return { state: "fail", text: `整餐 ${p.kcal} kcal 超过热量上限 ${kcalCap}` };
+  return { state: "pass", text: `已按整餐 ${p.kcal} kcal 判定` };
+}
+
+function verdict(p, budget, kcalCap, requireKcal) {
+  const b = budgetCheck(p, budget);
+  if (b.state === "fail") return { ok: false, why: b.text };
+  const k = kcalCheck(p, kcalCap, requireKcal);
+  if (k.state === "fail") return { ok: false, why: k.text };
+  if (k.state === "unsure") return { ok: true, unsure: true };
+  return { ok: true };
+}
+
+function nutritionRow(p) {
+  const t = p.tier;
+  if (t.fuzzy === 0 && t.miss === 0)
+    return ["y", "营养数据完整性", `${t.exact} 个子项逐字命中官方营养表`];
+  const fuzzyNames = p.items.filter(i => i.tier === "fuzzy")
+    .map(i => `${i.name} ≈ ${i.matched_name}`).join("、");
+  if (t.miss === 0)
+    return ["y", "营养数据完整性",
+      `${t.exact} 项逐字命中；${t.fuzzy} 项经名称归一化命中（${fuzzyNames}）`];
+  const parts = [];
+  if (t.fuzzy) parts.push(`${t.fuzzy} 项经归一化命中`);
+  parts.push(`${t.miss} 项官方营养表确实没有，不推算、不补零`);
+  return ["n", "营养数据完整性", parts.join("；")];
+}
+
+function card(p, rank, budget, kcalCap, requireKcal) {
+  const v = verdict(p, budget, kcalCap, requireKcal);
+  const save = p.list_price ? p.list_price - p.price : 0;
+  const foods = p.items.map(i => {
+    const tag = i.tier === "miss"
+      ? `<em>官方营养表无此项</em>`
+      : i.tier === "fuzzy" ? `<em>≈ ${i.matched_name}</em>` : "";
+    return `<li class="${i.tier === "miss" ? "unknown" : ""}"><span>${i.name}${tag}</span>` +
+      `<span>${i.kcal === null ? "热量未知" : i.kcal + " kcal"}</span></li>`;
+  }).join("");
+  const nut = p.kcal === null
+    ? `<div class="no"><b>部分未知</b>热量</div><div class="no"><b>—</b>蛋白质</div>`
+    : `<div><b>${p.kcal}</b>kcal 整餐</div><div><b>${p.protein}</b>g 蛋白质</div>`;
+  const priceRow = p.menu_price === null
+    ? ["y", "核价金额", `calculate-price 返回 ¥${money(p.price)}`]
+    : (p.menu_price === p.price
+      ? ["y", "核价金额与菜单一致", `calculate-price 返回 ¥${money(p.price)}，菜单标价同价`]
+      : ["n", "核价金额与菜单不符",
+         `calculate-price 返回 ¥${money(p.price)}，菜单标价 ¥${money(p.menu_price)}`]);
+  const b = budgetCheck(p, budget);
+  const k = kcalCheck(p, kcalCap, requireKcal);
+  const checks = [
+    priceRow,
+    ["y", "门店与取餐方式一致", `门店 ${DATA.store_code} · ${DATA.channel}`],
+    ["y", "报价时间戳可追溯",
+     `calculate-price 于 ${p.quote_stamp} 返回；实时模式下超过 10 分钟的报价会被排除`],
+    ["y", "未用划线价当成交价", p.list_price ? `菜单划线价 ¥${money(p.list_price)} 仅作对比` : "无划线价"],
+    [b.state === "pass" ? "y" : "n", "预算判定", b.text],
+    nutritionRow(p),
+    [k.state === "pass" ? "y" : "n", "热量上限判定", k.text],
+  ].map(([c, t, d]) =>
+    `<div class="chk ${c}"><i>${c === "y" ? "✓" : "!"}</i><span><b>${t}</b> · ${d}</span></div>`).join("");
+  return `<article class="card ${v.ok ? "" : "out"}">
+    <div class="rank">方案 ${String.fromCharCode(64 + rank)}</div>
+    <h3>${p.name}</h3>
+    <div class="sub">${cur().sub}</div>
+    <div class="money"><b><i>¥</i>${money(p.price)}</b>${p.list_price ? `<span class="strike">¥${money(p.list_price)}</span>` : ""}</div>
+    ${save > 0 ? `<div class="save">比菜单划线价低 ¥${money(save)}</div>` : `<div class="save">&nbsp;</div>`}
+    <div class="rule"></div>
+    <ul class="foods">${foods}</ul>
+    <div class="nut">${nut}</div>
+    <details class="checks"><summary>这方案是怎么核出来的</summary>${checks}</details>
+    ${v.ok ? "" : `<div class="chk n" style="margin-top:10px"><i>!</i><span><b>已排除</b> · ${v.why}</span></div>`}
+  </article>`;
+}
+
+function render() {
+  const budget = +$("budget").value * 100;   // 元 → 分
+  const kcalCap = +$("kcal").value;
+  $("budgetOut").textContent = +$("budget").value >= 40 ? "不限" : "¥" + $("budget").value;
+  $("kcalOut").textContent = kcalCap >= 1100 ? "不限" : kcalCap + " kcal";
+  const ps = cur().plans, rk = cur().require_kcal;
+  $("cards").innerHTML = ps.map((p, i) => card(p, i + 1, budget, kcalCap, rk)).join("");
+  const out = ps.map(p => [p, verdict(p, budget, kcalCap, rk)]).filter(([, v]) => !v.ok);
+  $("rejectedWrap").hidden = out.length === 0;
+  $("rejected").innerHTML = out.map(([p, v]) =>
+    `<li><span>${p.name} · ¥${money(p.price)}</span><em>${v.why}</em></li>`).join("");
+}
+$("budget").addEventListener("input", render);
+$("kcal").addEventListener("input", render);
+render();
+</script>
+</body>
+</html>

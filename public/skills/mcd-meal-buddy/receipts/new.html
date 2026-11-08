@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; style-src &#x27;unsafe-inline&#x27;; script-src &#x27;sha256-SZwYScmVa8ijaYS3/a3eYm+R4UbJc6G9cUTGJWp8MZg=&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;"><title>麦麦搭餐 · 我的这一餐</title>
+<style>
+:root{--ink:#27241e;--muted:#726d63;--paper:#fffdf7;--accent:#edb731;--rule:#d6d0c4}
+*{box-sizing:border-box}body{margin:0;background:#e8e4da;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+.layout{max-width:1060px;margin:0 auto;padding:64px 40px;display:grid;grid-template-columns:1fr 430px;gap:76px;align-items:start}
+.intro{padding-top:62px}.brand{font-size:15px;font-weight:700;letter-spacing:.08em}.brand i{display:inline-block;width:12px;height:12px;background:var(--accent);margin-right:10px}
+h1{font-size:46px;line-height:1.25;letter-spacing:-.04em;margin:40px 0 22px;font-weight:650}.intro p{font-size:16px;line-height:1.85;color:var(--muted);max-width:310px}
+button{margin-top:24px;border:0;background:var(--ink);color:white;padding:14px 24px;font:inherit;cursor:pointer}button:hover{background:#474238}button:focus-visible{outline:3px solid #c69000;outline-offset:4px}
+.privacy{margin-top:26px;font-size:12px!important}.receipt{background:var(--paper);position:relative;padding:30px 30px 36px;box-shadow:0 16px 36px #5349311a;overflow-wrap:anywhere}
+.receipt::before,.receipt::after{content:"";position:absolute;left:0;right:0;height:7px;background:linear-gradient(135deg,transparent 5px,var(--paper) 0) 0 0/10px 10px,linear-gradient(-135deg,transparent 5px,var(--paper) 0) 0 0/10px 10px}
+.receipt::before{top:-6px}.receipt::after{bottom:-6px;transform:rotate(180deg)}.ticket-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.12em;font-weight:700}
+.mark{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--ink);font-size:23px;line-height:1;background:var(--accent)}.ticket-title{font-size:30px;line-height:1.3;margin:29px 0 10px;letter-spacing:-.02em}
+.meta{font:11px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}.status{display:inline-block;margin:16px 0 23px;background:#f5e4b5;padding:6px 9px;font-size:11px;line-height:1.5}
+.rule{border-top:1px dashed var(--rule)}.food-list{padding:8px 0;list-style:none;margin:0}.food-list li{display:flex;gap:12px;align-items:flex-start;padding:15px 0}.line-number{color:#a59d8c;font:11px/1.7 ui-monospace,monospace;margin-top:2px}
+.food{flex:1;min-width:0}.food strong{font-size:14px;line-height:1.65;font-weight:600;display:block}.food small{font-size:11px;line-height:1.8;color:var(--muted)}.qty{font:13px/2 ui-monospace,monospace;white-space:nowrap}
+.total{display:flex;align-items:baseline;justify-content:space-between;padding:24px 0 19px}.total span{font-size:13px}.money{font:600 43px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.055em}.money b{font-size:23px;margin-right:4px;font-weight:500}
+.nutrition{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px 0 22px}.nutrition div+div{border-left:1px solid var(--rule);padding-left:23px}.nutrition strong{font:500 23px/1.5 ui-monospace,monospace}.nutrition small{display:block;font-size:10px;line-height:1.5;color:var(--muted)}
+.eyebrow{font-size:10px;letter-spacing:.1em;color:var(--muted)}.offers{border-top:1px dashed var(--rule);padding:18px 0 4px}.offers ul{padding-left:15px;font-size:11px;line-height:1.8}
+.reason{font-size:12px;line-height:1.9;margin:17px 0 23px}.foot{font-size:10px;line-height:1.8;color:var(--muted)}.foot p{margin:8px 0}.signoff{text-align:center;padding-top:23px;font:10px/2 ui-monospace,monospace;letter-spacing:.17em}.store{font-size:11px;line-height:1.8}
+@media(max-width:760px){.layout{display:flex;flex-direction:column;padding:28px 18px 38px;gap:30px;align-items:center}.intro{padding:0;width:min(100%,430px)}h1{font-size:27px;margin:20px 0 10px}.intro p{font-size:13px;margin:6px 0;max-width:none}button{padding:10px 16px;font-size:12px;margin-top:14px}.privacy{margin-top:12px}.receipt{width:min(100%,430px);padding:26px 24px 30px}.ticket-title{font-size:27px}}
+@media print{@page{size:A5;margin:12mm}body{background:white}.layout{display:block;padding:0;margin:0}.intro{display:none}.receipt{box-shadow:none;width:100%;max-width:430px;margin:auto;break-inside:avoid}}
+</style></head><body><main class="layout"><aside class="intro"><div class="brand"><i></i>麦麦搭餐</div><h1>这一餐，<br>照你的意思来。</h1><p>想吃什么、预算多少，<br>把选择留给自己，把计算交给工具。</p><button id="print-receipt" type="button">打印 / 保存为 PDF</button><p class="privacy">分享版已隐藏定位与取餐信息。<br>演示数据 · 可离线体验</p></aside>
+<article class="receipt" aria-label="配餐小票"><div class="ticket-top"><span>MEAL BUDDY / B</span><span class="mark" aria-hidden="true">麦</span></div>
+<h2 class="ticket-title">今天，尝点新鲜的</h2><div class="meta">2026.10.13 · 到店取餐 · 首推</div><div class="status">演示 · 配餐预览</div>
+<div class="rule"></div><ul class="food-list"><li><span class="line-number">01</span><div class="food"><strong>限定风味鸡腿汉堡 · 标准份</strong><small>约 440 kcal</small></div><span class="qty">× 1</span></li><li><span class="line-number">02</span><div class="food"><strong>小杯玉米</strong><small>约 95 kcal</small></div><span class="qty">× 1</span></li><li><span class="line-number">03</span><div class="food"><strong>无糖可乐 · 中杯</strong><small>约 0 kcal</small></div><span class="qty">× 1</span></li></ul><div class="rule"></div>
+<div class="total"><span>示例总额</span><strong class="money"><b>¥</b>31.80</strong></div>
+<div class="nutrition"><div><strong>535</strong><small>估算热量 / kcal</small></div><div><strong>26</strong><small>估算蛋白质 / g</small></div></div>
+<div class="rule"></div><p class="reason">围绕当期新品搭配，保留你明确提出的要求。</p><div class="foot"><p>按所选单品与份数汇总的营养估算，实际制作可能有差异。</p><p>全部为虚构样例，不代表真实价格、营养或订单。</p></div>
+<div class="signoff">ENJOY YOUR OWN CHOICE<br>麦麦搭餐 · 个人配餐小票</div></article></main><script>document.getElementById("print-receipt").addEventListener("click",()=>window.print());</script></body></html>

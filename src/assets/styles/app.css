@@ -1,7 +1,9 @@
 /* Theme Design System & Tokens */
 :root {
-  /* Primary 主题强调色：提取自湖水与晴空天际线的青碧蓝 (Hex: #54889C) */
-  --primary: 198 32% 46%;
+  /* Primary 主题强调色：湖山青碧蓝，明度调至 42% 以保证白字实心按钮满足 WCAG AA 4.5:1 对比度 */
+  --primary: 198 35% 42%;
+  /* Primary Foreground 实心主按钮文字色：浅色模式下采用纯白确保清晰可读 */
+  --primary-foreground: 0 0% 100%;
   /* Foreground 前景文字色 */
   --foreground: 240 10% 3.9%;
   /* Muted Foreground 次级辅助文字色 */
@@ -26,6 +28,8 @@
 .dark {
   /* Primary 深色模式主题色：提取自天际微光的烟青色 */
   --primary: 198 52% 76%;
+  /* Primary Foreground 深色模式实心主按钮文字色：采用深墨蓝灰，与浅烟青底色形成 10.5:1 高对比度 */
+  --primary-foreground: 210 45% 10%;
   /* Foreground 深色模式高亮前景文字 */
   --foreground: 0 0% 98%;
   /* Muted Foreground 深色模式次级文字 */
@@ -63,12 +67,18 @@ html {
   color: hsl(var(--foreground));
 }
 
-/* 全局链接交互 */
-a {
+/* 全局链接交互：排除实心主色按钮（.bg-primary），防止悬停时文字变回与按钮底色相同的主题色而隐身 */
+a:not(.bg-primary) {
   transition: color 0.2s ease;
   &:hover {
     color: hsl(var(--primary) / var(--un-text-opacity, 1));
   }
+}
+
+/* 强制实心主按钮链接在常规与悬停态均保持高对比度前景色，不被 prose 排版层覆盖 */
+a.bg-primary,
+a.bg-primary:hover {
+  color: hsl(var(--primary-foreground));
 }
 
 /* 设计规范微动效：卡片平滑悬浮升起与环境光晕 */

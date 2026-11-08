@@ -8,6 +8,9 @@ import { Button, Icon } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import config from '@/site-config'
 import { articleTopics, articleTopicHref } from '@/data/article-topics'
+// 引入微信公众号配置与订阅引导卡片组件
+import WechatSubscribeCard from '@/components/wechat/WechatSubscribeCard.astro'
+import { wechatOfficialAccount } from '@/data/wechat'
 import '../../styles/articles.css'
 
 export const prerender = true
@@ -56,7 +59,7 @@ const paginationProps = {
   <main class='mt-6 lg:mt-10'>
     <div id='content-header' class='animate'>
       <h1 class='mb-3 mt-6 text-3xl font-medium sm:mt-10'>文章与实战攻略</h1>
-      <p class='mb-5 max-w-2xl text-sm leading-relaxed text-muted-foreground'>记录用过的工具、做产品的过程和具体任务攻略。公众号文章保留原始发表时间，工具和操作入口请结合当下版本阅读。</p>
+      <p class='mb-5 max-w-2xl text-sm leading-relaxed text-muted-foreground'>记录用过的工具、做产品的过程和具体任务攻略。来自公众号「{wechatOfficialAccount.name}」的文章保留原始发表时间，工具和操作入口请结合当下版本阅读。</p>
       <nav class='mb-7 flex flex-wrap gap-2' aria-label='按主题阅读文章'>
         {articleTopics.filter(topic => uniqueTags.includes(topic.toLowerCase())).map(topic => <a class='rounded-md border border-border px-3 py-2 text-xs transition-colors hover:border-primary/50 hover:text-primary' href={articleTopicHref(topic)}>{topic}</a>)}
       </nav>
@@ -100,6 +103,8 @@ const paginationProps = {
               ))}
             </ul>
             <Paginator {...paginationProps} />
+            {/* 文章列表底部附上公众号关注卡片，方便读者在微信里接收新文章推送 */}
+            <WechatSubscribeCard class='mt-8' />
           </section>
 
           {/* sidebar */}

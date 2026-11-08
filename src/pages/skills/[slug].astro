@@ -1,0 +1,162 @@
+---
+import type { GetStaticPaths } from 'astro'
+import PageLayout from '@/layouts/CommonPage.astro'
+// 引入统一的微信公众号订阅卡片组件，承接后续实战文章连载
+import WechatSubscribeCard from '@/components/wechat/WechatSubscribeCard.astro'
+import { skillShowcases, type SkillShowcaseItem } from '@/data/skills'
+
+// 开启静态预渲染，确保满足全站零动态计算成本约束
+export const prerender = true
+
+// 构建期为每套公开分享的 AI Skill 生成独立静态路由
+export const getStaticPaths = (() => {
+  return skillShowcases.map((skill) => ({
+    params: { slug: skill.slug },
+    props: { skill }
+  }))
+}) satisfies GetStaticPaths
+
+interface Props {
+  skill: SkillShowcaseItem
+}
+
+const { skill } = Astro.props
+
+// 动态组装侧边栏目录锚点
+const headings = [
+  { depth: 2, slug: 'overview', text: '核心设计要点' },
+  ...(skill.subSkills?.length ? [{ depth: 2, slug: 'modules', text: '包含的子技能' }] : []),
+  { depth: 2, slug: 'install', text: '快速安装与上手' },
+  { depth: 2, slug: 'boundaries', text: '使用前提与边界' }
+]
+---
+
+<PageLayout title={skill.name} {headings} view>
+  {/* 顶部概览卡片：一句话定位、适合人群与下载/在线演示按钮 */}
+  <div class='not-prose mb-8 rounded-lg border border-border/80 bg-muted/25 p-5 sm:p-6'>
+    <div class='flex flex-wrap items-center gap-2 text-xs'>
+      <span class='rounded-md border border-primary/25 bg-primary/10 px-2.5 py-0.5 font-mono font-medium text-primary'>
+        AI Skill
+      </span>
+      <span class='rounded-md border border-border/60 bg-background px-2.5 py-0.5 font-mono text-muted-foreground'>
+        {skill.hostEnv}
+      </span>
+      <span class='text-muted-foreground'>{skill.fileSizeLabel}</span>
+    </div>
+
+    <p class='mt-3.5 text-sm leading-relaxed text-foreground/90 sm:text-base'>
+      {skill.tagline}
+    </p>
+
+    <p class='mt-3 rounded-md border border-border/50 bg-background/80 px-3 py-2 text-xs leading-relaxed text-muted-foreground'>
+      <span class='font-medium text-foreground'>适合谁用：</span>
+      <span>{skill.audience}</span>
+    </p>
+
+    {/* 核心操作区：优先提供在线演示（若有）与一键 ZIP 下载 */}
+    <div class='mt-4 flex flex-wrap items-center gap-3'>
+      {
+        skill.demoHref && (
+          <a
+            href={skill.demoHref}
+            target='_blank'
+            rel='noopener noreferrer'
+            class='inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-xs font-medium text-primary-foreground shadow-xs transition-opacity hover:opacity-90 no-underline'
+          >
+            <span>{skill.demoLabel ?? '在线查看演示 ↗'}</span>
+          </a>
+        )
+      }
+      <a
+        href={skill.downloadHref}
+        download
+        class:list={[
+          'inline-flex items-center gap-1.5 rounded-md px-4 py-2 text-xs font-medium transition-colors no-underline',
+          skill.demoHref
+            ? 'border border-border bg-background text-foreground hover:border-primary/50 hover:text-primary'
+            : 'bg-primary text-primary-foreground shadow-xs hover:opacity-90'
+        ]}
+      >
+        <span>{skill.downloadLabel}</span>
+      </a>
+      {
+        skill.githubHref && (
+          <a
+            href={skill.githubHref}
+            target='_blank'
+            rel='noopener noreferrer'
+            class='inline-flex items-center gap-1 rounded-md border border-border/70 bg-background px-3.5 py-2 text-xs text-muted-foreground transition-colors hover:text-foreground no-underline'
+          >
+            <span>GitHub 仓库 ↗</span>
+          </a>
+        )
+      }
+      {
+        skill.slug === 'mcd-meal-buddy' && (
+          <a
+            href='/skills/mcd-meal-buddy/receipts/light.html'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='inline-flex items-center gap-1 rounded-md border border-border/70 bg-background px-3.5 py-2 text-xs text-muted-foreground transition-colors hover:text-foreground no-underline'
+          >
+            <span>查看控卡小票样例 ↗</span>
+          </a>
+        )
+      }
+    </div>
+  </div>
+
+  <h2 id='overview'>核心设计要点</h2>
+  <ul>
+    {skill.highlights.map((point) => <li>{point}</li>)}
+  </ul>
+
+  {
+    skill.subSkills && skill.subSkills.length > 0 && (
+      <>
+        <h2 id='modules'>包含的子技能（共 {skill.subSkills.length} 个）</h2>
+        <div class='not-prose my-4 grid grid-cols-1 gap-3 sm:grid-cols-2'>
+          {skill.subSkills.map((sub) => (
+            <article class='rounded-md border border-border/70 bg-background/85 p-4'>
+              <div class='flex items-center justify-between gap-2'>
+                <h3 class='text-sm font-semibold text-foreground'>{sub.title}</h3>
+                <code class='rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] text-primary'>
+                  {sub.id}
+                </code>
+              </div>
+              <p class='mt-2 text-xs leading-relaxed text-muted-foreground'>{sub.summary}</p>
+            </article>
+          ))}
+        </div>
+      </>
+    )
+  }
+
+  <h2 id='install'>快速安装与上手</h2>
+  <ol>
+    {skill.installSteps.map((step) => <li>{step}</li>)}
+  </ol>
+
+  {/* 可键盘聚焦的命令行代码块，支持横向滚动阅读 */}
+  <div class='not-prose my-4'>
+    <pre
+      tabindex='0'
+      class='overflow-x-auto rounded-md border border-border/80 bg-muted/50 p-4 font-mono text-xs leading-relaxed text-foreground'
+    ><code>{skill.installCommand}</code></pre>
+  </div>
+
+  <h2 id='boundaries'>使用前提与边界</h2>
+  <ul>
+    {skill.boundaries.map((item) => <li>{item}</li>)}
+  </ul>
+
+  <p class='text-sm text-muted-foreground'>
+    返回 <a href='/projects#web-and-open'>产品与工具页</a> 查看更多公开应用与在线工具。
+  </p>
+
+  {/* 底部公众号关注引导：承接后续这套 Skill 的实战拆解文章 */}
+  <WechatSubscribeCard
+    class='mt-8'
+    description='这些 Skill 背后的防坑规则、提示词分寸与真实踩坑过程，后续会陆续整理发在公众号「良逍Ai出海笔记」，欢迎先扫码关注。'
+  />
+</PageLayout>

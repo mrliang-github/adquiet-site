@@ -3,22 +3,33 @@ import { Image } from 'astro:assets'
 import { getCollection } from 'astro:content'
 import { Button, Icon, Label } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
-import Section from '@/components/home/Section.astro'
 import { getPostCategory, postCategoryDefinitions } from '@/data/article-topics'
 import { catalogBySlug, catalogs } from '@/data/catalog'
-import { getProjectCtaLabel, projects, type ProjectItem } from '@/data/projects'
+// 引入风向标日报与职场英语的数据读取工具，用于在首页「探索与日常」楼层动态渲染最新条目
+import { getDailyReports, getEnglishLessonsByDate } from '@/data/content-helpers'
+// 引入产品清单、平台分组定义与按钮文案生成工具
+import { getProjectCtaLabel, projectGroupDefinitions, projects } from '@/data/projects'
+// 引入统一维护的微信公众号与联系信息配置
+import { wechatOfficialAccount } from '@/data/wechat'
 import config from '@/site-config'
 import heroBanner from '@/assets/hero-banner.jpg'
 import avatarImg from '@/assets/avatar.png'
 import shengcaiQrcode from '@/assets/shengcai-qrcode.png'
+// 引入公众号后台导出的官方二维码图片资源
+import wechatMpQrcode from '@/assets/wechat-mp-qrcode.jpg'
 import '../styles/catalog.css'
 
 export const prerender = true
 
-// 1. 精选产品与工具（展示最新上架代表作，覆盖 Watch/iOS/macOS）
-const featuredProjects = ['录一下', '听页', '发票识别工作台', 'Fluxio 视频压缩裁切']
-  .map((name) => projects.find((project) => project.name === name))
-  .filter((project): project is ProjectItem => project !== undefined)
+// 1. 组装首页产品筛选胶囊数据：不写死具体总款数，避免给访客造成“只做过这些”的错觉
+const projectFilters = [
+  { label: '精选代表作', key: 'featured' },
+  ...projectGroupDefinitions.map((group) => ({
+    label: group.shortLabel,
+    key: group.key
+  })),
+  { label: '已公开汇总', key: 'all' }
+]
 
 // 2. 首页精选文章显示别名
 const articleHomeTitles: Record<string, string> = {
@@ -64,6 +75,35 @@ const categoryFilters = [
     count: formattedPosts.filter((p) => p.categoryKey === def.key).length
   }))
 ].filter((c) => c.key === 'all' || c.count > 0)
+
+// 5. 读取「每日风向标」与「职场英语」全量列表，并提取最新 3 条用于首页动态预览
+const allDailyReports = getDailyReports()
+const latestDailyReports = allDailyReports.slice(0, 3).map((report) => {
+  // 如果日报主标题是通用日期格式，则优先取第一条具体商业案例标题并清理话题井号
+  const rawFirstDiscovery = report.discoveries?.[0]?.title?.replace(/#[^#]+#/g, '').trim()
+  const displayTitle =
+    report.title.startsWith('风向标日报') && rawFirstDiscovery ? rawFirstDiscovery : report.title
+  return {
+    // 跳转到对应日报详情页的路径
+    href: `/daily/${report.slug}/`,
+    // 完整日期（用于语义化 time 标签）
+    editionDate: report.editionDate,
+    // 截取月-日用于紧凑列表展示（如 10-01）
+    shortDate: report.editionDate.slice(5),
+    // 最终展示的一句话案例标题
+    title: displayTitle
+  }
+})
+
+const allEnglishLessons = getEnglishLessonsByDate()
+const latestEnglishLessons = allEnglishLessons.slice(0, 3).map((lesson) => ({
+  // 跳转到对应英语情景课详情页的路径
+  href: `/english/${lesson.slug}/`,
+  // 格式化固定课号徽章（如 L27）
+  lessonCode: `L${String(lesson.lessonNumber ?? 1).padStart(2, '0')}`,
+  // 课程完整双语标题（列表内单行截断展示）
+  title: lesson.title
+}))
 ---
 
 {/* 页面主布局：设定湖山青碧蓝 (#54889C) 为主题高光色 */}
@@ -118,14 +158,25 @@ const categoryFilters = [
             </p>
           </div>
 
-          {/* 核心社交与实战合作标签 */}
+          {/* 核心社交与实战合作标签：并列提供公众号低门槛关注入口与个人合作微信 */}
           <div class='flex flex-wrap items-center justify-center gap-2.5 text-xs'>
+            {/* 点击打开原生模态框查看公众号高清二维码与复制名称 */}
+            <button
+              type='button'
+              id='open-wechat-mp-dialog'
+              class='inline-flex cursor-pointer items-center gap-x-2 rounded-md border border-primary/35 bg-primary/8 px-3 py-1.5 text-xs text-foreground shadow-xs transition-colors hover:border-primary/65 hover:bg-primary/14'
+            >
+              <span class='font-medium text-primary'>公众号</span>
+              <span class='font-medium'>{wechatOfficialAccount.name}</span>
+              <span class='rounded-sm bg-primary/15 px-1.5 py-0.5 text-[10px] font-medium text-primary'>扫码</span>
+            </button>
+
+            {/* 个人合作微信号展示胶囊 */}
             <div
               class='flex items-center gap-x-2 rounded-md border border-border/80 bg-background/90 px-3 py-1.5 font-mono text-muted-foreground shadow-xs transition-colors hover:border-primary/50 hover:text-foreground'
-              title='微信联系'
             >
               <span class='font-sans font-medium text-primary'>微信</span>
-              <span>liangxiao-20</span>
+              <span>{wechatOfficialAccount.personalWechat}</span>
             </div>
 
             <Label
@@ -149,6 +200,61 @@ const categoryFilters = [
             </Label>
           </div>
 
+          {/* 公众号二维码原生模态框：支持 Esc 关闭、背景点击关闭与名称一键复制 */}
+          <dialog
+            id='wechat-mp-dialog'
+            closedby='any'
+            aria-labelledby='wechat-mp-dialog-title'
+            class='wechat-mp-dialog m-auto w-[min(92vw,22rem)] rounded-xl border border-border bg-background p-5 text-center text-foreground shadow-xl'
+          >
+            <div class='flex flex-col items-center gap-y-3'>
+              <span class='rounded-md border border-primary/25 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary'>
+                微信公众号
+              </span>
+              <h2 id='wechat-mp-dialog-title' class='text-lg font-semibold text-foreground'>
+                {wechatOfficialAccount.name}
+              </h2>
+              <p class='text-xs leading-relaxed text-muted-foreground'>
+                {wechatOfficialAccount.description}
+              </p>
+
+              {/* 首屏隐藏于模态框内的二维码保留 fetchpriority="low"，空闲时静默预载，点击弹窗即刻满帧呈现 */}
+              <div class='my-1 overflow-hidden rounded-lg border border-border/80 bg-white p-2 shadow-xs'>
+                <Image
+                  src={wechatMpQrcode}
+                  alt={`${wechatOfficialAccount.name}公众号二维码`}
+                  width={160}
+                  height={160}
+                  fetchpriority='low'
+                  class='size-40 object-contain'
+                />
+              </div>
+
+              <p class='font-mono text-[11px] text-muted-foreground'>
+                微信号：{wechatOfficialAccount.accountId}
+              </p>
+
+              {/* 底部按钮行：一键复制名称 + 原生 form[method=dialog] 安全关闭 */}
+              <div class='mt-1 flex w-full items-center justify-center gap-2.5'>
+                <button
+                  type='button'
+                  data-copy-mp-name={wechatOfficialAccount.name}
+                  class='inline-flex flex-1 cursor-pointer items-center justify-center rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground transition-opacity hover:opacity-90'
+                >
+                  <span data-copy-mp-label>复制公众号名称</span>
+                </button>
+                <form method='dialog' class='shrink-0'>
+                  <button
+                    type='submit'
+                    class='inline-flex cursor-pointer items-center justify-center rounded-md border border-border px-3.5 py-2 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground'
+                  >
+                    关闭
+                  </button>
+                </form>
+              </div>
+            </div>
+          </dialog>
+
           <div class='flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm'>
             <Button title='看产品与工具 →' href='/projects' variant='ahead' />
             <Button title='查潜力公司库 →' href='/data' variant='ahead' />
@@ -159,38 +265,108 @@ const categoryFilters = [
       {/* 2. 主体内容区块组：严格与 Hero 容器同宽（max-w-4xl 100%），统一垂直间距节奏 */}
       <div id='content' class='animate flex w-full flex-col gap-y-12 sm:gap-y-16'>
         
-        {/* [楼层 2] 产品与工具：展示 4 款代表作 */}
-        <Section title='产品与工具' desc='录音转写、阅读听书与文件处理'>
-          <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+        {/* [楼层 2] 产品与工具：默认展示 6 款主力代表作，支持按平台胶囊原地切换浏览部分公开作品 */}
+        <section class='hub-entry' aria-labelledby='home-projects-title'>
+          <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
+            <div>
+              <div class='flex items-center gap-x-2'>
+                <span class='rounded-md border border-primary/25 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>独立产品矩阵</span>
+                <span class='font-mono text-xs text-muted-foreground'>部分公开产品与工具</span>
+              </div>
+              <h2 id='home-projects-title' class='mt-2 text-xl font-semibold text-foreground'>产品与工具</h2>
+              <p class='mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground'>
+                覆盖 Apple Watch、iPhone、Mac 与浏览器的实用小工具，围绕录音转写、阅读听书、量房、发票复核与文件处理，核心操作尽量留在设备本地完成。
+              </p>
+            </div>
+            <a class='hub-link text-sm' href='/projects'>查看产品与工具页 →</a>
+          </div>
+
+          {/* 平台分类筛选胶囊：支持免跳转查看 iOS / macOS / Web 各端公开产品 */}
+          <nav class='mb-5 flex flex-wrap gap-2' aria-label='按平台筛选产品与工具'>
+            {projectFilters.map((filter) => (
+              <button
+                type='button'
+                data-project-filter={filter.key}
+                aria-pressed={filter.key === 'featured' ? 'true' : 'false'}
+                class:list={[
+                  'category-pill inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs transition-colors',
+                  filter.key === 'featured' ? 'active' : ''
+                ]}
+              >
+                <span>{filter.label}</span>
+              </button>
+            ))}
+          </nav>
+
+          {/* 全量渲染 16 款产品卡片，默认展示精选 6 款，点击胶囊切换平台分组 */}
+          <ul class='grid grid-cols-1 gap-4 sm:grid-cols-2' aria-label='产品与工具列表'>
             {
-              featuredProjects.map((p: ProjectItem) => (
-                <a
-                  href={p.href}
-                  target={p.external ? '_blank' : undefined}
-                  rel={p.external ? 'noopener noreferrer' : undefined}
-                  class='group hover-card-lift flex flex-col justify-between rounded-md border border-border/70 p-4 transition-all hover:bg-muted/30 sm:p-5'
+              projects.map((p) => (
+                <li
+                  class='min-w-0'
+                  data-project-card
+                  data-project-group={p.group}
+                  data-project-featured={p.featured ? 'true' : 'false'}
+                  style={p.featured ? undefined : 'display: none;'}
                 >
-                  <div>
-                    <div class='mb-2.5 flex items-center justify-between text-xs text-muted-foreground'>
-                      <span class='rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-medium text-primary'>{p.category}</span>
-                      <span class='rounded-md border border-border/60 bg-muted/80 px-2.5 py-0.5 text-xs font-normal text-muted-foreground'>{p.status}</span>
+                  <a
+                    href={p.href}
+                    target={p.external ? '_blank' : undefined}
+                    rel={p.external ? 'noopener noreferrer' : undefined}
+                    class='group hover-card-lift flex h-full flex-col justify-between rounded-md border border-border/75 bg-background/85 p-4.5 transition-all hover:border-primary/50 hover:bg-muted/30 sm:p-5'
+                  >
+                    <div>
+                      {/* 卡片头部：左侧圆角应用图标 + 右侧产品名与状态胶囊 */}
+                      <div class='flex items-start gap-3.5'>
+                        <img
+                          src={p.icon}
+                          alt=''
+                          width='44'
+                          height='44'
+                          loading='lazy'
+                          fetchpriority={p.featured ? undefined : 'low'}
+                          class='size-11 shrink-0 rounded-xl border border-border/60 bg-muted/20 object-cover shadow-2xs'
+                        />
+                        <div class='min-w-0 flex-1'>
+                          <h3 class='text-base font-semibold leading-snug text-foreground transition-colors group-hover:text-primary'>
+                            {p.name}
+                          </h3>
+                          <div class='mt-1.5 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground'>
+                            <span class='rounded-md border border-primary/20 bg-primary/10 px-2 py-0.5 font-mono text-[11px] font-medium text-primary'>
+                              {p.category}
+                            </span>
+                            <span class='rounded-md border border-border/60 bg-muted/80 px-2 py-0.5 text-[11px] font-normal text-muted-foreground'>
+                              {p.status}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 一句话产品核心用途 */}
+                      <p class='mt-3 text-xs leading-relaxed text-muted-foreground'>
+                        {p.description}
+                      </p>
+
+                      {/* 精准适用人群与高频场景 */}
+                      <p class='mt-2.5 rounded-sm border border-border/45 bg-muted/40 px-2.5 py-1.5 text-[11px] leading-snug text-muted-foreground'>
+                        <span class='font-medium text-foreground/85'>适合谁用：</span>
+                        <span>{p.audience}</span>
+                      </p>
                     </div>
-                    <h3 class='text-base font-medium text-foreground transition-colors group-hover:text-primary'>
-                      {p.name}
-                    </h3>
-                    <p class='mt-1.5 text-xs leading-relaxed text-muted-foreground'>
-                      {p.description}
-                    </p>
-                  </div>
-                  <div class='mt-3.5 flex items-center justify-end text-xs font-medium text-primary'>
-                    <span>{getProjectCtaLabel(p)}</span>
-                  </div>
-                </a>
+
+                    <div class='mt-3.5 flex items-center justify-end border-t border-border/40 pt-2.5 text-xs font-medium text-primary'>
+                      <span class='group-hover:underline'>{getProjectCtaLabel(p)}</span>
+                    </div>
+                  </a>
+                </li>
               ))
             }
+          </ul>
+
+          <div class='mt-4 flex items-center justify-end text-xs'>
+            <a class='hub-link' href='/projects'>查看更多公开产品与开源仓库 →</a>
           </div>
-          <Button title={`查看全部 ${projects.length} 款产品与工具 →`} class='w-fit self-end text-xs' href='/projects' variant='ahead' />
-        </Section>
+        </section>
 
         {/* [楼层 3] 潜力公司库（新增独立楼层，亮出核心企业数据资产与 Agent 接口） */}
         <section class='hub-entry' aria-labelledby='home-data-title'>
@@ -339,45 +515,114 @@ const categoryFilters = [
           </div>
         </section>
 
-        {/* [楼层 5] 探索与日常：轻量收纳行 */}
+        {/* [楼层 5] 探索与日常：双栏动态预览卡片（透出真实更新体量与最近 3 条内容，同时不喧宾夺主） */}
         <section class='hub-entry' aria-labelledby='home-explore-title'>
-          <div class='mb-4 flex flex-wrap items-baseline justify-between gap-2'>
+          <div class='mb-5 flex flex-wrap items-baseline justify-between gap-2'>
             <div>
-              <h2 id='home-explore-title' class='text-lg sm:text-xl font-medium tracking-tight text-foreground'>探索与日常</h2>
-              <p class='mt-1 text-xs text-muted-foreground'>
-                日常商业资讯梳理与出海实战英语练习。
+              <h2 id='home-explore-title' class='text-xl font-semibold text-foreground'>探索与日常</h2>
+              <p class='mt-1.5 text-sm leading-relaxed text-muted-foreground'>
+                持续更新的一线商业案例拆解与出海实战英语跟读练习。
               </p>
             </div>
           </div>
 
           <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
-            {/* 胶囊 1: 每日风向标 */}
-            <a href='/daily' class='group flex flex-col justify-between rounded-md border border-border/70 bg-background/80 p-4 transition-all hover:border-primary/50 hover:bg-muted/30 hover:shadow-xs'>
+            {/* 卡片 1: 每日风向标（动态展示总期数 + 最近 3 期真实商业拆解入口） */}
+            <article class='flex flex-col justify-between rounded-md border border-border/75 bg-background/85 p-5 transition-all hover:border-primary/45'>
               <div>
-                <div class='flex items-center justify-between text-xs'>
-                  <span class='font-medium text-foreground group-hover:text-primary transition-colors'>每日风向标</span>
-                  <span class='rounded-sm border border-border/60 bg-muted/70 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground'>Daily</span>
+                {/* 卡片顶栏：标题链接与累计期数徽章 */}
+                <div class='flex items-center justify-between gap-2'>
+                  <h3 class='text-base font-semibold text-foreground'>
+                    <a href='/daily' class='transition-colors hover:text-primary'>每日风向标</a>
+                  </h3>
+                  <span class='rounded-md border border-primary/20 bg-primary/10 px-2 py-0.5 font-mono text-[11px] font-medium text-primary'>
+                    共 {allDailyReports.length} 期拆解
+                  </span>
                 </div>
-                <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground'>
-                  跟踪生财有术精华案例、行业风向与商业模式观察。
+                <p class='mt-2 text-xs leading-relaxed text-muted-foreground'>
+                  跟踪生财有术精华案例、小团队变现路径与 AI 工具商业模式观察。
                 </p>
-              </div>
-              <span class='mt-3.5 text-xs font-medium text-primary group-hover:underline'>查看风向标整理 →</span>
-            </a>
 
-            {/* 胶囊 2: 职场英语 */}
-            <a href='/english' class='group flex flex-col justify-between rounded-md border border-border/70 bg-background/80 p-4 transition-all hover:border-primary/50 hover:bg-muted/30 hover:shadow-xs'>
-              <div>
-                <div class='flex items-center justify-between text-xs'>
-                  <span class='font-medium text-foreground group-hover:text-primary transition-colors'>职场英语</span>
-                  <span class='rounded-sm border border-border/60 bg-muted/70 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground'>English</span>
-                </div>
-                <p class='mt-2.5 text-xs leading-relaxed text-muted-foreground'>
-                  真实跨国协作、产品讨论与出海日常表达与情景对话。
-                </p>
+                {/* 最新 3 期动态列表：采用语义化 ul/li，每行可直达单篇详情 */}
+                <ul class='mt-3.5 space-y-2 border-t border-border/45 pt-3' aria-label='近期风向标日报'>
+                  {latestDailyReports.map((item) => (
+                    <li class='min-w-0'>
+                      <a
+                        href={item.href}
+                        class='group flex items-center gap-2 rounded-sm px-1.5 py-1 -mx-1.5 text-xs transition-colors hover:bg-muted/60'
+                      >
+                        {/* 左侧等宽月日标签 */}
+                        <time
+                          datetime={item.editionDate}
+                          class='shrink-0 rounded border border-border/60 bg-muted/60 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground'
+                        >
+                          {item.shortDate}
+                        </time>
+                        {/* 单行截断的具体案例标题 */}
+                        <span class='truncate text-foreground/90 transition-colors group-hover:text-primary'>
+                          {item.title}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <span class='mt-3.5 text-xs font-medium text-primary group-hover:underline'>进入情景练习 →</span>
-            </a>
+
+              {/* 底部全量归档跳转链接 */}
+              <div class='mt-4 flex items-center justify-between border-t border-border/45 pt-3 text-xs'>
+                <span class='text-muted-foreground'>按期沉淀一线实操信号</span>
+                <a href='/daily' class='font-medium text-primary hover:underline'>
+                  查看全部 {allDailyReports.length} 期 →
+                </a>
+              </div>
+            </article>
+
+            {/* 卡片 2: 职场英语（动态展示总课数 + 最近 3 节情景对话入口） */}
+            <article class='flex flex-col justify-between rounded-md border border-border/75 bg-background/85 p-5 transition-all hover:border-primary/45'>
+              <div>
+                {/* 卡片顶栏：标题链接与累计课数徽章 */}
+                <div class='flex items-center justify-between gap-2'>
+                  <h3 class='text-base font-semibold text-foreground'>
+                    <a href='/english' class='transition-colors hover:text-primary'>职场英语</a>
+                  </h3>
+                  <span class='rounded-md border border-primary/20 bg-primary/10 px-2 py-0.5 font-mono text-[11px] font-medium text-primary'>
+                    共 {allEnglishLessons.length} 节 · 语音跟读
+                  </span>
+                </div>
+                <p class='mt-2 text-xs leading-relaxed text-muted-foreground'>
+                  围绕跨国协作、海外客户沟通与独立开发场景打磨的地道表达演练。
+                </p>
+
+                {/* 最新 3 节动态列表：采用语义化 ul/li，每行可直达单课跟读页 */}
+                <ul class='mt-3.5 space-y-2 border-t border-border/45 pt-3' aria-label='近期职场英语课程'>
+                  {latestEnglishLessons.map((lesson) => (
+                    <li class='min-w-0'>
+                      <a
+                        href={lesson.href}
+                        class='group flex items-center gap-2 rounded-sm px-1.5 py-1 -mx-1.5 text-xs transition-colors hover:bg-muted/60'
+                      >
+                        {/* 左侧固定课号徽章 */}
+                        <span class='shrink-0 rounded border border-border/60 bg-muted/60 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground'>
+                          {lesson.lessonCode}
+                        </span>
+                        {/* 单行截断的情景课标题 */}
+                        <span class='truncate text-foreground/90 transition-colors group-hover:text-primary'>
+                          {lesson.title}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 底部全量课程跳转链接 */}
+              <div class='mt-4 flex items-center justify-between border-t border-border/45 pt-3 text-xs'>
+                <span class='text-muted-foreground'>支持逐句播放与本地打卡</span>
+                <a href='/english' class='font-medium text-primary hover:underline'>
+                  进入全部 {allEnglishLessons.length} 节课 →
+                </a>
+              </div>
+            </article>
           </div>
         </section>
 
@@ -449,9 +694,92 @@ const categoryFilters = [
     color: hsl(var(--primary));
     font-weight: 600;
   }
+  /* 原生公众号模态框背景遮罩层样式 */
+  .wechat-mp-dialog::backdrop {
+    background: rgb(0 0 0 / 0.45);
+    backdrop-filter: blur(2px);
+  }
 </style>
 
 <script>
+  // 初始化首页产品与工具平台筛选胶囊交互
+  function setupProjectFilter() {
+    const pills = document.querySelectorAll<HTMLButtonElement>('[data-project-filter]')
+    const cards = document.querySelectorAll<HTMLElement>('[data-project-card]')
+
+    pills.forEach((pill) => {
+      // 避免客户端路由切换后重复注册事件
+      if (pill.dataset.bound === 'true') return
+      pill.dataset.bound = 'true'
+      pill.addEventListener('click', () => {
+        const filterKey = pill.dataset.projectFilter
+        // 同步更新胶囊选中态与无障碍 aria-pressed 属性
+        pills.forEach((p) => {
+          p.classList.remove('active')
+          p.setAttribute('aria-pressed', 'false')
+        })
+        pill.classList.add('active')
+        pill.setAttribute('aria-pressed', 'true')
+
+        // 按所选分组筛选可见的产品卡片
+        cards.forEach((card) => {
+          const groupKey = card.dataset.projectGroup
+          const isFeatured = card.dataset.projectFeatured === 'true'
+
+          if (filterKey === 'featured') {
+            card.style.display = isFeatured ? '' : 'none'
+          } else if (filterKey === 'all') {
+            card.style.display = ''
+          } else {
+            card.style.display = groupKey === filterKey ? '' : 'none'
+          }
+        })
+      })
+    })
+  }
+
+  // 初始化首页公众号二维码模态框打开、背景点击关闭与名称复制交互
+  function setupWechatDialog() {
+    const openBtn = document.getElementById('open-wechat-mp-dialog')
+    const dialog = document.getElementById('wechat-mp-dialog') as HTMLDialogElement | null
+    if (!openBtn || !dialog) return
+
+    if (openBtn.dataset.bound !== 'true') {
+      openBtn.dataset.bound = 'true'
+      openBtn.addEventListener('click', () => {
+        // 调用原生 showModal() 锁定焦点并激活顶层遮罩
+        dialog.showModal()
+      })
+
+      // 为尚未支持 closedby="any" 的旧浏览器提供点击模态框外部遮罩关闭的回退逻辑
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) {
+          dialog.close()
+        }
+      })
+    }
+
+    // 绑定模态框内的一键复制公众号名称按钮
+    const copyBtn = dialog.querySelector<HTMLButtonElement>('[data-copy-mp-name]')
+    const copyLabel = dialog.querySelector<HTMLElement>('[data-copy-mp-label]')
+    if (copyBtn && copyLabel && copyBtn.dataset.bound !== 'true') {
+      copyBtn.dataset.bound = 'true'
+      copyBtn.addEventListener('click', async () => {
+        const mpName = copyBtn.dataset.copyMpName || ''
+        const prevText = copyLabel.textContent || '复制公众号名称'
+        try {
+          await navigator.clipboard.writeText(mpName)
+          copyLabel.textContent = '已复制，去微信搜一搜 ✓'
+          setTimeout(() => {
+            copyLabel.textContent = prevText
+          }, 2200)
+        } catch {
+          copyLabel.textContent = `请搜：${mpName}`
+        }
+      })
+    }
+  }
+
   function setupArticleFilter() {
     const pills = document.querySelectorAll<HTMLButtonElement>('[data-post-filter]')
     const cards = document.querySelectorAll<HTMLElement>('[data-post-card]')
@@ -478,6 +806,13 @@ const categoryFilters = [
     })
   }
 
-  setupArticleFilter()
-  document.addEventListener('astro:page-load', setupArticleFilter)
+  // 统一挂载首页交互逻辑
+  function initHomePage() {
+    setupProjectFilter()
+    setupWechatDialog()
+    setupArticleFilter()
+  }
+
+  initHomePage()
+  document.addEventListener('astro:page-load', initHomePage)
 </script>

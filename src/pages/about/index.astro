@@ -1,7 +1,10 @@
 ---
 import PageLayout from '@/layouts/CommonPage.astro'
 import ProjectSection from '@/components/projects/ProjectSection.astro'
-import { projects, type ProjectItem } from '@/data/projects'
+// 引入统一的微信公众号订阅卡片组件与公开配置
+import WechatSubscribeCard from '@/components/wechat/WechatSubscribeCard.astro'
+import { projects } from '@/data/projects'
+import { wechatOfficialAccount } from '@/data/wechat'
 
 export const prerender = true
 
@@ -13,18 +16,8 @@ const headings = [
   { depth: 2, slug: 'contact', text: '联系我' }
 ]
 
-const aboutProjects = [
-  '录一下',
-  '听页',
-  '快量房',
-  'Fluxio 视频压缩裁切',
-  '发票识别工作台',
-  'OtterBar',
-  'MD 排版',
-  '上次 Lasti'
-]
-  .map((name) => projects.find((p) => p.name === name))
-  .filter((p): p is ProjectItem => p !== undefined)
+// 直接复用数据层标记的精选代表作，避免在关于页维护重复的硬编码名称数组
+const aboutProjects = projects.filter((p) => p.featured)
 ---
 
 <PageLayout title='关于我' {headings} view>
@@ -47,7 +40,7 @@ const aboutProjects = [
   <ProjectSection projects={aboutProjects} class='my-5' />
 
   <p>
-    全部 {projects.length} 款应用、在线工具与开源项目可以在<a href='/projects'>产品与工具页</a>查看。
+    更多公开在架的应用、在线工具与开源项目可以在<a href='/projects'>产品与工具页</a>查看。
   </p>
 
   <h2 id='writing'>写作和学习</h2>
@@ -65,11 +58,18 @@ const aboutProjects = [
 
   <h2 id='contact'>联系我</h2>
   <p>
-    如果你也在用 AI 做产品，或想聊聊产品设计、出海项目和合作，可以通过下面的方式联系我。
+    如果你也在用 AI 做产品，或想持续看我的实战拆解、聊聊产品设计和合作，欢迎关注我的公众号或通过以下方式联系我。
   </p>
+
+  {/* 在联系区域展示公众号卡片，方便读者直接扫码订阅 */}
+  <WechatSubscribeCard class='my-5' />
+
   <ul>
     <li>
-      <strong>微信联系</strong>：<code class='rounded-md border border-border/80 bg-muted/80 px-2.5 py-1 text-xs font-mono font-medium text-primary'>liangxiao-20</code>（添加时请备注来源与来意）
+      <strong>微信公众号</strong>：<code>{wechatOfficialAccount.name}</code>（微信号：<code>{wechatOfficialAccount.accountId}</code>）
+    </li>
+    <li>
+      <strong>微信联系</strong>：<code class='rounded-md border border-border/80 bg-muted/80 px-2.5 py-1 text-xs font-mono font-medium text-primary'>{wechatOfficialAccount.personalWechat}</code>（添加时请备注来源与来意）
     </li>
     <li>
       <strong>GitHub</strong>：<a href='https://github.com/mrliang-github' target='_blank' rel='noopener noreferrer'>@mrliang-github</a>（代码和开源项目）
