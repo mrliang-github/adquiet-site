@@ -1,10 +1,12 @@
 {
-  "version": "0.1.0",
-  "build": 1,
-  "fileName": "OtterBar-0.1.0-build-1.dmg",
-  "fileSizeBytes": 2357386,
-  "sha256": "235f1e85607c3484e05165ba31ef11d8b0e84af193f2ee8f5f86b55179ca7abf",
+  "version": "0.1.1",
+  "build": 2,
+  "title": "优先打开应用窗口",
+  "summary": "搜索到工具后，按回车优先打开应用窗口，也可以单独显示原菜单。中文输入时可用方向键选词，刷新列表会保留搜索词和当前选择。",
+  "fileName": "OtterBar-0.1.1-build-2.dmg",
+  "fileSizeBytes": 2464649,
+  "sha256": "72bb367d5350cb2a1accbfe4849895373657b15c44360231e995d8a1e91a563f",
   "minimumMacOS": "13.0",
   "verifiedMacOS": "26.6.2",
-  "publishedAt": "2026-10-10"
+  "publishedAt": "2026-11-23"
 }
