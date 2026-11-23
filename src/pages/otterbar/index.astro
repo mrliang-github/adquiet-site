@@ -132,7 +132,7 @@ const applicationSchema = {
           <span class="eyebrow">Mac 菜单栏工具</span>
           <h1 class="hero-title">好工具，<br>随叫随到。</h1>
           <p class="hero-lede">
-            菜单栏太挤，找不到要用的工具？通过快捷键或水獭图标唤起 OtterBar，输入应用名称，就能快速找到正在运行的菜单栏工具。
+            菜单栏太挤，找不到要用的工具？按下快捷键，输入正在运行的工具名称，就能打开它的窗口或菜单。
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#download">下载 Mac 版</a>
@@ -164,7 +164,7 @@ const applicationSchema = {
         <div class="section-heading">
           <span class="eyebrow">真实操作流程</span>
           <h2>10 秒看懂 OtterBar 怎么工作</h2>
-          <p>通过搜索定位已检测到的菜单栏工具，尝试打开支持系统点击接口的入口。</p>
+          <p>搜索已检测到的菜单栏工具，按回车执行选中行显示的操作。</p>
         </div>
 
         <div class="demo-grid">
@@ -188,8 +188,8 @@ const applicationSchema = {
             <div class="demo-step-item">
               <span class="step-num">03</span>
               <div class="step-body">
-                <h3>回车一键呼出</h3>
-                <p>按下回车或直接点击，自动触发对应应用的菜单栏原生入口，丝滑衔接你的日常工作流。</p>
+                <h3>打开窗口或显示菜单</h3>
+                <p>选中「打开应用」后按回车，优先显示应用窗口。要打开原菜单，点「显示菜单」。只有菜单的工具可直接按回车打开。</p>
               </div>
             </div>
           </div>
@@ -419,10 +419,10 @@ const applicationSchema = {
       <div class="shell">
         <div class="section-heading">
           <span class="eyebrow">更新记录</span>
-          <h2>{release.version} · 首个公开测试版</h2>
+          <h2>{release.version} · {release.title}</h2>
           <p>{release.publishedAt} · build {release.build}</p>
         </div>
-        <p>动态扫描并搜索支持的菜单栏入口，提供可自定义的全局快捷键、登录自启与本机扫描诊断。安装包已完成 Developer ID 签名和 Apple 公证。</p>
+        <p>{release.summary}</p>
         <p><a href={releaseUrl}>查看完整发行说明</a> · <a href="https://github.com/mrliang-github/OtterBar/issues">反馈问题</a></p>
       </div>
     </section>
