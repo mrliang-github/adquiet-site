@@ -18,6 +18,10 @@ test('public body keeps examples while excluding source metadata and editorial c
   const withoutAccountCapture = prepareArticle('正文\n![截图](https://example.com/account.png)\n![图解](https://example.com/diagram.png)', { ...sample, omitImages: ['https://example.com/account.png'] })
   assert(!withoutAccountCapture.includes('account.png'))
   assert(withoutAccountCapture.includes('diagram.png'))
+  const withPrices = prepareArticle('正文花了 $6.86，不到 $15.47 的一半；代码 `$1.64` 保持原样。\n\n```sh\necho $100\n```', sample)
+  assert(withPrices.includes('花了 \\$6.86，不到 \\$15.47'))
+  assert(withPrices.includes('`$1.64`'))
+  assert(withPrices.includes('echo $100'))
 })
 
 test('incomplete sources, local paths and active embedded content cannot be imported', () => {

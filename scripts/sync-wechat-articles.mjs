@@ -21,6 +21,11 @@ export function prepareArticle(source, article) {
     body = body.replaceAll(before, after)
   }
   body = body.replace(/!\[[^\]]*\]\(([^\s)]+)\)/g, (image, url) => article.omitImages?.includes(url) ? '' : image)
+  // Escape literal currency dollar signs outside code blocks/inline code so remark-math/KaTeX never misparses prices like $6.86 as LaTeX math.
+  body = body
+    .split(/(```[\s\S]*?```|`[^`\n]+`)/g)
+    .map((segment, index) => (index % 2 === 1 ? segment : segment.replace(/(?<!\\)\$(?=\d)/g, '\\$')))
+    .join('')
   // Fail closed on incomplete/editorial content; never silently publish a draft.
   if (/(?:待替换[：:]|\/Users\/|file:\/\/|preview-only|未发布|建议配图[：:]|标题备选[：:]|核心关键词[：:])/i.test(body)) {
     throw new Error(`Unresolved editorial content: ${article.slug}`)
